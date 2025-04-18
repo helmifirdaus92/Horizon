@@ -1,0 +1,24 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.dialog-body {
+  box-sizing: border-box;
+  display: flex;
+  padding: $padding-large;
+  align-items: center;
+  justify-content: center;
+
+  .confirm-dialog {
+    width: 100%;
+
+    .comment {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.error-block p {
+  margin: 0;
+  color: $brand-signal-error;
+}

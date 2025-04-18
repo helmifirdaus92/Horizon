@@ -1,0 +1,9 @@
+@inherits System.Web.Mvc.WebViewPage
+@using Sitecore.Mvc;
+<div>
+  <h1 style="padding-top: 35px; margin-left: 50px">@Html.Sitecore().Field("title")</h1>
+  <h5 style="margin-left: 50px">SampleMvcRendering3</h5>
+  <small id="selectPoint" style="margin-left: 50px; color: green">. SelectPoint.</small>
+  <div style="padding: 35px">@Html.Sitecore().Field("text")</div>
+  <div>@Html.Sitecore().Placeholder("phInMvcSampleRendering3")</div>
+</div>

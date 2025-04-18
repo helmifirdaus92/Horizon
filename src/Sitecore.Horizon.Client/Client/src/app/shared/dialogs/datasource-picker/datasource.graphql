@@ -1,0 +1,119 @@
+query GetRenderingDefinition($path: String!, $contextItemId: String!, $language: String!, $site: String!) {
+  renderingDefinition(path: $path, contextItemId: $contextItemId, language: $language, site: $site) {
+    datasourceRootItems {
+      id
+    }
+    templates {
+      id
+      name
+      displayName
+      path
+    }
+  }
+}
+
+query GetRenderingDefinitionWithBranchTemplate(
+  $path: String!
+  $contextItemId: String!
+  $language: String!
+  $site: String!
+) {
+  renderingDefinition(path: $path, contextItemId: $contextItemId, language: $language, site: $site) {
+    datasourceRootItems {
+      id
+    }
+    templates {
+      id
+      name
+      displayName
+      path
+      isBranchTemplate
+    }
+  }
+}
+
+# Would like to use a fragment for the children properties but there is an issue with the testing tool when using fragments
+query GetChildren($path: String!, $language: String!, $site: String!, $baseTemplateIds: [String!]!) {
+  rawItem(path: $path, language: $language, site: $site) {
+    id
+    children {
+      id
+      displayName
+      hasChildren
+      isFolder
+      template {
+        id
+        baseTemplateIds
+        isCompatible: isTemplateDescendantOfAny(baseTemplateIds: $baseTemplateIds)
+      }
+    }
+  }
+}
+
+query GetAncestorsWithSiblings(
+  $path: String!
+  $language: String!
+  $site: String!
+  $baseTemplateIds: [String!]!
+  $roots: [String!] = null
+) {
+  rawItem(path: $path, language: $language, site: $site) {
+    id
+    path
+    ancestorsWithSiblings(roots: $roots) {
+      parentId
+      id
+      path
+      displayName
+      hasChildren
+      isFolder
+      template {
+        id
+        baseTemplateIds
+        isCompatible: isTemplateDescendantOfAny(baseTemplateIds: $baseTemplateIds)
+      }
+    }
+  }
+}
+
+query ResolveDataSource($source: String!, $contextItemId: String!, $language: String!, $site: String!) {
+  resolveDataSource(source: $source, contextItemId: $contextItemId, language: $language, site: $site) {
+    id
+  }
+}
+
+query ResolveDatasourceAndSiblings($source: String!, $contextItemId: String!, $language: String!, $site: String!) {
+  resolveDataSource(source: $source, contextItemId: $contextItemId, language: $language, site: $site) {
+    id
+    name
+    path
+    parent {
+      id
+      children {
+        id
+        name
+      }
+    }
+  }
+}
+
+query GetInsertOptions($itemId: String!, $kind: InsertOptionKind!, $language: String!, $site: String!) {
+  item(path: $itemId, language: $language, site: $site) {
+    id
+    insertOptions(kind: $kind) {
+      displayName
+      id
+    }
+  }
+}
+
+mutation CreateRawItem($input: CreateItemInput!) {
+  createRawItem(input: $input) {
+    rawItem {
+      id
+      displayName
+      isFolder
+    }
+    success
+  }
+}

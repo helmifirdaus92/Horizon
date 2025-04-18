@@ -1,0 +1,23 @@
+<ng-spd-dialog-panel (keyup.enter)="close('submitted')">
+  <ng-spd-dialog-close-button (close)="close('canceled')"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>{{ 'EDITOR.WORKFLOW.COMMENT' | translate }} </ng-spd-dialog-header>
+
+  <div class="dialog-body">
+    <div class="confirm-dialog">
+      <textarea
+        ngSpdInput
+        class="comment"
+        id="comment"
+        name="comment"
+        [(ngModel)]="comment"
+        rows="6"
+        [placeholder]="'EDITOR.WORKFLOW.ENTER_A_COMMENT' | translate"
+      ></textarea>
+    </div>
+  </div>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close('canceled')">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="close('submitted')">{{ 'COMMON.SUBMIT' | translate }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

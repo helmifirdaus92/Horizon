@@ -1,0 +1,158 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="container p-l">
+    <ng-container *ngIf="pageVariants$ | async as pageVariants">
+      <div class="variants-filter">
+        <div class="mr-md">
+          <ng-spd-droplist
+            #firstDroplist
+            id="hrzPaFirstVariantDroplist"
+            [disabled]="!state.isPosIdentifierDefined || !isCdpAppConfigured()"
+            [circle]="'primary'"
+            [selectedValue]="state.variantFilter.variantOne ? state.variantFilter.variantOne.variantId : ''"
+            (selectedValueChange)="selectVariants($event, secondDroplist.selectedValue, pageVariants)"
+          >
+            <ng-template
+              *ngFor="
+                let item of handleVariantOptions(pageVariants, [
+                  state.variantFilter.variantTwo ? state.variantFilter.variantTwo.variantId : null,
+                ])
+              "
+              ngSpdDroplistItem
+              [value]="item.variantId"
+              [label]="item.variantName ? item.variantName : ('ANALYTICS.DEFAULT_PAGE_VARIANT' | translate)"
+            >
+              {{ item.variantName ? item.variantName : ('ANALYTICS.DEFAULT_PAGE_VARIANT' | translate) }}
+            </ng-template>
+          </ng-spd-droplist>
+        </div>
+
+        <div class="secondVariant">
+          <ng-spd-droplist
+            #secondDroplist
+            [class.hidden]="!(showSecondVariantDropdown$ | async)"
+            id="hrzPaSecondVariantDroplist"
+            [disabled]="!state.isPosIdentifierDefined || !isCdpAppConfigured()"
+            [circle]="'secondary'"
+            [variant]="(showSecondVariantDropdown$ | async) ? 'outlined' : 'basic'"
+            [selectedValue]="state.variantFilter.variantTwo ? state.variantFilter.variantTwo.variantId : ''"
+            (selectedValueChange)="selectVariants(firstDroplist.selectedValue, $event, pageVariants)"
+          >
+            <ng-template
+              *ngFor="
+                let item of handleVariantOptions(pageVariants, [
+                  state.variantFilter.variantOne ? state.variantFilter.variantOne.variantId : null,
+                  'default',
+                ])
+              "
+              ngSpdDroplistItem
+              [value]="item.variantId"
+              [label]="item.variantName ? item.variantName : ('ANALYTICS.DEFAULT_PAGE_VARIANT' | translate)"
+            >
+              {{ item.variantName ? item.variantName : ('ANALYTICS.DEFAULT_PAGE_VARIANT' | translate) }}
+            </ng-template>
+            <ng-template
+              *ngIf="showSecondVariantDropdown$ | async"
+              ngSpdDroplistItem
+              [border]="true"
+              [value]="null"
+              [label]="'COMMON.REMOVE' | translate"
+            >
+              {{ 'COMMON.REMOVE' | translate }}
+            </ng-template>
+          </ng-spd-droplist>
+
+          <button
+            *ngIf="!(showSecondVariantDropdown$ | async)"
+            ngSpdButton="sliding"
+            class="add-variant-btn"
+            icon="plus"
+            [disabled]="
+              !state.isPosIdentifierDefined ||
+              !isCdpAppConfigured() ||
+              pageVariants.length === 1 ||
+              (pageVariants.length === 2 && state.variantFilter.variantOne.variantId !== 'default')
+            "
+            (click)="openSecondVariantDroplist()"
+          >
+            {{ 'ANALYTICS.ADD_PAGE_VARIANT' | translate }}</button
+          >
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="container__rhs ml-auto mr-0">
+      <div class="ml-sm">
+        <label for="timeFilter">{{ 'ANALYTICS.TIME' | translate }}</label>
+        <ng-spd-droplist
+          id="timeFilter"
+          [disabled]="!state.isPosIdentifierDefined || !isCdpAppConfigured()"
+          [selectedValue]="state.durationFilter.value"
+          (selectedValueChange)="selectDuration($event)"
+        >
+          <ng-template
+            *ngFor="let item of durationFilterOptions"
+            ngSpdDroplistItem
+            [value]="item.value"
+            [label]="'ANALYTICS.DURATION_FILTER.' + item.id | translate"
+          >
+            {{ 'ANALYTICS.DURATION_FILTER.' + item.id | translate }}
+          </ng-template>
+        </ng-spd-droplist>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Data -->
+  <app-analytics-error-banner
+    *ngIf="state.isPosIdentifierDefined && isCdpAppConfigured() && !state.hasData"
+    class="mb-l"
+    [title]="'ANALYTICS.SITE_ANALYTICS.NO_DATA_AVAILABLE' | translate"
+    [text]="'ANALYTICS.SITE_ANALYTICS.NO_DATA_MESSAGE' | translate"
+    [linkText]="'ANALYTICS.SITE_ANALYTICS.KNOWLEDGE_BASE' | translate"
+    [linkUrl]="'https://support.sitecore.com/kb'"
+    [icon]="'chart-bar'"
+  ></app-analytics-error-banner>
+
+  <!-- API is not configured -->
+  <app-analytics-error-banner
+    class="mb-l"
+    *ngIf="!isCdpAppConfigured()"
+    [title]="'ANALYTICS.NO_CDP_APP_URL.HEADER' | translate"
+    [text]="'ANALYTICS.NO_CDP_APP_URL.DESCRIPTION' | translate"
+    [icon]="'target'"
+  ></app-analytics-error-banner>
+
+  <!-- No POS -->
+  @if (isFeatureEnabled()) {
+    <app-analytics-error-banner
+      *ngIf="isCdpAppConfigured() && !state.isPosIdentifierDefined"
+      class="mb-l"
+      [title]="'ANALYTICS.NO_ANALITYCS_IDENTIFIER.HEADER' | translate"
+      [text]="'ANALYTICS.NO_ANALITYCS_IDENTIFIER.DESCRIPTION' | translate"
+      [linkText]="'ANALYTICS.NO_ANALITYCS_IDENTIFIER.DASHBOARD_SETTINGS' | translate"
+      [linkUrl]="(dashboardSettingUrl$ | async) || undefined"
+      [icon]="'target'"
+    ></app-analytics-error-banner>
+  } @else {
+    <app-analytics-error-banner
+      *ngIf="isCdpAppConfigured() && !state.isPosIdentifierDefined"
+      class="mb-l"
+      [title]="'ANALYTICS.NO_POS_IDENTIFIER.HEADER' | translate"
+      [text]="'ANALYTICS.NO_POS_IDENTIFIER.DESCRIPTION' | translate"
+      [linkText]="'ANALYTICS.NO_POS_IDENTIFIER.DASHBOARD_SETTINGS' | translate"
+      [linkUrl]="(dashboardSettingUrl$ | async) || undefined"
+      [icon]="'target'"
+    ></app-analytics-error-banner>
+  }
+
+  <app-page-analytics-graphs
+    class="pl-l pr-l pb-l"
+    [pageAnalytics]="state.pageAnalyticsData"
+    [isValidData]="state.isPosIdentifierDefined && isCdpAppConfigured()"
+    [isLoading]="!!(isLoading$ | async)"
+    [duration]="state.durationFilter['value']"
+    [variants]="state.variantFilter"
+    [pageVariants]="(pageVariants$ | async) || []"
+  >
+  </app-page-analytics-graphs>
+</ng-container>

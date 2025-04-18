@@ -1,0 +1,23 @@
+services:
+  pages:
+    image: sitecore-pages
+    build:
+      context: build-images/hrz
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: ${HRZ_BASE_IMAGE}
+    container_name: pages
+    isolation: ${ISOLATION}
+    environment:
+      Sitecore_License: ${SITECORE_LICENSE}
+      Sitecore_FederatedUI__HostBaseUrl: http://pages
+      Sitecore_Auth0__Domain: ${SITECORE_Pages_Auth0_Domain}
+      Sitecore_Auth0__ClientId: ${SITECORE_Pages_Auth0_ClientId}
+      Sitecore_Auth0__Audience: ${SITECORE_Pages_Auth0_Audience}
+      Sitecore_Auth0__InternalAudience: https://api-internal-staging.sitecore-staging.cloud
+      Sitecore_Auth0__WebAppAudience: https://api-webapp-staging.sitecore-staging.cloud
+      Sitecore_Auth0__PagesAudience: https://pages-api-staging.sitecore-staging.cloud
+      Sitecore_AppEnvironment: ${Sitecore_AppEnvironment}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/healthz/live"]
+      timeout: 300s

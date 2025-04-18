@@ -1,0 +1,112 @@
+<ng-template #popoverTemplate let-popoverRef>
+  <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+    <button
+      ngSpdListItem
+      (click)="createPage(); popoverRef.hide()"
+      [disabled]="!canCreate"
+      [title]="canCreate ? '' : ('EDITOR.CREATE_PAGE_INSUFFICIENT_PRIVILEGES' | translate)"
+    >
+      <i class="mdi normal mdi-file-tree"></i>
+      {{ 'EDITOR.CREATE_SUBPAGE' | translate }}
+    </button>
+
+    <button
+      ngSpdListItem
+      (click)="createFolder(); popoverRef.hide()"
+      [disabled]="!canCreate"
+      [title]="canCreate ? '' : ('EDITOR.CREATE_FOLDER_INSUFFICIENT_PRIVILEGES' | translate)"
+    >
+      <i class="mdi normal mdi-folder-outline"></i>
+      {{ 'EDITOR.CREATE_FOLDER' | translate }}
+    </button>
+
+    <button
+      ngSpdListItem
+      (click)="duplicatePage(); popoverRef.hide()"
+      [disabled]="!canCreateSameLevel"
+      [title]="canCreateSameLevel ? '' : ('EDITOR.DUPLICATE_ITEM_INSUFFICIENT_PRIVILEGES' | translate)"
+    >
+      <i class="mdi normal mdi-content-copy"></i>
+      {{ 'EDITOR.DUPLICATE' | translate }}
+    </button>
+
+    <button
+      *ngIf="!node.isFolder"
+      ngSpdListItem
+      class="page-setting"
+      (click)="openPageSettingsDialog(node.id); popoverRef.hide()"
+    >
+      <i class="mdi mdi-file-edit-outline"></i>
+      {{ 'EDITOR.SETTINGS' | translate }}
+    </button>
+
+    <ng-container *ifFeatureEnabled="'pages_context-panel-field-editing'">
+      <button
+        *ngIf="!node.isFolder"
+        ngSpdListItem
+        class="edit-page-content"
+        (click)="openPageFieldEditingPanel(node.id); popoverRef.hide()"
+      >
+        <i class="mdi mdi-text-box-edit-outline"></i>
+        {{ 'EDITOR.EDIT_PAGE_CONTENT' | translate }}
+      </button>
+    </ng-container>
+
+    <button
+      ngSpdListItem
+      (click)="promptDelete(); popoverRef.hide()"
+      [disabled]="!canDelete || (isLocked && !isLockedByCurrentUser) || isStartItem() || isLastRootItem()"
+      [title]="
+        canDelete
+          ? isLocked && !isLockedByCurrentUser
+            ? ('EDITOR.DELETE_ITEM.ERRORS.ITEM_IS_LOCKED' | translate)
+            : isStartItem()
+              ? ('EDITOR.DELETE_ITEM.START_ITEM' | translate)
+              : isLastRootItem()
+                ? ('EDITOR.DELETE_ITEM.LAST_ROOT' | translate)
+                : ''
+          : ('EDITOR.DELETE_ITEM.ERRORS.INSUFFICIENT_PRIVILEGES' | translate)
+      "
+    >
+      <i class="mdi normal mdi-delete-outline"></i>
+      {{ 'EDITOR.DELETE' | translate }}
+    </button>
+
+    <hr class="hr" />
+
+    <ng-container *ngIf="!isFeatureEnabled()">
+      <a
+        ngSpdListItem
+        [attr.href]="explorerUrl"
+        target="_blank"
+        (click)="popoverRef.hide()"
+        [title]="'EDITOR.OPEN_IN_EXPLORER' | translate"
+      >
+        <i class="mdi normal mdi-open-in-new"></i>
+        {{ 'EDITOR.OPEN_IN_EXPLORER' | translate }}
+      </a>
+    </ng-container>
+  </ng-spd-list>
+</ng-template>
+
+@if (!(node.hasVersions$ | async) && !node.enableEdit && !node.isFolder) {
+  <button
+    ngSpdIconButton
+    icon="plus"
+    class="add-version"
+    [title]="'VERSIONS.CREATE_LANGUAGE_VERSION' | translate"
+    (click)="createVersionChange.emit(node); $event.stopPropagation()"
+  ></button>
+}
+<button
+  ngSpdIconButton
+  icon="dots-horizontal"
+  [ngSpdPopover]="popoverTemplate"
+  popoverPosition="top-left"
+  [popoverOffset]="0"
+  [popoverShowDelay]="0"
+  [popoverHideDelay]="0"
+  [hideOnBackdropClick]="true"
+  #popoverInstance="ngSpdPopover"
+  (click)="popoverInstance.toggle(); $event.stopPropagation()"
+></button>

@@ -1,0 +1,31 @@
+<ng-spd-dialog-panel (keyup.enter)="onConfirmClick()">
+  <ng-spd-dialog-close-button (close)="onDeclineClick()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>{{ 'EDITOR.RENAME.TITLE' | translate: { title: itemNameInitialValue } }}</ng-spd-dialog-header>
+
+  <ng-spd-dialog-content [leftAlignText]="true">
+    <label for="itemName" ngSpdLabel>{{ 'EDITOR.RENAME.ITEM_NAME' | translate }}</label>
+    <input
+      ngSpdInput
+      id="itemName"
+      name="itemName"
+      [(ngModel)]="itemNameCurrentValue"
+      [placeholder]="'EDITOR.RENAME.ITEM_NAME' | translate"
+    />
+    <p class="description">{{ 'EDITOR.RENAME.ITEM_NAME_LEGEND' | translate }}</p>
+
+    <label for="displayName" class="mt-md" ngSpdLabel>{{ 'EDITOR.RENAME.DISPLAY_NAME' | translate }}</label>
+    <input
+      ngSpdInput
+      id="displayName"
+      name="displayName"
+      [(ngModel)]="displayName"
+      [placeholder]="'EDITOR.RENAME.DISPLAY_NAME' | translate"
+    />
+    <p class="description">{{ 'EDITOR.RENAME.DISPLAY_NAME_LEGEND' | translate }}</p>
+  </ng-spd-dialog-content>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="outline" (click)="onDeclineClick()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="onConfirmClick()">{{ 'COMMON.RENAME' | translate }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

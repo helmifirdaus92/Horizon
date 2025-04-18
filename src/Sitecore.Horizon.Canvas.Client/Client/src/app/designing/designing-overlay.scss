@@ -1,0 +1,8 @@
+@import 'variables';
+
+.sc-designing-overlay {
+  top: 0;
+  width: 100%;
+  position: absolute;
+  z-index: $horizon-zIndex-designingOverlay;
+}

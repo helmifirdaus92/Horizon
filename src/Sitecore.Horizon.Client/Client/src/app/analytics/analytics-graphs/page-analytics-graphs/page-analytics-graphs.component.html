@@ -1,0 +1,123 @@
+<!-- Tile section -->
+<ng-container>
+  <app-single-stat-page-analytics
+    [pageVariantVisitorsCount]="pageAnalytics.variantOne?.pageVariantViewCount"
+    [avgPageViewsBySessionCount]="pageAnalytics.variantOne?.pageVariantViewBySessionRatio"
+    [sessionCount]="pageAnalytics.variantOne?.sessionCount"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+  >
+  </app-single-stat-page-analytics>
+
+  <app-single-stat-page-analytics
+    *ngIf="pageAnalytics.variantTwo"
+    [pageVariantVisitorsCount]="pageAnalytics.variantTwo.pageVariantViewCount"
+    [avgPageViewsBySessionCount]="pageAnalytics.variantTwo.pageVariantViewBySessionRatio"
+    [sessionCount]="pageAnalytics.variantTwo.sessionCount"
+    [isSecondVariant]="true"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+  >
+  </app-single-stat-page-analytics>
+</ng-container>
+<!-- Time-series -->
+<div class="mt-md">
+  <app-analytics-timeseries
+    [visitsChartData]="pageAnalytics.variantOne?.pageVariantViewTimeseries"
+    [secondVariantVisitsChartData]="pageAnalytics.variantTwo?.pageVariantViewTimeseries"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+    [duration]="duration"
+    [variants]="variants"
+    [mode]="'pageAnalytics'"
+  ></app-analytics-timeseries>
+</div>
+
+<!-- HeatMap -->
+<div class="mt-md">
+  <app-analytics-heatmap
+    [chartData]="pageAnalytics.variantOne?.pageVariantHeatmap"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+    [variantName]="variants.variantOne.variantName"
+  ></app-analytics-heatmap>
+
+  <app-analytics-heatmap
+    *ngIf="pageAnalytics.variantTwo"
+    [chartData]="pageAnalytics.variantTwo.pageVariantHeatmap"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+    [variantName]="variants.variantTwo?.variantName"
+    [isSecondVariant]="true"
+  ></app-analytics-heatmap>
+</div>
+
+<div class="mt-md row">
+  <!-- Top Pages -->
+  <div class="col">
+    <app-analytics-top-pages
+      [chartData]="
+        (pageAnalytics.variantOne?.pageViewCountByPageVariantHist || undefined
+          | variantIdToName: pageVariants
+          | async) || undefined
+      "
+      [secondVariantChartData]="
+        (pageAnalytics.variantTwo?.pageViewCountByPageVariantHist || undefined
+          | variantIdToName: pageVariants
+          | async) || undefined
+      "
+      [isLoading]="isLoading"
+      [disabled]="!isValidData"
+      [variants]="variants"
+      [mode]="'pageAnalytics'"
+    ></app-analytics-top-pages>
+  </div>
+
+  <!-- Top Countries -->
+  <div class="col">
+    <app-analytics-top-countries
+      [chartData]="pageAnalytics.variantOne?.pageVariantByCountryHist"
+      [secondVariantChartData]="pageAnalytics.variantTwo?.pageVariantByCountryHist"
+      [isLoading]="isLoading"
+      [disabled]="!isValidData"
+      [variants]="variants"
+    ></app-analytics-top-countries>
+  </div>
+</div>
+
+<!-- Heatmap -->
+<div class="mt-md">
+  <app-analytics-source
+    [chartData]="pageAnalytics.variantOne?.pageVariantByRefererHist"
+    [secondVariantChartData]="pageAnalytics.variantTwo?.pageVariantByRefererHist"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+    [variants]="variants"
+  ></app-analytics-source>
+</div>
+
+<div class="mt-md row">
+  <!-- Devices -->
+  <div class="col">
+    <app-analytics-browser
+      [chartData]="pageAnalytics.variantOne?.pageVariantByDeviceHist"
+      [secondVariantChartData]="pageAnalytics.variantTwo?.pageVariantByDeviceHist"
+      [isLoading]="isLoading"
+      [disabled]="!isValidData"
+      [variants]="variants"
+      [mode]="'pageAnalytics'"
+    ></app-analytics-browser>
+  </div>
+
+  <!-- Operating System -->
+  <div class="col">
+    <app-analytics-operating-systems
+      [chartData]="pageAnalytics.variantOne?.pageVariantByOperatingSystemHist"
+      [secondVariantChartData]="pageAnalytics.variantTwo?.pageVariantByOperatingSystemHist"
+      [isLoading]="isLoading"
+      [disabled]="!isValidData"
+      [variants]="variants"
+      [mode]="'pageAnalytics'"
+    ></app-analytics-operating-systems>
+  </div>
+</div>

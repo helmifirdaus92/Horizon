@@ -1,0 +1,15 @@
+<input
+  ngSpdInput
+  id="dateFieldInput"
+  [type]="fieldInputState.fieldType === 'Date' ? 'date' : 'datetime-local'"
+  autocomplete="off"
+  [ngModel]="currentValue"
+  (ngModelChange)="currentValue = $event"
+  (blur)="emitValueChange()"
+  [size]="size"
+/>
+<div class="datetime-field__info-container ml-xs mt-xs">
+  @if (currentValue) {
+    <span>{{ currentValue | dateFormat: dateFieldType }}</span>
+  }
+</div>

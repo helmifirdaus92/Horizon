@@ -1,0 +1,9 @@
+<div class="stepper">
+  <ng-container *ngFor="let step of currentSteps; index as index">
+    <div class="steps" [class.active]="index === activeStepIndex">
+      <span class="icon">{{ index + 1 }}</span>
+      <span class="text">{{ step.label | translate }}</span>
+    </div>
+    <div class="divider" *ngIf="index !== currentSteps.length - 1"></div>
+  </ng-container>
+</div>

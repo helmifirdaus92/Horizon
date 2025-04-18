@@ -1,0 +1,50 @@
+<button
+  *ngIf="showExtensionsButton"
+  type="button"
+  ngSpdIconButton
+  icon="puzzle-outline"
+  class="my-auto mx-sm btn-square"
+  [attr.aria-label]="'PLUGINS.LABEL' | translate"
+  [title]="'PLUGINS.LABEL' | translate"
+  [ngSpdPopover]="popoverPlugins"
+  popoverPosition="below"
+  [popoverOffset]="5"
+  [popoverShowDelay]="0"
+  [popoverHideDelay]="0"
+  [hideOnBackdropClick]="true"
+  #popoverRef="ngSpdPopover"
+  (click)="popoverRef.toggle(); $event.stopPropagation()"
+  name="plugins"
+  id="pluginsBtn"
+></button>
+
+<ng-template #popoverPlugins let-popoverRef>
+  @if (extensions.length) {
+    <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+      <h4 class="section-heading m-0 px-md py-sm">{{ 'PLUGINS.LABEL' | translate }}</h4>
+      <button
+        *ngFor="let item of extensions"
+        ngSpdListItem
+        class="list-option"
+        (click)="selectExtension(item); popoverRef.hide()"
+      >
+        <span class="mr-md"
+          ><img [src]="item.application.iconUrl" [alt]="item.application.name" class="logo-img"
+        /></span>
+        {{ item.application.name }}
+      </button>
+    </ng-spd-list>
+  } @else {
+    <div class="no-plugins-container">
+      <div class="header">{{ 'PLUGINS.NO_PLUGINS.HEADER' | translate }}</div>
+      <ng-spd-thumbnail>
+        <img
+          src="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/spot-storefront"
+          [attr.alt]="'PLUGINS.NO_PLUGINS.LINK_TEXT' | translate"
+        />
+      </ng-spd-thumbnail>
+      <div>{{ 'PLUGINS.NO_PLUGINS.DESCRIPTION' | translate }}</div>
+      <div class="marketplace-link">{{ 'PLUGINS.NO_PLUGINS.LINK_TEXT' | translate }}</div>
+    </div>
+  }
+</ng-template>

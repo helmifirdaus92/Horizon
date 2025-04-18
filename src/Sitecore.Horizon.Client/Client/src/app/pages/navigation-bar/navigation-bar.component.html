@@ -1,0 +1,13 @@
+<a
+  *ngFor="let item of navigationItems; index as i"
+  [attr.data-testid]="item.testid"
+  class="links"
+  ngSpdIconLabelBtn
+  [selected]="rla.isActive"
+  [icon]="item.icon"
+  [routerLink]="item.routerLink"
+  [queryParamsHandling]="'merge'"
+  routerLinkActive
+  #rla="routerLinkActive"
+  [label]="item.label | translate"
+></a>

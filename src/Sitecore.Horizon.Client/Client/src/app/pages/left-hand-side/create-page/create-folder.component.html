@@ -1,0 +1,14 @@
+<ng-spd-slide-in-panel>
+  <ng-spd-slide-in-panel-header (back)="goBack()">{{
+    'EDITOR.CREATE_FOLDER' | translate
+  }}</ng-spd-slide-in-panel-header>
+  <ng-spd-slide-in-panel-content>
+    <ng-spd-list>
+      <button *ngFor="let option of insertOptions$ | async" ngSpdListItem (click)="selectOption(option)">
+        <i class="mdi normal mdi-view-compact-outline"></i>
+        {{ option.displayName }}</button
+      >
+    </ng-spd-list>
+    <ng-spd-loading-indicator *ngIf="isLoading"></ng-spd-loading-indicator>
+  </ng-spd-slide-in-panel-content>
+</ng-spd-slide-in-panel>

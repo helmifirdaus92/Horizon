@@ -1,0 +1,24 @@
+<ng-spd-card [disabled]="disabled">
+  <ng-spd-card-header
+    [title]="'ANALYTICS.SITE_ANALYTICS.TITLES.SOURCE' | translate"
+    [tooltipText]="'ANALYTICS.SITE_ANALYTICS.DESCRIPTIONS.SOURCE' | translate"
+    [hasBackground]="true"
+  ></ng-spd-card-header>
+  <app-bar-chart
+    id="hrzSourceGraph"
+    *ngIf="!isLoading && !secondVariantChartData"
+    [items]="manipulatedChartData ? manipulatedChartData[0].series : []"
+    [isReversedPalette]="true"
+  ></app-bar-chart>
+
+  <app-bar-chart-grouped
+    id="hrzSourceGraphGrouped"
+    *ngIf="!isLoading && secondVariantChartData && manipulatedGroupChartData"
+    [items]="manipulatedGroupChartData"
+    [paletteIndex]="2"
+  ></app-bar-chart-grouped>
+
+  <div class="loading" *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+</ng-spd-card>

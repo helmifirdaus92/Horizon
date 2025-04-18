@@ -1,0 +1,40 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  .header {
+    padding-left: $icon-width;
+  }
+
+  .dialog-body {
+    @include dialog-body;
+
+    .text {
+      @include default-text;
+
+      .link {
+        text-decoration: none;
+        color: $brand-primary-dark;
+      }
+    }
+
+    .illustration {
+      padding: 0 calc($generic-element-height);
+
+      img {
+        width: calc($generic-element-height * 3);
+        height: calc($generic-element-height * 3);
+      }
+    }
+  }
+
+  .actions-wrapper {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    padding: 0 $icon-width;
+    align-items: center;
+    justify-content: left;
+  }
+}

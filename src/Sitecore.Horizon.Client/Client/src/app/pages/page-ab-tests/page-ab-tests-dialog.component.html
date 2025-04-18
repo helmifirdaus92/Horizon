@@ -1,0 +1,25 @@
+@if (!isLoading) {
+  <ng-container *ngIf="contextValue$ | async as contextValue">
+    @if (!pageAbTests.length) {
+      <app-empty-state [title]="'COMPONENT_TESTING.OVERVIEW.NO_AVAILABLE_AB_TESTS' | translate"></app-empty-state>
+    } @else {
+      <!-- Show list view if no test is selected -->
+      <app-page-ab-tests-list
+        *ngIf="!selectedAbTest"
+        [pageAbTests]="pageAbTests"
+        [isLoading]="isLoading"
+        (viewDetails)="viewDetails($event)"
+      ></app-page-ab-tests-list>
+
+      <!-- Show detail view if a test is selected -->
+      <app-page-ab-test-details
+        *ngIf="selectedAbTest"
+        [pageAbTest]="selectedAbTest"
+        [showBackButton]="pageAbTests.length > 1"
+        (goBack)="goBack()"
+      ></app-page-ab-test-details>
+    }
+  </ng-container>
+} @else {
+  <ng-spd-loading-indicator></ng-spd-loading-indicator>
+}

@@ -1,0 +1,51 @@
+<ng-container *ngIf="user">
+  <button
+    id="userInfo"
+    [title]="user.email"
+    [ngSpdPopover]="popoverTemplate"
+    ngSpdIconButton
+    icon="account-circle-outline"
+    popoverPosition="below"
+    [popoverOffset]="0"
+    [popoverShowDelay]="0"
+    [popoverHideDelay]="0"
+    [hideOnBackdropClick]="true"
+    #popoverInstanceUserInfo="ngSpdPopover"
+    (click)="popoverInstanceUserInfo.toggle(); $event.stopPropagation()"
+  >
+    <img [src]="user.picture" [alt]="user.email" />
+  </button>
+
+  <ng-template #popoverTemplate>
+    <p class="m-0 p-sm">{{ orgName }}</p>
+    <hr class="hr" />
+
+    <div class="p-sm">
+      <h3 class="my-xs">{{ user.name }}</h3>
+      <p class="text-subtle m-0">{{ user.email }}</p>
+    </div>
+
+    <a
+      class="full-size-btn px-sm"
+      ngSpdButton="ghost"
+      icon="account-circle-outline"
+      size="lg"
+      [href]="manageUserUrl"
+      target="_blank"
+    >
+      {{ 'USER.MANAGE_ACCOUNT' | translate }}
+    </a>
+    <hr class="hr" />
+
+    <button
+      id="userInfoLogOut"
+      class="full-size-btn px-sm"
+      ngSpdButton="ghost"
+      icon="logout"
+      size="lg"
+      (click)="logout()"
+    >
+      {{ 'USER.LOGOUT' | translate }}
+    </button>
+  </ng-template>
+</ng-container>

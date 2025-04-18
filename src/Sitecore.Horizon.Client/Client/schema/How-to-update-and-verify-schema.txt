@@ -1,0 +1,10 @@
+Each time the API Gateway or client schema are modified, we need to update schema information on the client. That's required for the schema validation, so we can be sure that application is not broken.
+All the work is done in the context of `Horizon.Client` project.
+
+Steps:
+1. Make sure the latest node packages installed. Run 'npm install' to install node packages.
+2. Start the host with API Gateway (e.g. via `runDevHost.bat` in the repo root) and remember its URL
+3. Close all the VS Code instances
+4. Open the console at the `Horizon.Client/schema` folder and run `node updateSchema.js`
+5. Open `horizon-client.code-workspace` file in VS Code
+6. Wait till solution loads and ensure there are no "red" files in the files tree

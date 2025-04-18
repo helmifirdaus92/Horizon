@@ -1,0 +1,58 @@
+<app-media-tree
+  class="pane left"
+  [data]="treeData$ | async"
+  [getChildren]="getChildren"
+  [select]="initiallySelectedFolder$ | async"
+  (selectChange)="folderChange($event)"
+></app-media-tree>
+
+<div class="main">
+  <app-notifications [notificationScope]="'dialog'"></app-notifications>
+
+  <app-media-action-bar
+    (searchChange)="search($event)"
+    (fileChange)="uploadMediaFile($event)"
+    [totalMediaItems]="(items$ | async)?.length"
+    (refreshItem)="reloadMediaContents$.next($event)"
+    [hasCreatePermission]="hasCreatePermission"
+    [isLoading]="isLoading"
+  ></app-media-action-bar>
+
+  <app-media-content
+    [items]="items$ | async"
+    [hasMoreItems]="!!(hasMoreItems$ | async)"
+    [select]="selectedId"
+    (selectChange)="select($event)"
+  >
+    <ng-container *ngIf="isEmpty$ | async" [ngSwitch]="search$ | async">
+      <!-- No media items in this folder -->
+      <ng-container
+        *ngSwitchCase="''"
+        [ngTemplateOutlet]="empty"
+        [ngTemplateOutletContext]="{
+          icon: ('graphics/empty-folder-icon.svg' | asset),
+          text: ('MEDIA.EMPTY_FOLDER' | translate),
+        }"
+      >
+      </ng-container>
+
+      <!-- No search results -->
+      <ng-container
+        *ngSwitchDefault
+        [ngTemplateOutlet]="empty"
+        [ngTemplateOutletContext]="{
+          icon: ('graphics/search-no-matches.svg' | asset),
+          text: ('MEDIA.NO_SEARCH_RESULTS' | translate),
+        }"
+      >
+      </ng-container>
+    </ng-container>
+  </app-media-content>
+</div>
+
+<ng-template #empty let-icon="icon" let-text="text">
+  <div class="empty">
+    <img width="200" height="158" [src]="icon" [attr.alt]="text" />
+    <p [innerHTML]="text"></p>
+  </div>
+</ng-template>

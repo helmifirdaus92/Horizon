@@ -1,0 +1,12 @@
+<ng-spd-empty-state
+  [headline]="'NO_ORGANIZATION.HEADER' | translate"
+  icon="alert-octagon-outline"
+  iconSize="small"
+  [paddingTop]="50"
+>
+  <p class="mb-md">{{ 'NO_ORGANIZATION.MESSAGE' | translate }}</p>
+  <!-- We do not translate the app name -->
+  <a href="https://portal.sitecorecloud.io/">{{ 'NO_ORGANIZATION.LINK' | translate: { appName: 'Portal' } }}</a>
+
+  <app-logout-link class="mt-md">{{ 'NO_ORGANIZATION.LOGOUT' | translate }}</app-logout-link>
+</ng-spd-empty-state>

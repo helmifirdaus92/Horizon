@@ -1,0 +1,18 @@
+<ng-spd-tab-group class="sitetype-tabs mb-md">
+  <button
+    ngSpdTab
+    colorScheme="colored"
+    [selected]="selectedSiteType === 'current'"
+    (click)="changeSiteType.emit('current');"
+  >
+    {{ 'PAGE_DESIGNS.WORKSPACE.CURRENT_SITE' | translate }}
+  </button>
+  <button
+    ngSpdTab
+    colorScheme="colored"
+    [selected]="selectedSiteType === 'shared'"
+    (click)="changeSiteType.emit('shared');"
+  >
+    {{ 'PAGE_DESIGNS.WORKSPACE.SHARED_SITES' | translate }}
+  </button>
+</ng-spd-tab-group>

@@ -1,0 +1,14 @@
+@import '@sitecore/spd-styles/src/all';
+
+i.mdi {
+  margin-right: $padding-small;
+}
+
+button[disabled] {
+  pointer-events: all !important;
+}
+
+// Set fixed size for the icon it order to prevent jumping while it loads, and any potential issues with the image actual size
+.explorer-icon {
+  width: 24px;
+}

@@ -1,0 +1,7 @@
+<div class="mb-sm no-data-icon">
+  <span><i class="normal mdi mdi-{{ icon }}"></i></span>
+</div>
+<h3>{{ title }}</h3>
+<p>{{ text }}</p>
+
+<a target="_blank" *ngIf="linkText && linkUrl" [href]="linkUrl">{{ linkText }}</a>

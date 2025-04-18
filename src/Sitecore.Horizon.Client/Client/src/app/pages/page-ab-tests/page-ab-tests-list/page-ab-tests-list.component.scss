@@ -1,0 +1,59 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  .ab-test-list-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 165px);
+    overflow: hidden;
+
+    .ab-test-content {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: $spacing-4xs;
+    }
+
+    .ab-test-item {
+      display: flex;
+      padding: $padding 0;
+      border-bottom: $framework-border;
+      align-items: center;
+      justify-content: space-between;
+
+      .ab-test-name {
+        flex: 1;
+      }
+
+      .ab-test-status-icons {
+        display: flex;
+        align-items: self-start;
+        gap: $spacing-9xs;
+      }
+
+      .icon-normal {
+        font-size: $font-size-18px;
+      }
+
+      .mdi-chevron-right {
+        cursor: pointer;
+      }
+
+      .experiment-status {
+        ::ng-deep {
+          .draft {
+            background-color: $ui-gray-100;
+          }
+        }
+      }
+    }
+
+    .footer-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: $spacing-7xs;
+      padding: $padding;
+      position: sticky;
+      bottom: 0;
+    }
+  }
+}

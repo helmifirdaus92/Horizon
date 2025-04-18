@@ -1,0 +1,15 @@
+<input
+  ngSpdInput
+  id="numericalInput"
+  type="text"
+  autocomplete="off"
+  #numericalInputField
+  [placeholder]="placeholderText"
+  [isInvalid]="!isValidInput"
+  [ngModel]="currentValue"
+  (ngModelChange)="currentValue = $event.trim()"
+  (blur)="trySaveInputValue()"
+/>
+<label ngSpdLabel for="numericalInput" class="field-validation" [class.validation-failed]="!isValidInput">
+  {{ fieldValidator.validationErrorInlineMessageKey | translate: { value: currentValue } }}
+</label>

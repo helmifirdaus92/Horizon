@@ -1,0 +1,34 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+:host {
+  &.hide {
+    @include pane-hide;
+  }
+
+  background-color: $panels-bg;
+  position: relative;
+  overflow-x: auto;
+
+  &.dragging {
+    transition: width 0s 0s !important;
+  }
+}
+
+.pane-divider {
+  cursor: w-resize;
+  height: 100%;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  width: 6px;
+}
+
+.overlay {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}

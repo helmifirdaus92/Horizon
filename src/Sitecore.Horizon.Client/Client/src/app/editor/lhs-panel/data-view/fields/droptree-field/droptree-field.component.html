@@ -1,0 +1,27 @@
+<ng-spd-droplist
+  #droplist
+  [customWidth]="300"
+  [templateType]="'custom'"
+  [reversedMode]="true"
+  (showSelection)="setTreeData()"
+  [title]="mapSelectedValue?.itemPath"
+  [size]="size"
+>
+  <div class="p-sm pt-0">
+    @if (data.length && !isLoading) {
+      <app-item-tree
+        [data]="data"
+        [getChildren]="getChildrenThisBound"
+        [expandFirstRoot]="false"
+        [expandSelected]="false"
+        (selectChange)="onSelectionChange($event.id, $event.path)"
+      >
+      </app-item-tree>
+    } @else if (isLoading) {
+      <ng-spd-loading-indicator class="pt-md pb-md"></ng-spd-loading-indicator>
+    } @else {
+      <div class="m-sm">{{ 'EDITOR.DATA_VIEW.NO_DATASOURCE_ITEMS' | translate }}</div>
+    }
+  </div>
+  <span class="selected-item" text>{{ mapSelectedValue?.itemPath }}</span>
+</ng-spd-droplist>

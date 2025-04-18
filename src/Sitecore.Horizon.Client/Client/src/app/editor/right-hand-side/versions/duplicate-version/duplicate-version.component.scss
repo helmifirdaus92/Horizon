@@ -1,0 +1,15 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.dialog-body {
+  @include dialog-body;
+
+  .action-dialog {
+    width: 100%;
+  }
+
+  label {
+    padding-bottom: $padding-x-small;
+  }
+}

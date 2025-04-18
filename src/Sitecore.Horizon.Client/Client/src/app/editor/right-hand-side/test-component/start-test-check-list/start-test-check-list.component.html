@@ -1,0 +1,42 @@
+@if (!configurationIsValid) {
+  <h3>{{ 'COMPONENT_TESTING.START.TITLE_INVALID' | translate }}</h3>
+  <p class="text-subtle">{{ 'COMPONENT_TESTING.START.DESCRIPTION_INVALID' | translate }}</p>
+  <div class="list">
+    <p *ngIf="!variantsLengthIsValid" (click)="closePopover.emit()"
+      ><i class="mdi mdi-circle-medium"></i> {{ 'COMPONENT_TESTING.START.VARIANTS_LENGTH' | translate }}</p
+    >
+    <p *ngIf="!variantsArePopulated" (click)="closePopover.emit()"
+      ><i class="mdi mdi-circle-medium"></i> {{ 'COMPONENT_TESTING.START.POPULATED_VARIANTS' | translate }}</p
+    >
+    <p *ngIf="!trafficAllocationIsValid" (click)="goToConfiguration.emit()"
+      ><i class="mdi mdi-circle-medium"></i> {{ 'COMPONENT_TESTING.START.TRAFFIC_IS_VALID' | translate }}</p
+    >
+    <p *ngIf="!targetPagesLengthIsValid" (click)="goToConfiguration.emit()"
+      ><i class="mdi mdi-circle-medium"></i> {{ 'COMPONENT_TESTING.START.GOALS_ARE_VALID' | translate }}</p
+    >
+    <p *ngIf="!targetPagesArePublished" (click)="goToConfiguration.emit()"
+      ><i class="mdi mdi-circle-medium"></i> {{ 'COMPONENT_TESTING.START.GOALS_ARE_PUBLISHED' | translate }}</p
+    >
+    <p *ngIf="!sampleSizeConfigIsValid" (click)="goToConfiguration.emit()"
+      ><i class="mdi mdi-circle-medium"></i> {{ 'COMPONENT_TESTING.START.SAMPLE_SIZE_CONFIG_IS_VALID' | translate }}</p
+    >
+  </div>
+
+  <div class="flex-row justify-space-between">
+    <button class="mr-0 ml-auto" type="button" ngSpdButton="outlinePrimary" (click)="closePopover.emit()">{{
+      'COMMON.OK' | translate
+    }}</button>
+  </div>
+} @else {
+  <h3>{{ 'COMPONENT_TESTING.START.TITLE' | translate }}</h3>
+  <p>{{ 'COMPONENT_TESTING.START.DESCRIPTION' | translate }}</p>
+
+  <div class="flex-row justify-space-between">
+    <button class="mr-0 ml-auto" type="button" ngSpdButton="basic" (click)="closePopover.emit()">{{
+      'COMMON.CANCEL' | translate
+    }}</button>
+    <button class="mr-0 ml-sm" type="button" ngSpdButton="primary" (click)="startTest.emit()">{{
+      'COMMON.CONTINUE' | translate
+    }}</button>
+  </div>
+}

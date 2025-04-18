@@ -1,0 +1,54 @@
+﻿---
+ID: "5fc21038-d3ff-404b-981a-60a256aeaa59"
+Parent: "11fee71b-c63e-42c8-9319-8883a9a9dd20"
+Template: "d4c7f5f9-8977-4e0c-b6ce-28ae8e0753e2"
+Path: /sitecore/client/Applications/Launchpad/PageSettings/Buttons/ContentEditing/Pages
+SharedFields:
+- ID: "044e3fdb-22ae-4e6c-b50e-2abdfbabd338"
+  Hint: Link
+  Value: 
+- ID: "93912653-2f5d-4aa2-807e-63f55421507e"
+  Hint: PathResolver
+  Value: Sitecore.Horizon.Integration.LaunchPad.HorizonHostResolver, Sitecore.Horizon.Integration
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 50
+- ID: "d25b56d4-23b6-4462-be25-b6a6d7f38e13"
+  Hint: Icon
+  Value: LaunchPadIcons/32x32/horizon.png
+- ID: "dc0c067b-8d1a-4aca-9852-e6b29139a63d"
+  Hint: OpenNewTab
+  Value: 
+- ID: "dec8d2d5-e3cf-48b6-a653-8e69e2716641"
+  Hint: __Security
+  Value: |
+    ar|sitecore\Sitecore Client Designing|pe|+item:read|ar|sitecore\Sitecore Client Authoring|pe|+item:read|ar|sitecore\Sitecore Client Users|pe|!*|
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20140702T070144Z
+    - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
+      Hint: __Owner
+      Value: |
+        sitecore\admin
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "bdc0d528-d763-46c5-b528-b95b7123ed9d"
+    - ID: "aa4a4643-5bfc-45a7-b9d9-5183a5211d99"
+      Hint: Text
+      Value: Pages
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\G9EptmhS7H
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20240103T144431Z

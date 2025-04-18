@@ -1,0 +1,79 @@
+<div class="header pl-md py-sm" [class.show-border]="hasScroll">
+  <ng-spd-search-input
+    [placeholder]="'COMMON.SEARCH_PLACEHOLDER' | translate"
+    (searchValueChange)="searchInput$.next($event)"
+  ></ng-spd-search-input>
+  <div class="filter-btn">
+    <button
+      [ngSpdPopover]="filterMenu"
+      [customClass]="'search-filter-popover'"
+      popoverPosition="left-bottom"
+      [popoverOffset]="5"
+      [popoverShowDelay]="0"
+      [popoverHideDelay]="0"
+      [hideOnBackdropClick]="true"
+      ngSpdIconButton
+      [icon]="'filter-variant'"
+      #popoverInstance="ngSpdPopover"
+      class="btn-square"
+      [class.active]="popoverInstance.isPopoverVisible()"
+      (click)="popoverInstance.toggle(); $event.stopPropagation()"
+    ></button>
+  </div>
+</div>
+
+<ng-container *ngIf="searchQueryIsEmpty">
+  <div class="no-query">
+    <div class="title">{{ 'EDITOR.NO_SEARCH_RESULTS' | translate }}</div>
+    <div class="description">{{ 'EDITOR.CONTENT_TREE.SEARCH.EMPTY_QUERY_DESCRIPTION' | translate }}</div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!isLoading && !treeData.length && !searchQueryIsEmpty">
+  <app-empty-state
+    [title]="'EDITOR.NO_SEARCH_RESULTS' | translate"
+    [description]="'EDITOR.SEARCH_SUGGESTIONS' | translate"
+    [path]="'https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/spot-magnify-close-neutral'"
+  ></app-empty-state>
+</ng-container>
+
+<app-item-tree
+  #itemsTree
+  (scroll)="onScroll($event)"
+  [ngClass]="{ disabled: isLoading }"
+  [data]="treeData"
+  [getChildren]="getChildren"
+  [highlightIncompatibleNodes]="true"
+  [expandFirstRoot]="false"
+  [expandSelected]="false"
+  (selectChange)="onSelectItem($event)"
+></app-item-tree>
+
+<ng-spd-loading-indicator class="patch-loading-indicator" *ngIf="isLoading"></ng-spd-loading-indicator>
+
+<ng-template #filterMenu>
+  <div class="filter-menu">
+    <div class="title">{{ 'EDITOR.CONTENT_TREE.SEARCH.FILTER_ITEM_TYPE' | translate }}</div>
+
+    <ng-spd-checkbox
+      [text]="'EDITOR.CONTENT_TREE.SEARCH.FILTER_ALL' | translate"
+      [checked]="filterInput$.value === 'All'"
+      (checkedChange)="setItemTypeFilter('All', $event)"
+      [ngClass]="'description'"
+    ></ng-spd-checkbox>
+
+    <ng-spd-checkbox
+      [text]="'EDITOR.CONTENT_TREE.SEARCH.FILE_PAGES' | translate"
+      [checked]="filterInput$.value === 'Pages'"
+      (checkedChange)="setItemTypeFilter('Pages', $event)"
+      [ngClass]="'description'"
+    ></ng-spd-checkbox>
+
+    <ng-spd-checkbox
+      [text]="'EDITOR.CONTENT_TREE.SEARCH.FILTER_FOLDERS' | translate"
+      [checked]="filterInput$.value === 'Folders'"
+      (checkedChange)="setItemTypeFilter('Folders', $event)"
+      [ngClass]="'description'"
+    ></ng-spd-checkbox>
+  </div>
+</ng-template>

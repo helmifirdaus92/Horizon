@@ -1,0 +1,47 @@
+<ng-spd-loading-indicator class="loader" *ngIf="isLoading"></ng-spd-loading-indicator>
+
+<ng-container *ngIf="!isLoading">
+  <div class="list-container">
+    <h4 class="section-heading m-0 p-sm">{{ 'VERSIONS.HEADER' | translate }}</h4>
+
+    <div class="version-lists">
+      <button
+        *ngFor="let item of list | reverse"
+        [showMenuBtn]="true"
+        ngSpdListItem
+        class="list-options"
+        [highlight]="item.versionNumber === active"
+        (click)="selectChange.emit(item.versionNumber)"
+        [ngSpdPopover]="popoverContent"
+        popoverPosition="top-left"
+        [popoverOffset]="5"
+        [popoverShowDelay]="0"
+        [popoverHideDelay]="0"
+        [hideOnBackdropClick]="true"
+        #popoverInstanceVersions="ngSpdPopover"
+        [customClass]="'version-actions-popover'"
+        (ctxButtonClick)="popoverInstanceVersions.templateContext = { item }; popoverInstanceVersions.toggle()"
+      >
+        <div class="list-items">
+          <span class="version-name">{{ item.name ? item.name : 'Version' }}</span
+          ><span class="version-number">{{
+            item.name ? '(Version ' + item.versionNumber + ')' : item.versionNumber
+          }}</span>
+        </div>
+      </button></div
+    >
+    <div class="footer-section">
+      <button
+        ngSpdButton="ghostPrimary"
+        size="sm"
+        icon="plus"
+        (click)="createNewVersion.emit()"
+        (keyup)="createNewVersion.emit()"
+        [attr.aria.label]="'VERSIONS.CREATE.HEADER' | translate"
+        [disabled]="disabled"
+      >
+        {{ 'VERSIONS.CREATE.HEADER' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-container>

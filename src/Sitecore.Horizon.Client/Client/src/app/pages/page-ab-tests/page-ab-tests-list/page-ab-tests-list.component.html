@@ -1,0 +1,33 @@
+<div class="ab-test-list-container">
+  <h1 class="text-center mb-xl mt-0">{{ 'COMPONENT_TESTING.OVERVIEW.HEADER' | translate }}</h1>
+  <div class="ab-test-content pl-md pr-md">
+    <hr class="hr" />
+    <div *ngFor="let abTest of pageAbTests" class="ab-test-item">
+      <div class="ab-test-name">{{ abTest.name }}</div>
+      <div class="ab-test-status-icons">
+        <div class="experiment-status">
+          <app-experiment-status
+            [status]="abTest.status"
+            [isPagePublished]="abTest.isPagePublished"
+          ></app-experiment-status>
+        </div>
+        <span (click)="navigateToDetail(abTest)">
+          <i class="mdi mdi-chevron-right icon-normal"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-actions">
+    <button
+      ngSpdButton="outlinePrimary"
+      icon="open-in-new"
+      iconPosition="right"
+      (click)="openSiteAbTests()"
+      class="mx-mm px-mm"
+      size="md"
+    >
+      {{ 'COMPONENT_TESTING.OVERVIEW.ALL_ABN_TESTS' | translate }}
+    </button>
+  </div>
+</div>

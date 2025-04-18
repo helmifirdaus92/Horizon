@@ -1,0 +1,319 @@
+/*!
+ * © Sitecore Corporation A/S. All rights reserved. Sitecore® is a registered trademark of Sitecore Corporation A/S.
+ */
+
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+.tab-group {
+  display: flex;
+  gap: $padding-xx-small;
+  padding: $spacing-9xs;
+  width: fit-content;
+  border-radius: $border-radius-secondary;
+  box-shadow: $box-shadow;
+  box-sizing: border-box;
+
+  button {
+    text-align: center;
+    padding: $spacing-7xs $spacing-3xs;
+    border-radius: $border-radius-secondary;
+    font-weight: $font-weight-semi-bold;
+    max-height: $spacing-lg;
+    font-size: $font-size-14px;
+
+    &.active {
+      border-color: $brand-primary-xx-light;
+      background-color: $brand-primary-selected;
+      color: $ui-purple-600;
+    }
+  }
+}
+
+.original-mode-text {
+  font-size: $font-size-14px;
+  font-weight: $font-weight-regular;
+  color: $ui-gray-400;
+  text-align: center;
+}
+
+.editable-container {
+  position: relative;
+  flex-direction: column;
+  font-size: $font-size-14px;
+
+  .prompt-actions-container {
+    background-image: $ai-linear-gradient;
+    border-radius: $border-radius-large;
+    background-origin: border-box;
+    box-shadow: inset 0 100vw $brand-ui-white;
+    border: $border-xx-small solid transparent;
+    min-height: 182px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editable-content {
+    height: 100%;
+    padding: $padding-small;
+    min-height: 80px;
+    box-sizing: border-box;
+    outline: none;
+    flex: 1;
+
+    &.placeholder::before {
+      content: attr(placeholder);
+      @include subtle-text;
+      position: absolute;
+      pointer-events: none;
+    }
+  }
+
+  .prompt-actions {
+    display: flex;
+    box-sizing: border-box;
+    padding: $padding-x-small;
+    justify-content: flex-end;
+
+    ::ng-deep {
+      .mdi {
+        color: $brand-ui-white;
+      }
+    }
+  }
+
+  .predefined-list {
+    margin-top: $spacing-5xs;
+
+    .child-node-header {
+      display: flex;
+      align-items: center;
+      height: $padding-x-large;
+      margin: 2px 0;
+
+      .child-node-text {
+        font-size: $font-size-16px;
+        font-weight: $font-weight-semi-bold;
+        padding-left: $padding-small;
+      }
+    }
+
+    .mdi-chevron-right {
+      font-size: $font-size-18px;
+    }
+
+    button {
+      font-size: inherit;
+
+      &:disabled {
+        pointer-events: all !important;
+      }
+    }
+
+    .single-language-message {
+      font-size: $font-size-14px;
+      font-weight: $font-weight-regular;
+      color: $brand-framework-default;
+      margin-left: $spacing-3xs;
+    }
+
+    .adhere-brandkit {
+      @include text-nowrap-ellipsis;
+    }
+
+    .brandkit-name {
+      color:  $ui-purple-600;
+      font-weight: $font-weight-semi-bold;
+    }
+  }
+
+  button.bg-ai-gradient {
+    background-size: 250% 100%;
+    padding: 0 $padding 0 $padding-small;
+
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background-position: 100% 0%;
+    }
+  }
+}
+
+::ng-deep {
+  .prompt-popover {
+    margin-right: -$generic-header-height;
+  }
+  ng-spd-horizontal-bars-loading-indicator {
+    .bar {
+      background-image: $ai-linear-gradient;
+    }
+  }
+}
+
+.feedback-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .feedback-buttons {
+    display: flex;
+    gap: $padding-small;
+    align-items: self-start;
+  }
+
+  .feedback-received {
+    display: flex;
+    align-items: center;
+    gap: $spacing-6xs;
+
+    .mdi {
+      font-size: $font-size-22px;
+    }
+
+    .mdi-thumb-up-outline {
+      color: $ui-success-500;
+    }
+
+    .mdi-thumb-down-outline {
+      color: $ui-danger-500;
+    }
+
+    .feedback-text {
+      font-weight: 300;
+    }
+  }
+}
+.loading-state {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $padding;
+
+  .in-progress-info {
+    display: flex;
+    align-items: center;
+    gap: $padding-x-small;
+
+    .text,
+    .icon {
+      background: $ai-linear-gradient;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      font-weight: $font-weight-semi-bold;
+    }
+  }
+}
+
+.actions-container {
+  display: flex;
+  border-bottom: $framework-border;
+  gap: $padding-x-small;
+}
+
+.loader-bar-container {
+  width: 100%;
+  margin: auto;
+}
+ng-spd-horizontal-bars-loading-indicator {
+  position: relative;
+
+  animation: loop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 1500ms;
+}
+@keyframes loop {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.mode-selection-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: $spacing-5xs;
+  margin-top: $spacing-5xs;
+  border-top: $framework-border;
+  border-bottom: $framework-border;
+
+  .mode-selection {
+    flex: 1;
+    box-sizing: border-box;
+    padding: 2px;
+    width: fit-content;
+    border-radius: $border-radius-primary;
+    border: $framework-border;
+    display: flex;
+
+    button {
+      margin-left: auto;
+      background-size: 250% 100%;
+      background-color: transparent;
+      &:hover:not(.selected) {
+        background-color: $brand-framework-bg-hover;
+      }
+      &:hover {
+        background-position: 100% 0%;
+      }
+    }
+    .selected {
+      background-color: $ui-pink-800;
+    }
+  }
+}
+
+.list-option {
+  display: block;
+  width: 200px;
+  margin: $spacing-7xs;
+}
+
+.last-prompt-section {
+  padding: $spacing-8xs $spacing-5xs;
+  border-radius: $border-radius-medium;
+  background-color: rgba(0, 0, 0, 0.03);
+  color: rgba(0, 0, 0, 0.96);
+  font-size: $font-size-14px;
+
+  .prompt-header {
+    font-weight: $font-weight-semi-bold;
+  }
+
+  .prompt-body {
+    font-weight: $font-weight-regular;
+    overflow-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding: $padding-x-small 0;
+  }
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  .text {
+    color: $background-neutral;
+  }
+  .link {
+    font-size: $font-size-14px;
+    font-weight: $font-weight-semi-bold;
+    color: $brand-primary-default;
+    text-decoration: none;
+  }
+}
+
+@include customized-scrollbar;

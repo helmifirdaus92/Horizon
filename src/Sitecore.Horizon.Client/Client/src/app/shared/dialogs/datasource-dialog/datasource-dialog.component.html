@@ -1,0 +1,24 @@
+<ng-spd-dialog-panel (keyup.enter)="!canSelect || picker.isBusy ? '' : submit()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header [visibleBorders]="true">
+    {{ 'EDITOR.ITEMS_BROWSER.HEADER_TEXT' | translate }}
+  </ng-spd-dialog-header>
+
+  <app-notifications [notificationScope]="'dialog'"></app-notifications>
+
+  <app-datasource-picker
+    [renderingId$]="renderingId$"
+    [rawDatasource$]="initialSelect$"
+    [datasourcePickerOptions]="datasourcePickerOptions"
+    (selectChange)="selectChange($event)"
+    #picker
+  >
+  </app-datasource-picker>
+
+  <ng-spd-dialog-actions [visibleBorders]="true">
+    <button ngSpdButton="outline" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="submit()" [disabled]="!canSelect || picker.isBusy">
+      {{ 'EDITOR.ITEMS_BROWSER.ASSIGN' | translate }}
+    </button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

@@ -1,0 +1,48 @@
+<div class="file-field-container" [class.has-value]="fileFieldValue?.rawValue">
+  @if (fileFieldValue?.rawValue) {
+    <div class="file-section">
+      <span class="mdi" [ngClass]="getFileIcon(fileData?.extension)"></span>
+      <div class="file-name">
+        <span>{{ fileData?.fileName }}</span>
+        <span class="ml-xs">({{ fileData?.size }})</span>
+      </div>
+      <div class="update-actions ml-auto">
+        <button
+          ngSpdIconButton
+          [icon]="'pencil-outline'"
+          [size]="'sm'"
+          [ngSpdTooltip]="'EDITOR.DATA_VIEW.CHANGE' | translate"
+          (click)="selectFromMediaDialog()"
+        ></button>
+        <button
+          ngSpdIconButton
+          [icon]="'close-circle-outline'"
+          [size]="'sm'"
+          [ngSpdTooltip]="'EDITOR.DATA_VIEW.REMOVE' | translate"
+          (click)="remove()"
+        ></button>
+      </div>
+    </div>
+  } @else {
+    <ng-spd-thumbnail class="thumbnail">
+      <img
+        src="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/spot-file-upload-neutral"
+        [attr.alt]="'EDITOR.DATA_VIEW.UPLOAD_IMAGE' | translate"
+      />
+    </ng-spd-thumbnail>
+    <div class="upload-image">
+      <span class="upload-text" (click)="selectFromMediaDialog()">{{ 'EDITOR.DATA_VIEW.UPLOAD' | translate }}</span>
+    </div>
+  }
+</div>
+
+<ng-template #changeFileTemplateRef let-popoverRef>
+  <ng-spd-list>
+    <div class="dialog-content">
+      <button ngSpdListItem (click)="selectFromMediaDialog(); popoverRef.hide()">{{
+        'EDITOR.DATA_VIEW.CHANGE' | translate
+      }}</button>
+      <button ngSpdListItem (click)="remove(); popoverRef.hide()">{{ 'EDITOR.DATA_VIEW.REMOVE' | translate }}</button>
+    </div>
+  </ng-spd-list>
+</ng-template>

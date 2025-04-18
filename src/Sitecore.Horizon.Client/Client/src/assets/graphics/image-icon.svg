@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 9</title>
+    <desc>Created with Sketch.</desc>
+    <g id="layout" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="empty-folder" transform="translate(-1610.000000, -189.000000)" fill="#2B2B2B">
+            <g id="Group-9" transform="translate(1610.000000, 189.000000)">
+                <path d="M153,32 C144.716,32 138,38.716 138,47 C138,55.284 144.716,62 153,62 C161.284,62 168,55.284 168,47 C168,38.716 161.284,32 153,32 M153,34 C160.168,34 166,39.832 166,47 C166,54.168 160.168,60 153,60 C145.832,60 140,54.168 140,47 C140,39.832 145.832,34 153,34" id="Fill-1"></path>
+                <path d="M2,198 L2,159.414 L58,103.414 L72.086,117.5 L58.793,130.793 L60.207,132.207 L119.5,72.914 L198,151.414 L198,198 L2,198 Z M198,2 L198,148.586 L119.5,70.086 L73.5,116.086 L58,100.586 L2,156.586 L2,2 L198,2 Z M0,200 L200,200 L200,0 L0,0 L0,200 Z" id="Fill-3"></path>
+            </g>
+        </g>
+    </g>
+</svg>

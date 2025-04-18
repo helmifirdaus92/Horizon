@@ -1,0 +1,39 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+
+  .statistical-significance-note {
+    font-weight: $font-weight-bold;
+  }
+
+  .variants-list {
+    display: flex;
+    flex-direction: column;
+    gap: $padding-x-small;
+
+    .variant-option {
+      height: $font-size-22px;
+      display: flex;
+      align-items: center;
+      gap: $padding-x-small;
+
+      label {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    input[type='radio'] {
+      height: $font-size-16px;
+      width: $font-size-16px;
+    }
+  }
+}
+@include customized-scrollbar;

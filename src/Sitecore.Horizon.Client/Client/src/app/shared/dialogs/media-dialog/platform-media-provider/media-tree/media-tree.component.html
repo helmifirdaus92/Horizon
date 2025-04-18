@@ -1,0 +1,12 @@
+<ng-spd-tree [dataSource]="treeDataSource" [treeControl]="treeControl">
+  <ng-spd-nested-tree-node *ngSpdTreeNodeDef="let node; level as level" [title]="node.displayName">
+    <div [ngSpdTreeNodePadding]="level" ngSpdTreeNodeSelectable [attr.data-itemId]="node.id" role="link">
+      <button ngSpdTreeToggleButton></button>
+      <span class="mdi mdi-folder-outline item-icon-normal"></span>
+      <span class="text">{{ node.displayName }}</span>
+    </div>
+    <div *ngIf="treeControl.isExpanded(node)" ngSpdTreeNodeOutlet>
+      <ng-spd-loading-indicator *ngIf="treeControl.isLoadingChildren(node)" [delay]="300"></ng-spd-loading-indicator>
+    </div>
+  </ng-spd-nested-tree-node>
+</ng-spd-tree>

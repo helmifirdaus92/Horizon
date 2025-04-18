@@ -1,0 +1,69 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+.node {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  user-select: none;
+  height: $generic-element-height;
+
+  .item-icon-normal {
+    margin-right: 4px;
+  }
+
+  .text {
+    @include text-nowrap-ellipsis;
+    padding-right: $padding-small;
+    outline: none;
+
+    &[contenteditable='true'] {
+      background-color: $brand-ui-white;
+    }
+  }
+
+  &:hover,
+  &.hovered {
+    .context-menu {
+      display: initial;
+    }
+  }
+
+  &.ng-spd-tree-selected {
+    .context-menu {
+      display: initial;
+    }
+  }
+}
+
+button[ngSpdTreeToggleButton] {
+  padding-left: $padding-small;
+  padding-right: 2px;
+}
+
+.node-content {
+  align-items: center;
+  flex-grow: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.node-incompatible {
+  opacity: 0.6;
+}
+
+.context-menu {
+  height: 100%; // fixes vertical alignment in Chrome.
+  display: none;
+}
+
+// Spd tree component supports these css properties only for the tree with [ngSpdTreeNodeSelectable] directive
+// so we have to set these states to support the case when tree node is not selectable.
+.node:not([ngSpdTreeNodeSelectable]) {
+  &:focus,
+  &:focus-within,
+  &:hover {
+    background-color: $brand-framework-bg-hover;
+  }
+}

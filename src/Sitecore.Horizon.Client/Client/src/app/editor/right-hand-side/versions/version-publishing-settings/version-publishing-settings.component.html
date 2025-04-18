@@ -1,0 +1,144 @@
+<ng-spd-dialog-panel (keyup.enter)="!valueEdited ? '' : setPublishSettings()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>
+    {{ 'VERSIONS.PUBLISHING.MENU_LABEL' | translate }}
+  </ng-spd-dialog-header>
+
+  <div class="dialog-body pt-sm">
+    <div class="pb-md">
+      <h4 class="mb-0 mt-0">
+        {{ 'VERSIONS.PUBLISHING.TIMEZONE' | translate }}
+      </h4>
+      <p class="m-0">
+        {{ timeZoneDisplayName }}
+      </p>
+    </div>
+
+    <div class="actions">
+      <div
+        class="container available"
+        [class.selected]="isAvailableToPublish"
+        (click)="isAvailableToPublish = true; valueEdited = true"
+        (keyup)="isAvailableToPublish = true; valueEdited = true"
+      >
+        <div class="content">
+          <span class="header">
+            {{ 'VERSIONS.PUBLISHING.AVAILABLE' | translate }}
+          </span>
+          <span class="description">
+            {{ 'VERSIONS.PUBLISHING.AVAILABLE_DESCRIPTION' | translate }}
+          </span>
+        </div>
+      </div>
+      <div
+        class="container not-available"
+        [class.selected]="!isAvailableToPublish"
+        (click)="isAvailableToPublish = false; valueEdited = true"
+        (keyup)="isAvailableToPublish = false; valueEdited = true"
+      >
+        <div class="content">
+          <span class="header">
+            {{ 'VERSIONS.PUBLISHING.NOT_AVAILABLE' | translate }}
+          </span>
+          <span class="description">
+            {{ 'VERSIONS.PUBLISHING.NOT_AVAILABLE_DESCRIPTION' | translate }}
+          </span>
+        </div>
+      </div>
+      <div class="start">
+        <span class="text">
+          {{ 'VERSIONS.PUBLISHING.START' | translate }}
+        </span>
+        <div class="options">
+          <div class="controls">
+            <input
+              type="radio"
+              name="start-options"
+              id="currentDate"
+              [value]="'Now'"
+              [(ngModel)]="startDateOptions"
+              (change)="onDateSelectionChange()"
+              [disabled]="!isAvailableToPublish"
+            />
+            <label for="currentDate">{{ 'VERSIONS.PUBLISHING.NOW' | translate }}</label>
+          </div>
+          <div>
+            <div class="controls">
+              <input
+                type="radio"
+                name="start-options"
+                id="custom"
+                [value]="'Custom'"
+                [(ngModel)]="startDateOptions"
+                (change)="onDateSelectionChange()"
+                [disabled]="!isAvailableToPublish"
+              />
+              <label for="customDate">{{ 'VERSIONS.PUBLISHING.CUSTOM' | translate }}</label>
+            </div>
+            <ng-container *ngIf="startDateOptions === 'Custom' && isAvailableToPublish">
+              <input
+                class="mt-sm"
+                ngSpdInput
+                type="datetime-local"
+                name="startDate"
+                autocomplete="off"
+                [ngModel]="startDate | date: 'yyyy-MM-ddTHH:mm'"
+                (ngModelChange)="startDate = $event; valueEdited = true"
+              />
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="end">
+        <span class="text">
+          {{ 'VERSIONS.PUBLISHING.END' | translate }}
+        </span>
+        <div class="options">
+          <div class="controls">
+            <input
+              type="radio"
+              name="end-options"
+              id="noEndDate"
+              [value]="'NoDate'"
+              [(ngModel)]="endDateOptions"
+              (change)="onDateSelectionChange()"
+              [disabled]="!isAvailableToPublish"
+            />
+            <label for="noEndDate">{{ 'VERSIONS.PUBLISHING.NO_END_DATE' | translate }}</label>
+          </div>
+          <div>
+            <div class="controls">
+              <input
+                type="radio"
+                name="end-options"
+                id="custom"
+                [value]="'Custom'"
+                [(ngModel)]="endDateOptions"
+                (change)="onDateSelectionChange()"
+                [disabled]="!isAvailableToPublish"
+              />
+              <label for="customDate">{{ 'VERSIONS.PUBLISHING.CUSTOM' | translate }}</label>
+            </div>
+            <ng-container *ngIf="endDateOptions === 'Custom' && isAvailableToPublish">
+              <input
+                ngSpdInput
+                class="mt-sm"
+                type="datetime-local"
+                name="endDate"
+                autocomplete="off"
+                [ngModel]="endDate | date: 'yyyy-MM-ddTHH:mm'"
+                (ngModelChange)="endDate = $event; valueEdited = true"
+              />
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" [disabled]="!valueEdited" (click)="setPublishSettings()" class="ml-sm">{{
+      'COMMON.SAVE' | translate
+    }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

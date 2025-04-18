@@ -1,0 +1,55 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+:host {
+  border: $framework-border;
+  box-sizing: border-box;
+  position: relative;
+  width: 160px;
+
+  &.select {
+    border-color: $brand-primary-default;
+  }
+}
+
+ng-spd-thumbnail {
+  height: 158px;
+}
+
+.text {
+  @include text-nowrap-ellipsis;
+  @include default-text;
+  border-top: $framework-border;
+  line-height: 19px; // To center text vertically. 20px -1px for border
+  padding: 0 $padding-x-small;
+}
+
+.icon-wrapper {
+  border-radius: $border-radius-medium;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - $padding-small);
+  width: calc(100% - $padding-small);
+
+  &.doc {
+    background-color: $background-cyan;
+  }
+  &.pdf {
+    background-color: $background-danger;
+  }
+  &.docx {
+    background-color: $background-blue;
+  }
+
+  .mdi-file-document-outline {
+    color: $brand-cyan-600;
+  }
+  .mdi-file-pdf-box {
+    color: $brand-red-600;
+  }
+  .mdi-file-word-box {
+    color: $brand-blue-600;
+  }
+}

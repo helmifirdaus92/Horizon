@@ -1,0 +1,29 @@
+<div class="mx-sm my-sm" *ngIf="flowDefinition.status === 'PRODUCTION' || flowDefinition.status === 'COMPLETED'">
+  <!--Indicates the flow has started and achieved statistical significance" -->
+  <ng-spd-inline-notification severity="info" class="info-block my-sm" *ngIf="flowDefinition.result">
+    <p [innerHTML]="'COMPONENT_TESTING.AB_TEST_STATISTICAL_SIGNIFICANCE_ACHIEVED' | translate"></p>
+  </ng-spd-inline-notification>
+
+  <ng-container *ngIf="flowDefinition.status === 'PRODUCTION'">
+    <!-- Flow started, statistical significance not reached. -->
+    <ng-spd-inline-notification severity="info" class="warning-block" *ngIf="!flowDefinition.result">
+      <!--page already publish-->
+      <ng-container *ngIf="isPagePublished; else pendingWarning">
+        <p [innerHTML]="'COMPONENT_TESTING.TEST_LIVE_WARNING' | translate"></p>
+      </ng-container>
+      <!--page requires publish-->
+      <ng-template #pendingWarning>
+        <p [innerHTML]="'COMPONENT_TESTING.PAGE_PUBLISH_PENDING_WARNING' | translate"></p>
+      </ng-template>
+    </ng-spd-inline-notification>
+  </ng-container>
+
+  <!-- Flow is complete, but page publish is pending. -->
+  <ng-spd-inline-notification
+    severity="info"
+    class="warning-block"
+    *ngIf="flowDefinition.status === 'COMPLETED' && !isPagePublished"
+  >
+    <p [innerHTML]="'COMPONENT_TESTING.PAGE_PUBLISH_PENDING_COMPLETE_STATUS_WARNING' | translate"></p>
+  </ng-spd-inline-notification>
+</div>

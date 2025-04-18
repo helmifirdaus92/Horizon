@@ -1,0 +1,65 @@
+@import '@sitecore/spd-styles/src/all';
+
+$width-md: 200px;
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: $generic-element-height;
+  &.content-header-dropdown {
+    .active-site {
+      font-size: inherit;
+      text-align: left;
+      @include text-nowrap-ellipsis;
+      color: inherit;
+    }
+  }
+}
+
+.list-option {
+  display: block;
+  padding: $padding-small;
+  min-width: $width-md;
+  @include text-nowrap-ellipsis();
+}
+
+.no-data-label {
+  padding: $padding-small;
+}
+
+.tenant-site-popover {
+  display: flex;
+  flex-direction: row;
+
+  .tenants-list {
+    border-right: $border;
+    width: 300px;
+    box-sizing: border-box;
+  }
+
+  .sites-list {
+    width: $width-md;
+  }
+}
+
+.collection-item {
+  & + & {
+    border-top: $border;
+  }
+}
+
+.active-site {
+  font-size: $font-size-18px;
+  font-weight: $font-weight-semi-bold;
+  color: $ui-black-alpha-900;
+}
+
+.active-tenant {
+  font-size: $font-size-12px;
+}
+
+.display-name {
+  @include text-nowrap-ellipsis;
+  text-align: left;
+}

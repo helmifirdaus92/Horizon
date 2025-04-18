@@ -1,0 +1,113 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.dialog-header {
+  display: flex;
+  flex-direction: column;
+  gap: $padding;
+
+  .back-button {
+    @include strong-text;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: $spacing-xs;
+    padding-left: $spacing-6xs;
+  }
+}
+
+.dialog-body {
+  box-sizing: border-box;
+  display: flex;
+  padding: 0 $padding-large $padding-large;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+
+  .create-dialog {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $padding;
+  }
+
+  .error-block p {
+    margin: 0;
+    color: $brand-signal-error;
+  }
+
+  .assign-template-title {
+    font-size: $font-size-16px;
+    font-weight: $font-weight-semi-bold;
+  }
+
+  .choose-template-title {
+    font-weight: $font-weight-semi-bold;
+  }
+
+  .popover-info {
+    font-size: $font-size-12px;
+    font-weight: $font-weight-regular;
+    color: $brand-primary-default;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: row;
+    gap: $padding-large;
+
+    .option {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      label {
+        cursor: pointer;
+      }
+
+      input[type='radio'] {
+        height: $spacing-3xs;
+        width: $spacing-3xs;
+        margin-left: 0;
+        margin-right: $padding-x-small;
+        margin-bottom: $padding-small;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .input {
+    width: calc($pop-panel-min-width * 2.5);
+
+    .helper-text {
+      @include small-text;
+    }
+  }
+
+  .warning-block {
+    background-color: $ui-orange-100;
+    border-radius: $border-radius-medium;
+
+    ::ng-deep {
+      span {
+        color: $ui-orange-500;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .copy-existing {
+    display: flex;
+    flex-direction: column;
+    gap: $padding;
+  }
+}
+
+.link {
+  @include default-text;
+  text-decoration: none;
+  color: $brand-primary-dark;
+}

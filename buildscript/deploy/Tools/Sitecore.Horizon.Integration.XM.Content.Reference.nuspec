@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Sitecore.Horizon.Integration.Content.Reference</id>
+    <version>0.0.1-r00001</version>
+    <authors>Sitecore Horizon</authors>
+    <description>Meta package to reference proper version of Horizon.FeatureIntegration content package.</description>
+    <dependencies>
+      <dependency id="Sitecore.Horizon.Integration.XM.Content" version="$FIVersion$" />
+      <dependency id="Sitecore.Horizon.Integration"            version="$FIVersion$" />
+      <dependency id="Sitecore.Horizon.Integration.GraphQL"    version="$FIVersion$" />
+    </dependencies>
+  </metadata>
+</package>

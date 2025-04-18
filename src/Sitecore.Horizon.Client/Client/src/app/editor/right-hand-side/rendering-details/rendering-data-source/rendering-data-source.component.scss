@@ -1,0 +1,42 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+.open-page-content-button {
+  display: flex;
+  justify-content: center;
+}
+
+.item-name-label {
+  font-weight: $font-weight-medium;
+  font-size: $font-size-14px;
+}
+
+.item-name-content {
+  background-color: $brand-framework-bg-hover;
+  border-radius: $border-radius-small;
+  display: flex;
+  align-items: center;
+
+  .text {
+    font-weight: $font-weight-regular;
+    font-size: $font-size-14px;
+  }
+  .select-datasource-item {
+    margin: 0 $padding-small 0 auto;
+  }
+}
+
+.select-item-link {
+  font-size: $font-size-12px;
+  font-weight: $font-weight-semi-bold;
+  color: $brand-primary-default;
+  width: fit-content;
+  cursor: pointer;
+  user-select: none;
+}
+
+.page-item-data-text {
+  font-weight: $font-weight-regular;
+  font-size: $font-size-14px;
+  text-align: center;
+}

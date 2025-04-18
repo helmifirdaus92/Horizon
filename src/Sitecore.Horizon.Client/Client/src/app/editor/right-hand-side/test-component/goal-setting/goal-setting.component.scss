@@ -1,0 +1,106 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.card-container {
+  border: $framework-border;
+  border-radius: $border-radius-small;
+  display: flex;
+  flex-direction: column;
+  min-height: $generic-header-height;
+  padding: 0 $padding;
+
+  .goal-setting-options {
+    display: flex;
+    align-items: center;
+    gap: $padding;
+    height: $generic-header-height;
+    box-sizing: border-box;
+
+    .option {
+      display: flex;
+      align-items: stretch;
+      gap: $padding-x-small;
+    }
+  }
+
+  .goal-field-input {
+    display: flex;
+    align-items: center;
+    gap: $padding-small;
+  }
+
+  ::ng-deep {
+    .ng-spd-accordion-header {
+      border: none;
+    }
+    ng-spd-accordion-content:after {
+      display: none;
+    }
+  }
+}
+
+.page-tree-label {
+  display: inline;
+}
+
+.test-goals {
+  display: flex;
+  align-items: flex-start;
+}
+
+.test-goals-icon {
+  box-sizing: border-box;
+  border-radius: $border-radius;
+  background-color: $brand-primary-selected;
+
+  .mdi {
+    padding: $padding-small - $padding-xx-small;
+    color: $brand-primary-default;
+  }
+}
+
+.test-goals-text {
+  flex-basis: 100%;
+}
+
+.goals-accordion-container {
+  ::ng-deep {
+    .ng-spd-accordion-header {
+      min-height: $generic-header-height;
+      height: auto;
+      align-items: center;
+      margin: 0;
+    }
+
+    .ng-spd-accordion-header-content {
+      height: initial;
+    }
+
+    ng-spd-accordion-content {
+      padding-top: initial;
+    }
+  }
+
+  margin-top: $padding-small;
+}
+
+.goals-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $padding-small;
+  max-width: 100%;
+  padding: $padding-small;
+
+  .goal {
+    &.highlight-selected-goal {
+      border: $border;
+      border-color: $brand-primary-default;
+    }
+  }
+}
+
+input[type='radio'] {
+  height: 16px;
+  width: 16px;
+}

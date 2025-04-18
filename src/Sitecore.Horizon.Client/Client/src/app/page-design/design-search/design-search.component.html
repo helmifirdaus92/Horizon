@@ -1,0 +1,51 @@
+<div class="search">
+  <ng-spd-search-input
+    [placeholder]="'COMMON.SEARCH_PLACEHOLDER' | translate"
+    (searchValueChange)="onSearchValueChange($event)"
+    [ngSpdPopover]="popoverTemplate"
+    popoverPosition="below"
+    #popoverInstance="ngSpdPopover"
+    [hideOnBackdropClick]="true"
+    [popoverOffset]="2"
+    [popoverShowDelay]="500"
+    [popoverHideDelay]="0"
+  ></ng-spd-search-input>
+</div>
+
+<ng-template #popoverTemplate>
+  <div class="list-container">
+    <ng-spd-loading-indicator class="pt-sm pb-sm" *ngIf="isLoading"></ng-spd-loading-indicator>
+    <ng-spd-list *ngIf="(designFolders.length > 0 || designItems.length > 0) && !isLoading">
+      <button
+        class="list-option design"
+        *ngFor="let folder of designFolders"
+        ngSpdListItem
+        (click)="onFolderItemClick(folder)"
+      >
+        <i class="mdi mdi-folder-outline pr-sm"></i>
+        {{ folder.displayName }}</button
+      >
+      <button
+        class="list-option folder"
+        *ngFor="let item of designItems"
+        ngSpdListItem
+        (click)="onDesignItemClick(item)"
+      >
+        <i
+          class="mdi pr-sm"
+          [ngClass]="{
+            'mdi-view-compact-outline': designType === 'pagedesign',
+            'mdi-page-layout-header': designType === 'partialdesign'
+          }"
+        ></i>
+        {{ item.displayName }}</button
+      >
+    </ng-spd-list>
+  </div>
+  <ng-container *ngIf="!designFolders.length && !designItems.length && !isLoading">
+    <div class="empty-container">
+      <span class="title">{{ 'EDITOR.NO_SEARCH_RESULTS' | translate }}</span>
+      <span class="description">{{ 'EDITOR.SEARCH_SUGGESTIONS' | translate }}</span>
+    </div>
+  </ng-container>
+</ng-template>

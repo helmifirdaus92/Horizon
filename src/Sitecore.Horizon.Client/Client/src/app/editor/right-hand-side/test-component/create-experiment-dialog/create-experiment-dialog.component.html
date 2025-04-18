@@ -1,0 +1,50 @@
+<ng-spd-dialog-panel
+  (keyup.enter)="!experimentName.length || !!nameInput.errors || apiErrorMessage || isLoading ? '' : createExperiment()"
+>
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>{{ 'COMPONENT_TESTING.CREATE_EXPERIMENT_DIALOG.TITLE' | translate }}</ng-spd-dialog-header>
+
+  <div class="dialog-body">
+    <div class="create-dialog">
+      <div class="input">
+        <label ngSpdLabel for="experiment-name">{{
+          'COMPONENT_TESTING.CREATE_EXPERIMENT_DIALOG.NAME' | translate
+        }}</label>
+        <input
+          #nameInput="ngModel"
+          ngSpdInput
+          type="text"
+          id="experiment-name"
+          required
+          maxlength="255"
+          pattern="^(?!^\s+$)[a-zA-Z0-9_ ]+$"
+          [isInvalid]="!!nameInput.errors && (!!nameInput.dirty || !!nameInput.touched)"
+          autofocus="true"
+          [placeholder]="'COMMON.NAME' | translate"
+          [appForbiddenNames]="(existingNamesPromise | async) ?? undefined"
+          [(ngModel)]="experimentName"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error-block">
+        <p *ngIf="nameInput.errors?.isForbidden">{{ 'VALIDATION.VALIDATE_NAME.ALREADY_USED' | translate }}</p>
+        <p *ngIf="nameInput.errors?.pattern">{{ 'VALIDATION.VALIDATE_NAME.NOT_ALLOWED_CHARACTER' | translate }}</p>
+        <p *ngIf="nameInput.errors?.required">{{ 'VALIDATION.VALIDATE_NAME.EMPTY' | translate }}</p>
+      </div>
+      <div *ngIf="apiErrorMessage" class="error-block"
+        ><p>{{ apiErrorMessage }}</p></div
+      >
+    </div>
+  </div>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button
+      ngSpdButton="primary"
+      (click)="createExperiment()"
+      [disabled]="!experimentName.length || !!nameInput.errors || apiErrorMessage || isLoading"
+      >{{ 'COMMON.SAVE' | translate }}</button
+    >
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

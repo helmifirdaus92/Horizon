@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" PrivateAssets="All" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+
+    <PackageReference Include="GraphQL"  />
+    <PackageReference Include="GraphQL-Parser" />
+
+    <PackageReference Include="Sitecore.JavaScriptServices.Configuration" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Sitecore.Horizon.Integration.GraphQL\Sitecore.Horizon.Integration.GraphQL.csproj" />
+    <ProjectReference Include="..\Sitecore.Horizon.Integration.Tests.Unit.Shared\Sitecore.Horizon.Integration.Tests.Unit.Shared.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,182 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+
+  &:has(.optimize-panel) {
+    overflow: hidden;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.no-option {
+  display: flex;
+  align-items: center;
+  padding-left: $icon-width + $padding;
+  padding-right: $icon-width + $padding;
+
+  .no-option-text {
+    @include tiny-text;
+    flex: 1;
+    text-align: center;
+  }
+}
+
+.main-section {
+  display: block;
+  width: 100%;
+}
+
+.header-section {
+  width: 100%;
+  height: $generic-header-height;
+  padding: 0 $padding;
+  box-sizing: border-box;
+  border-bottom: $framework-border;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  overflow: hidden;
+  // Since the text usually updates later, add transition to bgColor only
+  transition: background-color $animation-speed-fast;
+
+  h5 {
+    @include text-nowrap-ellipsis;
+    width: 100%;
+    font-weight: $font-weight-semi-bold;
+    font-size: $font-size-14px;
+  }
+  &.selected {
+    background-color: $brand-primary-default;
+    color: $brand-ui-white;
+  }
+  &.personalized {
+    background-color: $brand-personalization;
+    color: $brand-ui-white;
+  }
+
+  &.selected,
+  &.personalized {
+    ::ng-deep {
+      .toggle-btn {
+        color: inherit !important;
+
+        .mdi {
+          color: inherit !important;
+        }
+      }
+    }
+  }
+}
+
+.rhs-block-element {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.guide-container {
+  display: flex;
+  flex-direction: column;
+  padding: $padding;
+  overflow: hidden auto;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .mdi {
+      color: $brand-primary-default;
+      font-size: $font-size-46px;
+    }
+    .h4 {
+      @include heading-md;
+      text-align: center;
+      font-weight: $font-weight-semi-bold;
+      margin-top: $padding;
+    }
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+  }
+  .about {
+    margin: 0;
+    text-align: center;
+  }
+  .steps {
+    padding-left: $padding;
+  }
+
+  .highlighted-text {
+    text-align: center;
+    color: $brand-primary-default;
+    font-weight: $font-weight-bold;
+    padding-right: $padding-small;
+  }
+  .rhs-block-element {
+    border-top: $framework-border;
+    margin-top: $padding-large;
+
+    ::ng-deep {
+      .ng-spd-accordion-header,
+      ng-spd-accordion-content {
+        margin: 0;
+        padding-left: 0;
+      }
+    }
+  }
+}
+
+// Rhs default design
+.default-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: $padding-x-large;
+  border-bottom: $framework-border;
+
+  .mdi {
+    font-size: $font-size-46px;
+  }
+  .text {
+    text-align: center;
+  }
+}
+
+.empty-element-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: $padding-large;
+
+  .mdi {
+    font-size: $font-size-46px;
+  }
+  .text {
+    text-align: center;
+  }
+}
+
+.options-header {
+  @include section-heading;
+  display: flex;
+  align-items: center;
+}

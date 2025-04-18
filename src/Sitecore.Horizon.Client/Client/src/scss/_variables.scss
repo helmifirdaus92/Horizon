@@ -1,0 +1,75 @@
+@import '@sitecore/spd-styles/src/all';
+
+// ***********************************************************
+// CUSTOM VARIABLES - horizon specific variables NOT defined by UX
+
+// Components Variables -----------------------------------------------
+$lhs-panel-width: 280px;
+$lhs-footer-height: 60px;
+$navigation-bar-width: 74px;
+$card-medium: 25rem;
+
+// Page ---------------------------------------------------------------
+$header-height: 56px;
+$pane-min-width: 300px;
+$page-background-color: $ui-gray-100;
+$editor-spacer: $padding-small;
+
+// Button -------------------------------------------------------------
+$btn-header-width: 80px;
+$btn-width-md: 38px;
+$btn-height-md: 40px;
+
+// Device
+$phone-width: 360px;
+$phone-height: 640px;
+$tablet-width: 768px;
+$tablet-height: 1024px;
+$device-frame-top: 80px;
+$device-frame-sides: 15px;
+$device-frame-radius: 25px;
+
+// Overlays (z-indexes)
+$editor-workspace-z-index: 1;
+/* Place the panes on top of the editor workspace to fix an issue where (due to pixel approximation)
+  the workspace may take one pixel to many thus covering the pane border. */
+$page-pane-z-index: $editor-workspace-z-index + 1;
+
+$pane-overlay-z-index: 1;
+// Keep the pane divider to resize the split pane on top of pane overlays
+$pane-resizer-z-index: $pane-overlay-z-index + 1;
+
+// Component Gallery
+$gallery-item-height: 74px;
+$gallery-icon-height: 32px;
+
+// LHS
+$content-tree-context-zindex: 1;
+
+// Charts
+$chart-height: 350px;
+
+$box-border: 0.5px solid rgba(85, 72, 217, 1);
+
+// AI colors
+$ai-main: #6e3fff;
+$ai-secondary: #d92739;
+$ai-linear-gradient: linear-gradient(to top right, $ai-main, $ai-secondary);
+
+// Responsiveness
+$screen-x-large: 1400px;
+$screen-large: 1280px;
+
+// Colors
+$brand-cyan-600: $ui-cyan-600;
+$brand-red-600: $ui-danger-600;
+$brand-blue-600: $ui-blue-600;
+$brand-black-600: $ui-black-alpha-600;
+$brand-black-900: $ui-black-alpha-900;
+$brand-gray-700: rgba(59, 59, 59, 1);
+$inverse-text-color: rgba(255, 255, 255, 1);
+
+$brand-neutral-420: rgba(0, 0, 0, 0.42);
+$brand-neutral-500: rgba(0, 0, 0, 0.55);
+$brand-neutral-700: rgba(0, 0, 0, 0.75);
+$overlay-bg-color: rgba(255, 255, 255, 0.4);

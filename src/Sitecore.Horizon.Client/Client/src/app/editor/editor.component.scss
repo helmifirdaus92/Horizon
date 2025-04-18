@@ -1,0 +1,35 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+
+.editor-main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: calc(100% - 2 * $editor-spacer);
+
+  app-lhs-panel:not(.hidden) + app-editor-workspace {
+    margin-left: $editor-spacer;
+  }
+}
+
+.app-editor-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: transparent;
+}
+
+app-editor-header,
+app-editor-workspace {
+  position: relative; // Make sure that the wrapper overlay does not lay over the sub header and the workspace
+}

@@ -1,0 +1,357 @@
+@if (!isLoading) {
+  <div class="data-view-wrapper">
+    <ng-spd-accordion
+      *ngFor="let fieldsSection of fieldsSections | async; let indx = index"
+      [ngClass]="mode === 'pageItem' ? 'v2' : ''"
+    >
+      <ng-spd-accordion-header #groupsHeader [isOpened]="indx === 0">{{ fieldsSection.name }} </ng-spd-accordion-header>
+      <ng-spd-accordion-content>
+        @for (field of fieldsSection.fields; track field) {
+          @if (field.access.canRead) {
+            <div class="mb-md" [class.disabled]="!field.item.access.canWrite">
+              @if (shouldUseBasicHeader(field)) {
+                <app-field-header
+                  [field]="field"
+                  (resetField)="resetToStandardValue(field)"
+                  [isStandardValue]="field.containsStandardValue"
+                  [class.disabled]="!field.access.canWrite"
+                  [size]="size"
+                >
+                </app-field-header>
+              }
+              @switch (field.templateField.type) {
+                @case ('Droplink') {
+                  <div class="drop-list" [class.disabled]="!field.access.canWrite">
+                    @if (field.templateField.dataSource.length) {
+                      <ng-spd-droplist
+                        [selectedValue]="selectedDropLinkItem(field)"
+                        (selectedValueChange)="
+                          saveWithoutDebounce(field, { rawValue: wrapWithBrackets($event.toUpperCase()) })
+                        "
+                        (scrolledToBottom)="fetchNextDatasourceBatch(field)"
+                        [customWidth]="300"
+                        [reversedMode]="true"
+                        [size]="size ? size : 'lg'"
+                      >
+                        <ng-template
+                          ngSpdDroplistItem
+                          *ngFor="let item of field.templateField.dataSource"
+                          [value]="item.itemId"
+                        >
+                          {{ item.displayName }}
+                        </ng-template>
+                      </ng-spd-droplist>
+                    } @else {
+                      <ng-spd-droplist
+                        [templateType]="'custom'"
+                        [customWidth]="300"
+                        [reversedMode]="true"
+                        [size]="size ? size : 'lg'"
+                      >
+                        <div class="p-sm pt-0">
+                          <div class="m-sm">{{ 'EDITOR.DATA_VIEW.NO_DATASOURCE_ITEMS' | translate }}</div>
+                        </div>
+                      </ng-spd-droplist>
+                    }
+                  </div>
+                }
+                @case ('General Link') {
+                  <div class="drop-list" [class.disabled]="!field.access.canWrite">
+                    <app-general-link-field
+                      [rawValue]="field.value.rawValue"
+                      (valueChange)="saveWithoutDebounce(field, $event)"
+                      [size]="size ? size : 'lg'"
+                    ></app-general-link-field>
+                  </div>
+                }
+                @case ('Droplist') {
+                  <div class="drop-list" [class.disabled]="!field.access.canWrite">
+                    @if (field.templateField.dataSource.length) {
+                      <ng-spd-droplist
+                        [selectedValue]="selectedDropListItem(field)"
+                        (selectedValueChange)="saveWithoutDebounce(field, { rawValue: $event })"
+                        (scrolledToBottom)="fetchNextDatasourceBatch(field)"
+                        [customWidth]="300"
+                        [reversedMode]="true"
+                        [size]="size ? size : 'lg'"
+                      >
+                        <ng-template
+                          ngSpdDroplistItem
+                          *ngFor="let item of field.templateField.dataSource"
+                          [value]="item.displayName"
+                        >
+                          {{ item.displayName }}
+                        </ng-template>
+                      </ng-spd-droplist>
+                    } @else {
+                      <ng-spd-droplist
+                        [templateType]="'custom'"
+                        [customWidth]="300"
+                        [reversedMode]="true"
+                        [size]="size ? size : 'lg'"
+                      >
+                        <div class="p-sm pt-0">
+                          <div class="m-sm">{{ 'EDITOR.DATA_VIEW.NO_DATASOURCE_ITEMS' | translate }}</div>
+                        </div>
+                      </ng-spd-droplist>
+                    }
+                  </div>
+                }
+                @case ('Checklist') {
+                  <div class="drop-list" [class.disabled]="!field.access.canWrite">
+                    <ng-container *ngTemplateOutlet="checkBoxTemplateRef; context: { field }"></ng-container>
+                  </div>
+                }
+                @case ('Multilist') {
+                  <div class="drop-list" [class.disabled]="!field.access.canWrite">
+                    <app-multilist-field
+                      [field]="field"
+                      [currentValue]="field.value.rawValue"
+                      [rearrangeItemTemplate]="rearrangeItemTempRef"
+                      (selectedItemChange)="saveWithDebounce(field, $event)"
+                      (resetToStandardValue)="resetToStandardValue(field)"
+                      (toggleRearrangeItems)="mappedSelectedItemsList = $event"
+                      (fetchNextDatasourceBatch)="fetchNextDatasourceBatch(field)"
+                    >
+                    </app-multilist-field>
+                  </div>
+                }
+                @case ('Multiroot Treelist') {
+                  <ng-container *ngTemplateOutlet="treeListTemplateRef; context: { field }"></ng-container>
+                }
+                @case ('Treelist') {
+                  <ng-container *ngTemplateOutlet="treeListTemplateRef; context: { field }"></ng-container>
+                }
+                @case ('Taglist') {
+                  <div class="drop-list">
+                    <ng-container *ngTemplateOutlet="treeListTemplateRef; context: { field }"></ng-container>
+                  </div>
+                }
+                @case ('Image') {
+                  <app-image-field
+                    [rawValue]="field.value.rawValue"
+                    [field]="field"
+                    (resetToStandardValue)="resetToStandardValue(field)"
+                    (selectedItemChange)="saveWithoutDebounce(field, $event)"
+                    (imageAltTextChange)="saveWithDebounce(field, $event)"
+                    [class.disabled]="!field.access.canWrite"
+                    [size]="size ? size : 'lg'"
+                  ></app-image-field>
+                }
+                @case ('File') {
+                  <app-file-field
+                    [rawValue]="field.value.rawValue"
+                    [dataSources]="field.templateField.dataSource"
+                    (selectedItemChange)="saveWithoutDebounce(field, $event)"
+                    [class.disabled]="!field.access.canWrite"
+                  ></app-file-field>
+                }
+                @case ('Rich Text') {
+                  <app-rich-text-field
+                    [field]="field"
+                    [currentValue]="field.value.rawValue"
+                    [isInlineEditing]="mode === 'pageItem'"
+                    (valueChange)="saveWithoutDebounce(field, $event)"
+                    (fieldBlur)="saveWithoutDebounce(field, $event)"
+                    [class.disabled]="!field.access.canWrite"
+                  >
+                  </app-rich-text-field>
+                }
+                @case ('Single-Line Text') {
+                  <input
+                    ngSpdInput
+                    #textModel="ngModel"
+                    class="input-fields"
+                    [(ngModel)]="field.value.rawValue"
+                    (input)="onInputChange(textModel, field, true)"
+                    (blur)="onInputChange(textModel, field, false)"
+                    [isInvalid]="!isFieldValid(field)"
+                    [class.disabled]="!field.access.canWrite"
+                    [size]="size ? size : 'lg'"
+                  />
+                }
+                @case ('Number') {
+                  <ng-container *ngTemplateOutlet="numericalTemplateRef; context: { field: field }"></ng-container>
+                }
+                @case ('Integer') {
+                  <ng-container *ngTemplateOutlet="numericalTemplateRef; context: { field: field }"></ng-container>
+                }
+                @case ('Checkbox') {
+                  <ng-container *ngTemplateOutlet="checkBoxTemplateRef; context: { field }"></ng-container>
+                }
+                @case ('Date') {
+                  <app-datetime-field
+                    [fieldInputState]="{
+                      fieldType: field.templateField.type,
+                      rawValue: field.value.rawValue,
+                    }"
+                    (valueChange)="saveWithoutDebounce(field, $event)"
+                    [class.disabled]="!field.access.canWrite"
+                    [size]="size ? size : 'lg'"
+                  ></app-datetime-field>
+                }
+                @case ('Datetime') {
+                  <app-datetime-field
+                    [fieldInputState]="{
+                      fieldType: field.templateField.type,
+                      rawValue: field.value.rawValue,
+                    }"
+                    (valueChange)="saveWithoutDebounce(field, $event)"
+                    [class.disabled]="!field.access.canWrite"
+                    [size]="size ? size : 'lg'"
+                  ></app-datetime-field>
+                }
+                @case ('Droptree') {
+                  <div class="drop-list">
+                    <app-droptree-field
+                      [field]="field"
+                      [currentValue]="field.value.rawValue"
+                      (selectedValueChange)="saveWithoutDebounce(field, $event)"
+                      [class.disabled]="!field.access.canWrite"
+                      [size]="size ? size : 'lg'"
+                    ></app-droptree-field>
+                  </div>
+                }
+                @case ('Grouped Droplink') {
+                  <div class="drop-list">
+                    <app-grouped-droplink-field
+                      [field]="field"
+                      [currentValue]="field.value.rawValue"
+                      (selectedValueChange)="saveWithDebounce(field, $event)"
+                      (resetToStandardValue)="resetToStandardValue(field)"
+                      [class.disabled]="!field.access.canWrite"
+                      [size]="size ? size : 'lg'"
+                    ></app-grouped-droplink-field>
+                  </div>
+                }
+                @case ('Grouped Droplist') {
+                  <div class="drop-list">
+                    <app-grouped-droplist-field
+                      [field]="field"
+                      [currentValue]="field.value.rawValue"
+                      (selectedValueChange)="saveWithDebounce(field, $event)"
+                      (resetToStandardValue)="resetToStandardValue(field)"
+                      [class.disabled]="!field.access.canWrite"
+                      [size]="size ? size : 'lg'"
+                    ></app-grouped-droplist-field>
+                  </div>
+                }
+                @case ('TreelistEx') {
+                  <app-treelistex-field
+                    [field]="field"
+                    [currentValue]="field.value.rawValue"
+                    [datasourcesCount]="field.templateField.dataSource.length"
+                    (selectedValueChange)="saveWithDebounce(field, $event)"
+                    (resetToStandardValue)="resetToStandardValue(field)"
+                    (fetchNextDatasourceBatch)="fetchNextDatasourceBatch(field)"
+                    (toggleRearrangeItems)="mappedSelectedItemsList = $event"
+                    [class.disabled]="!field.access.canWrite"
+                    [rearrangeItemTemplate]="rearrangeItemTempRef"
+                  >
+                  </app-treelistex-field>
+                }
+                @default {
+                  <textarea
+                    ngSpdInput
+                    #textModel="ngModel"
+                    class="editable-fields"
+                    [(ngModel)]="field.value.rawValue"
+                    (input)="onInputChange(textModel, field, true)"
+                    (blur)="onInputChange(textModel, field, false)"
+                    [isInvalid]="!isFieldValid(field)"
+                    [class.disabled]="!field.access.canWrite"
+                  ></textarea>
+                }
+              }
+              @if (field.value.rawValue && field.validation.length) {
+                @for (validation of field.validation; track validation.message) {
+                  <div class="mt-xs error-message"
+                       [class.error-message]="!(validation.result === itemValidationResult.Warning || validation.result === itemValidationResult.Suggestion)"
+                       [class.warning-message]="validation.result === itemValidationResult.Warning || validation.result === itemValidationResult.Suggestion">
+                    {{ validation.message }}
+                  </div>
+                }
+              }
+            </div>
+          }
+        }
+      </ng-spd-accordion-content>
+    </ng-spd-accordion>
+  </div>
+  <button
+    ngSpdButton="basic"
+    class="open-in-content-editor-button"
+    [icon]="'open-in-new'"
+    [iconPosition]="'right'"
+    (click)="openItemInContentEditor()"
+  >
+    {{ 'EDITOR.OPEN_IN_CONTENT_EDITOR' | translate }}
+  </button>
+} @else {
+  <ng-spd-loading-indicator class="mt-l"></ng-spd-loading-indicator>
+}
+
+<ng-template #treeListTemplateRef let-field="field">
+  <div class="drop-list" [class.disabled]="!field.access.canWrite">
+    <app-treelist-type-field
+      [field]="field"
+      [currentValue]="field.value.rawValue"
+      [datasourcesCount]="field.templateField.dataSource.length"
+      [rearrangeItemTemplate]="rearrangeItemTempRef"
+      (selectedValueChange)="saveWithDebounce(field, $event)"
+      (toggleRearrangeItems)="mappedSelectedItemsList = $event"
+      (resetToStandardValue)="resetToStandardValue(field)"
+      (fetchNextDatasourceBatch)="fetchNextDatasourceBatch(field)"
+      [size]="size ? size : 'lg'"
+    >
+    </app-treelist-type-field>
+  </div>
+</ng-template>
+
+<ng-template #checkBoxTemplateRef let-field="field">
+  <app-checkbox-checklist-field
+    [field]="field"
+    [selectedValues]="field.value.rawValue"
+    (selectedItemChange)="saveWithDebounce(field, $event)"
+    [class.disabled]="!field.access.canWrite"
+    [size]="size ? size : 'lg'"
+    (fetchNextDatasourcePage)="fetchNextDatasourceBatch(field)"
+  ></app-checkbox-checklist-field>
+</ng-template>
+
+<ng-template #numericalTemplateRef let-field="field">
+  <app-numerical-field
+    [field]="field"
+    [currentValue]="field.value.rawValue"
+    (valueChange)="saveWithDebounce(field, $event)"
+    (fieldBlur)="saveWithoutDebounce(field, $event)"
+    [class.disabled]="!field.access.canWrite"
+    [size]="size ? size : 'lg'"
+  ></app-numerical-field>
+</ng-template>
+
+<ng-template #rearrangeItemTempRef let-field="field">
+  <div mappedSelectedLists class="data-view-list-dialog">
+    @for (selection of mappedSelectedItemsList; track selection.itemId; let index = $index) {
+      <div
+        class="selection"
+        [class.dragging]="index === this.draggingIndex"
+        [draggable]="true"
+        (dragstart)="onDragStart($event, index)"
+        (dragenter)="onDragEnter($event)"
+        (dragover)="onDragOver($event, index)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event, field)"
+        (dragend)="onDragEnd($event)"
+      >
+        <button
+          ngSpdIconButton
+          class="context-tree-drag-button"
+          [title]="'EDITOR.DRAG_TO_REARRANGE' | translate"
+          [icon]="'drag-vertical'"
+        ></button>
+        <span>{{ selection.displayName }}</span>
+      </div>
+    }
+  </div>
+</ng-template>

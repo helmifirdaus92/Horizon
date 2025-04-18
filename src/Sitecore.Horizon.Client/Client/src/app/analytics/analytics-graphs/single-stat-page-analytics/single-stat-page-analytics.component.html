@@ -1,0 +1,59 @@
+<!-- Visitors count -->
+<ng-spd-card [disabled]="disabled" [background]="isSecondVariant ? 'secondary' : 'primary'">
+  <ng-spd-card-header
+    *ngIf="!isSecondVariant"
+    [title]="'ANALYTICS.PAGE_ANALYTICS.TITLES.VISITORS' | translate"
+    [tooltipText]="'ANALYTICS.PAGE_ANALYTICS.DESCRIPTIONS.VISITORS' | translate"
+    [hasBackground]="true"
+  ></ng-spd-card-header>
+  <ng-spd-trend
+    *ngIf="!isLoading"
+    [mainValue]="sessionCountData.mainValue"
+    [directionalValue]="sessionCountData.trendValue"
+    [trend]="sessionCountData.trend"
+  ></ng-spd-trend>
+
+  <div class="loading" *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+</ng-spd-card>
+
+<!-- Avg. Page view count -->
+<ng-spd-card [disabled]="disabled" [background]="isSecondVariant ? 'secondary' : 'primary'">
+  <ng-spd-card-header
+    *ngIf="!isSecondVariant"
+    [title]="'ANALYTICS.PAGE_ANALYTICS.TITLES.AVG_PAGE_VIEWS' | translate"
+    [tooltipText]="'ANALYTICS.PAGE_ANALYTICS.DESCRIPTIONS.AVG_TIME_ON_PAGE' | translate"
+    [hasBackground]="true"
+  ></ng-spd-card-header>
+  <ng-spd-trend
+    *ngIf="!isLoading"
+    [mainValue]="avgPageViewCountData.mainValue"
+    [directionalValue]="avgPageViewCountData.trendValue"
+    [trend]="avgPageViewCountData.trend"
+  ></ng-spd-trend>
+
+  <div class="loading" *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+</ng-spd-card>
+
+<!-- Views per session count -->
+<ng-spd-card [disabled]="disabled" [background]="isSecondVariant ? 'secondary' : 'primary'">
+  <ng-spd-card-header
+    *ngIf="!isSecondVariant"
+    [title]="'ANALYTICS.PAGE_ANALYTICS.TITLES.VIEWS' | translate"
+    [tooltipText]="'ANALYTICS.PAGE_ANALYTICS.DESCRIPTIONS.VIEWS' | translate"
+    [hasBackground]="true"
+  ></ng-spd-card-header>
+  <ng-spd-trend
+    *ngIf="!isLoading"
+    [mainValue]="pageVariantVisitorsCountData.mainValue"
+    [directionalValue]="pageVariantVisitorsCountData.trendValue"
+    [trend]="pageVariantVisitorsCountData.trend"
+  ></ng-spd-trend>
+
+  <div class="loading" *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+</ng-spd-card>

@@ -1,0 +1,43 @@
+<div class="rename-item-component m-sm mb-l">
+  <label for="itemName" ngSpdLabel>{{ 'EDITOR.RENAME.ITEM_NAME' | translate }}</label>
+  <input
+    ngSpdInput
+    id="itemName"
+    name="itemName"
+    [(ngModel)]="itemName"
+    [placeholder]="'EDITOR.RENAME.ITEM_NAME' | translate"
+    (blur)="triggerRename()"
+    [disabled]="!canRename || isStartItem() || (isLocked && !isLockedByCurrentUser)"
+    [title]="
+      canDelete
+        ? isLocked && !isLockedByCurrentUser
+          ? ('EDITOR.RENAME.ERRORS.ITEM_IS_LOCKED' | translate)
+          : isStartItem()
+            ? ('EDITOR.RENAME.START_ITEM' | translate)
+            : ''
+        : ('EDITOR.RENAME.ERRORS.INSUFFICIENT_PRIVILEGES' | translate)
+    "
+  />
+  <p class="description">{{ 'EDITOR.RENAME.ITEM_NAME_LEGEND' | translate }}</p>
+
+  <label for="displayName" class="mt-md" ngSpdLabel>{{ 'EDITOR.RENAME.DISPLAY_NAME' | translate }}</label>
+  <input
+    ngSpdInput
+    id="displayName"
+    name="displayName"
+    [(ngModel)]="displayName"
+    [placeholder]="'EDITOR.RENAME.DISPLAY_NAME' | translate"
+    (blur)="triggerRename()"
+    [disabled]="!canRename || !canEditDisplayName || isStartItem() || (isLocked && !isLockedByCurrentUser)"
+    [title]="
+      canDelete
+        ? isLocked && !isLockedByCurrentUser
+          ? ('EDITOR.RENAME.ERRORS.ITEM_IS_LOCKED' | translate)
+          : isStartItem()
+            ? ('EDITOR.RENAME.START_ITEM' | translate)
+            : ''
+        : ('EDITOR.RENAME.ERRORS.INSUFFICIENT_PRIVILEGES' | translate)
+    "
+  />
+  <p class="description">{{ 'EDITOR.RENAME.DISPLAY_NAME_LEGEND' | translate }}</p>
+</div>

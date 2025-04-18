@@ -1,0 +1,42 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  .sitetype-description {
+    @include subtle-text;
+    margin: 0 0 $padding 0;
+  }
+
+  .partial-design {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .partial-design-heading {
+    margin: 0 $padding;
+  }
+
+  .partial-design-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin: $padding-small 0;
+  }
+
+  .partial-design-card-actions button {
+    margin-right: $padding-x-small;
+  }
+
+  @include page-designs;
+}
+
+.search {
+  padding-inline: $padding-x-large;
+  max-width: $pane-min-width;
+}
+
+i.mdi {
+  margin-right: $padding-small;
+}
+
+@include customized-scrollbar;

@@ -1,0 +1,63 @@
+@import '_palette-colors.scss';
+// Maximum zIndex value is 2147483638
+// Use huge value to ensure that we don't overlap with user defined z-indexes.
+$horizon-z-index-base: 2100000000;
+$horizon-zIndex-frame: $horizon-z-index-base + 1;
+$horizon-zIndex-dropZone: $horizon-z-index-base + 2;
+$horizon-zIndex-dropMarkerLine: $horizon-z-index-base + 3;
+$horizon-zIndex-elementOutline: $horizon-z-index-base + 10;
+$horizon-zIndex-elementOutline-focused: $horizon-zIndex-elementOutline + 1;
+$horizon-zIndex-designingOverlay: $horizon-zIndex-elementOutline-focused + 1;
+$horizon-zIndex-editorToolbar: $horizon-zIndex-designingOverlay + 1;
+
+// Color variables corresponding to values in the spd
+$brand-ui-white: $ui-white-alpha-900;
+$brand-primary-light: $ui-primary-400;
+$brand-primary-selected: $ui-purple-100;
+$brand-primary-default: $ui-purple-500;
+$brand-framework-default: $base-framework-color;
+$brand-primary-xx-light: $ui-purple-600;
+$brand-primary-x-dark: $ui-purple-500;
+$brand-ui-black: $ui-black-alpha-900;
+$brand-ab-test: #0873c8;
+$brand-personalization: $base-C09-color;
+$brand-personalization-edited: $ui-yellow-300;
+$brand-personalization-edited-logo: $ui-gray-800;
+$color-deemphasize: $ui-gray-500;
+$brand-signal-error: $base-error-color;
+$color-inverse: $ui-white-alpha-900;
+
+// Border variables corresponding to values in the spd
+$border-xx-small: 2px;
+$border-radius-small: 4px;
+$border-radius: 3px;
+$border: 1px solid $ui-gray-300;
+$box-shadow: 0px 3px 8px 0px rgba($ui-gray-900, 0.15);
+
+// Spacing variables corresponding to values in the spd
+$padding-x-large: 40px;
+$padding-large: 30px;
+$padding: 20px;
+$padding-small: 10px;
+$padding-x-small: 5px;
+$padding-xx-small: 2px;
+
+// Sizing variables corresponding to values in the spd
+$generic-header-height: 50px;
+$generic-element-height: 40px;
+$icon-width: 24px;
+
+// Font variables corresponding to values in the spd
+$font-weight-regular: 400;
+$font-weight-medium: 540;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+$font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+// Opacity
+$hover-opacity: 0.6;
+$disabled-opacity: 0.3;
+
+// Animation
+$animation-speed-fast: 0.125s;
+$animation-easing: ease-in-out;

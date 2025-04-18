@@ -1,0 +1,336 @@
+{
+  "COMMON": {
+    "CANCEL": "キャンセル",
+    "CREATE": "作成",
+    "CREATE_NEW": "新規作成",
+    "MENU": "メニュー",
+    "RENAME": "名前を変更",
+    "DUPLICATE": "複製",
+    "REMOVE": "削除",
+    "DELETE": "削除"
+  },
+  "EXTENSIONS": {
+    "SECTIONS": {
+      "DETAILS": "詳細"
+    }
+  },
+  "ERRORS": {
+    "OPERATION_GENERIC": "エラーが発生したため、操作が完了できませんでした。",
+    "ITEM_NOT_FOUND": "アイテムが移動または削除されました。 F5キーを押して画面を更新します。",
+    "CONTEXT_COERCED": "要求されたアイテムは表示できません。 アイテムが存在していないか、それを表示する権限がありません。",
+    "CONTEXT_NOT_FOUND": "ページが正しく読み込まれませんでした。 ページを更新してください。 エラーが再発する場合は、システム管理者に連絡してください。"
+  },
+  "DEVICE": {
+    "PHONE": "電話",
+    "TABLET": "タブレット",
+    "DESKTOP": "デスクトップ",
+    "ALL": "すべてのデバイス",
+    "ROTATE": "回転"
+  },
+  "NAV": {
+    "MAIN": "メイン",
+    "WORKSPACE": "ワークスペース",
+    "EDITOR": "ページエディタ",
+    "PAGES": "ページ",
+    "LAUNCHPAD": "Launchpad",
+    "HELP": "ヘルプ",
+    "UNDO": "元に戻す",
+    "REDO": "やり直し",
+    "EXPAND": "拡張",
+    "COLLAPSE": "折りたたむ",
+    "METADATA": "メタデータ",
+    "GO_BACK": "戻る"
+  },
+  "EDITOR": {
+    "ADD_TO_PAGE": "ページに追加",
+    "CREATE_PAGE": "ページを作成",
+    "CREATE_NEW": "新規作成",
+    "CREATE_FOLDER": "フォルダを作成",
+    "CREATE_PAGE_ON_SAME_LEVEL": "同じレベルでページを作成",
+    "ITEM_ALREADY_DEFINED_ON_THIS_LEVEL": "このレベルにはすでに'{{name}}'アイテムが存在します。 同じレベルの同じ名前のアイテムが2つ存在することはできません。",
+    "CREATE_ITEM_NOT_VALID_NAME": "'{{name}}' は有効な名前ではありません。",
+    "CREATE_PAGE_FAILED": "'{{name}}'ページを作成できません。",
+    "CREATE_FOLDER_FAILED": "'{{name}}'フォルダを作成できません。",
+    "CREATE_ITEM_FAILED": "'{{name}}'アイテムを作成できません。",
+    "CREATE_PAGE_EMPTY_NAME": "ページ名は空にできません。",
+    "CREATE_FOLDER_EMPTY_NAME": "フォルダ名は空にできません。",
+    "CREATED_BY": "作成したユーザー：",
+    "CREATED_AT": "作成済み",
+    "ITEM_NAME": "アイテム名",
+    "DELETE": "削除",
+    "DETAILS": "詳細",
+    "UNKNOWNSECTION": "不明",
+    "UNCATEGORISED": "未分類",
+    "PLACEHOLDER_DETAILS": "プレースホルダの詳細",
+    "PLACEHOLDER_KEY": "プレースホルダキー",
+    "ITEM_ID": "商品ID",
+    "ITEM_PATH": "アイテムパス",
+    "NEW_PAGE": "新しいページ",
+    "NEW_FOLDER": "新しいフォルダ",
+    "NO_INSERT_OPTIONS": "親アイテムに対して挿入オプションが設定されていません。",
+    "ALL_PAGES": "すべてのページ",
+    "TEMPLATE_PATH": "テンプレートパス",
+    "COMPONENTS": "コンポーネント",
+    "RENDERING_INSERT_FAILED": "エラーが発生したため、レンダリングはページに追加されませんでした。 レンダリングを再度追加してください。",
+    "CONTENT_TREE": {
+      "TITLE": "サイトツリー",
+      "MOVE_ITEM_ERROR": "コンテンツツリー内の'{{name}}'アイテムを移動中にエラーが発生しました。",
+      "MOVE_ITEM_INTO_SUCCESS": "{{movedItemName}}を{{targetItemName}}内に配置しました。",
+      "MOVE_ITEM_BEFORE_SUCCESS": "{{movedItemName}}を{{targetItemName}}上部に配置しました。",
+      "MOVE_ITEM_AFTER_SUCCESS": "{{movedItemName}}を{{targetItemName}}下部に配置しました。"
+    },
+    "SAVE": {
+      "PROGRESS": "保存中",
+      "COMPLETE": "保存場所 {{datetime}}",
+      "ERRORS": {
+        "ERROR_AFTER_NAV": "自動保存中にエラーが発生しました。 別のページを開く前に、変更がすべて保存されていることを確認してください。",
+        "ERROR_AFTER_NAV_ACTION": "戻る",
+        "BASE_TEMPLATE_WAS_CHANGED": "現在のテンプレートから1つ以上のベーステンプレートを削除しようとしています。\n\nベーステンプレートを削除すると、サイトコアは現在のテンプレートに基づいてすべてのアイテムを更新し、削除したベーステンプレートのフィールドに関連するこれらのアイテムのフィールド値をクリアします。 これらのフィールド値は、削除した後は復元できません。\n\n続行しますか？",
+        "CHANGED_UNVERSIONED_OR_SHARED_FLAG": "バージョンが指定されていないフラグまたは共有フラグが変更されました。\n\nいずれかのフラグを有効にすると、バックグラウンドプロセス\r\nが開始され、このテンプレートに基づいてすべてのアイテムを更新します。\n\nこのプロセスには多くのリソースが必要になる場合があります。\n\nバージョンが指定されていないフラグまたは共有フラグのいずれかを有効にした場合、これらの\r\nフィールドの以前のバージョン値は失われます。\n\n続行してもよろしいですか？",
+        "DATASOURCE_MODIFIED_BY_ANOTHER_USER": "ページまたは関連するコンテンツが別のユーザーによって変更されています。 変更を保存できません。 ページを再読み込みして、変更を破棄しますか？",
+        "INCORRECT_CLONE_SOURCE": "クローンソースの値が正しくありません。 「__Source Item」値（「アドバンスト」セクション）を修正して続行してください。",
+        "INTERNAL_ERROR": "内部サーバーエラーです。",
+        "ITEM_IS_PROTECTED": "アイテムが保護されているため、アイテムを編集できません。",
+        "ITEM_LOCKED_BY_ANOTHER_USER": "対応するコンテンツが別のユーザーによってロックされているため、変更を保存できません。",
+        "ITEM_SHOULD_BE_LOCKED_BEFORE_EDIT": "現在のユーザーによってロックされていないため、アイテムを保存できません。",
+        "NO_WRITE_ACCESS": "書き込み権がないため、アイテムを編集できません。",
+        "PAGE_DOES_NOT_EXIST": "ページが存在しません。 変更を保存できません。 ページを再読み込みして、変更を破棄しますか？",
+        "PAGE_VERSION_DOES_NOT_EXIST": "ページバージョンが存在しません。 変更を保存できません。 ページを再読み込みして、変更を破棄しますか？",
+        "PAGE_WAS_MODIFIED": "このページは別のユーザーによって変更されました。 変更を保存できません。 ページを再読み込みして、変更を破棄しますか？",
+        "RELOAD_ACTION_TITLE": "再読み込み",
+        "VALIDATION_ERROR": "検証に失敗しました。",
+        "UNABLE_TO_SAVE": "変更を保存できません"
+      },
+      "NO_CHANGES": "変更なし"
+    },
+    "CHANGE_DISPLAY_NAME": {
+      "BUTTON_TEXT": "表示名を編集",
+      "ERRORS": {
+        "INSUFFICIENT_PRIVILEGES": "ページの表示名を変更する権限がありません。",
+        "ITEM_IS_LOCKED": "アイテムが別のユーザーによってロックされているため、このアイテムの表示名を変更できません。"
+      }
+    },
+    "RENDERING": {
+      "DATASOURCE": "コンテンツアイテム",
+      "NO_DATASOURCE": "コンテンツアイテムのパスを入力",
+      "BROWSE_DATASOURCE": "ブラウズ",
+      "REMOVE_RENDERING": "レンダリングを削除"
+    },
+    "IMAGE": {
+      "ADD": "追加",
+      "ADD_AN_IMAGE": "画像を追加します。",
+      "ADD_SELECTED": "選択したアイテムを追加",
+      "CHANGE": "変更",
+      "CLEAR": "クリア",
+      "PATH": "画像パス",
+      "PATH_PLACEHOLDER": "画像のパスを指定します。",
+      "NOT_FOUND": "画像が存在しません。",
+      "NOT_A_MEDIA": "アイテムが画像ではありません。",
+      "INVALID_SOURCES": "このフィールドのソースが無効です。 サイト管理者にお問い合わせください。"
+    },
+    "LINK": {
+      "LINK_TYPE": "リンクタイプ",
+      "TYPE": {
+        "EXTERNAL": "外部",
+        "INTERNAL": "内部"
+      },
+      "OPTIONAL_LABEL": "オプションパラメータ",
+      "ALT_TEXT": "リンクタイトル",
+      "TEXT": "リンク テキスト",
+      "TEXT_PLACEHOLDER": "リンクテキストを入力",
+      "ALT_TEXT_PLACEHOLDER": "リンクタイトルを入力",
+      "CREATE_OR_EDIT_LINK": "ハイパーリンクを作成または編集",
+      "OPEN_NEW_WINDOW": "新しいウィンドウで開く",
+      "TARGET": "ターゲット",
+      "CLASS": "CSSクラス",
+      "CLASS_PLACEHOLDER": "CSSクラスを入力",
+      "PATH": "パス",
+      "PATH_PLACEHOLDER": "パスを入力",
+      "URL": "URL",
+      "URL_PLACEHOLDER": "URLを入力",
+      "BROWSE_ITEM_PATH": "ブラウズ",
+      "ITEM_PATH_PLACEHOLDER": "コンテンツアイテムのパスを入力",
+      "QUERY_STRING": "URLクエリ文字列",
+      "QUERY_STRING_PLACEHOLDER": "URLクエリ文字列を入力",
+      "ANCHOR": "アンカー",
+      "ANCHOR_PLACEHOLDER": "アンカーを入力",
+      "DIALOG": {
+        "INTERNAL_LINK": "内部リンク",
+        "ADD_SELECTED": "リンクを追加"
+      }
+    },
+    "NUMBER": {
+      "VALUE_PLACEHOLDER": "数値を入力",
+      "NOT_VALID_NUMBER": "入力された値は有効な数ではありません。",
+      "NOT_VALID_VALUE_WAS_NOT_SAVED": "入力された値は有効な数ではなく、保存されませんでした。"
+    },
+    "INTEGER": {
+      "VALUE_PLACEHOLDER": "整数値を入力",
+      "NOT_VALID_INTEGER": "入力された値は有効な整数ではありません。",
+      "NOT_VALID_VALUE_WAS_NOT_SAVED": "入力された値は有効な整数ではなく、保存されませんでした。"
+    },
+    "RTE": {
+      "ALIGN": {
+        "CENTER": "中央揃え",
+        "JUSTIFY": "正当化",
+        "LEFT": "左揃え",
+        "RIGHT": "右揃え"
+      },
+      "FORMAT": {
+        "BOLD": "太字",
+        "ITALIC": "斜体",
+        "STRIKETHROUGH": "取り消し線",
+        "UNDERLINE": "下線"
+      },
+      "HEADER": {
+        "NORMAL": "ノーマル",
+        "PREFIX": "ヘッダー"
+      },
+      "INDENT": {
+        "DECREASE": "インデントを減らす",
+        "INCREASE": "インデントを増やす"
+      },
+      "LINK": {
+        "ALT_TEXT": "リンクタイトル",
+        "ALT_TEXT_PLACEHOLDER": "リンクタイトルを入力",
+        "HEADER": "リンクの詳細",
+        "CREATE_OR_EDIT_LINK": "ハイパーリンクを作成または編集",
+        "NEW_TAB": "新しいタブ/ウィンドウ",
+        "REMOVE_LINK": "リンクを削除",
+        "SAME_TAB": "同じタブ",
+        "TARGET": "ターゲット",
+        "PATH": "パス",
+        "PATH_PLACEHOLDER": "URLを入力",
+        "TEST_URL": "URLをテスト"
+      },
+      "LIST": {
+        "BULLET": "箇条書きリスト",
+        "NUMBERED": "番号付きリスト"
+      },
+      "MEDIA": {
+        "INSERT": "メディアを挿入"
+      },
+      "REMOVE_FORMATTING": "フォーマットを削除"
+    },
+    "WORKFLOW": {
+      "ACTION": "アクション",
+      "ACTION_TAKEN": "実行されたアクション",
+      "CHANGED_BY": "変更したユーザー",
+      "COMMENT": "コメント",
+      "CURRENT_STATUS": "現在の状態",
+      "ENTER_A_COMMENT": "コメントを入力",
+      "LATEST_WORKFLOW_CHANGE": "最新ワークフローの変更",
+      "NO_WORKFLOW": "ワークフローがありません",
+      "NO_ACCESS_RIGHTS_TO_PUBLISH": "このアイテムを公開する権限がありません。",
+      "PUBLISHABLE_SETTING_DISABLED": "公開可能の設定が無効になっているため、このアイテムを公開できません",
+      "PUBLISHING_RESTRICTIONS": "このアイテムには公開制限があるため、公開禁止が即時に適用されます。",
+      "PUBLISH_ITEM": "アイテムを公開",
+      "PUBLISH_ITEM_WITH_SUBITEMS": "すべてのサブアイテムでアイテムを公開",
+      "PUBLISH_FAILED": "公開が失敗しました。 もう一度やり直してください。 エラーが再発する場合は、システム管理者に連絡してください。",
+      "PUBLISH_SUCCESSFUL": "\"{{itemName}}\"アイテムが正常に公開されました。",
+      "PUBLISH_WITH_SUBITEMS_SUCCESSFUL": "\"{{itemName}}\"アイテムがサブアイテムとともに公開されました。 処理されたアイテム： {{processedItemsCount}}。",
+      "PUBLISHING": "公開中...",
+      "UPDATING_WORKFLOW_STATE": "ワークフローの状態を更新しています...",
+      "WORKFLOW": "ワークフロー",
+      "WORKFLOW_STEP": "ワークフローの状態",
+      "WARNINGS": {
+        "DATASOURCE_LOCKED_BY_ANOTHER_USER": "別のユーザーがアイテムまたは関連するコンテンツアイテムをロックしました。",
+        "ITEM_LOCKED_BY_ANOTHER_USER": "別のユーザーがコンテンツアイテムをロックしているため、変更内容を保存できません。",
+        "NO_WRITE_ACCESS": "書き込み権がないため、アイテムを編集できません。",
+        "NO_WORKFLOW_WRITE_ACCESS": "このアイテムを次のワークフローの状態に更新する権限がありません。",
+        "UNKNOWN_SERVER_ERROR": "サーバーで不明なエラーが発生しました。"
+      }
+    },
+    "ITEMS_BROWSER": {
+      "HEADER_TEXT": "コンテンツアイテムを割り当て",
+      "ASSIGN": "割り当て",
+      "CONTENT_ITEMS": "コンテンツアイテム",
+      "SELECT_TEMPLATE_TITLE": "新しいコンテンツアイテムのテンプレートを選択します",
+      "NEW_CONTENT_ITEM": "新しいコンテンツアイテム",
+      "CONTEXT_MENU": {
+        "BUTTON_LABEL": "コンテキストメニュー",
+        "CREATE_NEW": "新規作成"
+      }
+    },
+    "WORKSPACE_EMPTY": {
+      "HEADER": "ページは削除できません",
+      "DESCRIPTION": "Webサイトのレンダリングホストが設定されていません。 システム管理者にお問い合わせください。"
+    }
+  },
+
+  "MEDIA": {
+    "FILE_NAME": "ファイル名",
+    "FILE_TYPE": "ファイルタイプ",
+    "FILE_SIZE": "ファイルサイズ",
+    "DIMENSIONS": "寸法",
+    "PATH": "パス",
+    "ALT_TEXT": "代替テキスト",
+    "DETAILS_EMPTY": "プレビューするファイルを選択します。",
+    "EMPTY_FOLDER": "このフォルダにはメディアファイルがありません。",
+    "NO_SEARCH_RESULTS": "検索語句に一致する結果がありません。<br />もう一度やり直してください。",
+    "LIMIT_REACHED": "最適なパフォーマンスのために、{{limit}}件の画像を表示しています。 利用可能な画像が他にもあります。検索を絞り込むか、別のフォルダを選択してください。",
+    "SEARCH_PLACEHOLDER": "検索",
+    "ERRORS": {
+      "NOT_FOUND": "パスが無効です。",
+      "SOURCE_NOT_FOUND": "このフィールドのソースが無効です。 サイト管理者にお問い合わせください。",
+      "GENERIC": "問題が発生しました。 ダイアログを再読み込みして、もう一度やり直してください。"
+    }
+  },
+  "SITE_LANGUAGE": {
+    "NO_SITES": "サイトがありません",
+    "NO_LANGUAGES": "言語がありません",
+    "CONTEXT_LANGUAGE": "コンテキスト言語",
+    "CONTEXT_SITE": "コンテキストサイト",
+    "LANGUAGE_SWITCHER": "言語スイッチャー",
+    "SITE_SWITCHER": "サイトスイッチャー"
+  },
+  "VERSIONS": {
+    "HEADER": "バージョン",
+    "VERSION": "バージョン",
+    "NAME": "名前",
+    "UNNAMED": "名前が付けられていません",
+    "LAST_MODIFIED": "最終更新日",
+    "LAST_MODIFIED_VALUE": "{{ date }} 発行元： {{ name }}",
+    "PUBLISH_DATE": "公開日",
+    "NO_DATE": "日付がありません",
+    "VERSION_CREATED_SUCCESSFUL": "\"{{ itemName }}\"のバージョン \"{{ Version }}\"が自動的に作成されました",
+    "MENU": {
+      "DUPLICATE_ERROR": "新しいバージョンの複製中にエラーが発生しました",
+      "REMOVE_ERROR": "新しいバージョンの削除中にエラーが発生しました"
+    },
+    "LIST": {
+      "HEADER": "概要",
+      "VERSIONS": "バージョン",
+      "CREATE": "新規作成"
+    },
+    "CREATE": {
+      "HEADER": "バージョンを作成",
+      "NAME": "バージョン名",
+      "NAME_PLACEHOLDER": "バージョン名を入力",
+      "OPTIONAL": "オプション",
+      "WORKFLOW": "割り当てられたワークフローの状態",
+      "DRAFT": "下書き",
+      "ERROR": "新しいバージョンの作成中にエラーが発生しました"
+    },
+    "RENAME": {
+      "HEADER": "バージョン名の変更",
+      "NAME": "バージョン名",
+      "NAME_PLACEHOLDER": "バージョン名を入力",
+      "OPTIONAL": "オプション",
+      "WORKFLOW": "割り当てられたワークフローの状態",
+      "DRAFT": "下書き",
+      "ERROR": "バージョン名の変更中にエラーが発生しました"
+    },
+    "PUBLISHING": {
+      "MENU_LABEL": "公開をスケジュール設定する"
+    }
+  },
+  "CANVAS_TRANSLATIONS": {
+    "NO_TEXT_IN_FIELD": "[フィールドにテキストがありません]",
+    "PLACEHOLDER_EMPTY": "The {{placeholderName}} placeholder is empty. <br />Darg and drop components from the left hand side panel."
+  },
+  "DAM_TRANSLATIONS": {
+    "DOWNLOAD_LABEL": "ダウンロード",
+    "CANNOT_LOAD_IFRAME_TEXT": "DAMプロバイダーを表示できません。 ページを更新してください。 エラーが再発する場合は、システム管理者に連絡してください。"
+  }
+}

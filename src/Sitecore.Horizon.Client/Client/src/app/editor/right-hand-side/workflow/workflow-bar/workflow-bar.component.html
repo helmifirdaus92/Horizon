@@ -1,0 +1,41 @@
+<div class="loader" [class.loading]="isLoading"></div>
+<span class="workflow-state-badge mr-md" *ngIf="!!workflow">{{ workflow.displayName }}</span>
+<ng-container *ngIf="workflow && !workflow.finalState; else publishButton">
+  <span [title]="warning | translate">
+    <button
+      id="workflowActionsBtn"
+      ngSpdButton="primary"
+      [ngSpdPopover]="popoverTemplate"
+      popoverPosition="below"
+      [popoverOffset]="2"
+      [popoverShowDelay]="0"
+      [popoverHideDelay]="0"
+      [hideOnBackdropClick]="true"
+      #popoverInstance="ngSpdPopover"
+      (click)="popoverInstance.toggle(); $event.stopPropagation()"
+      [disabled]="!workflow.canEdit || workflow.commands.length === 0 || workflowInProgress"
+    >
+      <ng-container *ngIf="!workflowInProgress; else updatingText">
+        {{ 'EDITOR.WORKFLOW.ACTIONS' | translate }}
+        <span class="icon mdi mdi-arrow-down ml-xs workflow-actions-button-icon"></span>
+      </ng-container>
+      <ng-template #updatingText>{{ 'EDITOR.WORKFLOW.UPDATING' | translate }}</ng-template>
+    </button>
+  </span>
+</ng-container>
+
+<ng-template #publishButton>
+  <app-publish-button></app-publish-button>
+</ng-template>
+
+<ng-template #popoverTemplate let-popoverRef>
+  <ng-spd-list>
+    <button
+      *ngFor="let command of workflow?.commands ?? []"
+      ngSpdListItem
+      (click)="executeCommand(command); popoverRef.hide()"
+    >
+      {{ command.displayName }}
+    </button>
+  </ng-spd-list>
+</ng-template>

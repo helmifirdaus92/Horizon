@@ -1,0 +1,121 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+@import 'ckeditor5/ckeditor5.css';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.data-view-wrapper {
+  .editable-fields {
+    outline: none;
+    overflow: auto;
+    padding: $padding-small !important; // override textarea default padding
+    box-sizing: border-box;
+    line-height: 150%;
+    font-weight: $font-weight-regular;
+    min-height: 80px;
+    max-width: 100%;
+    height: auto;
+    font-family: $font;
+  }
+
+  .error-message {
+    color: $brand-signal-error;
+  }
+
+  .warning-message {
+    color: $brand-signal-warning;
+  }
+
+  .checklist-options {
+    padding: $padding;
+    box-sizing: border-box;
+  }
+}
+
+.data-view-list-dialog {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: $padding-x-small;
+
+  .selection {
+    display: flex;
+    align-items: center;
+    gap: $padding-x-small;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    &.placeholder,
+    &:has(.placeholder) {
+      border: 1px dashed $brand-charcoal-light;
+      background-color: $brand-framework-bg-active;
+      div {
+        display: none;
+      }
+    }
+  }
+
+  .dragging {
+    opacity: 0.5;
+  }
+}
+
+app-rich-text-field {
+  display: block;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+
+  .left-content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-9xs;
+    align-items: flex-start;
+  }
+
+  .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: $font-size-14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.66);
+  }
+
+  .tag {
+    font-weight: $font-weight-bold !important;
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.left-content:has(.tag) + .right {
+  align-self: flex-end;
+}
+
+.left-content:not(:has(.tag)) + .right {
+  align-self: flex-start;
+}
+
+.open-in-content-editor-button {
+  margin: $padding;
+  max-width: 200px;
+}

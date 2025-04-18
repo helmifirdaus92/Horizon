@@ -1,0 +1,5 @@
+/*
+!package.json
+!/dist/
+*.spec.d.ts
+*.spec.js

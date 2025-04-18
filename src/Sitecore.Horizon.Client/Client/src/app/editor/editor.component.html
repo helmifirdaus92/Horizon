@@ -1,0 +1,11 @@
+<div class="app-editor-wrapper" (click)="deselectChrome()"></div>
+
+<app-editor-header class="px-sm"></app-editor-header>
+
+<div class="editor-main">
+  <app-lhs-panel *ngIf="(activeNavigation$ | async) === 'editor'"></app-lhs-panel>
+
+  <app-editor-workspace [canvasLoading$]="canvasLoading$" [iframeUrl$]="editorUrl$"></app-editor-workspace>
+</div>
+
+<app-local-dev-settings *ngIf="isLocalDevelopmentMode"></app-local-dev-settings>

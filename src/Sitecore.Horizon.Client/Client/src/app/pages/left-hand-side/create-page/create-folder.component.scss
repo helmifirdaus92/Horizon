@@ -1,0 +1,19 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+:host {
+  @include lhs-overlay;
+}
+
+ng-spd-slide-in-panel-content {
+  padding: $padding 0;
+}
+
+i.mdi {
+  margin-right: $padding-small;
+}
+
+ng-spd-inline-notification {
+  margin: 0 $padding;
+  width: auto;
+}

@@ -1,0 +1,9 @@
+{
+  "msbuild-sdks": {
+    "Sitecore.Framework.Runtime.Build": "3.0.0"
+  },
+  "sdk": {
+    "version": "6.0.100",
+    "rollForward": "latestFeature"
+  }
+}

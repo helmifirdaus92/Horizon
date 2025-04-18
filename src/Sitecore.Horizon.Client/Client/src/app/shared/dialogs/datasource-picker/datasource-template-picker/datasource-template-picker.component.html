@@ -1,0 +1,22 @@
+<ng-spd-slide-in-panel>
+  <ng-spd-slide-in-panel-header (back)="close()">{{
+    'EDITOR.ITEMS_BROWSER.SELECT_TEMPLATE_TITLE' | translate
+  }}</ng-spd-slide-in-panel-header>
+
+  <ng-spd-slide-in-panel-content>
+    <div class="list">
+      <ng-spd-list>
+        <button *ngFor="let option of insertOptions$ | async" ngSpdListItem (click)="select(option)">
+          <i class="mdi normal mdi-view-compact-outline"></i>
+          {{ option.displayName }}</button
+        >
+      </ng-spd-list>
+    </div>
+    <ng-spd-inline-notification
+      *ngIf="(insertOptions$ | async) && (insertOptions$ | async)?.length === 0"
+      [text]="'EDITOR.NO_INSERT_OPTIONS' | translate"
+    >
+    </ng-spd-inline-notification>
+    <ng-spd-loading-indicator *ngIf="isLoading"></ng-spd-loading-indicator>
+  </ng-spd-slide-in-panel-content>
+</ng-spd-slide-in-panel>

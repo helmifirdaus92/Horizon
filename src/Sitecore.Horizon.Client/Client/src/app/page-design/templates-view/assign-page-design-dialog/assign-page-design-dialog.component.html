@@ -1,0 +1,91 @@
+<ng-spd-dialog-panel (keyup.enter)="assignPageDesign()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>{{ templateName }} </ng-spd-dialog-header>
+
+  <span class="sub-header">{{ 'PAGE_DESIGNS.WORKSPACE.ASSIGN_PAGE_DESIGN_TEXT' | translate }}</span>
+  <div class="dialog-body">
+    <div class="left-container pt-l pb-xl">
+      <app-item-details
+        [displayName]="(selectedPageDesign$ | async)?.displayName"
+        [createdDate]="(selectedPageDesign$ | async)?.createdDate"
+        [updatedDate]="(selectedPageDesign$ | async)?.updatedDate"
+        [thumbanailAltText]="(selectedPageDesign$ | async)?.displayName"
+        [thumbnailUrl]="(selectedPageDesign$ | async)?.thumbnailUrl"
+        [fallbackIcon]="'mdi-page-layout-header'"
+        [pageDesignUsedByTemplatesCount]="getPageDesignUsageCount((selectedPageDesign$ | async)?.itemId)"
+        [sourceSite]="getSourceSite(selectedPageDesign$ | async)"
+      >
+        <div ngSpdItemCardActions class="item-detail-actions">
+          <button
+            ngSpdIconButton="rounded"
+            icon="eye-outline"
+            (click)="previewSelectedPageDesign(); $event.stopPropagation()"
+          ></button>
+          <button ngSpdButton="rounded" (click)="deselectPageDesign()" id="deselect">{{
+            'PAGE_DESIGNS.WORKSPACE.DESELECT' | translate
+          }}</button>
+        </div>
+      </app-item-details>
+    </div>
+
+    <div class="right-container py-xl">
+      <ng-container *ngIf="(pageDesigns$ | async)?.length">
+        <div class="main-body" *ngIf="pageDesigns$ | async; let pageDesigns">
+          <div class="page-design-content">
+            <div class="page-design-list">
+              <ng-spd-item-card
+                *ngFor="let pageDesign of pageDesigns"
+                [cardType]="'vertical'"
+                [title]="pageDesign.name"
+                [clickable]="true"
+                (itemClick)="selectedPageDesign$.next(pageDesign)"
+                [selected]="(selectedPageDesign$ | async)?.itemId === pageDesign.itemId"
+              >
+                <div ngSpdItemCardContent class="thumbnail-container">
+                  <img
+                    *ngIf="pageDesign.thumbnailUrl"
+                    [src]="pageDesign.thumbnailUrl | cmUrl"
+                    [alt]="pageDesign.displayName"
+                    class="thumbnail-image"
+                  />
+
+                  <i *ngIf="!pageDesign.thumbnailUrl" class="mdi mdi-page-layout-header thumbnail-icon"></i>
+                </div>
+
+                <div *ngIf="(selectedPageDesign$ | async)?.itemId === pageDesign.itemId" ngSpdItemCardMainActions>
+                  <i class="mdi mdi-check-circle success-icon" pr-sm></i>
+                </div>
+
+                <div ngSpdItemCardVerticalActions class="page-design-card-actions">
+                  <button
+                    ngSpdIconButton="rounded"
+                    icon="eye"
+                    (click)="openPageDesignPreview(pageDesign.itemId); $event.stopPropagation()"
+                  ></button>
+                </div>
+              </ng-spd-item-card>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <app-empty-state
+        *ngIf="!(pageDesigns$ | async)?.length"
+        [title]="'PAGE_DESIGNS.WORKSPACE.TEMPLATES_NO_PAGE_DESIGNS' | translate"
+        [btnText]="'PAGE_DESIGNS.WORKSPACE.TEMPLATES_GO_TO_PAGE_DESIGN' | translate"
+        (btnClick)="openPageDesigns()"
+        [description]="'PAGE_DESIGNS.WORKSPACE.TEMPLATES_CREATE_PAGE_DESIGN_GUIDE' | translate"
+      ></app-empty-state>
+    </div>
+  </div>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button
+      ngSpdButton="primary"
+      [disabled]="(selectedPageDesign$ | async)?.itemId === alreadyAssignedDesignId"
+      (click)="assignPageDesign()"
+      >{{ 'COMMON.SAVE' | translate }}</button
+    >
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

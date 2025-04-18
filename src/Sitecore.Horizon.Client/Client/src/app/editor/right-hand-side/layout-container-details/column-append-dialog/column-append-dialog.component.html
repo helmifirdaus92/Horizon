@@ -1,0 +1,26 @@
+<ng-spd-dialog-panel (keyup.enter)="appendContent()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>{{ 'RHS.SUPER_LAYOUT.POPULATE_COLUMNS' | translate }}</ng-spd-dialog-header>
+
+  <div class="dialog-body">
+    <div class="action-dialog">
+      <div class="column-group">
+        <div
+          class="column"
+          *ngFor="let column of columns; let i = index"
+          [ngStyle]="{ 'background-color': getBackgroundColor(i) }"
+        >
+        </div>
+      </div>
+      <span class="description">{{ 'RHS.SUPER_LAYOUT.COLUMN_SETTINGS' | translate }}</span>
+    </div>
+  </div>
+  <ng-spd-dialog-actions>
+    <button class="delete-content" ngSpdButton="basic" (click)="removeContent()">{{
+      'RHS.SUPER_LAYOUT.DELETE_CONTENT' | translate
+    }}</button>
+    <button class="append-content" ngSpdButton="primary" (click)="appendContent()">{{
+      'RHS.SUPER_LAYOUT.APPEND_CONTENT' | translate
+    }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

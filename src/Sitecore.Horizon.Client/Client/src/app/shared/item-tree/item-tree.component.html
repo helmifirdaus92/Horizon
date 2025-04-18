@@ -1,0 +1,66 @@
+<ng-spd-tree [dataSource]="dataSource || []" [treeControl]="treeControl">
+  <ng-spd-nested-tree-node *ngSpdTreeNodeDef="let node; level as level; when: isSelectable" [title]="node.displayName">
+    <div
+      [class.hovered]="contextMenuState?.state && contextMenuState?.itemId === node.id"
+      class="node underlined-text"
+      [ngSpdTreeNodePadding]="level + initialPaddingLevel"
+      ngSpdTreeNodeSelectable
+      [attr.data-itemId]="node.id"
+      role="link"
+    >
+      <button
+        ngSpdTreeToggleButton
+        [attr.aria-label]="'toggle ' + node.displayName"
+        [attr.title]="'toggle ' + node.displayName"
+      ></button>
+      <div class="node-content" [class.node-incompatible]="!node.isCompatible && highlightIncompatibleNodes">
+        <span
+          class="mdi item-icon-normal"
+          [ngClass]="node['isRoot'] ? 'mdi-file-tree' : node.isFolder ? 'mdi-folder-outline' : 'mdi-file-outline'"
+        ></span>
+        <span
+          class="text"
+          [(ngSpdContentEditable)]="node.enableEdit"
+          (submit)="onNodeSubmit(node, $event)"
+          (cancel)="onNodeCancel()"
+          >{{ node.displayName }}</span
+        >
+      </div>
+      <div *ngIf="contextMenu" class="context-menu">
+        <ng-container [ngTemplateOutlet]="contextMenu" [ngTemplateOutletContext]="{ node }"></ng-container>
+      </div>
+    </div>
+    <div *ngIf="treeControl.isExpanded(node)" ngSpdTreeNodeOutlet>
+      <ng-spd-loading-indicator *ngIf="treeControl.isLoadingChildren(node)" [delay]="300"></ng-spd-loading-indicator>
+    </div>
+  </ng-spd-nested-tree-node>
+
+  <ng-spd-nested-tree-node *ngSpdTreeNodeDef="let node; level as level" [title]="node.displayName">
+    <div
+      class="node"
+      [ngSpdTreeNodePadding]="level + initialPaddingLevel"
+      [attr.data-itemId]="node.id"
+      role="link"
+      ngSpdTreeNodeToggle
+    >
+      <button
+        ngSpdTreeToggleButton
+        [attr.aria-label]="'toggle ' + node.displayName"
+        [attr.title]="'toggle ' + node.displayName"
+      ></button>
+      <div class="node-content" [class.node-incompatible]="!node.isCompatible && highlightIncompatibleNodes">
+        <span
+          class="mdi item-icon-normal"
+          [ngClass]="node['isRoot'] ? 'mdi-file-tree' : node.isFolder ? 'mdi-folder-outline' : 'mdi-file-outline'"
+        ></span>
+        <span class="text">{{ node.displayName }}</span>
+      </div>
+      <div *ngIf="contextMenu" class="context-menu">
+        <ng-container [ngTemplateOutlet]="contextMenu" [ngTemplateOutletContext]="{ node }"></ng-container>
+      </div>
+    </div>
+    <div *ngIf="treeControl.isExpanded(node)" ngSpdTreeNodeOutlet>
+      <ng-spd-loading-indicator *ngIf="treeControl.isLoadingChildren(node)" [delay]="300"></ng-spd-loading-indicator>
+    </div>
+  </ng-spd-nested-tree-node>
+</ng-spd-tree>

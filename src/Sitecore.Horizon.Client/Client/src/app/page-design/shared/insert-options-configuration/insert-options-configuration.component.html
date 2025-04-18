@@ -1,0 +1,91 @@
+<div class="insert-options-container">
+  <div class="description">{{
+    'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.INSERT_OPTIONS_DESCRIPTION' | translate
+  }}</div>
+
+  <ng-spd-inline-notification severity="info" class="warning-block">
+    {{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.INSERT_OPTIONS_DESCRIPTION_WARNING' | translate }}
+  </ng-spd-inline-notification>
+
+  <ng-spd-tab-group #insertOptionsTabs>
+    <button
+      ngSpdTab
+      [colorScheme]="'colored'"
+      [templateRef]="parentOf"
+      [selected]="!this.isParentOfTabDisabled"
+      [title]="'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PARENT_OF' | translate"
+      [disabled]="this.isParentOfTabDisabled"
+      class="px-sm"
+    >
+      {{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PARENT_OF' | translate }}
+    </button>
+    <button
+      ngSpdTab
+      [colorScheme]="'colored'"
+      [templateRef]="childOf"
+      [selected]="this.isParentOfTabDisabled"
+      [title]="'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.CHILD_OF' | translate"
+      class="px-sm"
+    >
+      {{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.CHILD_OF' | translate }}
+    </button>
+  </ng-spd-tab-group>
+  <ng-spd-tab-outlet [group]="insertOptionsTabs"></ng-spd-tab-outlet>
+</div>
+
+<ng-template #parentOf>
+  <div>
+    <!-- <a target="_blank" href="" class="link">{{
+      'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PARENT_OF_LINK' | translate
+    }}</a> -->
+    <div
+      [innerHTML]="
+        'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PARENT_OF_DESCRIPTION'
+          | translate: { templateName: selectedTemplate?.template?.name }
+      "
+    >
+    </div>
+  </div>
+  <div class="template-checkbox-list mt-md">
+    <ng-spd-checkbox
+      *ngFor="let item of templatesList"
+      [text]="
+        item.template.templateId === selectedTemplateId
+          ? item.template.name + '&nbsp;' + ('PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.ITSELF_TAG' | translate)
+          : item.template.name
+      "
+      [checked]="isParentOf(item.template.templateId)"
+      (checkedChange)="updateChildInsertOptions($event, item.template.templateId)"
+      [class]="{ itself: item.template.templateId === selectedTemplateId }"
+    >
+    </ng-spd-checkbox>
+  </div>
+</ng-template>
+
+<ng-template #childOf>
+  <div>
+    <!-- <a target="_blank" href="" class="link">{{
+      'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.CHILD_OF_LINK' | translate
+    }}</a> -->
+    <div
+      [innerHTML]="
+        'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.CHILD_OF_DESCRIPTION'
+          | translate: { templateName: selectedTemplate?.template?.name }
+      "
+    ></div
+  ></div>
+  <div class="template-checkbox-list mt-md">
+    <ng-spd-checkbox
+      *ngFor="let item of templatesList"
+      [text]="
+        item.template.templateId === selectedTemplateId
+          ? item.template.name + '&nbsp;' + ('PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.ITSELF_TAG' | translate)
+          : item.template.name
+      "
+      [checked]="isChildOf(item.template.templateId)"
+      [disabled]="!item.template.standardValuesItem?.access?.canWrite"
+      (checkedChange)="updateParentInsertOptions($event, item.template.templateId)"
+      [class]="{ itself: item.template.templateId === selectedTemplateId }"
+    ></ng-spd-checkbox>
+  </div>
+</ng-template>

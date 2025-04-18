@@ -1,0 +1,33 @@
+<!--
+    Upper level Directory.Build.props file is owned and controlled by BREW and cannot be modified, so we introduced this
+    additional file to control the properties at src directory level
+-->
+<Project>
+
+  <!-- Include parent Directory.Build.props, as MSBuild stops on first discovered file. -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))" Condition="Exists($([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..)))" />
+
+  <PropertyGroup>
+    <!-- CA2007: Do not directly await a Task -->
+    <!-- CA1303: Do not pass literals as localized parameters -->
+    <NoWarn>$(NoWarn);CA2007;CA1303;NU5104;NU1803;NU3037</NoWarn>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)..\Sitecore.Horizon.ruleset</CodeAnalysisRuleSet>
+
+    <!-- temp fix of BF not supporting multitargetting -->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sitecore.CodeQuality.Analyzers" PrivateAssets="All" />
+    <PackageReference Include="Sitecore.CodeAnalysis.Copyrights" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+</Project>

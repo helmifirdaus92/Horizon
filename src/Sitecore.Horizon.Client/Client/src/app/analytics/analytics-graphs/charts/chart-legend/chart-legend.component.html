@@ -1,0 +1,15 @@
+<div class="legend" (mouseleave)="clearHighlight()">
+  <div id="container">
+    <div id="col" *ngFor="let item of legendItems; let i = index; trackBy: itemTracker">
+      <div
+        class="legend-item"
+        [ngClass]="{ hovered: activeItem === item }"
+        (touchstart)="itemHighlightedHandler($event, i)"
+        (mouseenter)="itemHighlightedHandler($event, i)"
+      >
+        <div class="legend-icon" [style.backgroundColor]="palette[i]"></div>
+        <div class="legend-label">{{ formatLabel(item.name) }}</div>
+      </div>
+    </div>
+  </div>
+</div>

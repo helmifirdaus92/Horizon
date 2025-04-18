@@ -1,0 +1,14 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: block;
+}
+
+.item-language {
+  display: flex;
+  align-items: center;
+
+  .mdi {
+    transform: scale(0.6);
+  }
+}

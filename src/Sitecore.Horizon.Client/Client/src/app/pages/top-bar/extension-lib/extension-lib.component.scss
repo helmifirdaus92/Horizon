@@ -1,0 +1,43 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  display: block;
+}
+
+.logo-img {
+  height: 26px;
+  width: 26px;
+}
+
+.no-plugins-container{
+  margin: $padding;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 300px;
+  font-size: $font-size-13px;
+
+  .header {
+    font-weight: $font-weight-semi-bold;
+    font-size: $font-size-16px;
+  }
+
+  ng-spd-thumbnail {
+    margin-top: $padding;
+    margin-bottom: $padding-small;
+    height: $spacing-7xl;
+    width: $spacing-7xl;
+    position: relative;
+  }
+
+  .marketplace-link {
+    background: transparent;
+    border: none;
+    color: $brand-primary-dark;
+    font-weight: $font-weight-semi-bold;
+    cursor: pointer;
+    margin-top: $padding;
+  }
+}

@@ -1,0 +1,24 @@
+query GetChildren($path: String!, $language: String!, $site: String!) {
+  rawItem(path: $path, language: $language, site: $site) {
+    id
+    children {
+      id
+      displayName
+      hasChildren
+      isFolder
+    }
+  }
+}
+
+query GetAncestorsWithSiblings($path: String!, $language: String!, $site: String!, $roots: [String!] = null) {
+  rawItem(path: $path, language: $language, site: $site) {
+    id
+    ancestorsWithSiblings(roots: $roots) {
+      id
+      parentId
+      displayName
+      hasChildren
+      isFolder
+    }
+  }
+}

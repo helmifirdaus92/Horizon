@@ -1,0 +1,32 @@
+<ng-spd-card class="pb-xl" [disabled]="disabled">
+  <ng-spd-card-header
+    [title]="'ANALYTICS.SITE_ANALYTICS.TITLES.FIRST_PAGE' | translate"
+    [tooltipText]="'ANALYTICS.SITE_ANALYTICS.DESCRIPTIONS.FIRST_PAGE' | translate"
+    [hasBackground]="true"
+  >
+  </ng-spd-card-header>
+
+  <ng-spd-table class="pl-xl pr-xl" [loading]="!!isLoading" id="hrzSaFirstPageTableGraph">
+    <ng-spd-table-head [isSticky]="false" (sortChange)="sortChange($event)">
+      <th
+        *ngFor="let item of headers"
+        ngSpdTableSortHeader
+        [sortKey]="item.fieldName"
+        [sortDirection]="item.direction || null"
+      >
+        {{ item.label | translate }}
+      </th>
+    </ng-spd-table-head>
+    <tbody>
+      <tr *ngFor="let rowData of tableData! | sort: sortParams.direction : sortParams.fieldName">
+        <td>{{ rowData.name }}</td>
+        <td>{{ rowData.historicValue }}</td>
+        <td>{{ rowData.currentValue }}</td>
+        <td [class.trend-up]="rowData.trend === 'up'" [class.trend-down]="rowData.trend === 'down'"
+          ><span *ngIf="rowData.trend === 'up'">+</span><span *ngIf="rowData.trend === 'down'">-</span
+          >{{ rowData.trendValue }}</td
+        >
+      </tr>
+    </tbody>
+  </ng-spd-table>
+</ng-spd-card>

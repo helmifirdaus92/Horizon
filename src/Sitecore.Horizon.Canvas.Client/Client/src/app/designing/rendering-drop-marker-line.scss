@@ -1,0 +1,12 @@
+@import 'variables';
+
+.sc-rendering-drop-marker-line {
+  background: $brand-primary-default;
+
+  position: absolute;
+  z-index: $horizon-zIndex-dropMarkerLine;
+
+  &.error-state {
+    background-color: $brand-signal-error;
+  }
+}

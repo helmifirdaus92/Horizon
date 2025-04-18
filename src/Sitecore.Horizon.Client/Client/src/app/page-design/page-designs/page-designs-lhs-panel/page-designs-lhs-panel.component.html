@@ -1,0 +1,174 @@
+<div class="edit-page-desing-lhs-panel">
+  <ng-spd-tab-group #pageDesignContainerTabs>
+    <button ngSpdTab colorScheme="colored" [templateRef]="pageDesignContainer" [selected]="true" class="px-sm">
+      {{ 'PAGE_DESIGNS.LHS_PANEL.DESIGN' | translate }}
+    </button>
+    <button ngSpdTab colorScheme="colored" [templateRef]="templatesContainer" class="px-sm details-tab">
+      {{ 'EDITOR.DETAILS' | translate }}
+      <i *ngIf="!templateWithPageDesign.length" class="mdi mdi-alert-outline"></i>
+    </button>
+  </ng-spd-tab-group>
+  <div class="loading" *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+  <ng-spd-tab-outlet [group]="pageDesignContainerTabs" class="design-tabs"></ng-spd-tab-outlet>
+
+  <ng-template #pageDesignContainer>
+    <div class="p-sm">
+      <div *ngIf="selectedPartialDesignItems.length">
+        <div class="mb-md">
+          <span class="header-title"
+            >{{ 'PAGE_DESIGNS.LHS_PANEL.SELECTED_PARTIAL_DESIGNS' | translate }}
+            <i
+              class="mdi mdi-information-outline pl-sm"
+              [ngSpdTooltip]="'PAGE_DESIGNS.LHS_PANEL.SELECTED_PARTIAL_DESIGNS_TOOLTIP' | translate"
+              tooltipPosition="below"
+            ></i>
+          </span>
+        </div>
+
+        <ng-spd-item-card
+          class="selected-partial-design-item mb-sm"
+          [selected]="selectedHighlightedItem?.itemId === item.itemId"
+          [clickable]="true"
+          (click)="$event.stopPropagation(); selectHighlightedItem(item)"
+          (mouseenter)="highlightPartialDesign(item)"
+          (mouseleave)="unhighlightPartialDesign()"
+          *ngFor="let item of selectedPartialDesignItems; let index = index"
+          [class.dragging]="index === this.draggingIndex"
+          [draggable]="true"
+          (dragstart)="onDragStart($event, index)"
+          (dragenter)="onDragEnter($event)"
+          (dragover)="onDragOver($event, index)"
+          (dragleave)="onDragLeave($event)"
+          (dragend)="onDragEnd($event)"
+          (drop)="onDrop($event)"
+        >
+          <div ngSpdItemCardHeaderContent class="content-container">
+            <div class="content-left">
+              <button ngSpdIconButton icon="drag-vertical" aria-label="move item" style="cursor: pointer"></button>
+              <div class="thumbnail-container pr-sm">
+                <img
+                  *ngIf="item.thumbnailUrl"
+                  [src]="item.thumbnailUrl | cmUrl"
+                  [alt]="item.displayName"
+                  class="thumbnail-image"
+                />
+                <i *ngIf="!item.thumbnailUrl" class="mdi mdi-page-layout-header thumbnail-icon"></i>
+              </div>
+            </div>
+            <span class="item-title" title="{{ item.name }}">{{ item.name }} </span>
+          </div>
+          <div ngSpdItemCardMainActions class="action">
+            <button
+              ngSpdIconButton
+              icon="pencil-outline"
+              aria-label="edit partial"
+              (click)="editPartialDesign(item, pageDesign)"
+            ></button>
+            <button
+              ngSpdIconButton
+              icon="minus-circle-outline"
+              aria-label="remove partial"
+              (click)="removeItem(item.itemId)"
+            ></button>
+          </div>
+        </ng-spd-item-card>
+
+        <div class="divider mt-md mb-md"></div>
+      </div>
+
+      <div>
+        <div class="available-partial-designs-header mb-md">
+          <span class="header-title mb-sm"
+            >{{ 'PAGE_DESIGNS.LHS_PANEL.AVAILABLE_PARTIAL_DESIGNS' | translate }}
+            <i
+              class="mdi mdi-information-outline pl-sm"
+              [ngSpdTooltip]="'PAGE_DESIGNS.LHS_PANEL.AVAILABLE_PARTIAL_DESIGNS_TOOLTIP' | translate"
+              tooltipPosition="below"
+            ></i>
+          </span>
+          <p>{{ 'PAGE_DESIGNS.LHS_PANEL.AVAILABLE_PARTIAL_DESIGNS_DESCRIPTION' | translate }}</p>
+        </div>
+
+        <div class="search" [class.hidden]="!availablePartialDesignItems.length">
+          <ng-spd-search-input
+            [placeholder]="'COMMON.SEARCH_PLACEHOLDER' | translate"
+            [icon]="'magnify'"
+            #search
+          ></ng-spd-search-input>
+        </div>
+
+        <div class="available-partial-designs-list">
+          <ng-container
+            *ngIf="
+              availablePartialDesignItems
+                | searchBy: 'displayName' : search.searchValue as availablePartialDesignSearchResult
+            "
+          >
+            <div
+              *ngFor="let item of availablePartialDesignSearchResult; let isLast = last"
+              title="{{ item.name }}"
+              class="available-partial-design-item"
+              (click)="selectItem(item.itemId); isLast && (search.searchValue = '')"
+              (keyup)="selectItem(item.itemId)"
+            >
+              <div class="thumbnail-container">
+                <img
+                  *ngIf="item.thumbnailUrl"
+                  [src]="item.thumbnailUrl | cmUrl"
+                  [alt]="item.displayName"
+                  class="thumbnail-image"
+                />
+                <i *ngIf="!item.thumbnailUrl" class="mdi mdi-page-layout-header thumbnail-icon"></i>
+              </div>
+              <div class="item-title">{{ item.name }} </div>
+            </div>
+
+            <ng-container *ngIf="!search.searchValue && !availablePartialDesignSearchResult.length">
+              <p>{{ 'PAGE_DESIGNS.LHS_PANEL.NO_AVAILABLE_PARTIAL_DESIGNS' | translate }}</p>
+            </ng-container>
+
+            <ng-container *ngIf="search.searchValue && !availablePartialDesignSearchResult.length">
+              <app-empty-state
+                class="search-result-empty"
+                [title]="'EDITOR.NO_SEARCH_RESULTS' | translate"
+                [path]="
+                  'https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/spot-magnify-close-neutral'
+                "
+                [description]="'EDITOR.SEARCH_SUGGESTIONS' | translate"
+                [paddingTop]="20"
+              >
+              </app-empty-state>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #templatesContainer>
+    <div class="edit-page-desing-details-panel">
+      <div class="data-templates" *ngIf="templateWithPageDesign.length; else noDataTemplate">
+        <div class="data-template-title pb-sm">{{ 'PAGE_DESIGNS.LHS_PANEL.DATA_TEMPLATES' | translate }}</div>
+        <ul>
+          <li *ngFor="let item of templateWithPageDesign" class="pb-sm">{{ item.template.name }}</li>
+        </ul>
+      </div>
+      <ng-template #noDataTemplate>
+        <div class="no-data-template">
+          <div class="icon"><span class="mdi mdi-information"></span></div>
+          <div class="text">{{ 'PAGE_DESIGNS.LHS_PANEL.NO_USED_TEMPLATES' | translate }}</div>
+        </div>
+      </ng-template>
+
+      <a
+        [title]="'PAGE_DESIGNS.LHS_PANEL.GO_TO_TEMPLATES' | translate"
+        class="go-to-templates-link"
+        (click)="navigateToTemplatesView()"
+        (keyup)="navigateToTemplatesView()"
+      >
+        {{ 'PAGE_DESIGNS.LHS_PANEL.GO_TO_TEMPLATES' | translate }}
+      </a>
+    </div>
+  </ng-template>
+</div>

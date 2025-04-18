@@ -1,0 +1,62 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  position: relative;
+  display: block;
+  width: 240px;
+  min-height: $padding-x-large;
+}
+
+.loader {
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  top: $padding;
+  transform: translate(-50%, -50%);
+}
+
+.list-container {
+  display: block;
+  position: relative;
+  z-index: 1;
+  box-sizing: content-box;
+
+  .list-options {
+    padding: 0 $padding-small;
+
+    .list-items {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: $padding-x-small;
+      padding-right: $padding-small;
+      overflow: hidden;
+
+      .version-name {
+        @include text-nowrap-ellipsis;
+      }
+      .version-number {
+        min-width: fit-content;
+      }
+    }
+  }
+
+  .footer-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $padding-x-large;
+    box-sizing: content-box;
+    border-top: $framework-border;
+
+    [ngSpdButton='basic'] {
+      height: 32px;
+      color: $brand-primary-default;
+    }
+    .mdi {
+      color: $brand-primary-default;
+    }
+  }
+}

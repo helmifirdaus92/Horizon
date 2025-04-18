@@ -1,0 +1,51 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+ng-spd-slide-in-panel {
+  @include rhs-overlay;
+}
+
+.tabs {
+  display: flex;
+
+  button {
+    flex-grow: 1;
+    height: $generic-header-height;
+
+    &.active {
+      font-weight: 500;
+    }
+  }
+}
+
+.card {
+  border: $framework-border;
+  border-radius: $border-radius-small;
+  background-color: white;
+  padding: $padding-small;
+
+  & > p {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .tag {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: $padding-x-small;
+    background-color: $brand-selection-primary-bg-hover;
+    color: $brand-primary-default;
+    border-radius: 2px;
+  }
+}
+
+.color-ai-gradient {
+  .mdi {
+    color: $ai-main !important;
+  }
+}
+
+@include customized-scrollbar;

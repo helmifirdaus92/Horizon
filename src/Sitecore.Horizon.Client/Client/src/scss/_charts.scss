@@ -1,0 +1,135 @@
+@mixin spd-charts() {
+  ngx-charts-chart {
+    font-family: $font;
+    .chart-container {
+      height: 100%;
+      width: 100%;
+    }
+    .ngx-charts-outer {
+      width: 100% !important;
+      display: flex;
+      justify-content: center;
+    }
+    .ngx-charts .gridline-path {
+      stroke: $brand-framework-light;
+      stroke-width: 1px;
+      fill: none;
+      stroke-dasharray: 4 4;
+      &.gridline-path-horizontal {
+        stroke-dasharray: initial;
+      }
+    }
+  }
+
+  ng-spd-line-chart {
+    ngx-charts-line-chart {
+      ngx-charts-chart {
+        g.line-series {
+          path {
+            stroke-width: 5px !important;
+            stroke-linecap: round;
+          }
+        }
+      }
+    }
+  }
+
+  .ngx-charts .tooltip-anchor {
+    fill: $brand-framework-bg-hover !important;
+    width: 2px;
+    transform: translate(-1px, 0);
+  }
+
+  .ngx-charts-tooltip-content {
+    font-family: $font;
+    position: fixed;
+    border-radius: 3px;
+    z-index: $zindex-tooltip;
+    display: block;
+    font-weight: normal;
+    opacity: 0;
+    pointer-events: none !important;
+
+    &.type-popover {
+      background: $bg !important;
+      color: $color !important;
+      border: $border;
+      box-shadow: $box-shadow;
+      font-size: $font-size;
+      padding: $padding-small;
+    }
+
+    &.type-tooltip {
+      color: $color !important;
+      background: $bg !important;
+      font-size: $font-size !important;
+      padding: 0 $padding-small;
+      text-align: center;
+      pointer-events: auto;
+      border: $border;
+      box-shadow: $box-shadow !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 60px;
+      min-height: 40px;
+      .tooltip-caret {
+        display: none;
+      }
+      .tooltip-content {
+        padding: 10px 5px;
+        .multi-series-tooltip-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+        }
+
+        .tooltip-item-color {
+          display: inline-block;
+          height: 12px;
+          width: 12px;
+          margin-right: 5px;
+          border-radius: 6px;
+          margin-bottom: -2px;
+        }
+        .tooltip-line {
+          margin-top: 5px;
+          margin-bottom: 5px;
+        }
+
+        .tooltip-value {
+          font-weight: $font-weight-semi-bold;
+        }
+      }
+    }
+
+    .tooltip-label {
+      display: block;
+      line-height: $font-size;
+      padding: 10px 20px;
+      font-size: $font-size;
+    }
+
+    .tooltip-val {
+      display: block;
+      font-size: $font-size;
+      line-height: $font-size;
+      padding: 10px 20px;
+    }
+  }
+
+  .area-tooltip-container {
+    padding: 5px 0;
+    pointer-events: none;
+  }
+
+  .tooltip-item {
+    font-family: $font;
+    .tooltip-item-color {
+      margin-bottom: -2px !important;
+      border-radius: 6px !important;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: block;
+  box-sizing: border-box;
+  overflow-x: hidden;
+
+  // Charts have a problem with auto size adjusting when using flex or grid. So, solve it with floats.
+  .row {
+    position: relative;
+    display: block;
+    margin-left: -$padding-small;
+    margin-right: -$padding-small;
+    overflow: hidden;
+
+    .col {
+      float: left;
+      width: 50%;
+      box-sizing: border-box;
+      padding-left: $padding-small;
+      padding-right: $padding-small;
+    }
+  }
+}

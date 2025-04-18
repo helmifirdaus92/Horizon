@@ -1,0 +1,18 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.datetime-field__info-container {
+  display: flex;
+  flex-direction: column;
+  gap: $padding-xx-small;
+
+  > span {
+    color: rgba(0, 0, 0, 0.55);
+    font-size: $font-size-13px;
+  }
+}
+

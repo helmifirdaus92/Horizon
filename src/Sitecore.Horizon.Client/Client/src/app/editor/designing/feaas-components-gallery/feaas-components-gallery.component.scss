@@ -1,0 +1,89 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+$thumbnail_width: 252px;
+$transition: ease 200ms;
+
+.card-container {
+  box-sizing: border-box;
+  max-width: $thumbnail_width;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  background-color: $brand-ui-white;
+  border: $border;
+  transition: $transition;
+  overflow: hidden;
+
+  // when image is hidden by overflow (auto-scroll scenario)
+  // then drag ghost image shows parent element with all children
+  // to fix it, apply z-index
+  z-index: 1;
+
+  &:hover {
+    background-color: $brand-framework-bg-hover;
+  }
+}
+
+.card-footer {
+  padding-top: 12px;
+  display: block;
+}
+
+.card-text {
+  padding-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 120%;
+}
+
+.thumbnail-wrapper {
+  margin: 12px 12px 0;
+  position: relative;
+  display: flex;
+  height: 140px;
+  overflow: hidden;
+  background-color: $brand-ui-white;
+}
+
+.thumbnail-image {
+  width: 100%;
+}
+
+.thumbnail-image-bottom-shade {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.to-be-published-tag {
+  padding-left: 4px;
+  padding-right: 4px;
+  background-color: #fee1e1;
+  color: #822727;
+  display: inline;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-12px;
+}
+
+ng-spd-slide-in-panel {
+  @include rhs-overlay;
+}
+
+ng-spd-accordion-content,
+ng-spd-slide-in-panel-content {
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fill, $thumbnail_width);
+  justify-content: space-between;
+  align-content: start;
+}

@@ -1,0 +1,34 @@
+<div class="optimize-section">
+  <button
+    [ngSpdTooltip]="getOptimizeButtonTitle() | translate"
+    tooltipPosition="below"
+    (click)="hasStreamTenant ? openOptimizeContent() : optimizeContentPopover.show(); $event.stopPropagation()"
+    [disabled]="hasStreamTenant && !hasTextFields"
+    [ngSpdPopover]="freeStreamContent"
+    [hideOnBackdropClick]="true"
+    [popoverPosition]="'below'"
+    [popoverShowDelay]="0"
+    [popoverHideDelay]="0"
+    [popoverOffset]="2"
+    [customClass]="'optimize-content-popover'"
+    #optimizeContentPopover="ngSpdPopover"
+  >
+    <i class="mdi mdi-creation"></i>
+    {{ 'CONTENT_OPTIMIZATION.DIALOG_HEADER' | translate }}
+    <span *ngIf="!hasStreamTenant" class="ml-auto mr-sm" ngSpdBadge="purple">{{
+      'CONTENT_OPTIMIZATION.FREE' | translate
+    }}</span>
+  </button>
+</div>
+
+<ng-template #freeStreamContent>
+  <app-optimize-content-modal
+    [headerText]="'CONTENT_OPTIMIZATION.FREE_VERSION_MODAL_HEADER' | translate"
+    [description]="'CONTENT_OPTIMIZATION.FREE_VERSION_MODAL_DESCRIPTION' | translate"
+    [src]="'graphics/content-optimization-illustration.svg'"
+  >
+    <span footer class="footer-text">
+      {{ 'CONTENT_OPTIMIZATION.FREE_VERSION_MODAL_FOOTER_TEXT' | translate }}
+    </span>
+  </app-optimize-content-modal>
+</ng-template>

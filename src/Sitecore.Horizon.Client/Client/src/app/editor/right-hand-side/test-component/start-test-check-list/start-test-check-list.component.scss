@@ -1,0 +1,24 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: block;
+  padding: $padding;
+  width: 300px;
+  box-sizing: border-box;
+}
+
+.list {
+  .mdi {
+    border-radius: $border-radius-small;
+    background-color: $ui-black-alpha-100;
+  }
+  p {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: $padding-small;
+  }
+}

@@ -1,0 +1,41 @@
+<ng-spd-loading-indicator *ngIf="isLoading"></ng-spd-loading-indicator>
+<div class="media-handler">
+  <div class="search">
+    <input
+      ngSpdInput
+      class="search-input"
+      type="text"
+      [placeholder]="'COMMON.SEARCH_PLACEHOLDER' | translate"
+      ngModel
+      #searchField="ngModel"
+      (ngModelChange)="search($event)"
+      (change)="submitSearch()"
+      (keydown.esc)="$event.stopPropagation()"
+    />
+    <button
+      ngSpdIconButton
+      icon="close"
+      class="close-btn"
+      (click)="searchField.reset(''); submitSearch()"
+      (keyup)="searchField.reset(''); submitSearch()"
+      *ngIf="searchField.value"
+    ></button>
+  </div>
+  <div class="upload-controls">
+    <button ngSpdButton="outlinePrimary" class="refresh-btn mr-xxs" icon="refresh" (click)="refreshItem.emit($event)">
+      {{ 'MEDIA.UPLOAD.REFRESH' | translate }}
+    </button>
+    <input type="file" class="file-input" #fileUpload (change)="onFileUpload($event)" />
+    <button
+      ngSpdButton="outlinePrimary"
+      class="mr-md"
+      icon="tray-arrow-up"
+      (click)="fileUpload.click(); fileUpload.value = ''"
+      [disabled]="isLoading || !hasCreatePermission"
+      >{{ 'MEDIA.UPLOAD.FILES' | translate }}</button
+    >
+  </div>
+</div>
+<span class="media-count" *ngIf="totalMediaItems || totalMediaItems === 0">{{
+  'MEDIA.UPLOAD.MEDIA_FILES' | translate: { count: totalMediaItems }
+}}</span>

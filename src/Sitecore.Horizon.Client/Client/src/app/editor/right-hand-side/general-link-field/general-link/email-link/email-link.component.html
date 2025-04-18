@@ -1,0 +1,40 @@
+<div #container tabindex="0" class="email-link" (focusout)="onFocusOut($event)">
+  <div class="link-url wrapper">
+    <label ngSpdLabel for="linkUrl" class="mt-sm" [size]="size"
+      >{{ 'EDITOR.LINK.INSERT_EMAIL' | translate }}
+      <span *ngIf="!draftLink.value.url" role="presentation" class="required-indicator">*</span>
+    </label>
+
+    <input
+      #linkInputRef="ngModel"
+      ngSpdInput
+      type="text"
+      [ngModel]="draftLink.value.url"
+      (ngModelChange)="draftLink.value.url = $event.trim()"
+      [isInvalid]="!draftLink.value.url && !!linkInputRef.touched"
+      name="linkUrl"
+      autocomplete="off"
+      required
+      [size]="size"
+    />
+  </div>
+
+  <div class="link-text wrapper">
+    <label ngSpdLabel for="linkText" [size]="size"
+      >{{ 'EDITOR.LINK.TEXT' | translate }}
+      <span *ngIf="!draftLink.value.text" role="presentation" class="required-indicator">*</span>
+    </label>
+    <input
+      #textInputRef="ngModel"
+      ngSpdInput
+      type="text"
+      [ngModel]="draftLink.value.text"
+      (ngModelChange)="draftLink.value.text = $event.trim()"
+      [isInvalid]="!draftLink.value.text && !!textInputRef.touched"
+      name="linkText"
+      autocomplete="off"
+      required
+      [size]="size"
+    />
+  </div>
+</div>

@@ -1,0 +1,14 @@
+{
+    "$schema": "../.sitecore/schemas/ModuleFile.schema.json",
+    "namespace": "Languages",
+    "items": {
+		"path": ".",
+        "includes": [
+            {
+                "name": "sitecore/system/Languages",
+                "path": "/sitecore/system/Languages",
+                "scope": "ItemAndDescendants"
+            }
+        ]
+    }
+}

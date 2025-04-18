@@ -1,0 +1,33 @@
+@import 'variables';
+
+.sc-frame {
+  border: 1px solid $brand-primary-default;
+  box-sizing: border-box;
+  pointer-events: none;
+  position: absolute;
+  z-index: $horizon-zIndex-frame;
+
+  &[select] {
+    border-width: $border-xx-small;
+    box-shadow: $box-shadow;
+  }
+
+  &[ab-test-frame='true'] {
+    border-color: $brand-ab-test;
+  }
+
+  &.sc-personalized {
+    border-color: $brand-personalization;
+  }
+
+  &.sc-non-personalized {
+    border-color: $brand-personalization-edited;
+  }
+}
+
+.disable-frame {
+  background-color: $color-deemphasize;
+  opacity: $disabled-opacity;
+  position: absolute;
+  pointer-events: none;
+}

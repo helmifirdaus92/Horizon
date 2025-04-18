@@ -1,0 +1,34 @@
+{
+  "Parameters": {
+    "HorizonApplicationUrl": {
+      "type": "string"
+    },
+    "IdentityServerPoolName": {
+      "Type": "string"
+    },
+    "IdentityServerPhysicalPath": {
+      "Type": "string"
+    }
+  },
+  "Variables": {
+    "SitecoreIdentityServerHostXml": "[joinpath(parameter('IdentityServerPhysicalPath'), 'Config', 'production', 'Sitecore.IdentityServer.Host.xml')]"
+  },
+  "Tasks": {
+    "AddAuthoringHostHttpsCORS": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[variable('SitecoreIdentityServerHostXml')]",
+        "XPath": "/Settings/Sitecore/IdentityServer/Clients/DefaultClient/AllowedCorsOrigins",
+        "Element": "HorizonHttpsCorsOrigin",
+        "Value": "[parameter('HorizonApplicationUrl')]"
+      }
+    },
+    "RestartIdentityServerPool": {
+      "Type": "ManageAppPool",
+      "Params": {
+        "Name": "[parameter('IdentityServerPoolName')]",
+        "Action": "Restart"
+      }
+    }
+  }
+}

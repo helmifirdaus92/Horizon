@@ -1,0 +1,53 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  padding-left: $padding-small;
+
+  .workflow-state-badge {
+    display: inline-block;
+    text-transform: uppercase;
+    color: $ui-gray-800;
+    background-color: $ui-black-alpha-100;
+    border-radius: $border-xx-small;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-14px;
+  }
+
+  .workflow-actions-button-icon {
+    color: $brand-ui-white;
+  }
+
+  .loader {
+    position: absolute;
+    width: 0;
+    height: 0;
+    box-sizing: border-box;
+    left: 0;
+    top: 0;
+    z-index: $page-pane-z-index;
+    background-color: transparent;
+    opacity: 0;
+    transition: opacity background-color $animation-speed-fast $animation-easing;
+
+    &.loading {
+      width: 100%;
+      height: 100%;
+      opacity: 0.6;
+
+      &:hover {
+        background-color: $panels-bg;
+      }
+    }
+  }
+}
+
+
+
+
+
+

@@ -1,0 +1,94 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 600;
+}
+
+.h1 {
+  @include heading-3xl;
+}
+.h2 {
+  @include heading-2xl;
+}
+.h3 {
+  @include heading-lg;
+}
+.h4 {
+  @include heading-md;
+}
+.h5 {
+  @include heading-sm;
+}
+.h6 {
+  @include heading-xs;
+}
+.section-heading {
+  @include section-heading;
+}
+.heading-xs {
+  @include subtle-text;
+  font-weight: $font-weight-semi-bold;
+  font-size: $font-size-14px;
+}
+
+.text-bold {
+  font-weight: $font-weight-semi-bold;
+}
+.text-subtle {
+  @include subtle-text;
+}
+.text-center {
+  text-align: center;
+}
+
+.fs-12 {
+  font-size: $font-size-12px;
+}
+.fs-14 {
+  font-size: $font-size-14px;
+}
+.fs-16 {
+  font-size: $font-size-16px;
+}
+
+.color-primary {
+  color: $brand-primary-dark;
+}
+
+.color-error {
+  color: $brand-signal-error;
+}
+
+.color-ai-main {
+  color: $ai-main !important;
+
+  i {
+    color: $ai-main !important;
+  }
+}
+.lhs-nav-active {
+  color: $font-primary-dark !important;
+
+  i {
+    background-color: $brand-framework-bg-active;
+    color: $font-primary-dark !important;
+    border-radius: $border-radius-primary;
+  }
+}
+.color-ai-gradient {
+  background: linear-gradient(to right, $ai-main 65%, $ai-secondary);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  border-color: $ai-main !important;
+}
+.bg-ai-gradient {
+  background-image: $ai-linear-gradient;
+  background-origin: border-box;
+}

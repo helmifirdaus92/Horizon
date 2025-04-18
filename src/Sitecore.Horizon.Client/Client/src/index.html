@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script id="horizon-host-config" type="application/json">
+      {
+        "inventoryApiBaseUrl": "https://platform-inventory-staging.sitecore-staging.cloud",
+        "xmCloudSystemId": "8db0ad22-445f-43fb-8d8e-f23c9396c974",
+        "dashboardBaseUrl": "https://xmapps-staging.sitecore-staging.cloud",
+        "portalBaseUrl": "https://portal-staging.sitecore-staging.cloud",
+        "formsApiBaseUrl": "https://forms-entities-{region}-staging.sitecore-staging.cloud",
+        "edgePlatformBaseUrl": "https://edge-platform-staging.sitecore-staging.cloud",
+        "featureFlagsBaseUrl": "https://featureflags-staging.sitecore-staging.cloud",
+        "xmDeployAppApiBaseUrl": "https://xmclouddeploy-api-staging.sitecore-staging.cloud",
+        "xmDeployAppBaseUrl": "https://deploy-staging.sitecore-staging.cloud/",
+        "explorerAppBaseUrl": "https://explorer-staging.sitecore-staging.cloud",
+        "apmServerBaseUrl": "https://apm-server-prod-euw.sitecorecloud.io/",
+        "xmAppsApiBaseUrl": "https://sites-api-staging.sitecore-staging.cloud",
+        "analyticsBaseUrl": "https://engage-analytics{region}production.boxever.com",
+        "analyticsRegionsMapper": "euw=-eu-west-1-;use=.us-east-1.;usw=.us-east-1.;jpe=.ap-northeast-1.;aue=-ap-southeast-2-;sg=-ap-southeast-2-;Default=-eu-west-1-",
+        "environment": "staging",
+        "auth0Settings": {
+          "domain": "https://auth-staging-1.sitecore-staging.cloud",
+          "clientId": "tpU14zCANpFoZ0W4jnWZSYe3rtNFxBmR",
+          "audience": "https://api-staging.sitecore-staging.cloud"
+        },
+        "genAiApiUrls": {
+          "baseUrl": "https://ai-ab-testing-api-{region}-staging.sitecore-staging.cloud"
+        },
+        "gainsightProductKey": "AP-BR1SACAOWQ2G-2-4",
+        "brandManagementBaseUrl": "https://ai-brands-api-{region}-staging.sitecore-staging.cloud"
+      }
+    </script>
+    <meta charset="utf-8" />
+    <title>Edit - XM Cloud</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/mark-xm_cloud"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/favicon-xm_cloud?t=favicon32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="128x128"
+      href="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/favicon-xm_cloud?t=favicon128"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="180x180"
+      href="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/favicon-xm_cloud?t=favicon180"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/favicon-xm_cloud?t=favicon192"
+    />
+    <script
+      type="module"
+      src="https://sitecoredelivr.sitecorecloud.io/npm/@sitecore-ui/web-components@latest/dist/sitecore-web-components/sitecore-web-components.esm.js"
+    ></script>
+    <script
+      type="module"
+      src="https://sitecoredelivr.sitecorecloud.io/npm/@sitecore-ui/xmc-pocket-nav@latest/dist/entry.js?modulename=xmc-pocket-nav"
+    ></script>
+
+    <style>
+      @keyframes mdc-circular-progress-container-rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes mdc-circular-progress-spinner-layer-rotate {
+        12.5% {
+          transform: rotate(135deg);
+        }
+        25% {
+          transform: rotate(270deg);
+        }
+        37.5% {
+          transform: rotate(405deg);
+        }
+        50% {
+          transform: rotate(540deg);
+        }
+        62.5% {
+          transform: rotate(675deg);
+        }
+        75% {
+          transform: rotate(810deg);
+        }
+        87.5% {
+          transform: rotate(945deg);
+        }
+        100% {
+          transform: rotate(1080deg);
+        }
+      }
+      @keyframes mdc-circular-progress-color-1-fade-in-out {
+        from {
+          opacity: 0.99;
+        }
+        25% {
+          opacity: 0.99;
+        }
+        26% {
+          opacity: 0;
+        }
+        89% {
+          opacity: 0;
+        }
+        90% {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 0.99;
+        }
+      }
+      @keyframes mdc-circular-progress-color-2-fade-in-out {
+        from {
+          opacity: 0;
+        }
+        15% {
+          opacity: 0;
+        }
+        25% {
+          opacity: 0.99;
+        }
+        50% {
+          opacity: 0.99;
+        }
+        51% {
+          opacity: 0;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      @keyframes mdc-circular-progress-color-3-fade-in-out {
+        from {
+          opacity: 0;
+        }
+        40% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.99;
+        }
+        75% {
+          opacity: 0.99;
+        }
+        76% {
+          opacity: 0;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      @keyframes mdc-circular-progress-color-4-fade-in-out {
+        from {
+          opacity: 0;
+        }
+        65% {
+          opacity: 0;
+        }
+        75% {
+          opacity: 0.99;
+        }
+        90% {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      @keyframes mdc-circular-progress-left-spin {
+        from {
+          transform: rotate(265deg);
+        }
+        50% {
+          transform: rotate(130deg);
+        }
+        to {
+          transform: rotate(265deg);
+        }
+      }
+      @keyframes mdc-circular-progress-right-spin {
+        from {
+          transform: rotate(-265deg);
+        }
+        50% {
+          transform: rotate(-130deg);
+        }
+        to {
+          transform: rotate(-265deg);
+        }
+      }
+      .mdc-circular-progress {
+        display: inline-flex;
+        position: relative;
+        direction: ltr;
+        line-height: 0;
+        transition: opacity 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
+        --mdc-circular-progress-active-indicator-color: #6f63df;
+      }
+      .mdc-circular-progress__determinate-container,
+      .mdc-circular-progress__indeterminate-circle-graphic,
+      .mdc-circular-progress__indeterminate-container,
+      .mdc-circular-progress__spinner-layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+      .mdc-circular-progress__determinate-container {
+        transform: rotate(-90deg);
+      }
+      .mdc-circular-progress__indeterminate-container {
+        font-size: 0;
+        letter-spacing: 0;
+        white-space: nowrap;
+        opacity: 0;
+      }
+      .mdc-circular-progress__determinate-circle-graphic,
+      .mdc-circular-progress__indeterminate-circle-graphic {
+        fill: rgba(0, 0, 0, 0);
+      }
+      .mdc-circular-progress__determinate-circle {
+        transition: stroke-dashoffset 500ms 0ms cubic-bezier(0, 0, 0.2, 1);
+      }
+      .mdc-circular-progress__gap-patch {
+        position: absolute;
+        top: 0;
+        left: 47.5%;
+        box-sizing: border-box;
+        width: 5%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .mdc-circular-progress__gap-patch .mdc-circular-progress__indeterminate-circle-graphic {
+        left: -900%;
+        width: 2000%;
+        transform: rotate(180deg);
+      }
+      .mdc-circular-progress__circle-clipper {
+        display: inline-flex;
+        position: relative;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .mdc-circular-progress__circle-clipper .mdc-circular-progress__indeterminate-circle-graphic {
+        width: 200%;
+      }
+      .mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic {
+        left: -100%;
+      }
+      .mdc-circular-progress--indeterminate .mdc-circular-progress__determinate-container {
+        opacity: 0;
+      }
+      .mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container {
+        opacity: 1;
+      }
+      .mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container {
+        animation: mdc-circular-progress-container-rotate 1568.2352941176ms linear infinite;
+      }
+      .mdc-circular-progress--indeterminate .mdc-circular-progress__spinner-layer {
+        animation: mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+      }
+      .mdc-circular-progress--indeterminate
+        .mdc-circular-progress__circle-left
+        .mdc-circular-progress__indeterminate-circle-graphic {
+        animation: mdc-circular-progress-left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+      }
+      .mdc-circular-progress--indeterminate
+        .mdc-circular-progress__circle-right
+        .mdc-circular-progress__indeterminate-circle-graphic {
+        animation: mdc-circular-progress-right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+      }
+      .mdc-circular-progress--closed {
+        opacity: 0;
+      }
+      .mat-mdc-progress-spinner {
+        display: block;
+        overflow: hidden;
+        line-height: 0;
+      }
+      .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
+      .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+        stroke: var(--mdc-circular-progress-active-indicator-color, transparent);
+      }
+      .mat-mdc-progress-spinner._mat-animation-noopable,
+      .mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__determinate-circle {
+        transition: none;
+      }
+      .mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__indeterminate-circle-graphic,
+      .mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__spinner-layer,
+      .mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__indeterminate-container {
+        animation: none;
+      }
+      .mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__indeterminate-container circle {
+        stroke-dasharray: 0 !important;
+      }
+      #main-loader {
+        position: fixed;
+        display: flex;
+        z-index: 1;
+        width: 100vw;
+        height: 100vh;
+        background-color: white;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        opacity: 1;
+        transition: opacity 300ms;
+      }
+      #main-loader.fade {
+        opacity: 0;
+      }
+      #main-loader.hide {
+        display: none;
+      }
+
+      .loader-text {
+        position: absolute;
+        font-size: 14px;
+        margin-top: 106px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="main-loader">
+      <mat-spinner
+        role="progressbar"
+        tabindex="-1"
+        class="mat-mdc-progress-spinner mdc-circular-progress mat-primary mdc-circular-progress--indeterminate"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        mode="indeterminate"
+        style="width: 42px; height: 42px"
+      >
+        <div aria-hidden="true" class="mdc-circular-progress__indeterminate-container">
+          <div class="mdc-circular-progress__spinner-layer">
+            <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                focusable="false"
+                class="mdc-circular-progress__indeterminate-circle-graphic ng-star-inserted"
+                viewbox="0 0 100 100"
+              >
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  r="45"
+                  style="stroke-dasharray: 282.743px; stroke-dashoffset: 141.372px; stroke-width: 10%"
+                ></circle>
+              </svg>
+            </div>
+            <div class="mdc-circular-progress__gap-patch">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                focusable="false"
+                class="mdc-circular-progress__indeterminate-circle-graphic ng-star-inserted"
+                viewbox="0 0 100 100"
+              >
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  r="45"
+                  style="stroke-dasharray: 282.743px; stroke-dashoffset: 141.372px; stroke-width: 10%"
+                ></circle>
+              </svg>
+            </div>
+            <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                focusable="false"
+                class="mdc-circular-progress__indeterminate-circle-graphic ng-star-inserted"
+                viewbox="0 0 100 100"
+              >
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  r="45"
+                  style="stroke-dasharray: 282.743px; stroke-dashoffset: 141.372px; stroke-width: 10%"
+                ></circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </mat-spinner>
+      <span class="loader-text">Loading...</span>
+    </div>
+
+    <app-root></app-root>
+  </body>
+</html>

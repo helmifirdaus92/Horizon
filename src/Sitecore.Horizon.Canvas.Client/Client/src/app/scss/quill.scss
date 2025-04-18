@@ -1,0 +1,6 @@
+// This is needed to solve issue with spaces in Firefox
+@-moz-document url-prefix() {
+  .ql-editor {
+    white-space: pre-wrap !important;
+  }
+}

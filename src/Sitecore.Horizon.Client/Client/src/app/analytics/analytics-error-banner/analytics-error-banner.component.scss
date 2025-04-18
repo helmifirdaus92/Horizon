@@ -1,0 +1,26 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  background-color: $brand-framework-bg-hover;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $padding-x-large;
+
+  .no-data-icon {
+    height: $generic-header-height * 2;
+    width: $generic-header-height * 2;
+    background-color: $banner-bg;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+
+    span .mdi {
+      font-size: $font-size-50px;
+      color: $brand-primary-default;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.dialog-body {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+.media-provider {
+  flex-grow: 1;
+}
+
+.media-details {
+  border-left: $framework-border;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow-y: auto;
+  width: $pane-min-width;
+}
+
+.provider-extentions-nav {
+  height: $generic-header-height;
+  padding: 0 $padding;
+  border-bottom: $framework-border;
+  box-sizing: border-box;
+  &.hide {
+    display: none;
+  }
+}
+
+.provider-extentions-btn {
+  padding-left: $padding * 2;
+  padding-right: $padding * 2;
+}

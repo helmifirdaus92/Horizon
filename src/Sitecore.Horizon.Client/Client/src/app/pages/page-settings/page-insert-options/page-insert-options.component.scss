@@ -1,0 +1,99 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  display: block;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $padding;
+  flex: 1;
+}
+
+.sub-header {
+  @include strong-text;
+}
+
+.mdi {
+  color: $brand-primary-dark;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.description {
+  @include subtle-text();
+}
+
+.template-name {
+  @include default-text();
+
+  span {
+    @include strong-text;
+  }
+}
+
+.header {
+  @include strong-text;
+  @include heading-md();
+}
+.sub-header-helper-text {
+  @include subtle-text();
+}
+
+.item {
+  .icon {
+    @include default-text();
+  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: $spacing-6xs;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.checkbox-list {
+  display: flex;
+  align-items: center;
+  background: $panels-bg;
+  flex-direction: row;
+  margin: 10px 0;
+  padding: 5px 15px;
+}
+
+.link {
+  @include strong-text;
+  color: $brand-primary-default;
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.error-block p {
+  margin: 0;
+  color: $brand-signal-error;
+}
+
+.sub-header-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.open-page-templates {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

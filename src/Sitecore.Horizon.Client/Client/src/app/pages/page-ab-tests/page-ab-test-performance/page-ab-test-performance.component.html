@@ -1,0 +1,90 @@
+@if (!isLoading) {
+  <div class="content">
+    <div class="statistical-sigificance-note mb-md mt-md" *ngIf="pageAbTest.result">
+      {{ 'COMPONENT_TESTING.OVERVIEW.STATISTICAL_SIGNIFICANCE' | translate }}
+    </div>
+
+    <div class="performance-section">
+      @if (isAbTestHasPerformanceData()) {
+        <div class="performance-label mb-sm">
+          {{ 'COMPONENT_TESTING.OVERVIEW.PERFORMANCE' | translate }}
+        </div>
+        <div *ngFor="let variant of abTestVariantsPerformance?.variantsData" class="variant-item">
+          <div class="variant-header-container">
+            <span class="winning-variant-icon" *ngIf="isWinningVariant(variant)">
+              <i class="mdi mdi-crown"></i>
+            </span>
+            <span class="variant-version-badge">{{ variant.version }}</span>
+            <span class="variant-name-label">
+              {{ variant.name }}
+              <span *ngIf="isWinningVariant(variant)">{{
+                'COMPONENT_TESTING.OVERVIEW.WINNING_VARIANT' | translate
+              }}</span>
+              <span class="uplift-indicator">
+                <i
+                  class="mdi"
+                  [ngClass]="{
+                    'mdi-arrow-up': +variant.uplift > 0,
+                    'mdi-arrow-down': +variant.uplift < 0,
+                  }"
+                ></i>
+                {{ variant.uplift | number: '1.2-2' }}%
+              </span>
+            </span>
+          </div>
+
+          <div class="progress-bar-container">
+            <div
+              class="progress-bar-wrapper"
+              [attr.title]="
+                ('COMPONENT_TESTING.OVERVIEW.PERFORMANCE' | translate) +
+                ': ' +
+                (variant.performance | number: '1.2-2') +
+                '%'
+              "
+            >
+              <div
+                class="progress-bar-fill"
+                [ngClass]="{
+                  'progress-bar-fill-winner': isWinningVariant(variant),
+                  'progress-bar-fill': !isWinningVariant(variant),
+                }"
+                [style.width.%]="(variant.performance / highestPerformance) * 100"
+              ></div>
+            </div>
+            <span class="performance-percentage">{{ variant.performance | number: '1.2-2' }}%</span>
+          </div>
+        </div>
+      } @else {
+        <ng-spd-empty-state
+          [headline]="'GENERAL_ERROR.MESSAGE' | translate"
+          [imageSrc]="'https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/spot-alert'"
+          [imageWidth]="50"
+          [imageHeight]="50"
+          [altText]="'GENERAL_ERROR.MESSAGE' | translate"
+          [paddingTop]="80"
+          size="md"
+        >
+          <p class="ng-empty-state-content">{{ 'COMPONENT_TESTING.ANALYTICS_API_ERROR_MESSAGE' | translate }}</p>
+        </ng-spd-empty-state>
+      }
+    </div>
+    @if (pageAbTest.status !== 'DRAFT' && pageAbTest.schedule.startDate) {
+      <div class="start-date-section">
+        <div class="start-date-label">
+          <i class="mdi mdi-calendar-clock-outline"></i>
+          {{ 'COMPONENT_TESTING.OVERVIEW.START_DATE' | translate }}
+        </div>
+        <div class="start-date-content">
+          <span>{{ pageAbTest.schedule.startDate | localTimeZoneDate }}</span>
+          <span class="days-ago-info">
+            {{ pageAbTest.schedule.startDate | dateDifference: currentDate }}
+            {{ 'COMPONENT_TESTING.OVERVIEW.DAYS_AGO' | translate }}
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <ng-spd-loading-indicator></ng-spd-loading-indicator>
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project>
+  <ItemGroup>
+    <!-- Should be moved to Directory.Packages.props after the bug is fixed:
+         https://github.com/NuGet/Home/issues/6764 -->
+
+     <!-- Platform package versions. -->
+    <PackageReference Update="Sitecore.Kernel" Version="[41.1.116]" />
+    <PackageReference Update="Sitecore.Mvc" Version="[40.0.300]" />
+    <PackageReference Update="Sitecore.UTF.CMS" Version="6.2.3*" />
+    <PackageReference Update="Sitecore.Services.Infrastructure.Sitecore" Version="[40.0.861]" />
+    <PackageReference Update="Sitecore.ExperienceAnalytics.Api" Version="[40.0.1865]" />
+    <PackageReference Update="Sitecore.ExperienceEditor" Version="[40.0.1168]" />
+    <PackageReference Update="Sitecore.Launchpad" Version="[40.0.251]" />
+    <PackageReference Update="Sitecore.LayoutService" Version="[40.1.913]" />
+    <PackageReference Update="Sitecore.LayoutService.Personalization" Version="[40.0.1110]"/>
+    <PackageReference Update="Sitecore.JavaScriptServices.Configuration" Version="40.0.1482" />
+
+    <!--  Platform third-party dependencies -->
+    <PackageReference Update="GraphQL" Version="[2.4.0]" />
+    <PackageReference Update="GraphQL-Parser" Version="[3.0.0]" />
+
+    <!-- Source code specific packages -->
+    <PackageReference Update="System.Text.Encodings.Web" Version="6.0.0" />
+    <PackageReference Update="Microsoft.AspNetCore.SpaServices" Version="3.1.30" />
+    <PackageReference Update="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.10" />
+    <PackageReference Update="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
+    <PackageReference Update="Sitecore.Framework.Runtime" Version="7.0.0-*" />
+    <PackageReference Update="Sitecore.Framework.Runtime.Abstractions" Version="7.0.0-*" />
+    <PackageReference Update="Sitecore.Framework.Runtime.Commands" Version="7.0.0-*" />
+    <PackageReference Update="Sitecore.Framework.Logging.Serilog" Version="4.0.0-*" />
+    <PackageReference Update="Sitecore.Framework.Plugin.Web" Version="7.0.0-*" />
+    <PackageReference Update="Sitecore.CodeQuality.Analyzers" Version="4.0.2" />
+    <PackageReference Update="Sitecore.CodeAnalysis.Copyrights" Version="4.0.2" />
+    <PackageReference Update="Sitecore.Annotations" Version="1.0.0-r00023" />
+    <PackageReference Update="Serilog.Enrichers.Environment" Version="2.2.0" />
+    <PackageReference Update="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Update="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Update="HtmlAgilityPack.NetCore" Version="[1.5.0.1]" />
+
+    <!-- Testing specific packages -->
+    <PackageReference Update="SpecFlow" Version="3.3.16-beta" />
+    <PackageReference Update="SpecFlow.NUnit" Version="3.3.16-beta" />
+    <PackageReference Update="SpecFlow.Tools.MsBuild.Generation" Version="3.3.16-beta" />
+    <PackageReference Update="FluentAssertions" Version="5.3.0" />
+    <PackageReference Update="xunit" Version="[2.3.1]" />
+    <PackageReference Update="xunit.runner.visualstudio" Version="[2.3.1]" />
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="[15.7.2]" />
+    <PackageReference Update="AutoFixture" Version="[4.8.0]" />
+    <PackageReference Update="AutoFixture.Xunit2" Version="[4.8.0]" />
+    <PackageReference Update="AutoFixture.AutoNSubstitute" Version="[4.8.0]" />
+    <PackageReference Update="AutoFixture.Idioms" Version="[4.8.0]" />
+    <PackageReference Update="NSubstitute" Version="[4.2.2]" />
+    <PackageReference Update="Sitecore.NSubstituteUtils" Version="[1.0.3]" />
+    <PackageReference Update="GraphQL.Client" Version="1.0.2" />
+    <PackageReference Update="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Update="Interop.SHDocVw" Version="[1.1.0.0]" />
+    <PackageReference Update="MathNet.Numerics" Version="[4.0.0]" />
+    <PackageReference Update="Microsoft.mshtml" Version="[7.0.3300]" />
+    <PackageReference Update="System.Resources.Extensions" Version="4.6.0" />
+
+    <!-- Exclude gitkeep file from packages -->
+    <SitecorePluginContent Remove="**\.gitkeep" />
+
+    <!-- Exclude dev config files from packages -->
+    <SitecorePluginContent Remove="Config\Development\**" />
+  </ItemGroup>
+</Project>

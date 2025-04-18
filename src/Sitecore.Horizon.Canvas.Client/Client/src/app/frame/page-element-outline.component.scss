@@ -1,0 +1,198 @@
+@import 'variables';
+
+// To avoid user website css setting to override the default settings we use css higher specificity !important
+
+@mixin divider {
+  height: 24px;
+  display: flex;
+  border-left: $border;
+}
+
+.sc-page-element-outline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: $generic-element-height;
+  box-sizing: border-box;
+  padding: 0 $padding;
+  position: absolute;
+  z-index: $horizon-zIndex-elementOutline;
+
+  background: $brand-primary-default;
+
+  pointer-events: none;
+
+  &.sc-highlight {
+    background: $brand-primary-selected !important;
+    border-radius: $border-radius-small;
+
+    padding: 0 $padding-small !important;
+    height: $icon-width;
+
+    z-index: $horizon-zIndex-elementOutline - 1 !important;
+    .text {
+      font-family: $font !important;
+      color: $brand-primary-x-dark !important;
+      &.sc-personalized {
+        color: $brand-personalization !important;
+      }
+    }
+  }
+
+  .icon-button {
+    height: $icon-width;
+    width: $icon-width;
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    &.has-action {
+      cursor: pointer;
+    }
+
+    &:empty {
+      display: none !important;
+    }
+
+    &:hover {
+      border-radius: 100%;
+      background-color: rgba(0, 0, 0, 0.07) !important;
+    }
+
+    &[disabled='true'] {
+      opacity: $disabled-opacity;
+      cursor: default !important;
+      text-decoration: none !important;
+      pointer-events: none !important;
+      & *[disabled] {
+        opacity: 1 !important;
+      }
+    }
+  }
+
+  &.has-icon {
+    padding-left: 0;
+    gap: $padding-small;
+
+    .icon-button {
+      display: flex;
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+  &.has-sort {
+    padding-right: 0;
+    .first {
+      @include divider;
+    }
+  }
+
+  &.has-abTest,
+  &.has-optimize {
+    .third {
+      @include divider;
+    }
+  }
+
+  &.has-delete {
+    .fourth {
+      @include divider;
+    }
+  }
+
+  .text {
+    flex: 1 1 auto;
+    margin-right: $padding-small;
+    font-weight: $font-weight-semi-bold !important;
+    font-size: 12px !important;
+    line-height: 16px;
+    font-family: $font !important;
+  }
+
+  .sort {
+    display: flex;
+    flex-direction: row;
+    gap: $padding-x-small;
+
+    .icon:empty {
+      display: none;
+    }
+  }
+
+  &.state-focused:not(.sc-highlight) {
+    padding-inline: $padding-small;
+    background-color: white !important;
+    color: $brand-ui-black !important;
+    * {
+      color: $brand-ui-black !important;
+    }
+
+    border-radius: $border-radius-small !important;
+    box-shadow: $box-shadow;
+    border: 1px solid #e5e5e5;
+
+    z-index: $horizon-zIndex-elementOutline-focused;
+
+    &.sc-personalized {
+      background: $brand-personalization;
+    }
+    .text {
+      font-family: $font !important;
+      color: $brand-ui-black !important;
+    }
+
+    &:not(.has-icon) {
+      padding: 0 $padding;
+    }
+  }
+
+  &.enable-events {
+    pointer-events: initial;
+  }
+
+  &.state-error {
+    background-color: $brand-signal-error;
+    border-radius: $border-radius-small !important;
+    color: $color-inverse;
+    border: 1px solid $brand-signal-error;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  &.has-edit-content {
+    .second {
+      @include divider;
+    }
+  }
+
+  .drag-vertical {
+    background-image: url('../assets/icons/drag-vertical.svg');
+  }
+  .arrow-up-left {
+    background-image: url('../../app/assets/icons/arrow-up-left.svg');
+  }
+  .arrow-up {
+    background-image: url('../../app/assets/icons/arrow-up.svg');
+  }
+  .arrow-down {
+    background-image: url('../../app/assets/icons/arrow-down.svg');
+  }
+  .delete-outline {
+    background-image: url('../../app/assets/icons/delete-outline.svg');
+  }
+  .open-in-new {
+    background-image: url('../../app/assets/icons/open-in-new.svg');
+  }
+  .text-search {
+    background-image: url('../../app/assets/icons/text-search.svg');
+  }
+  .personalize {
+    background-image: url('../../app/assets/icons/flask.svg');
+  }
+  .generative-ai {
+    background-image: url('../../app/assets/icons/creation.svg');
+  }
+}

@@ -1,0 +1,28 @@
+<ng-spd-droplist
+  #droplist
+  [customWidth]="300"
+  [templateType]="'custom'"
+  [reversedMode]="true"
+  (showSelection)="getGroupedItems()"
+  [size]="size"
+>
+  <div class="grouped-droplist-items pt-0">
+    @if (groupedDropListItems.length && !isLoading) {
+      @for (item of groupedDropListItems; track item.itemId) {
+        <div class="category">
+          <span class="text-main ml-md">{{ item.displayName }}</span>
+        </div>
+        @for (child of item.children; track child.itemId) {
+          <div tabindex="0" class="children" (click)="onSelectionChange(child)">
+            <div class="sub-text ml-md">{{ child.displayName }}</div>
+          </div>
+        }
+      }
+    } @else if (isLoading) {
+      <ng-spd-loading-indicator class="pt-md pb-md"></ng-spd-loading-indicator>
+    } @else {
+      <div class="no-data-source m-sm">{{ 'EDITOR.DATA_VIEW.NO_DATASOURCE_ITEMS' | translate }}</div>
+    }
+  </div>
+  <span class="selected-item" text>{{ currentValue }}</span>
+</ng-spd-droplist>

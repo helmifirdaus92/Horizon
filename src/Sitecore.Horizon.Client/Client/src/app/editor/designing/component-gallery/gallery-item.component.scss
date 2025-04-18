@@ -1,0 +1,39 @@
+@use 'sass:math';
+
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  @include text-nowrap-ellipsis;
+  background-color: $brand-ui-white;
+  border: $border;
+  border-radius: $border-radius-small;
+  box-sizing: border-box;
+  display: block;
+  font-size: $font-size-10px;
+  height: $gallery-item-height;
+  padding: $padding-x-small;
+  padding-top: math.div($gallery-item-height - $gallery-icon-height, 2);
+  text-align: center;
+  width: $gallery-item-height;
+  cursor: pointer;
+  color: $font-primary-default;
+
+  &:hover {
+    background-color: $brand-framework-bg-hover;
+  }
+
+  &.disabled {
+    cursor: default;
+    opacity: 0.5;
+    &:hover {
+      background-color: $brand-ui-white;
+    }
+  }
+}
+
+ng-spd-thumbnail {
+  height: $gallery-icon-height;
+  overflow: hidden;
+}

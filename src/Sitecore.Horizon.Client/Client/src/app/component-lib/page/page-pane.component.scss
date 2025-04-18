@@ -1,0 +1,13 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  @include pane-responsive(lg, md);
+
+  background-color: $panels-bg;
+  display: block;
+  flex-shrink: 0;
+  overflow-y: auto;
+  width: $pane-min-width;
+}

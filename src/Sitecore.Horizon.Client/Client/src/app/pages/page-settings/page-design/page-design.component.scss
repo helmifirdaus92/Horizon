@@ -1,0 +1,117 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+
+  display: block;
+
+  .use-design-checkbox {
+    display: flex;
+    align-items: center;
+  }
+
+  .inheritance-info {
+    display: flex;
+
+    .mdi {
+      color: $brand-primary-dark;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .page-design-info {
+      display: flex;
+      flex-direction: column;
+      width: 225px;
+    }
+
+    .page-design-name {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100%;
+      }
+    }
+  }
+
+  .select-page-design-wrapper {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+
+  .change-button-wrapper {
+    margin-top: $padding-small;
+    width: fit-content;
+    margin-left: $spacing-7xs + $spacing-9xl;
+  }
+
+  .assign-button-wrapper {
+    margin-top: $padding-small;
+    width: fit-content;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  ng-spd-item-card {
+    width: $size-3xs;
+    min-height: $size-2xs;
+
+    .thumbnail-container {
+      min-height: $pop-panel-min-width;
+      display: grid;
+      place-items: center;
+
+      .thumbnail-image {
+        width: 100%;
+        border: 1px solid $ui-gray-100;
+        border-radius: $border-radius-small;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  .close-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+}
+
+.popover {
+  width: $size-md;
+
+  .header {
+    .description {
+      @include default-text();
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.popover-dialog {
+  padding: $padding-x-small $padding-small;
+  border-radius: $border-radius;
+  background-color: $font-primary-default;
+  color: $brand-ui-white;
+  overflow-wrap: break-word;
+}
+
+.drop-list-wrapper .droplist {
+  background-color: $brand-ui-white !important;
+  &.disabled-state {background-color: transparent !important;}
+}
+

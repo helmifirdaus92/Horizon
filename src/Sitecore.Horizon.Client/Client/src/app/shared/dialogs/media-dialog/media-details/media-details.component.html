@@ -1,0 +1,80 @@
+<div *ngIf="mediaDetails; else empty">
+  <ng-spd-thumbnail>
+    @if (isSupportedFileType()) {
+      <ng-container *ngTemplateOutlet="fileItem"></ng-container>
+    } @else if (mediaDetails.url) {
+      <img
+        [src]="!mediaDetails.isPlatform ? mediaDetails.url : (mediaDetails.url | resizeMedia | cmUrl)"
+        [alt]="mediaDetails.alt || ''"
+      />
+    } @else {
+      <ng-container *ngTemplateOutlet="noItem"></ng-container>
+    }
+  </ng-spd-thumbnail>
+
+  <ng-container *ngTemplateOutlet="property; context: { name: 'MEDIA.FILE_NAME', value: mediaDetails.displayName }">
+  </ng-container>
+  <ng-container *ngTemplateOutlet="property; context: { name: 'MEDIA.FILE_TYPE', value: mediaDetails.extension }">
+  </ng-container>
+  <ng-container
+    *ngTemplateOutlet="
+      property;
+      context: {
+        name: 'MEDIA.FILE_SIZE',
+        value: mediaDetails.size !== undefined ? (mediaDetails.size | fileSize) : undefined,
+      }
+    "
+  >
+  </ng-container>
+  @if (!isSupportedFileType()) {
+    <ng-container
+      *ngTemplateOutlet="
+        property;
+        context: {
+          name: 'MEDIA.DIMENSIONS',
+          value: mediaDetails.dimensions !== undefined ? mediaDetails.dimensions + ' px' : undefined,
+        }
+      "
+    >
+    </ng-container>
+  }
+  <ng-container *ngTemplateOutlet="property; context: { name: 'MEDIA.PATH', value: mediaDetails.path }"> </ng-container>
+  @if (!isSupportedFileType()) {
+    <ng-container *ngTemplateOutlet="property; context: { name: 'MEDIA.ALT_TEXT', value: mediaDetails.alt }">
+    </ng-container>
+  }
+</div>
+
+<ng-template #property let-name="name" let-value="value">
+  <div class="field-name">{{ name | translate }}</div>
+  <div class="field-value" [title]="value || ''">{{ value !== undefined ? value : '--' }}</div>
+</ng-template>
+
+<ng-template #empty>
+  <div class="empty">
+    <ng-container *ngTemplateOutlet="noItem"></ng-container>
+    {{ 'MEDIA.DETAILS_EMPTY' | translate }}
+  </div>
+</ng-template>
+
+<ng-template #noItem>
+  <img
+    [width]="defaultDimension"
+    [height]="defaultDimension"
+    [src]="'graphics/image-icon.svg' | asset"
+    [attr.alt]="'MEDIA.DETAILS_EMPTY' | translate"
+  />
+</ng-template>
+
+<ng-template #fileItem>
+  <div class="icon-wrapper" [ngClass]="mediaDetails?.extension">
+    <span
+      class="mdi"
+      [ngClass]="{
+        'mdi-file-document-outline': mediaDetails?.extension === 'doc',
+        'mdi-file-pdf-box': mediaDetails?.extension === 'pdf',
+        'mdi-file-word-box': mediaDetails?.extension === 'docx',
+      }"
+    ></span>
+  </div>
+</ng-template>

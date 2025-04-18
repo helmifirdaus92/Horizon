@@ -1,0 +1,360 @@
+<div *ngIf="useNewDesign; else oldTemplate" class="card-container">
+  <div class="header-container">
+    <span class="header">{{ 'PAGE_DESIGNS.LHS_PANEL.PAGE_TEMPLATES' | translate }}</span>
+    <div class="sub-header">
+      <span class="description">{{ 'PAGE_DESIGNS.WORKSPACE.PAGE_TEMPLATES_DESCRIPTION' | translate }}</span>
+      <div class="sub-header-actions">
+        <button
+          *ngIf="'PAGE_DESIGNS.WORKSPACE.CREATE_TEMPLATE' | translate"
+          ngSpdButton="primary"
+          icon="plus"
+          (click)="openTemplateInContentEditor()"
+        >
+          {{ 'PAGE_DESIGNS.WORKSPACE.CREATE_TEMPLATE' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="left-container py-xl">
+      <div class="loading" *ngIf="isWaitingResult || isLoadingTemplates">
+        <ng-spd-loading-indicator></ng-spd-loading-indicator>
+      </div>
+      <div *ngIf="!!pageTemplates?.length" class="templates-list-container">
+        <ng-spd-table class="pl-xl pr-xl">
+          <ng-spd-table-head [isSticky]="false">
+            <th *ngFor="let item of headers" class="table-head">
+              <span *ngIf="item.fieldName !== 'insertOptions'">
+                {{ item.label | translate }}
+              </span>
+
+              <span *ngIf="item.fieldName === 'insertOptions'">
+                {{ item.label | translate }}
+              </span>
+            </th>
+          </ng-spd-table-head>
+          <tbody>
+            <tr *ngFor="let pageTemplate of pageTemplatesWithDetails">
+              <td id="templateName">
+                <span class="row-text">
+                  {{ pageTemplate.template.name }}
+                </span>
+              </td>
+              <td>
+                <div class="page-design-wrapper">
+                  <div *ngIf="pageTemplate.pageDesign; let pageDesign" class="page-design">
+                    <div *ngIf="pageDesign.thumbnailUrl" class="page-design-thumbnail-image mr-sm">
+                      <img
+                        [src]="pageDesign.thumbnailUrl | cmUrl"
+                        [alt]="pageDesign.displayName"
+                        class="thumbnail-image"
+                      />
+                    </div>
+                    <div
+                      *ngIf="!pageDesign || (pageDesign && !pageDesign.thumbnailUrl)"
+                      class="page-design-thumbnail-icon mr-sm"
+                    >
+                      <i class="mdi mdi-view-dashboard-outline thumbnail-icon"></i>
+                    </div>
+                    <span class="row-text">
+                      {{ pageDesign.displayName }}
+                    </span>
+                  </div>
+
+                  <span *ngIf="!pageTemplate.pageDesign" ngSpdBadge="basic">
+                    {{ 'PAGE_DESIGNS.WORKSPACE.TEMPLATES_TABLE.NONE_SET' | translate }}
+                  </span>
+
+                  <div class="assign-page-design">
+                    <button
+                      ngSpdIconButton="ghostPrimary"
+                      icon="pencil-outline"
+                      class="configure-button"
+                      [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access.canWrite"
+                      (click)="assignPageDesign(pageTemplate.template.itemId, pageTemplate.pageDesign?.itemId)"
+                    >
+                    </button>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="insert-options">
+                  <span *ngIf="pageTemplate.insertOptions?.length; else insertOptionNotSet" ngSpdBadge="purple">
+                    {{ 'PAGE_DESIGNS.WORKSPACE.TEMPLATES_TABLE.SET' | translate }}
+                  </span>
+                  <ng-template #insertOptionNotSet>
+                    <span ngSpdBadge="basic">
+                      {{ 'PAGE_DESIGNS.WORKSPACE.TEMPLATES_TABLE.NONE_SET' | translate }}
+                    </span>
+                  </ng-template>
+                  <button
+                    ngSpdIconButton="ghostPrimary"
+                    icon="pencil-outline"
+                    class="configure-button"
+                    [disabled]="!isTemplateStandardValuesAvailable || !pageTemplate.template.access.canWrite"
+                    (click)="configureInsertOptions(pageTemplate.template.itemId)"
+                  >
+                  </button>
+                </div>
+              </td>
+              <td id="usageCount">{{ pageTemplate.usageCount }}</td>
+              <td>
+                <div class="modified-date">
+                  <span>
+                    {{ pageTemplate.template.updatedDate ?? pageTemplate.template.createdDate | date: 'd MMMM y' }}
+                    {{ 'PAGE_DESIGNS.WORKSPACE.AT' | translate }}
+                    {{ pageTemplate.template.updatedDate ?? pageTemplate.template.createdDate | date: 'HH:mm' }}
+                  </span>
+
+                  <button
+                    ngSpdIconButton
+                    icon="dots-horizontal"
+                    aria-label="context menu"
+                    [ngSpdPopover]="contextMenuTemplate"
+                    popoverPosition="top-left"
+                    [popoverOffset]="0"
+                    [popoverShowDelay]="0"
+                    [popoverHideDelay]="0"
+                    [hideOnBackdropClick]="true"
+                    #contextMenuPopoverInstance="ngSpdPopover"
+                    (click)="contextMenuPopoverInstance.toggle(); $event.stopPropagation()"
+                  ></button>
+                </div>
+
+                <ng-template #contextMenuTemplate let-contextMenuTemplateRef>
+                  <ng-spd-list>
+                    <!-- Rename -->
+                    <button
+                      ngSpdListItem
+                      (click)="renameTemplate(pageTemplate); contextMenuTemplateRef.hide()"
+                      [title]="'COMMON.RENAME' | translate"
+                      [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access.canRename"
+                    >
+                      <i class="mdi mdi-pencil-outline pr-sm"></i> {{ 'COMMON.RENAME' | translate }}</button
+                    >
+
+                    <!-- Duplicate -->
+                    <button
+                      ngSpdListItem
+                      (click)="duplicateTemplate(pageTemplate); contextMenuTemplateRef.hide()"
+                      [title]="'COMMON.DUPLICATE' | translate"
+                      [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access.canDuplicate"
+                    >
+                      <i class="mdi mdi-content-copy pr-sm"></i> {{ 'COMMON.DUPLICATE' | translate }}</button
+                    >
+
+                    <!-- EDIT -->
+                    <button
+                      ngSpdListItem
+                      (click)="openTemplateInContentEditor(pageTemplate.template.itemId); contextMenuTemplateRef.hide()"
+                      [title]="'PAGE_DESIGNS.WORKSPACE.TEMPLATES_TABLE.MANAGE_FIELDS' | translate"
+                      [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access.canWrite"
+                    >
+                      <i class="icon mdi mdi-playlist-edit pr-sm"></i>
+                      {{ 'PAGE_DESIGNS.WORKSPACE.TEMPLATES_TABLE.MANAGE_FIELDS' | translate }}</button
+                    >
+
+                    <!-- Delete -->
+                    <button
+                      ngSpdListItem
+                      (click)="promptDeleteTemplate(pageTemplate.template.itemId); contextMenuTemplateRef.hide()"
+                      [title]="'COMMON.DELETE' | translate"
+                      [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access.canDelete"
+                    >
+                      <i class="mdi mdi-trash-can-outline pr-sm"></i>
+                      {{ 'COMMON.DELETE' | translate }}</button
+                    >
+                  </ng-spd-list>
+                </ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </ng-spd-table>
+      </div>
+
+      <app-empty-state
+        *ngIf="!pageTemplates?.length && !isLoadingTemplates"
+        [title]="'PAGE_DESIGNS.WORKSPACE.NO_PAGE_TEMPLATES' | translate"
+        (btnClick)="openTemplateInContentEditor()"
+        [btnText]="'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_TEMPLATE' | translate"
+      ></app-empty-state>
+    </div>
+  </div>
+</div>
+
+<!-- Remove this after feature is released -->
+<ng-template #oldTemplate>
+  <div class="old-design">
+    <div class="header-container">
+      <span class="header">{{ 'PAGE_DESIGNS.LHS_PANEL.PAGE_TEMPLATES' | translate }}</span>
+      <div class="sub-header">
+        <span class="description">{{ 'PAGE_DESIGNS.WORKSPACE.PAGE_TEMPLATES_DESCRIPTION' | translate }}</span>
+        <div class="sub-header-actions">
+          <button
+            *ngIf="'PAGE_DESIGNS.WORKSPACE.CREATE_TEMPLATE' | translate"
+            ngSpdButton="primary"
+            icon="open-in-new"
+            (click)="openTemplateInContentEditor()"
+          >
+            {{ 'PAGE_DESIGNS.WORKSPACE.CREATE_TEMPLATE' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="left-container py-xl">
+        <div class="loading" *ngIf="isWaitingResult || isLoadingTemplates">
+          <ng-spd-loading-indicator></ng-spd-loading-indicator>
+        </div>
+        <div *ngIf="!!pageTemplates?.length" class="templates-list-container">
+          <div class="templates-list px-xl">
+            <ng-spd-item-card
+              *ngFor="let pageTemplate of pageTemplates"
+              [cardType]="'vertical'"
+              [title]="pageTemplate.template.name"
+              [clickable]="true"
+              (itemClick)="selectTemplate(pageTemplate)"
+              [selected]="(selectedTemplate$ | async) === pageTemplate"
+            >
+              <div ngSpdItemCardContent class="thumbnail-container">
+                <img
+                  *ngIf="pageTemplate.pageDesign && pageTemplate.pageDesign.thumbnailUrl"
+                  [src]="pageTemplate.pageDesign.thumbnailUrl | cmUrl"
+                  [alt]="pageTemplate.pageDesign.displayName"
+                  class="thumbnail-image"
+                />
+                <i
+                  *ngIf="!pageTemplate.pageDesign || (pageTemplate.pageDesign && !pageTemplate.pageDesign.thumbnailUrl)"
+                  class="mdi mdi-view-dashboard-outline thumbnail-icon"
+                ></i>
+              </div>
+              <ng-container ngSpdItemCardMainActions>
+                <button
+                  ngSpdIconButton
+                  icon="dots-horizontal"
+                  aria-label="context menu"
+                  [ngSpdPopover]="contextMenuTemplate"
+                  popoverPosition="top-left"
+                  [popoverOffset]="0"
+                  [popoverShowDelay]="0"
+                  [popoverHideDelay]="0"
+                  [hideOnBackdropClick]="true"
+                  #contextMenuPopoverInstance="ngSpdPopover"
+                  (click)="contextMenuPopoverInstance.toggle(); $event.stopPropagation()"
+                ></button>
+              </ng-container>
+
+              <ng-template #contextMenuTemplate let-contextMenuTemplateRef>
+                <ng-spd-list>
+                  <!-- EDIT -->
+                  <button
+                    ngSpdListItem
+                    (click)="
+                      openTemplateInContentEditor(pageTemplate.template.templateId); contextMenuTemplateRef.hide()
+                    "
+                    [title]="'COMMON.EDIT' | translate"
+                    [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access?.canWrite"
+                  >
+                    <i class="icon mdi mdi-open-in-new pr-sm"></i>
+                    {{ 'COMMON.EDIT' | translate }}</button
+                  >
+
+                  <!-- Rename -->
+                  <button
+                    ngSpdListItem
+                    (click)="oldRenameTemplate(pageTemplate); contextMenuTemplateRef.hide()"
+                    [title]="'COMMON.RENAME' | translate"
+                    [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access?.canRename"
+                  >
+                    <i class="mdi mdi-pencil-outline pr-sm"></i> {{ 'COMMON.RENAME' | translate }}</button
+                  >
+
+                  <!-- Duplicate -->
+                  <button
+                    ngSpdListItem
+                    (click)="oldDuplicateTemplate(pageTemplate); contextMenuTemplateRef.hide()"
+                    [title]="'COMMON.DUPLICATE' | translate"
+                    [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access?.canDuplicate"
+                  >
+                    <i class="mdi mdi-content-copy pr-sm"></i> {{ 'COMMON.DUPLICATE' | translate }}</button
+                  >
+
+                  <!-- Insert options -->
+                  <button
+                    ngSpdListItem
+                    (click)="configureInsertOptions(pageTemplate.template.templateId); contextMenuTemplateRef.hide()"
+                    [title]="'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.INSERT_OPTIONS' | translate"
+                    [disabled]="!isTemplateStandardValuesAvailable || !pageTemplate.template.access?.canWrite"
+                  >
+                    <i class="icon mdi mdi-list-status pr-sm"></i>
+                    {{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.INSERT_OPTIONS' | translate }}</button
+                  >
+
+                  <!-- Delete -->
+                  <button
+                    ngSpdListItem
+                    (click)="promptDeleteTemplate(pageTemplate.template.templateId); contextMenuTemplateRef.hide()"
+                    [title]="'COMMON.DELETE' | translate"
+                    [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access?.canDelete"
+                  >
+                    <i class="mdi mdi-trash-can-outline pr-sm"></i>
+                    {{ 'COMMON.DELETE' | translate }}</button
+                  >
+                </ng-spd-list>
+              </ng-template>
+              <div ngSpdItemCardVerticalActions>
+                <div class="page-design">
+                  <div class="page-design-left">
+                    <span class="details-heading">{{ 'PAGE_DESIGNS.WORKSPACE.PAGE_DESIGN' | translate }}</span>
+                    <span>{{
+                      pageTemplate.pageDesign && pageTemplate.pageDesign.displayName
+                        ? pageTemplate.pageDesign.displayName
+                        : ('PAGE_DESIGNS.WORKSPACE.NONE' | translate)
+                    }}</span>
+                  </div>
+                  <div class="page-design-right">
+                    <button
+                      ngSpdButton="rounded"
+                      [disabled]="isTemplateAccessFieldSupported && !pageTemplate.template.access?.canWrite"
+                      (click)="
+                        assignPageDesign(pageTemplate.template.templateId, pageTemplate?.pageDesign?.itemId);
+                        $event.stopPropagation()
+                      "
+                      >{{
+                        pageTemplate.pageDesign && pageTemplate.pageDesign.displayName
+                          ? ('PAGE_DESIGNS.WORKSPACE.CHANGE' | translate)
+                          : ('PAGE_DESIGNS.WORKSPACE.ADD' | translate)
+                      }}</button
+                    >
+                  </div>
+                </div>
+              </div>
+            </ng-spd-item-card>
+          </div>
+        </div>
+
+        <app-empty-state
+          *ngIf="!pageTemplates?.length && !isLoadingTemplates"
+          [title]="'PAGE_DESIGNS.WORKSPACE.NO_PAGE_TEMPLATES' | translate"
+          (btnClick)="openTemplateInContentEditor()"
+          [btnText]="'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_TEMPLATE' | translate"
+        ></app-empty-state>
+      </div>
+
+      <div *ngIf="!!pageTemplates" class="right-container py-md">
+        <app-item-details
+          [displayName]="templateDetails?.displayName"
+          [createdDate]="templateDetails?.createdDate"
+          [updatedDate]="templateDetails?.updatedDate"
+          [thumbanailAltText]="(selectedTemplate$ | async)?.pageDesign?.displayName"
+          [thumbnailUrl]="(selectedTemplate$ | async)?.pageDesign?.thumbnailUrl"
+          [templateUsedByPagesCount]="templateUsedByPagesCount"
+          [isLoading]="isLoadingDetails"
+          [fallbackIcon]="'mdi-view-dashboard-outline'"
+        ></app-item-details>
+      </div>
+    </div>
+  </div>
+</ng-template>

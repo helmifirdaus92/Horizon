@@ -1,0 +1,26 @@
+{
+  "folders": [
+    {
+      "path": "./src/Horizon.Messaging"
+    }
+  ],
+  "settings": {
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "editor.formatOnSave": true,
+    "editor.rulers": [120],
+
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features",
+    },
+    "html.format.wrapAttributes": "aligned-multiple",
+
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+  },
+  "extensions": {
+    "recommendations": ["ms-vscode.vscode-typescript-tslint-plugin", "EditorConfig.EditorConfig"]
+  }
+}

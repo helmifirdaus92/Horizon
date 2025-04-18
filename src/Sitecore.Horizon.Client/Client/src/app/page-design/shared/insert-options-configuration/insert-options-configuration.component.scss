@@ -1,0 +1,47 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.insert-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: $padding;
+}
+
+.warning-block {
+  background-color: $ui-orange-100;
+  border-radius: $border-radius-medium;
+
+  ::ng-deep {
+    span {
+      color: $ui-orange-500;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+ng-spd-tab-group {
+  border-bottom: $framework-border;
+
+  button {
+    height: 40px;
+    font-weight: $font-weight-semi-bold;
+  }
+}
+
+.template-checkbox-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.itself {
+  font-weight: $font-weight-semi-bold;
+}
+
+.link {
+  @include default-text;
+  text-decoration: none;
+  color: $brand-primary-dark;
+}

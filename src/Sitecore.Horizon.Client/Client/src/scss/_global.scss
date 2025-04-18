@@ -1,0 +1,159 @@
+html {
+  font-family: $font;
+  color: $font-primary-default;
+  height: 100%;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: $brand-ui-white;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-size: 12px;
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+button,
+a {
+  font-family: inherit;
+}
+
+ng-spd-split-pane > .pane-divider {
+  z-index: $pane-resizer-z-index;
+}
+
+// Corresponds to a non-Angular component, therefore the styles are added here.
+.designing-page-overlay {
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+hr.hr {
+  border: 0;
+  border-top: $framework-border;
+  margin: 0;
+}
+
+.btn-square {
+  width: $generic-element-height !important;
+  height: $generic-element-height !important;
+}
+
+// Safari specific
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    // Fix issue when disabled primary buttons have transparent background
+    [ngspdbutton].primary[disabled] {
+      opacity: 1 !important;
+      filter: opacity(0.3);
+    }
+  }
+}
+
+ng-spd-switch {
+  cursor: pointer;
+}
+
+.divider-vertical {
+  display: inline-block;
+  border-left: $framework-border;
+  height: $framework-border-height;
+}
+
+.border-bottom {
+  border-bottom: $framework-border;
+}
+
+// MDI Icon Default Size
+.mdi {
+  font-size: $font-size-22px;
+  color: $font-primary-dark;
+  display: inline-block;
+  line-height: 1;
+}
+
+// Override styles for SXA rhs controls: safe to remove after SXA update @sitecore/spd-styles to V >= 0.9.242
+app-sc-section {
+  app-sc-editing-control,
+  .name,
+  .title,
+  .common-droplist__small-tooltip,
+  .ng-spd-accordion-header-content {
+    font-size: $font-size-12px !important;
+  }
+  .slim-btn,
+  .common-droplist__additional-title {
+    font-size: $font-size-14px !important;
+  }
+}
+
+// Temporary fix for SXA RHS dropdown
+.cdk-overlay-pane.ng-spd-menu-overlay-panel:not(.spd-dialog-overlay-panel) {
+  position: absolute !important;
+}
+
+// Temporary fix for Error pages - SPD component sets wrong css class
+ng-spd-empty-state .mdi-xxxl {
+  font-size: 230px;
+}
+
+// Temporary fix for SPD
+// Droplist
+[ngspddroplisttoggle] {
+  &.max-width-140 {
+    max-width: 140px;
+
+    .ng-spd-droplist-toggle-content {
+      display: inline-block !important;
+    }
+  }
+  &.max-width-200 {
+    max-width: 200px;
+
+    .ng-spd-droplist-toggle-content {
+      display: inline-block !important;
+    }
+  }
+
+  .ng-spd-droplist-img-container {
+    margin-left: $padding-x-small !important;
+  }
+}
+
+// Accordion
+ng-spd-accordion.v2 {
+  background-color: $brand-framework-bg-hover;
+  border-radius: $border-radius;
+  margin: $padding-small $padding-small $padding;
+  .ng-spd-accordion-header{
+    &:hover, &:active, &:focus  {
+      background: transparent !important;
+    }
+  }
+
+  .ng-spd-accordion-header,
+  ng-spd-accordion-content::after {
+    border: none !important;
+  }
+
+  .ng-spd-accordion-header-content {
+    font-size: $font-size-16px;
+  }
+}
+
+// Search input without border
+ng-spd-search-input.no-border {
+  input {
+    border: none;
+  }
+}

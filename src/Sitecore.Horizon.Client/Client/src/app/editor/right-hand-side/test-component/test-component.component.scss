@@ -1,0 +1,124 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+ng-spd-slide-in-panel {
+  @include rhs-overlay;
+  z-index: $page-pane-z-index;
+}
+
+.browse-btn {
+  flex-shrink: 0;
+  border: $border;
+}
+
+.rendering {
+  &.border {
+    border-bottom: $framework-border;
+  }
+}
+
+.header {
+  background-color: $ui-cyan-500;
+  color: $brand-ui-white;
+
+  ::ng-deep {
+    .mdi {
+      color: $brand-ui-white !important;
+    }
+  }
+
+  .hr {
+    opacity: 0.24;
+  }
+
+  .header-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h4 {
+      font-size: $font-size-16px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    button[ngSpdButton] {
+      color: white;
+
+      &[ngspdbutton='outline'] {
+        border-color: white;
+      }
+    }
+    app-experiment-status {
+      background-color: $brand-ui-white;
+      border-radius: $border-radius-small;
+    }
+  }
+}
+
+::ng-deep {
+  .variant-menu-actions-popover {
+    margin-right: -40px;
+  }
+}
+
+.variant-tab-btn {
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: $padding-x-large;
+  height: $padding-x-large;
+
+  h6 {
+    font-size: $font-size-14px;
+  }
+}
+
+.personalize-options {
+  border: $framework-border;
+  border-style: dashed;
+  border-radius: $border-radius;
+}
+
+.variant-action-type-text {
+  background-color: $background-purple;
+  border-radius: $border-radius;
+}
+
+.edit-variant-name-input {
+  width: 100%;
+}
+
+.error-block p {
+  margin: 0;
+  color: $brand-signal-error;
+}
+
+.variant-name-section {
+  overflow: hidden;
+
+  & .name-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.px-xs {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.popover-dialog {
+  border-radius: $border-radius;
+  overflow-wrap: break-word;
+}
+
+.view-analytics-section {
+  display: flex;
+  justify-content: flex-end;
+}
+

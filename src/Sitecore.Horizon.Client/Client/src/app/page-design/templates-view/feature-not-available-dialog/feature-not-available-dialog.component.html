@@ -1,0 +1,57 @@
+<ng-spd-dialog-panel (keyup.enter)="closeAndNavigateToEditor()">
+  <ng-spd-dialog-close-button (close)="closeAndNavigateToEditor()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header class="header"
+    >{{ 'PAGE_DESIGNS.WORKSPACE.FEATURE_NOT_AVAILABLE_DIALOG.HEADER' | translate }}
+  </ng-spd-dialog-header>
+
+  <div class="dialog-body">
+    <div class="text">
+      <p>
+        <a href="https://doc.sitecore.com/xmc/en/users/xm-cloud/templates.html" class="link" target="_blank">{{
+          'PAGE_DESIGNS.LHS_PANEL.PAGE_TEMPLATES' | translate | titlecase
+        }}</a
+        >,
+        <a
+          href="https://doc.sitecore.com/xmc/en/users/xm-cloud/work-with-page-designs.html"
+          class="link"
+          target="_blank"
+          >{{ 'PAGE_DESIGNS.LHS_PANEL.PAGE_DESIGNS' | translate | lowercase }}</a
+        >, {{ 'PAGE_DESIGNS.WORKSPACE.FEATURE_NOT_AVAILABLE_DIALOG.TEXT_1' | translate }}
+        <a href="https://doc.sitecore.com/xmc/en/users/xm-cloud/work-with-partials.html" class="link" target="_blank">{{
+          'PAGE_DESIGNS.LHS_PANEL.PARTIAL_DESIGNS' | translate | lowercase
+        }}</a>
+        {{ 'PAGE_DESIGNS.WORKSPACE.FEATURE_NOT_AVAILABLE_DIALOG.TEXT_2' | translate }}
+        <a
+          href="https://doc.sitecore.com/xmc/en/developers/xm-cloud/managing-headless-sites-with-sxa.html"
+          class="link"
+          target="_blank"
+          >{{ 'PAGE_DESIGNS.WORKSPACE.FEATURE_NOT_AVAILABLE_DIALOG.SXA_SITES_DOCUMENTATION_LINK' | translate }}</a
+        >.
+      </p>
+
+      <p>
+        {{ 'PAGE_DESIGNS.WORKSPACE.FEATURE_NOT_AVAILABLE_DIALOG.TEXT_3' | translate }}
+        <a
+          href="https://doc.sitecore.com/xmc/en/developers/xm-cloud/create-a-headless-site-collection-and-site.html"
+          class="link"
+          target="_blank"
+          >{{ 'PAGE_DESIGNS.WORKSPACE.FEATURE_NOT_AVAILABLE_DIALOG.CREATE_SXA_SITES_LINK' | translate }}</a
+        >.
+      </p>
+    </div>
+    <div class="illustration">
+      <img
+        src="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/spot-lock"
+        alt="spot lock"
+      />
+    </div>
+  </div>
+
+  <ng-spd-dialog-actions>
+    <div class="actions-wrapper">
+      <button ngSpdButton="primary" (click)="closeAndNavigateToEditor()">{{
+        'PAGE_DESIGNS.WORKSPACE.FEATURE_NOT_AVAILABLE_DIALOG.DISMISS' | translate
+      }}</button>
+    </div>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

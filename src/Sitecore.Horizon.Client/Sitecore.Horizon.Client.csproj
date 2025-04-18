@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Sitecore.Framework.Runtime.Build" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SitecorePluginContent Include="Client\dist\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" />
+    <PackageReference Include="HtmlAgilityPack.NetCore" />
+
+    <PackageReference Include="Sitecore.Framework.Plugin.Web" />
+    <PackageReference Include="Sitecore.Framework.Runtime.Abstractions" />
+    <PackageReference Include="Sitecore.Framework.Runtime.Commands" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sitecore.AuthoringHost.Configuration\Sitecore.AuthoringHost.Configuration.csproj" />
+    <ProjectReference Include="..\Sitecore.Horizon.Core\Sitecore.Horizon.Core.csproj" />
+  </ItemGroup>
+
+  <!-- Speed up VS -->
+  <ItemGroup>
+    <Compile Remove="Client\**" />
+    <Content Remove="Client\**" />
+    <EmbeddedResource Remove="Client\**" />
+    <None Remove="Client\**" />
+  </ItemGroup>
+</Project>

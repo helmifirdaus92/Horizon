@@ -1,0 +1,14 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+// SXA has a overwrite for the default styles for app-notifications, so we make a workaround and write our own default styles
+:host {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  width: auto;
+  display: block;
+  z-index: 1;
+}

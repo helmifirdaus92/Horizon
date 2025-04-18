@@ -1,0 +1,75 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.dialog-body {
+  display: block;
+  padding-inline: $padding-large;
+  overflow-y: auto;
+  flex-grow: 1;
+  .action-dialog {
+    width: 100%;
+  }
+
+  label {
+    padding-bottom: $padding-x-small;
+  }
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: $padding;
+
+    .container {
+      box-sizing: border-box;
+      border: $framework-border;
+      border-radius: $border-radius-small;
+      cursor: pointer;
+
+      &.selected {
+        background-color: $brand-primary-selected;
+        border-color: $brand-primary-dark;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        padding: $padding;
+      }
+
+      .header {
+        font-weight: $font-weight-semi-bold;
+      }
+      .description {
+        line-height: 21px;
+      }
+
+      &[disabled='true'] {
+        opacity: 0.6;
+        cursor: default !important;
+        pointer-events: none;
+      }
+    }
+
+    .text {
+      font-weight: $font-weight-medium;
+      line-height: 30px;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: $padding-x-small;
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: $padding-x-small;
+      }
+
+      label {
+        padding-bottom: 0;
+      }
+      input[type='radio'] {
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+}

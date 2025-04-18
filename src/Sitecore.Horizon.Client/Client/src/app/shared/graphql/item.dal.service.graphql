@@ -1,0 +1,327 @@
+query GetItem($path: String!, $language: String!, $site: String!, $version: Int) {
+  item(path: $path, version: $version, language: $language, site: $site) {
+    id
+    displayName
+    name
+    icon
+    path
+    version
+    language
+    revision
+    createdBy
+    creationDate
+    isLatestPublishableVersion
+    template {
+      id
+      name
+      path
+    }
+    permissions {
+      canRename
+      canWrite
+      canDelete
+      canCreate
+      canPublish
+      canWriteLanguage
+    }
+    locking {
+      isLocked
+      lockedByCurrentUser
+    }
+    ...Versions
+    ...Workflow
+    publishing {
+      hasPublishableVersion
+      isPublishable
+    }
+    ... on Page {
+      presentationDetails
+      layoutEditingKind
+      route
+    }
+  }
+}
+
+query GetItemVersions($path: String!, $language: String!, $site: String!, $version: Int) {
+  item(path: $path, version: $version, language: $language, site: $site) {
+    id
+    versions {
+      version
+      versionName
+      updatedBy
+      updatedDate
+      language
+      isLatestPublishableVersion
+    }
+  }
+}
+
+query GetItemState(
+  $path: String!
+  $language: String!
+  $site: String!
+  $version: Int
+  $withDisplayName: Boolean = false
+  $withWorkflow: Boolean = false
+  $withVersions: Boolean = false
+  $withPresentation: Boolean = false
+  $withLayoutEditingKind: Boolean = false
+) {
+  item(path: $path, version: $version, language: $language, site: $site) {
+    id
+    displayName @include(if: $withDisplayName)
+    revision
+    ...Workflow @include(if: $withWorkflow)
+    ...Versions @include(if: $withVersions)
+
+    ... on Page {
+      presentationDetails @include(if: $withPresentation)
+      layoutEditingKind @include(if: $withLayoutEditingKind)
+    }
+  }
+}
+
+query GetItemType($path: String!, $language: String!, $site: String!, $version: Int) {
+  item(path: $path, version: $version, language: $language, site: $site) {
+    id
+    version
+    template {
+      id
+      baseTemplateIds
+    }
+    ancestors {
+      template {
+        id
+      }
+    }
+    __typename
+  }
+}
+
+fragment Workflow on Content {
+  workflow {
+    id
+    displayName
+    finalState
+    canEdit
+    warnings {
+      id
+      errorCode
+      message
+    }
+    icon
+    commands {
+      id
+      displayName
+      icon
+      suppressComment
+    }
+  }
+  isLatestPublishableVersion
+  publishing {
+    hasPublishableVersion
+    isPublishable
+  }
+}
+
+fragment Versions on Content {
+  versions {
+    version
+    isLatestPublishableVersion
+    versionName
+    updatedBy
+    updatedDate
+    publishing {
+      validFromDate
+      validToDate
+      isAvailableToPublish
+    }
+    workflow {
+      displayName
+    }
+  }
+}
+
+fragment BaseFieldValidation on ItemField {
+  validation(modes: ["ValidatorBar"]) {
+    mode
+    results(language: $language) {
+      nodes {
+        message
+        valid
+        validator
+      }
+    }
+  }
+}
+
+fragment FieldValidationWithSeverity on ItemField {
+  validation(modes: ["ValidatorBar"]) {
+    mode
+    results(language: $language) {
+      nodes {
+        message
+        valid
+        validator
+        result
+      }
+    }
+  }
+}
+
+
+query GetRawItemByPath($path: String!, $language: String!, $site: String!) {
+  rawItem(path: $path, language: $language, site: $site) {
+    id
+    displayName
+    name
+    icon
+    path
+    url
+    version
+    language
+    createdBy
+    creationDate
+    template {
+      id
+      name
+      path
+    }
+    workflow {
+      id
+      displayName
+    }
+  }
+}
+
+query GetRawItemDisplayName($path: String!, $language: String!, $site: String!) {
+  rawItem(path: $path, language: $language, site: $site) {
+    id
+    displayName
+    __typename
+  }
+}
+
+query GetRawItemPath($path: String!, $language: String!, $site: String!) {
+  rawItem(path: $path, language: $language, site: $site) {
+    id
+    path
+    __typename
+  }
+}
+
+query GetFieldDataSources($path: String!, $language: String!, $site: String!, $fieldId: String!) {
+  item(path: $path, language: $language, site: $site) {
+    id
+    template {
+      id
+      field(id: $fieldId) {
+        id
+        sources
+      }
+    }
+  }
+}
+
+query GetItemInsertOptions($path: String!, $kind: InsertOptionKind!, $language: String!, $site: String!) {
+  item(path: $path, language: $language, site: $site) {
+    id
+    insertOptions(kind: $kind) {
+      displayName
+      id
+    }
+  }
+}
+
+fragment CommonItemFields on Item {
+  itemId
+  language {
+    name
+  }
+  version
+  revision: field(name: "__revision") {
+    value
+  }
+  access {
+    canWrite
+    canRead
+  }
+}
+
+fragment FieldNodes on ItemField {
+  access {
+    canWrite
+    canRead
+  }
+  containsStandardValue
+  value
+  templateField {
+    templateFieldId(format: D)
+    name
+    type
+    section {
+      name
+    }
+    dataSource {
+      items {
+        nodes {
+          itemId(format: D)
+          displayName
+          hasPresentation
+          hasChildren
+          path
+        }
+        pageInfo {
+          hasNextPage
+          startCursor
+          endCursor
+        }
+      }
+    }
+    versioning
+  }
+}
+
+query GetItemFields($itemId: ID!, $language: String!, $version: Int, $fieldsStartCursor: String) {
+  item(where: { itemId: $itemId, language: $language, version: $version }) {
+    ...CommonItemFields
+    fields(excludeStandardFields: true, after: $fieldsStartCursor) {
+      nodes {
+        ...FieldNodes
+        ...BaseFieldValidation
+      }
+      pageInfo {
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}
+
+query GetItemFieldsWithErrorSeverity($itemId: ID!, $language: String!, $version: Int, $fieldsStartCursor: String) {
+  item(where: { itemId: $itemId, language: $language, version: $version }) {
+    ...CommonItemFields
+    fields(excludeStandardFields: true, after: $fieldsStartCursor) {
+      nodes {
+        ...FieldNodes
+        ...FieldValidationWithSeverity
+      }
+      pageInfo {
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+}
+
+query GetItemField($itemId: ID!, $fieldId: String!, $language: String!, $version: Int, $dsStartCursor: String) {
+  item(where: { itemId: $itemId, language: $language, version: $version }) {
+    ...CommonItemFields
+    field(name: $fieldId) {
+      ...FieldNodes
+      ...BaseFieldValidation
+    }
+  }
+}

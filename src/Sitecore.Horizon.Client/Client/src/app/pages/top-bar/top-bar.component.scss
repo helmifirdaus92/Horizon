@@ -1,0 +1,100 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  .back-to-page-design {
+    width: 100%;
+    height: $generic-element-height;
+    background-color: $brand-primary-default;
+  }
+
+  .main-top-bar {
+    flex-direction: row;
+
+    align-items: stretch;
+    display: flex;
+    flex: 0 0 $header-height;
+    height: $header-height; // Fix for Partial design view
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    padding-left: $padding-small;
+    padding-right: $padding-small;
+  }
+}
+
+.col {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.left,
+.right {
+  flex-basis: 50%;
+}
+
+.center {
+  flex-basis: 100%;
+  justify-content: center;
+}
+
+.right {
+  justify-content: flex-end;
+}
+
+.design-close-btn {
+  min-width: auto;
+}
+
+.page-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 200px;
+
+  h4 {
+    @include heading-xs;
+    @include text-nowrap-ellipsis;
+    margin: 0;
+    line-height: normal;
+  }
+
+  &.with-icon {
+    flex-direction: row;
+    align-items: center;
+    .mdi {
+      line-height: inherit;
+    }
+    span {
+      @include tiny-text;
+      @include text-nowrap-ellipsis;
+    }
+    h4 {
+      max-width: 100px;
+    }
+  }
+}
+
+$headerFontSize: $font-size-24px;
+.h2 {
+  box-sizing: border-box;
+  font-size: $headerFontSize;
+  line-height: $headerFontSize;
+  white-space: nowrap;
+
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  // The default fonts does not make correct vertical alignment,
+  // so we have to compensate the font-size difference between the h1 and normal 1rem.
+  height: calc($headerFontSize + ($headerFontSize - 1rem) / 2);
+}
+
+.opacity-hidden {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}

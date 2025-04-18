@@ -1,0 +1,35 @@
+<ng-spd-dialog-panel (keyup.enter)="!valueEdited || newName === currentVersion?.name || !newName ? '' : rename()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>
+    {{ 'VERSIONS.RENAME.HEADER' | translate }}
+  </ng-spd-dialog-header>
+
+  <div class="dialog-body">
+    <div class="action-dialog">
+      <div class="input">
+        <label ngSpdLabel for="rename-version">{{ 'COMMON.NAME' | translate }}</label>
+        <input
+          ngSpdInput
+          type="text"
+          [placeholder]="'VERSIONS.RENAME.NAME_PLACEHOLDER' | translate"
+          name="versionName"
+          autocomplete="off"
+          #inputEl
+          [(ngModel)]="newName"
+          (ngModelChange)="newName = $event; valueEdited = true"
+        />
+      </div>
+    </div>
+  </div>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button
+      ngSpdButton="primary"
+      [disabled]="!valueEdited || newName === currentVersion?.name || !newName"
+      (click)="rename()"
+      class="ml-sm"
+      >{{ 'COMMON.RENAME' | translate }}</button
+    >
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

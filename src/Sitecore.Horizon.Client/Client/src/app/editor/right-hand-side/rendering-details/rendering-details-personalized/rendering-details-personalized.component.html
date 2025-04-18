@@ -1,0 +1,45 @@
+<h4>{{ 'EDITOR.RENDERING.PERSONALIZATION' | translate }}</h4>
+
+<div class="mb-md" *ngIf="isActionRequired()">
+  <ng-spd-inline-notification severity="info" class="warning-block">
+    <p [innerHTML]="'EDITOR.RENDERING.PERSONALIZATION_ACTION_REQUIRE' | translate"> </p>
+  </ng-spd-inline-notification>
+</div>
+
+<div class="rendering pb-md">
+  <button ngSpdInfoButton type="button" (click)="showComponentList = true" [disabled]="!(canWrite$ | async)">
+    <h4 ngSpdInfoButtonTitle>{{ 'EDITOR.RENDERING.RENDERING' | translate }}</h4>
+    <span ngSpdInfoButtonDescription>
+      {{ displayName }}
+    </span>
+  </button>
+</div>
+
+<ng-spd-switch
+  class="mt-md mb-md"
+  [checked]="isRenderingHidden"
+  (click)="toggleHideRendering()"
+  [text]="'EDITOR.RENDERING.HIDE_RENDERING' | translate"
+  [disabled]="!(canWrite$ | async)"
+></ng-spd-switch>
+
+<div class="reset">
+  <button ngSpdButton="outline" (click)="resetPersonalization()" [disabled]="!(canWrite$ | async)">
+    {{ 'EDITOR.RENDERING.RESET' | translate }}
+  </button>
+</div>
+
+<!-- Replace rendering -->
+<ng-spd-slide-in-panel *ngIf="showComponentList" @rhsSlideInPanelClose>
+  <ng-spd-slide-in-panel-header class="component-list" icon="close" (back)="showComponentList = false"
+    >{{ 'EDITOR.RENDERING.RENDERING' | translate }}
+  </ng-spd-slide-in-panel-header>
+
+  <ng-spd-slide-in-panel-content>
+    <app-component-gallery
+      [phAllowedRenderingIds]="chrome.parentPlaceholderChromeInfo.allowedRenderingIds"
+      [rendering]="chrome"
+      (selectRendering)="replaceRendering($event); showComponentList = false"
+    ></app-component-gallery>
+  </ng-spd-slide-in-panel-content>
+</ng-spd-slide-in-panel>

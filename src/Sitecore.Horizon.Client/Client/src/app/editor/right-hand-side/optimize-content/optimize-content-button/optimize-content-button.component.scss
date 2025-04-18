@@ -1,0 +1,41 @@
+/*!
+ * © Sitecore Corporation A/S. All rights reserved. Sitecore® is a registered trademark of Sitecore Corporation A/S.
+ */
+
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+.optimize-section {
+  justify-content: center;
+  display: flex;
+  margin: $padding-small 0;
+
+  button {
+    background: $brand-ui-white;
+    border-radius: $border-radius-secondary;
+    height: $spacing-2xl;
+    min-width: 270px;
+    display: flex;
+    align-items: center;
+    box-shadow: $box-shadow;
+    font-size: $font-size-14px;
+    border: 0;
+    cursor: pointer;
+    color: $brand-black-600;
+
+    &:disabled {
+      @include interactive-disabled;
+      pointer-events: all !important;
+    }
+  }
+
+  .mdi {
+    color: $ui-purple-500;
+    margin: 0 $spacing-6xs;
+  }
+}
+
+.footer-text {
+  color: $background-neutral;
+}

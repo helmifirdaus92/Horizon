@@ -1,0 +1,19 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using Sitecore.Mvc
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>@Html.Sitecore().CurrentItem.DisplayName</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAMFBMVEU0OkArMjhobHEoPUPFEBIu
+O0L+AAC2FBZ2JyuNICOfGx7xAwTjCAlCNTvVDA1aLzQ3COjMAAAAVUlEQVQI12NgwAaCDSA0888G
+CItjn0szWGBJTVoGSCjWs8TleQCQYV95evdxkFT8Kpe0PLDi5WfKd4LUsN5zS1sKFolt8bwAZrCa
+GqNYJAgFDEpQAAAzmxafI4vZWwAAAABJRU5ErkJggg==" />
+  <link href="/default.css" rel="stylesheet" />
+</head>
+<body style="background-color: white;">
+<div id="MainPanel">@Html.Sitecore().Placeholder("content")</div>
+<div>@Html.Sitecore().Placeholder("phInMvcLayout")</div>
+<small style="margin-left: 50px; color: green">Sample MVC layout</smallstyle="margin-left:>
+</body>
+</html>

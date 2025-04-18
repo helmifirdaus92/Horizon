@@ -1,0 +1,34 @@
+@if (field.templateField.type === 'Checkbox') {
+  <ng-spd-checkbox
+    class="checkbox-field"
+    [text]="field.templateField.name"
+    [checked]="isCheckboxSelected"
+    (checkedChange)="onCheckboxFieldValueChange($event)"
+  ></ng-spd-checkbox>
+} @else if (field.templateField.type === 'Checklist') {
+  <ng-spd-droplist
+    [allowMultipleSelection]="true"
+    [templateType]="'custom'"
+    [customWidth]="300"
+    [reversedMode]="true"
+    [size]="size"
+    (scrolledToBottom)="fetchNextDatasourceBatch.emit()"
+  >
+    <div class="p-sm pt-0">
+      @if (field.templateField.dataSource.length) {
+        <ng-spd-checkbox
+          *ngFor="let item of field.templateField.dataSource"
+          [text]="item.displayName"
+          [checked]="isChecklistItemSelected(item.itemId)"
+          (checkedChange)="onChecklistFieldValueChange($event, item.itemId)"
+        >
+        </ng-spd-checkbox>
+      } @else {
+        <div class="m-sm">{{ 'EDITOR.DATA_VIEW.NO_DATASOURCE_ITEMS' | translate }}</div>
+      }
+    </div>
+    <div selectedList>
+      {{ 'EDITOR.DATA_VIEW.ITEMS_SELECTED' | translate: { selectedItems: selectedValues.length } }}
+    </div>
+  </ng-spd-droplist>
+}

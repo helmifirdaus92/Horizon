@@ -1,0 +1,63 @@
+<button
+  ngSpdDroplistToggle
+  popoverPosition="right-bottom"
+  class="basic drop-button max-width-200"
+  [class.error]="isLocalHostError"
+  [ngSpdPopover]="popover"
+  [opened]="popoverInstance.isPopoverVisible()"
+  [popoverOffset]="0"
+  [popoverShowDelay]="0"
+  [popoverHideDelay]="0"
+  [hideOnBackdropClick]="true"
+  [attr.aria-label]="'SITE_LANGUAGE.LANGUAGE_SWITCHER' | translate"
+  #popoverInstance="ngSpdPopover"
+  (click)="popoverInstance.toggle(); $event.stopPropagation()"
+  (popoverIsActiveChange)="popoverIsActiveChange($event)"
+>
+  {{ currentHost.type === 'local' ? currentHost.url : ('RENDERING_HOST.DEFAULT' | translate) }}
+</button>
+
+<ng-template #popover let-popoverRef>
+  <div class="m-md">
+    <div class="host-variants-container">
+      <div class="host-variant">
+        <input type="radio" [id]="'default'" [value]="'default'" [(ngModel)]="hostTypeDraft" />
+        <label [for]="'default'">{{ 'RENDERING_HOST.DEFAULT' | translate }} </label>
+      </div>
+      <div class="host-variant ml-md">
+        <input type="radio" [id]="'local'" [value]="'local'" [(ngModel)]="hostTypeDraft" />
+        <label [for]="'local'">{{ 'RENDERING_HOST.LOCAL' | translate }} </label>
+      </div>
+    </div>
+
+    <div [class.hidden]="hostTypeDraft === 'default'" class="url-input pt-md">
+      <input
+        #nameInput="ngModel"
+        ngSpdInput
+        type="text"
+        id="local-rendering-host-url"
+        required
+        maxlength="255"
+        pattern="\b((https?):\/\/[^\s\/$.?#].[^\s]*)\b\/?"
+        [isInvalid]="!!nameInput.errors && (!!nameInput.dirty || !!nameInput.touched)"
+        autofocus="true"
+        [placeholder]="'RENDERING_HOST.ENTER_EDITING_HOST_URL' | translate"
+        [(ngModel)]="localHostUrlDraft"
+      />
+      <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error-block">
+        <p *ngIf="nameInput.errors?.pattern">{{ 'RENDERING_HOST.URL.VALID_URL_REQUIRED' | translate }}</p>
+        <p *ngIf="nameInput.errors?.required">{{ 'RENDERING_HOST.URL.VALUE_REQUIRED' | translate }}</p>
+      </div>
+    </div>
+
+    <div class="save-button-container">
+      <button
+        ngSpdButton="primary"
+        class="mt-md"
+        (click)="save(); popoverInstance.hide()"
+        [disabled]="hostTypeDraft === 'local' && (nameInput.invalid || !nameInput.dirty)"
+        >{{ 'COMMON.SAVE' | translate }}</button
+      >
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,23 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  display: block;
+  flex: 1;
+  padding: 0 $padding-small $padding-small $padding-small
+}
+
+.extension-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  &::ng-deep {
+    iframe {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+      border: 0 !important;
+    }
+  }
+}

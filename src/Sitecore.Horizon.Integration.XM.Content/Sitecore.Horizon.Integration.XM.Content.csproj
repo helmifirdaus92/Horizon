@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <IncludeSymbols>false</IncludeSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="..\Sitecore.Horizon.Integration\sitecore modules\**" PackagePath="wwwroot\sitecore modules" />
+
+    <Content Include="..\Sitecore.Horizon.Integration\App_Config\**" PackagePath="wwwroot\App_Config\" />
+    <Content Include="..\Sitecore.Horizon.Integration\sitecore\shell\horizon\**" PackagePath="wwwroot\sitecore\shell\horizon" />
+    <Content Include="..\Sitecore.Horizon.Integration.GraphQL\App_Config\**" PackagePath="wwwroot\App_Config\" />
+
+    <Content Include="..\..\output\$configuration$\Changelog\**" PackagePath="changelog" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sitecore.Horizon.Integration\Sitecore.Horizon.Integration.csproj" />
+    <ProjectReference Include="..\Sitecore.Horizon.Integration.GraphQL\Sitecore.Horizon.Integration.GraphQL.csproj" />
+  </ItemGroup>
+</Project>

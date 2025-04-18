@@ -1,0 +1,335 @@
+{
+  "COMMON": {
+    "CANCEL": "取消",
+    "CREATE": "创建",
+    "CREATE_NEW": "新建",
+    "MENU": "菜单",
+    "RENAME": "重命名",
+    "DUPLICATE": "复制",
+    "REMOVE": "移除",
+    "DELETE": "删除"
+  },
+  "EXTENSIONS": {
+    "SECTIONS": {
+      "DETAILS": "详细信息"
+    }
+  },
+  "ERRORS": {
+    "OPERATION_GENERIC": "某个错误导致该操作无法完成。",
+    "ITEM_NOT_FOUND": "该项已被移动或删除。 请按 F5 刷新屏幕。",
+    "CONTEXT_COERCED": "无法显示您所请求的项。 该项不存在，或者您无权查看它。",
+    "CONTEXT_NOT_FOUND": "页面未正确加载。 请尝试刷新页面。 如果再次出错，请与您的系统管理员联系。"
+  },
+  "DEVICE": {
+    "PHONE": "电话",
+    "TABLET": "平板电脑",
+    "DESKTOP": "台式机",
+    "ALL": "所有设备",
+    "ROTATE": "旋转"
+  },
+  "NAV": {
+    "MAIN": "主要",
+    "WORKSPACE": "工作区",
+    "EDITOR": "页面编辑器",
+    "PAGES": "页面",
+    "LAUNCHPAD": "快速启动板",
+    "HELP": "帮助",
+    "UNDO": "撤消",
+    "REDO": "恢复",
+    "EXPAND": "展开",
+    "COLLAPSE": "折叠",
+    "METADATA": "元数据",
+    "GO_BACK": "返回"
+  },
+  "EDITOR": {
+    "ADD_TO_PAGE": "添加到页面",
+    "CREATE_PAGE": "创建页面",
+    "CREATE_NEW": "新建",
+    "CREATE_FOLDER": "创建文件夹",
+    "CREATE_PAGE_ON_SAME_LEVEL": "在同一级别上创建页面",
+    "ITEM_ALREADY_DEFINED_ON_THIS_LEVEL": "此级别'{{name}}'已存在一项。 同一级别不能具有两个同名的项。",
+    "CREATE_ITEM_NOT_VALID_NAME": "'{{name}}' 不是有效的名称。",
+    "CREATE_PAGE_FAILED": "无法创建'{{name}}'页面。",
+    "CREATE_FOLDER_FAILED": "无法创建'{{name}}'文件夹。",
+    "CREATE_ITEM_FAILED": "无法创建'{{name}}'项。",
+    "CREATE_PAGE_EMPTY_NAME": "页面名称不能为空。",
+    "CREATE_FOLDER_EMPTY_NAME": "文件夹名称不能为空。",
+    "CREATED_BY": "创建者",
+    "CREATED_AT": "已创建",
+    "ITEM_NAME": "项名称",
+    "DELETE": "删除",
+    "DETAILS": "详细信息",
+    "UNKNOWNSECTION": "未知",
+    "UNCATEGORISED": "未分类",
+    "PLACEHOLDER_DETAILS": "占位符详细信息",
+    "PLACEHOLDER_KEY": "占位符键",
+    "ITEM_ID": "项 ID",
+    "ITEM_PATH": "项路径",
+    "NEW_PAGE": "新页面",
+    "NEW_FOLDER": "新文件夹",
+    "NO_INSERT_OPTIONS": "未设置父项的插入选项。",
+    "ALL_PAGES": "所有页面",
+    "TEMPLATE_PATH": "模板路径",
+    "COMPONENTS": "组件",
+    "RENDERING_INSERT_FAILED": "发生错误，未将呈现组件添加到页面。 请重新尝试添加呈现组件。",
+    "CONTENT_TREE": {
+      "TITLE": "站点树",
+      "MOVE_ITEM_ERROR": "移动内容树中的项时'{{name}}'出错。",
+      "MOVE_ITEM_INTO_SUCCESS": "您将{{movedItemName}}放入了{{targetItemName}}。",
+      "MOVE_ITEM_BEFORE_SUCCESS": "您将{{movedItemName}}放在了{{targetItemName}}上方。",
+      "MOVE_ITEM_AFTER_SUCCESS": "您将{{movedItemName}}放在了{{targetItemName}}下方。"
+    },
+    "SAVE": {
+      "PROGRESS": "正在保存",
+      "COMPLETE": "已保存于 {{datetime}}",
+      "ERRORS": {
+        "ERROR_AFTER_NAV": "自动保存过程中出错。 打开另一个页面之前，请检查是否保存了所有更改。",
+        "ERROR_AFTER_NAV_ACTION": "返回",
+        "BASE_TEMPLATE_WAS_CHANGED": "您将从当前模板中移除一个或多个基本模板。\n\n如果您移除某个基本模板，Sitecore 将更新所有基于当前模板的项，并将清除这些项中与您所移除的基本模板中的字段相关联的任何字段值。 这些字段值一旦移除便无法恢复。\n\n是否要继续？",
+        "CHANGED_UNVERSIONED_OR_SHARED_FLAG": "您已更改无版本控制或共享标志。\n\n启用上述任一标志将会发起一个后台流程，以更新基于此模板的 \r\n所有项。\n\n这一过程可能需要很多资源。\n\n如果您已启用无版本控制或共享标志，则这些字段的以前版本值\r\n都将会丢失。\n\n是否确定要继续？",
+        "DATASOURCE_MODIFIED_BY_ANOTHER_USER": "页面或相关内容已被其他用户修改。 无法保存所做的更改。 是否要重新加载页面并丢失所做的更改？",
+        "INCORRECT_CLONE_SOURCE": "克隆源的值不正确。 请纠正“__源项”值（“高级”部分）以继续。",
+        "INTERNAL_ERROR": "内部服务器错误。",
+        "ITEM_IS_PROTECTED": "无法编辑该项，因为它受到保护。",
+        "ITEM_LOCKED_BY_ANOTHER_USER": "无法保存更改，因为相应的内容已被其他用户锁定。",
+        "ITEM_SHOULD_BE_LOCKED_BEFORE_EDIT": "无法保存该项，因为它尚未被当前用户锁定。",
+        "NO_WRITE_ACCESS": "无法编辑该项，因为您不具备写入权限。",
+        "PAGE_DOES_NOT_EXIST": "该页面不存在。 无法保存所做的更改。 是否要重新加载页面并丢失所做的更改？",
+        "PAGE_VERSION_DOES_NOT_EXIST": "该页面版本不存在。 无法保存所做的更改。 是否要重新加载页面并丢失所做的更改？",
+        "PAGE_WAS_MODIFIED": "该页面已被其他用户更改。 无法保存所做的更改。 是否要重新加载页面并丢失所做的更改？",
+        "RELOAD_ACTION_TITLE": "重新加载",
+        "VALIDATION_ERROR": "验证失败。",
+        "UNABLE_TO_SAVE": "无法保存"
+      },
+      "NO_CHANGES": "无更改"
+    },
+    "CHANGE_DISPLAY_NAME": {
+      "BUTTON_TEXT": "编辑显示名称",
+      "ERRORS": {
+        "INSUFFICIENT_PRIVILEGES": "您无权更改页面的显示名称。",
+        "ITEM_IS_LOCKED": "您无法更改该项的显示名称，因为该项已被其他用户锁定。"
+      }
+    },
+    "RENDERING": {
+      "DATASOURCE": "内容项",
+      "NO_DATASOURCE": "输入内容项路径",
+      "BROWSE_DATASOURCE": "浏览",
+      "REMOVE_RENDERING": "移除呈现组件"
+    },
+    "IMAGE": {
+      "ADD": "附加",
+      "ADD_AN_IMAGE": "添加图像",
+      "ADD_SELECTED": "添加选定项",
+      "CHANGE": "更改",
+      "CLEAR": "清除",
+      "PATH": "图像路径",
+      "PATH_PLACEHOLDER": "指定图像的路径。",
+      "NOT_FOUND": "该图像不存在。",
+      "NOT_A_MEDIA": "该项不是图像。",
+      "INVALID_SOURCES": "此字段的来源无效。 请与您的站点管理员联系。"
+    },
+    "LINK": {
+      "LINK_TYPE": "链接类型",
+      "TYPE": {
+        "EXTERNAL": "外部",
+        "INTERNAL": "内部"
+      },
+      "OPTIONAL_LABEL": "可选参数",
+      "ALT_TEXT": "链接标题",
+      "TEXT": "链接文本",
+      "TEXT_PLACEHOLDER": "输入链接文本",
+      "ALT_TEXT_PLACEHOLDER": "输入链接标题",
+      "CREATE_OR_EDIT_LINK": "创建或编辑超链接",
+      "OPEN_NEW_WINDOW": "在新窗口中打开",
+      "TARGET": "目标",
+      "CLASS": "CSS 类",
+      "CLASS_PLACEHOLDER": "输入 CSS 类",
+      "PATH": "路径",
+      "PATH_PLACEHOLDER": "输入路径",
+      "URL": "URL",
+      "URL_PLACEHOLDER": "输入 URL",
+      "BROWSE_ITEM_PATH": "浏览",
+      "ITEM_PATH_PLACEHOLDER": "输入内容项路径",
+      "QUERY_STRING": "URL 查询字符串",
+      "QUERY_STRING_PLACEHOLDER": "输入 URL 查询字符串",
+      "ANCHOR": "锚点",
+      "ANCHOR_PLACEHOLDER": "输入锚点",
+      "DIALOG": {
+        "INTERNAL_LINK": "内部链接",
+        "ADD_SELECTED": "添加链接"
+      }
+    },
+    "NUMBER": {
+      "VALUE_PLACEHOLDER": "输入数值",
+      "NOT_VALID_NUMBER": "输入的值不是有效数字。",
+      "NOT_VALID_VALUE_WAS_NOT_SAVED": "输入的值不是有效数字，因此未保存。"
+    },
+    "INTEGER": {
+      "VALUE_PLACEHOLDER": "输入整数值",
+      "NOT_VALID_INTEGER": "输入的值不是有效整数。",
+      "NOT_VALID_VALUE_WAS_NOT_SAVED": "输入的值不是有效整数，因此未保存。"
+    },
+    "RTE": {
+      "ALIGN": {
+        "CENTER": "居中对齐",
+        "JUSTIFY": "两端对齐",
+        "LEFT": "左对齐",
+        "RIGHT": "右对齐"
+      },
+      "FORMAT": {
+        "BOLD": "粗体",
+        "ITALIC": "斜体",
+        "STRIKETHROUGH": "删除线",
+        "UNDERLINE": "下划线"
+      },
+      "HEADER": {
+        "NORMAL": "常规",
+        "PREFIX": "页眉"
+      },
+      "INDENT": {
+        "DECREASE": "减少缩进",
+        "INCREASE": "增加缩进"
+      },
+      "LINK": {
+        "ALT_TEXT": "链接标题",
+        "ALT_TEXT_PLACEHOLDER": "输入链接标题",
+        "HEADER": "链接详细信息",
+        "CREATE_OR_EDIT_LINK": "创建或编辑超链接",
+        "NEW_TAB": "新选项卡/窗口",
+        "REMOVE_LINK": "移除链接",
+        "SAME_TAB": "同一选项卡",
+        "TARGET": "目标",
+        "PATH": "路径",
+        "PATH_PLACEHOLDER": "输入 URL",
+        "TEST_URL": "测试 URL"
+      },
+      "LIST": {
+        "BULLET": "项目符号列表",
+        "NUMBERED": "编号列表"
+      },
+      "MEDIA": {
+        "INSERT": "插入媒体"
+      },
+      "REMOVE_FORMATTING": "移除格式设置"
+    },
+    "WORKFLOW": {
+      "ACTION": "操作",
+      "ACTION_TAKEN": "已执行操作",
+      "CHANGED_BY": "更改者",
+      "COMMENT": "备注",
+      "CURRENT_STATUS": "当前状态",
+      "ENTER_A_COMMENT": "输入备注",
+      "LATEST_WORKFLOW_CHANGE": "最近的工作流更改",
+      "NO_WORKFLOW": "无工作流",
+      "NO_ACCESS_RIGHTS_TO_PUBLISH": "您无权发布此项。",
+      "PUBLISHABLE_SETTING_DISABLED": "您无法发布此项，因为“可发布”设置已禁用",
+      "PUBLISHING_RESTRICTIONS": "此项具有发布限制，导致您无法现在发布它。",
+      "PUBLISH_ITEM": "发布项",
+      "PUBLISH_ITEM_WITH_SUBITEMS": "发布项及所有子项",
+      "PUBLISH_FAILED": "发布失败。 请重试。 如果再次出错，请与您的系统管理员联系。",
+      "PUBLISH_SUCCESSFUL": "\"{{itemName}}\"项已成功发布。",
+      "PUBLISH_WITH_SUBITEMS_SUCCESSFUL": "\"{{itemName}}\"项已与子项一起发布。 已处理的项： {{processedItemsCount}}。",
+      "PUBLISHING": "正在发布...",
+      "UPDATING_WORKFLOW_STATE": "正在更新工作流状态...",
+      "WORKFLOW": "工作流",
+      "WORKFLOW_STEP": "工作流状态",
+      "WARNINGS": {
+        "DATASOURCE_LOCKED_BY_ANOTHER_USER": "另一位用户已锁定该项或关联的内容项。",
+        "ITEM_LOCKED_BY_ANOTHER_USER": "无法保存您所做的更改，因为另一位用户已锁定该内容项。",
+        "NO_WRITE_ACCESS": "无法编辑该项，因为您不具备写入权限。",
+        "NO_WORKFLOW_WRITE_ACCESS": "您无权将此项更新为下一个工作流状态。",
+        "UNKNOWN_SERVER_ERROR": "服务器返回了未知错误。"
+      }
+    },
+    "ITEMS_BROWSER": {
+      "HEADER_TEXT": "指定内容项",
+      "ASSIGN": "指定",
+      "CONTENT_ITEMS": "内容项",
+      "SELECT_TEMPLATE_TITLE": "选择新内容项的模板",
+      "NEW_CONTENT_ITEM": "新内容项",
+      "CONTEXT_MENU": {
+        "BUTTON_LABEL": "上下文菜单",
+        "CREATE_NEW": "新建"
+      }
+    },
+    "WORKSPACE_EMPTY": {
+      "HEADER": "无法显示页面",
+      "DESCRIPTION": "尚未配置您网站的呈现主机。 请联系您的系统管理员寻求帮助。"
+    }
+  },
+  "MEDIA": {
+    "FILE_NAME": "文件名",
+    "FILE_TYPE": "文件类型",
+    "FILE_SIZE": "文件大小",
+    "DIMENSIONS": "维度",
+    "PATH": "路径",
+    "ALT_TEXT": "替代文本",
+    "DETAILS_EMPTY": "请选择一个文件以便进行预览。",
+    "EMPTY_FOLDER": "此文件夹中没有媒体文件。",
+    "NO_SEARCH_RESULTS": "没有与搜索词匹配的结果。<br />请重试。",
+    "LIMIT_REACHED": "为优化性能，我们正在显示 {{limit}} 张图像。 有更多图像可供使用，请缩小搜索范围或选择其他文件夹。",
+    "SEARCH_PLACEHOLDER": "搜索",
+    "ERRORS": {
+      "NOT_FOUND": "路径无效。",
+      "SOURCE_NOT_FOUND": "此字段的来源无效。 请与您的站点管理员联系。",
+      "GENERIC": "出现问题。 请重新加载对话框以重试。"
+    }
+  },
+  "SITE_LANGUAGE": {
+    "NO_SITES": "无站点",
+    "NO_LANGUAGES": "无语言",
+    "CONTEXT_LANGUAGE": "上下文语言",
+    "CONTEXT_SITE": "上下文站点",
+    "LANGUAGE_SWITCHER": "语言切换器",
+    "SITE_SWITCHER": "站点切换器"
+  },
+  "VERSIONS": {
+    "HEADER": "版本",
+    "VERSION": "版本",
+    "NAME": "名称",
+    "UNNAMED": "未命名",
+    "LAST_MODIFIED": "上次修改",
+    "LAST_MODIFIED_VALUE": "{{ date }} 执行者 {{ name }}",
+    "PUBLISH_DATE": "发布日期",
+    "NO_DATE": "无日期",
+    "VERSION_CREATED_SUCCESSFUL": "已自动创建版本 \"{{ Version }}\"（\"{{ itemName }}\"）",
+    "MENU": {
+      "DUPLICATE_ERROR": "复制新版本时出错",
+      "REMOVE_ERROR": "删除新版本时出错"
+    },
+    "LIST": {
+      "HEADER": "概述",
+      "VERSIONS": "版本",
+      "CREATE": "新建"
+    },
+    "CREATE": {
+      "HEADER": "创建版本",
+      "NAME": "版本名称",
+      "NAME_PLACEHOLDER": "输入版本名称",
+      "OPTIONAL": "可选",
+      "WORKFLOW": "指定的工作流状态",
+      "DRAFT": "草稿",
+      "ERROR": "创建新版本时出错"
+    },
+    "RENAME": {
+      "HEADER": "重命名版本",
+      "NAME": "版本名称",
+      "NAME_PLACEHOLDER": "输入版本名称",
+      "OPTIONAL": "可选",
+      "WORKFLOW": "指定的工作流状态",
+      "DRAFT": "草稿",
+      "ERROR": "重命名版本时出错"
+    },
+    "PUBLISHING": {
+      "MENU_LABEL": "排定发布时间"
+    }
+  },
+  "CANVAS_TRANSLATIONS": {
+    "NO_TEXT_IN_FIELD": "[字段中无文本]",
+    "PLACEHOLDER_EMPTY": "The {{placeholderName}} placeholder is empty. <br />Darg and drop components from the left hand side panel."
+  },
+  "DAM_TRANSLATIONS": {
+    "DOWNLOAD_LABEL": "下载",
+    "CANNOT_LOAD_IFRAME_TEXT": "无法显示 DAM 提供程序。 请尝试刷新页面。 如果再次出错，请与您的系统管理员联系。"
+  }
+}

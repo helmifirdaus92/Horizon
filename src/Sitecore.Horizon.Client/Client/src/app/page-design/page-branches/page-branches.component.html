@@ -1,0 +1,275 @@
+<div class="card-container">
+  <div class="header-container">
+    <span class="header">{{ 'PAGE_DESIGNS.LHS_PANEL.PAGE_BRANCHES' | translate }}</span>
+    <div class="sub-header">
+      <span class="description">{{ 'PAGE_DESIGNS.WORKSPACE.PAGE_BRANCHES_DESCRIPTION' | translate }}</span>
+      <div class="sub-header-actions">
+        <button
+          class="edit-insert-rules-button"
+          ngSpdButton="outline"
+          icon="open-in-new"
+          [attr.aria-label]="'PAGE_DESIGNS.WORKSPACE.EDIT_INSERT_RULES' | translate"
+          [disabled]="(siteType$ | async) === 'shared'"
+          (click)="openEditRulesInContentEditor()"
+        >
+          {{ 'PAGE_DESIGNS.WORKSPACE.EDIT_INSERT_RULES' | translate }}
+        </button>
+
+        <button
+          ngSpdButton="primary"
+          icon="plus"
+          [attr.aria-label]="'COMMON.CREATE' | translate"
+          [disabled]="(siteType$ | async) === 'shared' || !(currentRootPermissions$ | async)?.canCreate"
+          [ngSpdPopover]="createBranchItemPopover"
+          popoverPosition="below"
+          [popoverOffset]="2"
+          [popoverShowDelay]="0"
+          [popoverHideDelay]="0"
+          [hideOnBackdropClick]="true"
+          #popoverInstance="ngSpdPopover"
+          (click)="popoverInstance.toggle(); $event.stopPropagation()"
+        >
+          {{ 'COMMON.CREATE' | translate }}
+        </button>
+        <ng-container *ngIf="(siteType$ | async) === 'shared'">
+          <i
+            class="mdi mdi-information-outline pl-sm"
+            [ngSpdTooltip]="'PAGE_DESIGNS.WORKSPACE.SHARED_PAGE_BRANCHES_DISABLE_DESCRIPTION' | translate"
+            tooltipPosition="below"
+          ></i>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="left-container py-xl">
+      <div class="design-content">
+        <app-templates-shared-sites-tabs
+          *ngIf="hasSharedSite$ | async"
+          [selectedSiteType]="siteType$ | async"
+          (changeSiteType)="handleSiteTypeSelection($event)"
+        ></app-templates-shared-sites-tabs>
+        <p *ngIf="(siteType$ | async) === 'shared'" class="sitetype-description">{{
+          'PAGE_DESIGNS.WORKSPACE.SHARED_PAGE_BRANCHES_DESCRIPTION' | translate
+        }}</p>
+        <ng-spd-breadcrumb
+          *ngIf="breadcrumbItems.length > 1"
+          [items]="breadcrumbItems"
+          (itemClick)="loadBreadcrumbData($event)"
+        ></ng-spd-breadcrumb>
+        <div class="loading" *ngIf="isLoading || (isNavLoading$ | async)">
+          <ng-spd-loading-indicator></ng-spd-loading-indicator>
+        </div>
+      </div>
+
+      <div class="main-body" *ngIf="pageBranchItems?.length || pageBranchesFolders?.length">
+        <ng-container *ngIf="pageBranchesFolders?.length">
+          <div class="design-content">
+            <h3 [title]="'PAGE_DESIGNS.LHS_PANEL.FOLDERS' | translate">{{
+              'PAGE_DESIGNS.LHS_PANEL.FOLDERS' | translate
+            }}</h3>
+            <div class="flat-list">
+              <ng-spd-item-card
+                *ngFor="let pageBranchesFolderItem of pageBranchesFolders"
+                [title]="pageBranchesFolderItem.name"
+                [clickable]="true"
+                icon="folder-outline"
+                [selected]="selectedItem === pageBranchesFolderItem"
+                [enableEdit]="pageBranchesFolderItem.itemId === cardBeingEdited"
+                (itemClick)="expandFolder(pageBranchesFolderItem)"
+                (submitContentEdit)="onSubmitContentEdit($event, pageBranchesFolderItem.itemId)"
+                (cancelContentEdit)="onCancelContentEdit()"
+              >
+                <ng-container *ngIf="(siteType$ | async) === 'current'" ngSpdItemCardMainActions>
+                  <button
+                    ngSpdIconButton
+                    icon="dots-horizontal"
+                    aria-label="context menu"
+                    [ngSpdPopover]="contextMenuTemplate"
+                    popoverPosition="top-left"
+                    [popoverOffset]="0"
+                    [popoverShowDelay]="0"
+                    [popoverHideDelay]="0"
+                    [hideOnBackdropClick]="true"
+                    #contextMenuPopoverInstance="ngSpdPopover"
+                    (click)="contextMenuPopoverInstance.toggle(); $event.stopPropagation()"
+                  ></button>
+                </ng-container>
+
+                <ng-template #contextMenuTemplate let-contextMenuTemplateRef>
+                  <ng-spd-list>
+                    <button
+                      ngSpdListItem
+                      (click)="cardBeingEdited = pageBranchesFolderItem.itemId; contextMenuTemplateRef.hide()"
+                      [title]="'COMMON.RENAME' | translate"
+                      [disabled]="!pageBranchesFolderItem.access.canRename"
+                    >
+                      <i class="mdi mdi-pencil-outline pr-sm"></i> {{ 'COMMON.RENAME' | translate }}</button
+                    >
+                    <button
+                      ngSpdListItem
+                      (click)="moveItem(pageBranchesFolderItem, 'folder'); contextMenuTemplateRef.hide()"
+                      [title]="'PAGE_DESIGNS.WORKSPACE.MOVE_TO' | translate"
+                      [disabled]="!pageBranchesFolderItem.access.canWrite"
+                    >
+                      <i class="mdi mdi-folder-move-outline pr-sm"></i>
+                      {{ 'PAGE_DESIGNS.WORKSPACE.MOVE_TO' | translate }}</button
+                    >
+                    <button
+                      ngSpdListItem
+                      (click)="promptDeleteItem(pageBranchesFolderItem.itemId, 'folder'); contextMenuTemplateRef.hide()"
+                      [title]="'COMMON.DELETE' | translate"
+                      [disabled]="!pageBranchesFolderItem.access.canDelete"
+                    >
+                      <i class="mdi mdi-trash-can-outline pr-sm"></i>
+                      {{ 'COMMON.DELETE' | translate }}</button
+                    >
+                  </ng-spd-list>
+                </ng-template>
+              </ng-spd-item-card>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="pageBranchItems?.length">
+          <div class="design-content">
+            <h3 [title]="'PAGE_DESIGNS.WORKSPACE.BRANCHES' | translate">{{
+              'PAGE_DESIGNS.WORKSPACE.BRANCHES' | translate
+            }}</h3>
+
+            <div class="design-list">
+              <ng-spd-item-card
+                *ngFor="let pageBranchItem of pageBranchItems"
+                [cardType]="'vertical'"
+                [title]="pageBranchItem.name"
+                [clickable]="true"
+                (itemClick)="selectItem(pageBranchItem)"
+                [selected]="selectedItem === pageBranchItem"
+              >
+                <div ngSpdItemCardContent class="thumbnail-container">
+                  <img
+                    *ngIf="pageBranchItem.children?.[0]?.thumbnailUrl as thumbnailUrl"
+                    [src]="thumbnailUrl | cmUrl"
+                    [alt]="pageBranchItem.displayName"
+                    class="thumbnail-image"
+                  />
+
+                  <i
+                    *ngIf="!pageBranchItem.children?.[0]?.thumbnailUrl"
+                    class="mdi mdi-page-layout-header thumbnail-icon"
+                  ></i>
+                </div>
+
+                <div ngSpdItemCardVerticalActions class="card-actions">
+                  <button
+                    *ngIf="(siteType$ | async) === 'current'"
+                    ngSpdIconButton="rounded"
+                    icon="pencil-outline"
+                    [disabled]="!pageBranchItem.access.canWrite || !getBranchRootPage(pageBranchItem)"
+                    (click)="$event.stopPropagation(); editPageBranch(pageBranchItem)"
+                  ></button>
+
+                  <button
+                    ngSpdIconButton="rounded"
+                    icon="dots-horizontal"
+                    aria-label="context menu"
+                    *ngIf="(siteType$ | async) !== 'shared'"
+                    [ngSpdPopover]="contextMenuItemTemplate"
+                    popoverPosition="top-left"
+                    [popoverOffset]="0"
+                    [popoverShowDelay]="0"
+                    [popoverHideDelay]="0"
+                    [hideOnBackdropClick]="true"
+                    #contextMenuPopoverInstance="ngSpdPopover"
+                    (click)="$event.stopPropagation(); contextMenuPopoverInstance.toggle()"
+                  ></button>
+                  <ng-template #contextMenuItemTemplate let-contextMenuItemTemplateRef>
+                    <ng-spd-list>
+                      <button
+                        ngSpdListItem
+                        (click)="renamePageBranch(pageBranchItem); contextMenuItemTemplateRef.hide()"
+                        [title]="'COMMON.RENAME' | translate"
+                        [disabled]="!pageBranchItem.access.canRename"
+                      >
+                        <i class="mdi mdi-pencil-outline pr-sm"></i> {{ 'COMMON.RENAME' | translate }}</button
+                      >
+                      <button
+                        ngSpdListItem
+                        (click)="moveItem(pageBranchItem, 'pageBranch'); contextMenuItemTemplateRef.hide()"
+                        [title]="'PAGE_DESIGNS.WORKSPACE.MOVE_TO' | translate"
+                        [disabled]="!pageBranchItem.access.canWrite"
+                      >
+                        <i class="mdi mdi-folder-move-outline pr-sm"></i>
+                        {{ 'PAGE_DESIGNS.WORKSPACE.MOVE_TO' | translate }}</button
+                      >
+                      <button
+                        ngSpdListItem
+                        (click)="
+                          promptDeleteItem(pageBranchItem.itemId, 'pageBranch'); contextMenuItemTemplateRef.hide()
+                        "
+                        [title]="'COMMON.DELETE' | translate"
+                        [disabled]="!pageBranchItem.access.canDelete"
+                      >
+                        <i class="mdi mdi-trash-can-outline pr-sm"></i>
+                        {{ 'COMMON.DELETE' | translate }}</button
+                      >
+                    </ng-spd-list>
+                  </ng-template>
+                </div>
+              </ng-spd-item-card>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <app-empty-state
+        *ngIf="
+          !isLoading &&
+          !pageBranchItems?.length &&
+          !pageBranchesFolders?.length &&
+          (siteType$ | async) === 'current' &&
+          !(isNavLoading$ | async)
+        "
+        [title]="'PAGE_DESIGNS.WORKSPACE.NO_PAGE_BRANCHES' | translate"
+        [btnText]="'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_BRANCH' | translate"
+        (btnClick)="createPageBranch()"
+        [description]="'PAGE_DESIGNS.WORKSPACE.PAGE_BRANCH_GUIDE' | translate"
+        [isDisabled]="!(currentRootPermissions$ | async)?.canCreate"
+      ></app-empty-state>
+      <app-empty-state
+        *ngIf="!pageBranchItems?.length && !pageBranchesFolders?.length && (siteType$ | async) === 'shared'"
+        [title]="'PAGE_DESIGNS.WORKSPACE.EMPTY_FOLDER' | translate"
+      ></app-empty-state>
+    </div>
+
+    <div class="right-container py-md">
+      <app-item-details
+        [displayName]="selectedItem?.displayName"
+        [createdDate]="selectedItem?.createdDate"
+        [updatedDate]="selectedItem?.updatedDate"
+        [thumbanailAltText]="selectedItem?.displayName"
+        [thumbnailUrl]="selectedItem?.children?.[0]?.thumbnailUrl"
+        [fallbackIcon]="selectedItem?.isFolder ? 'mdi-folder-outline' : 'mdi-page-layout-header'"
+        [sourceSite]="getSourceSite(selectedItem)"
+      ></app-item-details>
+    </div>
+  </div>
+</div>
+
+<ng-template #createBranchItemPopover let-popoverRef>
+  <ng-spd-list>
+    <button
+      ngSpdListItem
+      (click)="createPageBranch(); popoverRef.hide()"
+      [title]="'PAGE_DESIGNS.WORKSPACE.PAGE_BRANCH' | translate"
+    >
+      <i class="mdi mdi-source-branch"></i>
+      {{ 'PAGE_DESIGNS.WORKSPACE.PAGE_BRANCH' | translate }}
+    </button>
+
+    <button ngSpdListItem (click)="createTempFolderItem(); popoverRef.hide()" [title]="'COMMON.FOLDER' | translate">
+      <i class="mdi normal mdi-folder-outline"></i>
+      {{ 'COMMON.FOLDER' | translate }}
+    </button>
+  </ng-spd-list>
+</ng-template>

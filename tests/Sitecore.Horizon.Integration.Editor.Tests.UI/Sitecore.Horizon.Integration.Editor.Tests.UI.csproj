@@ -1,0 +1,91 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <IsTestProject>false</IsTestProject>
+    <SitecoreInternal>true</SitecoreInternal>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <IsPackable>true</IsPackable>
+    <NoWarn>$(NoWarn);NU1603</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\favicon.bmp" />
+    <None Remove="Resources\jpgicon.jpg" />
+    <None Remove="Resources\pngicon.png" />
+    <None Remove="Resources\red.svg" />
+    <None Remove="Resources\sample-animated.gif" />
+    <None Remove="Resources\Textfile.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\favicon.bmp" />
+    <EmbeddedResource Include="Resources\jpgicon.jpg" />
+    <EmbeddedResource Include="Resources\pngicon.png" />
+    <EmbeddedResource Include="Resources\red.svg" />
+    <EmbeddedResource Include="Resources\sample-animated.gif" />
+    <EmbeddedResource Include="Resources\Textfile.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.5.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" PrivateAssets="All" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="SpecFlow" Version="3.9.58" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.9.58" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.58" />
+
+    <!-- Report portal packages -->
+    <PackageReference Include="ReportPortal.NUnit" Version="4.4.1" />
+    <PackageReference Include="ReportPortal.Extensions.SourceBack" Version="2.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.Tools" />
+    <Reference Include="System.Resources.ResourceManager" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sitecore.Horizon.Integration.Tests.Ui.ApiHelpers\Sitecore.Horizon.Integration.Tests.Ui.ApiHelpers.csproj" />
+    <ProjectReference Include="..\Sitecore.Horizon.Tests.Ui.Wrappers\Sitecore.Horizon.Integration.Tests.Ui.Wrappers.csproj" />
+    <ProjectReference Include="..\Sitecore.Pages.E2EFramework.Ui.ApiHelpers\Sitecore.Pages.E2EFramework.UI.Tests.ApiHelpers.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ReportPortal.config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Sitecore.CodeAnalysis.Copyrights" Version="4.0.3" />
+  </ItemGroup>
+</Project>

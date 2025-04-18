@@ -1,0 +1,89 @@
+@import 'variables';
+
+$icon-size: 24px;
+
+.sc-personalization-label-root {
+  display: flex;
+  position: absolute;
+  height: 0px;
+
+  &.sc-hide-personalization-label {
+    display: none;
+  }
+}
+
+.sc-personalization-label,
+.sc-personalization-label-ab-test {
+  display: flex;
+  height: $icon-size + 2px;
+  margin-left: auto;
+  z-index: $horizon-zIndex-elementOutline-focused;
+  background: $brand-personalization;
+  background-repeat: no-repeat;
+  color: $color-inverse;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 $padding-x-small;
+  pointer-events: initial;
+  border-radius: 0 0 0 4px;
+  cursor: pointer;
+
+  // Hardcode values to avoid applying a site page styles
+  font-weight: $font-weight-semi-bold;
+  font-size: 12px;
+  line-height: 16px;
+  font-family: $font;
+
+  &.not-personalized {
+    background: $brand-personalization-edited;
+    color: $brand-personalization-edited-logo;
+  }
+
+  .icon {
+    display: flex;
+    flex: 0 0 auto;
+    align-self: stretch;
+    align-items: center;
+
+    &.not-personalized {
+      & > span {
+        color: $brand-personalization-edited-logo;
+      }
+    }
+  }
+
+  .text {
+    padding-left: $padding-small;
+    flex: 1 1 auto;
+    margin-right: $padding-small;
+  }
+
+  &.hide-label {
+    display: none;
+  }
+
+  .target-account {
+    background-image: url('../assets/icons/target-account.svg');
+    margin: auto;
+    width: $icon-size;
+    height: $icon-size;
+  }
+  .target {
+    background-image: url('../assets/icons/target.svg');
+    margin: auto;
+    width: $icon-size;
+    height: $icon-size;
+  }
+
+  .test-component {
+    background-image: url('../../app/assets/icons/flask.white-responsive.svg');
+    margin: auto;
+    width: $icon-size - 2px;
+    height: $icon-size - 2px;
+  }
+}
+
+.sc-personalization-label-ab-test {
+  background-color: $brand-ab-test;
+}

@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+
+/*
+  Do not use this file as a global stylesheet, so we do not impact the customers website.
+  Always scope the CSS needed, using .scss files placed right next to the component in the file tree.
+
+  Filestructure example:
+
+  - /src/app/frame/
+    - frame.scss
+    - frame.ts
+*/
+
+// You should use :global scope to ensure that class names are not affected.
+:global {
+  // Hide chrome metadata tags, which are visible by default.
+  .scpm,
+  .scChromeData {
+    display: none !important;
+  }
+
+  // Fix Quill styles
+  @import 'scss/quill.scss';
+  @import 'scss/ckeditor.scss';
+}

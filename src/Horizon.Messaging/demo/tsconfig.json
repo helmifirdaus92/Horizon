@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["./**/*.ts", "../src/**/*.ts"],
+  "exclude": ["./dist"],
+  "compilerOptions": {
+    "module": "amd",
+    "sourceMap": false,
+    "outDir": "./dist"
+  }
+}

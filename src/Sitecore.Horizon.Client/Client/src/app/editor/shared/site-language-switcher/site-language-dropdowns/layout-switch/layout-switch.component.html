@@ -1,0 +1,8 @@
+<div class="layout-switch-body px-sm">
+  <span [ngSpdTooltip]="'SITE_LANGUAGE.SHARED_LAYOUT_DESCRIPTION' | translate" tooltipPosition="below">{{
+    'SITE_LANGUAGE.SHARED_LAYOUT' | translate
+  }}</span>
+
+  <ng-spd-switch class="mt-sm mb-sm" [reversed]="true" [checked]="isSharedLayout" (click)="toggleSharedLayout()">
+  </ng-spd-switch>
+</div>

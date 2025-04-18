@@ -1,0 +1,53 @@
+services:
+  traefik:
+    isolation: ${TRAEFIK_ISOLATION}
+    image: ${TRAEFIK_IMAGE}
+    networks:
+      default:
+    command:
+      - "--ping"
+      - "--api.insecure=true"
+      - "--providers.docker.endpoint=npipe:////./pipe/docker_engine"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.file.directory=C:/etc/traefik/config/dynamic"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.websecure.forwardedHeaders.insecure"
+      - "--entryPoints.next.address=:3000"
+    ports:
+      - "443:443"
+      - "8079:8080"
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+    volumes:
+      - source: \\.\pipe\docker_engine
+        target: \\.\pipe\docker_engine
+        type: npipe
+      - ./traefik:C:/etc/traefik
+    depends_on:
+      pages:
+        condition: service_healthy
+  pages:
+    image: sitecore-horizon
+    container_name: pages
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/healthz/live"]
+      timeout: 300s
+    environment:
+      Sitecore_License: ${SITECORE_LICENSE}
+      Sitecore_FederatedUI__HostBaseUrl: http://pages
+      Sitecore_Auth0__Domain: ${SITECORE_Pages_Auth0_Domain}
+      Sitecore_Auth0__ClientId: ${SITECORE_Pages_Auth0_ClientId}
+      Sitecore_Auth0__Audience: ${SITECORE_Pages_Auth0_Audience}
+      Sitecore_Auth0__InternalAudience: https://api-internal-staging.sitecore-staging.cloud
+      Sitecore_Auth0__WebAppAudience: https://api-webapp-staging.sitecore-staging.cloud
+      Sitecore_Auth0__PagesAudience: https://pages-api-staging.sitecore-staging.cloud
+      Sitecore_AppEnvironment: ${Sitecore_AppEnvironment}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.force-STS-Header.headers.forceSTSHeader=true"
+      - "traefik.http.middlewares.force-STS-Header.headers.stsSeconds=31536000"
+      - "traefik.http.routers.hrz-secure.entrypoints=websecure"
+      - "traefik.http.routers.hrz-secure.rule=Host(`${SITECORE_Pages_Client_Host}`)"
+      - "traefik.http.routers.hrz-secure.tls=true"
+      - "traefik.http.routers.hrz-secure.middlewares=force-STS-Header"
+      - "traefik.http.services.hrz.loadbalancer.server.port=80"

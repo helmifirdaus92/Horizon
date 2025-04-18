@@ -1,0 +1,211 @@
+<div class="heading-xs px-md pt-xs">{{ 'NAV.COMPONENTS' | translate }}</div>
+<div class="search pl-md py-sm" [class.show-border]="hasScroll">
+  <ng-spd-search-input
+    [placeholder]="'COMMON.SEARCH_PLACEHOLDER' | translate"
+    [icon]="'magnify'"
+    (searchValueChange)="onSearchValueChanged($event)"
+    #searchInput
+  ></ng-spd-search-input>
+  <div class="filter-btn">
+    <button
+      [class.active]="popoverInstanceRef.isPopoverVisible()"
+      ngSpdIconButton
+      class="btn-square"
+      [icon]="'filter-variant'"
+      [ngSpdPopover]="filterComponentMenu"
+      popoverPosition="left-bottom"
+      [popoverOffset]="5"
+      [popoverShowDelay]="0"
+      [popoverHideDelay]="0"
+      [hideOnBackdropClick]="true"
+      #popoverInstanceRef="ngSpdPopover"
+      (click)="popoverInstanceRef.toggle(); $event.stopPropagation()"
+    >
+    </button>
+    <div class="filter-indicator" *ngIf="selectedFeaasDataSourceIds.length > 0"
+      >{{ selectedFeaasDataSourceIds.length }}
+    </div>
+  </div>
+</div>
+<div
+  class="loader-container"
+  *ngIf="!(componentsSearchResult$ | async) || (renderFEaaSComponents && !fEaaSComponentsFetched)"
+  [@pageLoader]
+>
+  <ng-spd-loading-indicator></ng-spd-loading-indicator>
+</div>
+
+<div class="components-list" (scroll)="setScrollState($event)">
+  <!-- FEaaS components gallery -->
+  <ng-container *ngIf="renderFEaaSComponents || renderFEaaSExternalComponents">
+    <app-feaas-components-gallery
+      [mode]="mode"
+      [renderFEaaSComponents]="renderFEaaSComponents"
+      [renderFEaaSExternalComponents]="renderFEaaSExternalComponents"
+      (componentsFetched)="setFEaaSComponentsFetchedState($event)"
+      (componentSelect)="itemClick($event)"
+      [searchText]="normalizedSearchText$ | async"
+      (hasFilteredComponents)="hasSearchedFEaasComponents = $event"
+      [selectedDataSourceIds]="selectedFeaasDataSourceIds"
+    ></app-feaas-components-gallery>
+  </ng-container>
+
+  <!-- Forms components gallery -->
+  <app-forms-components-gallery
+    [mode]="mode"
+    [isByocSupportedEditingHost]="isFEaaSSupportedEditingHost"
+    (componentSelect)="itemClick($event)"
+    [searchText]="normalizedSearchText$ | async"
+    (hasFilteredComponents)="hasSearchedFormsComponents = $event"
+  >
+  </app-forms-components-gallery>
+
+  <!-- SXA components gallery -->
+  <ng-container *ngIf="!selectedFeaasDataSourceIds.length">
+    <ng-container *ngIf="componentsSearchResult$ | async; let componentResultState">
+      <ng-spd-accordion *ngFor="let componentGroup of componentResultState.groups">
+        <ng-spd-accordion-header
+          #groupsHeader
+          [isOpened]="!accordionHeaderOpenList.get(componentGroup.title)"
+          (isOpenedChange)="accordionHeaderOpenList.set(componentGroup.title, !groupsHeader.isOpened)"
+          >{{ componentGroup.title }}
+        </ng-spd-accordion-header>
+        <ng-spd-accordion-content>
+          <ng-container *ngIf="!accordionHeaderOpenList.get(componentGroup.title)">
+            <ng-container
+              *ngTemplateOutlet="
+                mode === 'selectable' ? appGalleryItemClickable : appGalleryItemDraggable;
+                context: { components: componentGroup.components }
+              "
+            >
+            </ng-container>
+          </ng-container>
+        </ng-spd-accordion-content>
+      </ng-spd-accordion>
+
+      <ng-spd-accordion *ngIf="!!componentResultState.ungrouped.length">
+        <ng-spd-accordion-header
+          #ungroupedHeader
+          [isOpened]="!accordionHeaderOpenList.get('UNCATEGORISED')"
+          (isOpenedChange)="accordionHeaderOpenList.set('UNCATEGORISED', !ungroupedHeader.isOpened)"
+          >{{ 'EDITOR.UNCATEGORISED' | translate }}
+        </ng-spd-accordion-header>
+        <ng-spd-accordion-content>
+          <ng-container *ngIf="!accordionHeaderOpenList.get('UNCATEGORISED')">
+            <ng-container
+              *ngTemplateOutlet="
+                mode === 'selectable' ? appGalleryItemClickable : appGalleryItemDraggable;
+                context: { components: componentResultState.ungrouped }
+              "
+            >
+            </ng-container>
+          </ng-container>
+        </ng-spd-accordion-content>
+      </ng-spd-accordion>
+
+      <ng-container
+        *ngIf="
+          !(canvasIsLoading$ | async) &&
+          !componentResultState.groups.length &&
+          !componentResultState.ungrouped.length &&
+          !renderFEaaSComponents &&
+          !renderFEaaSExternalComponents &&
+          !(normalizedSearchText$ | async)
+        "
+      >
+        <ng-spd-empty-state
+          [headline]="
+            (rendering && rendering.compatibleRenderings
+              ? 'EDITOR.RENDERING.RENDERING_LIST.EMPTY_RENDERING_NO_COMPATIBLE'
+              : 'EDITOR.RENDERING.RENDERING_LIST.EMPTY_RENDERING_NO_ALLOWED'
+            ) | translate
+          "
+          [icon]="'illustration-empty-folder'"
+          [iconSize]="'small'"
+          [paddingTop]="0"
+        >
+          <div
+            >{{
+              (rendering && rendering.compatibleRenderings
+                ? 'EDITOR.RENDERING.RENDERING_LIST.EMPTY_RENDERING_DESCRIPTION_NO_COMPATIBLE'
+                : 'EDITOR.RENDERING.RENDERING_LIST.EMPTY_RENDERING_DESCRIPTION_NO_ALLOWED'
+              ) | translate
+            }}
+          </div>
+        </ng-spd-empty-state>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <!-- empty state for no search results -->
+  <ng-container
+    *ngIf="
+      (!(canvasIsLoading$ | async) &&
+        !hasSearchedFEaasComponents &&
+        !hasSearchedFormsComponents &&
+        !(hasSearchedSxaComponents$ | async) &&
+        (normalizedSearchText$ | async)) ||
+      (selectedFeaasDataSourceIds.length > 0 && !hasSearchedFEaasComponents)
+    "
+  >
+    <app-empty-state
+      class="search-result-empty"
+      [title]="'EDITOR.NO_SEARCH_RESULTS' | translate"
+      [path]="'https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/spot-magnify-close-neutral'"
+      [description]="'EDITOR.SEARCH_SUGGESTIONS' | translate"
+    >
+    </app-empty-state>
+  </ng-container>
+</div>
+
+<div
+  *ngIf="mode === 'draggable' && renderFEaaSComponents && fEaaSComponentsFetched && isFEaaSSupportedEditingHost"
+  class="open-components-btn"
+  ><button class="m-sm" ngSpdButton="outlinePrimary" (click)="navigateToFEaaSComponents()">{{
+    'EDITOR.RENDERING.OPEN_COMPONENTS' | translate
+  }}</button></div
+>
+
+<ng-template #appGalleryItemDraggable let-components="components">
+  <div class="grid">
+    <app-gallery-item
+      [class.disabled]="item.disabled"
+      *ngFor="let item of components"
+      [title]="
+        item.disabled
+          ? ('EDITOR.RENDERING.COMPONENT_NOT_IMPLEMENTED' | translate: { componentName: item.displayName })
+          : item.displayName
+      "
+      [draggable]="!item.disabled"
+      (dragstart)="itemDragstart($event, item)"
+      (dragend)="itemDragend()"
+    >
+      <img [src]="item.iconUrl | cmUrl" galleryItemImg draggable="false" [attr.alt]="item.displayName" />
+      {{ item.displayName }}
+    </app-gallery-item>
+  </div>
+</ng-template>
+
+<ng-template #appGalleryItemClickable let-components="components">
+  <div class="grid">
+    <app-gallery-item
+      [class.disabled]="item.disabled"
+      *ngFor="let item of components"
+      [title]="
+        item.disabled
+          ? ('EDITOR.RENDERING.COMPONENT_NOT_IMPLEMENTED' | translate: { componentName: item.displayName })
+          : item.displayName
+      "
+      (click)="!item.disabled && itemClick(item.id)"
+    >
+      <img [src]="item.iconUrl | cmUrl" galleryItemImg draggable="false" [attr.alt]="item.displayName" />
+      {{ item.displayName }}
+    </app-gallery-item>
+  </div>
+</ng-template>
+
+<ng-template #filterComponentMenu>
+  <app-component-filter-context
+    (selectedDataSourceIdsChange)="selectedFeaasDataSourceIds = $event"
+  ></app-component-filter-context>
+</ng-template>

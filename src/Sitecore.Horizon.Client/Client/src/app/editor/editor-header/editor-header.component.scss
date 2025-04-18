@@ -1,0 +1,25 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  box-sizing: border-box;
+  margin: $editor-spacer;
+  width: calc(100% - (2 * #{$editor-spacer}));
+  flex: 0 0 $generic-header-height;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background: white;
+  border-radius: $border-radius;
+}
+
+.right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,128 @@
+<!-- Site switcher -->
+<ng-template #popoverSites let-popoverRef>
+  <div class="tenant-site-popover">
+    <ng-spd-list
+      id="tenant-switcher-list"
+      class="tenants-list"
+      *ngIf="tenants !== null && tenants?.definedTenants?.length"
+    >
+      <h4 class="section-heading m-0 p-sm">{{ 'SITE_LANGUAGE.ENVIRONMENTS' | translate }}</h4>
+      <button
+        *ngFor="let tenant of tenants?.definedTenants"
+        ngSpdListItem
+        class="list-option"
+        [select]="tenant.name === tenants.activeTenantName"
+        [title]="tenant.displayName"
+        (click)="selectTenant(tenant.name); popoverRef.hide()"
+      >
+        {{ tenant.displayName }}
+      </button>
+    </ng-spd-list>
+
+    <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true" id="site-switcher-list" class="sites-list">
+      <ng-spd-search-input
+        class="no-border"
+        [placeholder]="'COMMON.SEARCH_PLACEHOLDER' | translate"
+        [icon]="'magnify'"
+        (searchValueChange)="applySearch($event)"
+        #searchInput
+      ></ng-spd-search-input>
+
+      <ng-container *ngFor="let collection of collections">
+        <ng-container *ngIf="collection.sites.length">
+          <hr class="hr" />
+          <h4 class="section-heading m-0 p-sm">{{ collection.name || ('SITE_LANGUAGE.SITES' | translate) }}</h4>
+          <button
+            cdkFocusInitial
+            *ngFor="let site of collection.sites"
+            ngSpdListItem
+            class="list-option"
+            [select]="site.name === activeSite?.name"
+            [title]="site.displayName"
+            (click)="selectSite(site); popoverRef.hide()"
+          >
+            {{ site.displayName }}
+          </button>
+        </ng-container>
+      </ng-container>
+    </ng-spd-list>
+  </div>
+</ng-template>
+<div class="divider-vertical mx-xs"></div>
+<button
+  id="site-switcher-btn"
+  class="basic drop-list-button max-width-200"
+  ngSpdDroplistToggle
+  [ngSpdPopover]="popoverSites"
+  popoverPosition="right-bottom"
+  [opened]="popoverInstanceSites.isPopoverVisible()"
+  [popoverOffset]="0"
+  [customClass]="'site-switcher-popover'"
+  [popoverShowDelay]="0"
+  [popoverHideDelay]="0"
+  [hideOnBackdropClick]="true"
+  [attr.aria-label]="'SITE_LANGUAGE.SITE_SWITCHER' | translate"
+  #popoverInstanceSites="ngSpdPopover"
+  (click)="popoverInstanceSites.toggle(); $event.stopPropagation(); applySearch('')"
+>
+  <ng-container *ngIf="definedSites.length; else noSites">
+    <div class="active-site display-name">{{
+      activeSite?.displayName || ('SITE_LANGUAGE.SITE_SWITCHER' | translate)
+    }}</div>
+    <div class="active-tenant display-name">{{ activeTenantDisplayName }}</div>
+  </ng-container>
+  <ng-template #noSites>
+    <div class="no-data-label">
+      {{ 'SITE_LANGUAGE.NO_SITES' | translate }}
+    </div>
+  </ng-template>
+</button>
+
+<!-- Language switcher -->
+<ng-template #popoverLanguages let-popoverRef>
+  <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true" id="language-switcher-list">
+    <h4 class="section-heading m-0 p-sm">{{ 'SITE_LANGUAGE.LANGUAGES' | translate }}</h4>
+    <button
+      *ngFor="let language of languages?.definedLanguages"
+      ngSpdListItem
+      class="list-option"
+      [select]="language.name === languages?.activeLanguage?.name"
+      (click)="selectLanguage(language); popoverRef.hide()"
+    >
+      <ng-container *ngIf="language.englishName; else nativeName">
+        {{ language.englishName }}
+      </ng-container>
+      <ng-template #nativeName>
+        <div>{{ language.nativeName }}</div>
+        {{ language.displayName }}
+      </ng-template>
+    </button>
+  </ng-spd-list>
+</ng-template>
+<div class="divider-vertical mx-xs"></div>
+<button
+  id="language-switcher-btn"
+  class="basic drop-list-button max-width-140"
+  ngSpdDroplistToggle
+  [ngSpdPopover]="popoverLanguages"
+  popoverPosition="right-bottom"
+  [opened]="popoverInstanceLanguages.isPopoverVisible()"
+  [popoverOffset]="0"
+  [customClass]="'language-switcher-popover'"
+  [popoverShowDelay]="0"
+  [popoverHideDelay]="0"
+  [hideOnBackdropClick]="true"
+  [attr.aria-label]="'SITE_LANGUAGE.LANGUAGE_SWITCHER' | translate"
+  #popoverInstanceLanguages="ngSpdPopover"
+  (click)="popoverInstanceLanguages.toggle(); $event.stopPropagation()"
+  *ngIf="languages !== null"
+>
+  <ng-container *ngIf="!!languages.definedLanguages.length; else noLanguages">
+    {{ languages.activeLanguage.englishName ?? languages.activeLanguage.nativeName }}
+  </ng-container>
+  <ng-template #noLanguages>
+    <div class="no-data-label">
+      {{ 'SITE_LANGUAGE.NO_LANGUAGES' | translate }}
+    </div>
+  </ng-template>
+</button>

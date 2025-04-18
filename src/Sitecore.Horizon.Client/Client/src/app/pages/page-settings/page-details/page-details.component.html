@@ -1,0 +1,34 @@
+<ng-spd-accordion class="v2">
+  <ng-spd-accordion-header [isOpened]="isAccordionOpen" (isOpenedChange)="getDetails($event)"
+    >{{ 'EDITOR.PAGE_DETAILS' | translate }}
+  </ng-spd-accordion-header>
+
+  <ng-spd-accordion-content *ngIf="itemDetails" class="pt-0">
+    <div>
+      <div class="mb-sm">
+        <div class="text-subtle hrz-test-label">{{ 'EDITOR.CREATED_BY' | translate }}</div>
+        <div class="hrz-test-value">{{ itemDetails.createdBy || '--' }}</div>
+      </div>
+      <div class="mb-sm">
+        <div class="text-subtle hrz-test-label">{{ 'VERSIONS.LAST_MODIFIED_BY' | translate }}</div>
+        <div class="hrz-test-value">{{ itemDetails.activeVersion?.updatedBy ?? '--' }}</div>
+      </div>
+      <div class="mb-sm">
+        <div class="text-subtle hrz-test-label">{{ 'EDITOR.DATE_CREATED' | translate }}</div>
+        <div class="hrz-test-value">{{
+          itemDetails.creationDate !== minDateTime ? (itemDetails.creationDate | date: 'medium') : '--'
+        }}</div>
+      </div>
+      <div>
+        <div class="text-subtle hrz-test-label">{{ 'VERSIONS.DATE_LAST_MODIFIED' | translate }}</div>
+        <div class="hrz-test-value">
+          {{
+            itemDetails.activeVersion?.updatedDate && itemDetails.activeVersion?.updatedDate !== minDateTime
+              ? (itemDetails.activeVersion?.updatedDate | date: 'medium')
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+  </ng-spd-accordion-content>
+</ng-spd-accordion>

@@ -1,0 +1,6 @@
+<div class="empty" [style.padding-top.px]="paddingTop">
+  <img width="80" height="80" [src]="path" [attr.alt]="title" />
+  <p class="title">{{ title }}</p>
+  <p class="description" *ngIf="description" [innerHTML]="description"></p>
+  <button class="create-action" (click)="btnClick.emit()" [ngClass]="{ disabled: isDisabled }">{{ btnText }}</button>
+</div>

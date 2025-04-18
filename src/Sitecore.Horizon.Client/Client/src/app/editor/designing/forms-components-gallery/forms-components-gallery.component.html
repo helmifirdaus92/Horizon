@@ -1,0 +1,44 @@
+@if (isFormWrapperComponentAllowed) {
+  <ng-container *ngIf="filteredFormsComponents$ | async as formsComponents">
+    <ng-container *ngIf="formsComponents.length > 0">
+      <ng-spd-accordion>
+        <ng-spd-accordion-header
+          #groupsHeader
+          [isOpened]="isAccordionHeaderOpen"
+          (isOpenedChange)="isAccordionHeaderOpen = $event"
+          ><div>{{ 'EDITOR.RENDERING.FORMS' | translate }} </div>
+        </ng-spd-accordion-header>
+        <ng-spd-accordion-content>
+          <div
+            *ngFor="let component of formsComponents"
+            class="card-container"
+            draggable="true"
+            (dragstart)="componentDragstart($event, component)"
+            (dragend)="componentDragend()"
+            (click)="selectComponent(component)"
+            (keyup)="selectComponent(component)"
+          >
+            <div class="thumbnail-wrapper">
+              <ng-container *ngIf="component.thumbnail as thumbnail">
+                <img
+                  #img
+                  class="thumbnail-image"
+                  draggable="false"
+                  [src]="thumbnail"
+                  (load)="setStyles($event)"
+                  (mouseenter)="scrollThumbnailDown($event)"
+                  (mouseleave)="scrollThumbnailUp($event)"
+                  [alt]="component.name"
+                />
+                <div *ngIf="isThumbnailTooHigh(img)" class="thumbnail-image-bottom-shade"></div> </ng-container
+            ></div>
+
+            <div class="card-footer p-sm"
+              ><div class="card-text" [title]="component.name"> {{ component.name }}</div>
+            </div>
+          </div>
+        </ng-spd-accordion-content>
+      </ng-spd-accordion>
+    </ng-container>
+  </ng-container>
+}

@@ -1,0 +1,20 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+.date-info {
+  display: flex;
+  flex-direction: column;
+  gap: $padding-xx-small;
+
+  .text-format {
+    color: rgba(0, 0, 0, 0.55);
+    font-size: $font-size-13px;
+  }
+  .link {
+    text-decoration: none;
+    color: $brand-primary-dark;
+  }
+}

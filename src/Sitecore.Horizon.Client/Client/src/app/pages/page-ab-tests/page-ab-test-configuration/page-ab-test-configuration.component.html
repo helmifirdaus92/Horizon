@@ -1,0 +1,87 @@
+<div class="ab-test-configure-container">
+  <div class="statistical-sigificance-note mb-md mt-md" *ngIf="pageAbTest.result">
+    {{ 'COMPONENT_TESTING.OVERVIEW.STATISTICAL_SIGNIFICANCE' | translate }}
+  </div>
+  <!-- Goal -->
+  <div class="section goal-section">
+    <h3>{{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.GOAL' | translate }}</h3>
+    <div [ngSwitch]="pageAbTest.goals.primary.type">
+      <ng-container *ngSwitchCase="'pageViewGoal'">
+        <h3>{{ 'COMPONENT_TESTING.CONFIGURE.PAGE_VIEWS_HEADER' | translate }}</h3>
+        <p class="text-subtle m-0">{{ 'COMPONENT_TESTING.CONFIGURE.PAGE_VIEWS_DESCRIPTION' | translate }}</p>
+      </ng-container>
+      <ng-container *ngSwitchCase="'bouncesGoal'">
+        <h3>{{ 'COMPONENT_TESTING.CONFIGURE.BOUNCE_RATE_HEADER' | translate }}</h3>
+        <span class="text-subtle">{{ 'COMPONENT_TESTING.CONFIGURE.BOUNCE_RATE_DESCRIPTION' | translate }}</span>
+      </ng-container>
+      <ng-container *ngSwitchCase="'customGoal'">
+        <h3>{{ 'COMPONENT_TESTING.CONFIGURE.FORM_SUBMISSION_HEADER' | translate }}</h3>
+        <span class="text-subtle">{{ 'COMPONENT_TESTING.CONFIGURE.FORM_SUBMISSION_DESCRIPTION' | translate }}</span>
+      </ng-container>
+      <ng-container *ngSwitchCase="'exitsGoal'">
+        <h3>{{ 'COMPONENT_TESTING.CONFIGURE.EXIT_RATE_HEADER' | translate }}</h3>
+        <span class="text-subtle">{{ 'COMPONENT_TESTING.CONFIGURE.EXIT_RATE_DESCRIPTION' | translate }}</span>
+      </ng-container>
+    </div>
+  </div>
+
+  <hr class="hr" />
+
+  <!-- Traffic Allocation -->
+  <div class="section traffic-allocation-section">
+    <h3>{{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.TRAFFIC_ALLOCATION' | translate }}</h3>
+    <div *ngFor="let variant of pageAbTest.variants; let index = index" class="variant-item">
+      <label class="variant-version-badge">{{ variant.version }}</label>
+      {{ variant.name }} <span> {{ pageAbTest.traffic.splits[index].split }}% </span>
+    </div>
+  </div>
+
+  <hr class="hr" />
+
+  <!-- Automated Actions -->
+  <div class="section automated-actions-section">
+    <h3>{{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.LABEL' | translate }}</h3>
+    <p>
+      {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.IF_WINNING_VARIANT' | translate }}:
+      {{
+        pageAbTest.postTestAction?.conclusive === 'SET_TRAFFIC_TO_CONTROL_VARIANT'
+          ? ('COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.WINNING_VARIANT_OPTION_2' | translate)
+          : ('COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.WINNING_VARIANT_OPTION_1' | translate)
+      }}
+    </p>
+    <p>
+      {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.IF_TEST_INCONCLUSIVE' | translate }}:
+      {{
+        pageAbTest.postTestAction?.inconclusive === 'SET_TRAFFIC_TO_CONTROL_VARIANT'
+          ? ('COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.TEST_INCONCLUSIVE_OPTION_2' | translate)
+          : ('COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.TEST_INCONCLUSIVE_OPTION_1' | translate)
+      }}
+    </p>
+  </div>
+
+  <hr class="hr" />
+
+  <!-- Advanced Options -->
+  <div class="section advanced-options-section">
+    <h3>{{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.LABEL' | translate }}</h3>
+    <p>
+      {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.TRAFFIC_ALLOCATION' | translate }}:
+      <span> {{ pageAbTest.traffic.allocation }}% </span>
+    </p>
+    <p>
+      {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.BASE_RATE' | translate }}:
+      <span> {{ roundNumbers(pageAbTest.sampleSizeConfig.baseValue * 100, 1) }}% </span>
+    </p>
+    <p>
+      {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.DIFFERENCE' | translate }}:
+      <span> {{ roundNumbers(pageAbTest.sampleSizeConfig.minimumDetectableDifference * 100) }}% </span>
+    </p>
+    <p>
+      {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.CONFIDENCE' | translate }}:
+      <span> {{ roundNumbers(pageAbTest.sampleSizeConfig.confidenceLevel * 100) }}%</span>
+    </p>
+    <p>
+      {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.TOTAL' | translate }}<span class="total"> {{ total() }}</span>
+    </p>
+  </div>
+</div>

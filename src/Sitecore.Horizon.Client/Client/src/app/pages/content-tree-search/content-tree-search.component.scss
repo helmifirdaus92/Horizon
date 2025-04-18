@@ -1,0 +1,75 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &.show-border {
+    border-bottom: $framework-border;
+    box-shadow: $box-shadow;
+  }
+  & button {
+    margin-left: $padding-x-small;
+  }
+}
+
+.no-query {
+  text-align: center;
+  margin-top: $padding-x-large;
+}
+
+.title {
+  font-weight: $font-weight-medium;
+  font-size: $font-size-16px;
+}
+
+.description {
+  text-align: center;
+  font-size: $font-size-14px;
+}
+
+.filter-menu {
+  width: 165px;
+  margin: $padding;
+}
+
+::ng-deep {
+  .search-filter-popover {
+    margin-right: -40px;
+  }
+}
+
+app-item-tree {
+  margin-top: $padding-large;
+  overflow-y: auto;
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+app-item-tree,
+ng-spd-loading-indicator {
+  margin-top: $padding-small;
+  margin-bottom: $padding-small;
+}
+
+ng-spd-search-input {
+  width: 100%;
+}
+
+.active {
+  background-color: $brand-framework-bg-active !important;
+}
+
+.patch-loading-indicator {
+  margin-top: 0 !important;
+}

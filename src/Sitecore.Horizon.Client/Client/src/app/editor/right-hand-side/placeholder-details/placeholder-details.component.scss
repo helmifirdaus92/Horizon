@@ -1,0 +1,27 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+h4 {
+  margin-top: 0;
+}
+
+.ph-details {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    @include heading-xs;
+    margin: $padding-small 0 $padding-x-small;
+  }
+
+  p {
+    @include text-nowrap-ellipsis;
+    margin: 0;
+    color: $font-primary-light;
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    padding-right: $padding;
+  }
+}

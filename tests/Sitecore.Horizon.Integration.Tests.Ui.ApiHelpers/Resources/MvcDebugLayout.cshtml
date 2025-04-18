@@ -1,0 +1,99 @@
+﻿@using System.Security.Authentication
+@inherits System.Web.Mvc.WebViewPage
+@using Sitecore.Mvc
+@{
+  Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>
+    @Html.Sitecore().Field("title", new
+    {
+        DisableWebEdit = true
+    })
+  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href="/default.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="MainPanel">@Html.Sitecore().Placeholder("content")</div>
+
+  @{
+    var totalMessage = "";
+    var ContextUser = Sitecore.Security.Accounts.User.Current.Name;
+    var ShellUser = Sitecore.Publishing.PreviewManager.GetShellUser();
+    var Database = Sitecore.Context.Database.Name;
+    var Site = Sitecore.Context.Site.Name;
+    var DisplayMode = Sitecore.Context.Site.DisplayMode;
+
+    if (IsPost)
+    {
+      var userName = Request["userName"];
+      var password = Request["password"];
+
+      if (Request.Form["submitLogin"] != null)
+      {
+        if (String.IsNullOrEmpty(userName))
+        {
+          totalMessage = "Invalid user name.";
+        }
+        else if (String.IsNullOrEmpty(password))
+        {
+          totalMessage = "Invalid password.";
+        }
+        else
+        {
+          try
+          {
+            Sitecore.Security.Domains.Domain domain = Sitecore.Context.Domain;
+            string domainUser = domain.Name + @"\" + userName;
+            if (Sitecore.Security.Authentication.AuthenticationManager.Login(domainUser, password))
+            {
+            }
+            else
+            {
+              throw new AuthenticationException(
+                  "Invalid username or password.");
+            }
+          }
+          catch (AuthenticationException)
+          {
+            totalMessage = "Processing error.";
+          }
+        }
+      }
+      else if (Request.Form["submitLogout"] != null)
+      {
+        Sitecore.Security.Authentication.AuthenticationManager.Logout();
+      }
+      ContextUser = Sitecore.Security.Accounts.User.Current.Name;
+      ShellUser = Sitecore.Publishing.PreviewManager.GetShellUser();
+      Database = Sitecore.Context.Database.Name;
+      Site = Sitecore.Context.Site.Name;
+      DisplayMode = Sitecore.Context.Site.DisplayMode;
+    }
+  }
+
+  <p><b id=IdContextUser>Context user: @ContextUser</b></p>
+  <p><b id=IdShellUser>Shell user: @ShellUser</b></p>
+  <p><b id=IdDatabase>Database: @Database</b></p>
+  <p><b id=IdSite>Site: @Site</b></p>
+  <p><b id=IdDisplayMode>Display Mode: @DisplayMode</b></p>
+
+  <form action="" method="post">
+    <p>
+      <label for="userName">User Name:</label>
+      <input type="text" name="userName" ID="txtUsername" />
+    </p>
+    <p>
+      <label for="password">Password:</label>
+      <input type="text" name="password" ID="txtPassword" />
+    </p>
+    <p><input type="submit" value="Login" ID="btnLogin" name="submitLogin" /></p>
+    <p><input type="submit" value="Logout" ID="btnLogout" name="submitLogout" /></p>
+  </form>
+  <p>@totalMessage</p>
+
+</body>
+</html>

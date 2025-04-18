@@ -1,0 +1,47 @@
+@if (isInlineEditing) {
+  <ng-container *ngTemplateOutlet="ckEditorElement"></ng-container>
+} @else {
+  <div class="read-only-value-container">
+    <div class="btn-edit">
+      <button
+        ngSpdIconButton="rounded"
+        [icon]="'pencil-outline'"
+        popoverPosition="left-bottom"
+        class="ml-sm"
+        [ngSpdPopover]="ckEditorElement"
+        [customClass]="'rich-text-editor-popover'"
+        [popoverShowDelay]="0"
+        [popoverHideDelay]="0"
+        [hideOnBackdropClick]="true"
+        [attr.aria-label]="'CONTENT_OPTIMIZATION.EDIT_PROMPT' | translate"
+        #popoverInstance="ngSpdPopover"
+        (click)="popoverInstance.toggle(); $event.stopPropagation()"
+      ></button>
+    </div>
+    @if (field.value.rawValue) {
+      <div class="non-empty-field" [innerHTML]="field.value.rawValue"></div>
+    } @else {
+      <div class="empty-field pt-sm pb-sm">{{ 'EDITOR.EMPTY_FIELD' | translate }}</div>
+    }
+  </div>
+}
+
+<ng-template #ckEditorElement>
+  <div class="main-container">
+    <div class="editor-container editor-container_classic-editor">
+      <div class="editor-container__editor">
+        <ckeditor
+          #textModel="ngModel"
+          *ngIf="isViewInitialized"
+          [editor]="Editor"
+          [config]="config"
+          [(ngModel)]="modelValue"
+          [class.invalid]="!isFieldValid(field)"
+          (ready)="onEditorReady($event)"
+          (change)="onInputChange(textModel)"
+          (blur)="onBlur(textModel)"
+        />
+      </div>
+    </div>
+  </div>
+</ng-template>

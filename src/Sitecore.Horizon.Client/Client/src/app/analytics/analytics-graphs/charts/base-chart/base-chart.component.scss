@@ -1,0 +1,42 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  .chart-container {
+    overflow: hidden;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .chart-component {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .legend-container {
+    flex: 0 0 auto;
+  }
+
+  .empty-container {
+    height: $padding;
+  }
+
+  ::ng-deep {
+    ngx-charts-chart {
+      g.tick {
+        text {
+          font-size: $font-size-10px !important;
+        }
+      }
+    }
+  }
+}

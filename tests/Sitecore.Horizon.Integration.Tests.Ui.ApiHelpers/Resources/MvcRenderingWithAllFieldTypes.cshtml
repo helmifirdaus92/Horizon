@@ -1,0 +1,15 @@
+@inherits System.Web.Mvc.WebViewPage
+@using Sitecore.Mvc;
+  <div>
+    <h1 style="padding: 70px 10px 10px 10px;">@Html.Sitecore().Field("title")</h1>
+    <small id="selectPoint" style="margin-left: 50px; color: green">MvcRenderingWithAllFieldTypes. SelectPoint.</small>
+    <div style="padding: 10px">@Html.Sitecore().Field("SingleLineTextField")</div>
+    <div style="padding: 10px">@Html.Sitecore().Field("RichTextField")</div>
+    <div style="padding: 10px">@Html.Sitecore().Field("MultiLineTextField")</div>
+    <div style="padding: 10px">@Html.Sitecore().Field("ImageField")</div>
+    <div style="padding: 10px">@Html.Sitecore().Field("DateField")</div>
+    <div style="padding: 10px">@Html.Sitecore().Field("NumberField")</div>
+    <div style="padding: 10px">@Html.Sitecore().Field("IntegerField")</div>
+    <div style="padding: 10px">@Html.Sitecore().Field("GeneralLinkField")</div>
+    <div>@Html.Sitecore().Placeholder("phInMvcComponentWithAllFieldTypes")</div>
+  </div>

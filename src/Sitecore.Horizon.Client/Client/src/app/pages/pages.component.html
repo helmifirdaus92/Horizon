@@ -1,0 +1,104 @@
+<app-sitecore-region
+  *ifFeatureEnabled="'pages_feaas-components-regions'"
+  name="EditingShell.System"
+></app-sitecore-region>
+
+<ng-spd-page *appLet="getRouterOutletState() as routerOutlet">
+  <ng-spd-page-header>
+    <app-top-bar
+      *ngIf="navigationSegment !== 'no-organization' && navigationSegment !== 'no-tenant'"
+      [renderGlobalElementsRegion]="
+        navigationSegment === 'editpartialdesign' ||
+        navigationSegment === 'editpagedesign' ||
+        (routerOutlet !== 'analytics' && routerOutlet !== 'templates' && routerOutlet !== 'error')
+      "
+      [contextViewInfo]="
+        routerOutlet === 'templates' || (routerOutlet === 'analytics' && (hideLHS$ | async))
+          ? undefined
+          : {
+              header:
+                navigationSegment === 'editpagebranch'
+                  ? queryParams?.['branch_name']
+                  : (contextItemDisplayName$ | async) || undefined,
+              pageDisplayName: (contextItemDisplayName$ | async) || undefined,
+            }
+      "
+      (click)="deselectChrome()"
+    ></app-top-bar>
+  </ng-spd-page-header>
+
+  <div class="workspace-top-bar">
+    <button
+      #collapseBtnLHS
+      *ngIf="!(routerOutlet === 'analytics' && !!(hideLHS$ | async))"
+      type="button"
+      ngSpdIconButton
+      icon="chevron-right"
+      aria-label="left-panel-toggle"
+      class="rotate toggle-panel-btn toggle-lhs-hide"
+      (click)="lhs.hide = !lhs.hide; lhs.show = !lhs.hide"
+      [class.rotate]="!lhs.hide"
+      [class.collapse-btn-show]="showBtnLHS"
+      [large]="true"
+      [title]="(lhs.hide ? 'NAV.EXPAND' : 'NAV.COLLAPSE') | translate"
+    ></button>
+
+    <button
+      #collapseBtnRHS
+      *ngIf="
+        navigationSegment !== 'editpagedesign' &&
+        routerOutlet !== 'templates' &&
+        routerOutlet !== 'analytics' &&
+        !(isLhsPanelExpanded$ | async) &&
+        (rhsIsDocked$ | async)
+      "
+      type="button"
+      ngSpdIconButton
+      icon="chevron-right"
+      aria-label="right-panel-toggle"
+      class="rotate toggle-panel-btn toggle-rhs-hide"
+      (click)="rhs.hide = !rhs.hide; rhs.show = !rhs.hide"
+      [class.rotate]="rhs.hide"
+      [class.collapse-btn-show]="showBtnRHS || rhs.hide"
+      [large]="true"
+      [title]="(rhs.hide ? 'NAV.EXPAND' : 'NAV.COLLAPSE') | translate"
+    ></button>
+  </div>
+
+  <ng-spd-split-pane
+    #lhs
+    [hide]="(routerOutlet === 'analytics' && !!(hideLHS$ | async)) || routerOutlet === 'error'"
+    (mouseenter)="showBtnLHS = true"
+    (mouseleave)="showBtnLHS = false"
+  >
+    <app-left-hand-side></app-left-hand-side>
+  </ng-spd-split-pane>
+
+  <div class="router-animation-wrapper" [@routerTransition]>
+    <app-notifications class="page-notification"></app-notifications>
+    <router-outlet></router-outlet>
+  </div>
+
+  <ng-spd-page-pane
+    #rhs
+    [hide]="
+      routerOutlet === 'analytics' ||
+      routerOutlet === 'templates' ||
+      navigationSegment === 'editpagedesign' ||
+      routerOutlet === 'error' ||
+      !!(isLhsPanelExpanded$ | async)
+    "
+    [class.collapsable]="routerOutlet === 'editor' && !(isLhsPanelExpanded$ | async)"
+    [class.fluid]="!(rhsIsDocked$ | async)"
+    [draggable]="!(rhsIsDocked$ | async)"
+    (mousedown)="dragTarget = $event.target"
+    (dragstart)="onDragStart($event)"
+    (dragend)="onDragEnd($event)"
+    (dragover)="$event.preventDefault()"
+    (click)="routerOutlet === 'editor' && rhs.hide ? (rhs.hide = false) : undefined"
+    (mouseenter)="showBtnRHS = true"
+    (mouseleave)="showBtnRHS = false"
+  >
+    <app-editor-rhs></app-editor-rhs>
+  </ng-spd-page-pane>
+</ng-spd-page>

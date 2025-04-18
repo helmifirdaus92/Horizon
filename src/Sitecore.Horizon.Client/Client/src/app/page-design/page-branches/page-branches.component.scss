@@ -1,0 +1,27 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  @include page-designs;
+}
+
+.mdi {
+  margin-right: $padding-small;
+}
+
+.edit-insert-rules-button {
+  margin-right: $padding-small;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: $padding-small 0;
+
+  button {
+    margin-right: $padding-x-small;
+  }
+}
+
+@include customized-scrollbar;

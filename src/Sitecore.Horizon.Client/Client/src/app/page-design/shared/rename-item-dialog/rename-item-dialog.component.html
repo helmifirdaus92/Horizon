@@ -1,0 +1,48 @@
+<ng-spd-dialog-panel
+  (keyup.enter)="!itemName.length || !!nameInput.errors || apiErrorMessage || isLoading || !valueEdited ? '' : rename()"
+>
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>{{ 'COMMON.RENAME' | translate }} </ng-spd-dialog-header>
+
+  <div class="dialog-body">
+    <div class="rename-dialog">
+      <div class="input">
+        <input
+          #nameInput="ngModel"
+          ngSpdInput
+          type="text"
+          id="design-item-name"
+          required
+          maxlength="255"
+          pattern="^(?!^\s+$)[a-zA-Z0-9_ ]+$"
+          [isInvalid]="!!nameInput.errors && (!!nameInput.dirty || !!nameInput.touched)"
+          [appForbiddenNames]="existingNames"
+          autofocus="true"
+          [placeholder]="'COMMON.NAME' | translate"
+          [(ngModel)]="itemName"
+          [disabled]="isLoading"
+          (ngModelChange)="valueEdited = true"
+        />
+      </div>
+
+      <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error-block">
+        <p *ngIf="nameInput.errors?.isForbidden">{{ 'VALIDATION.VALIDATE_NAME.ALREADY_USED' | translate }}</p>
+        <p *ngIf="nameInput.errors?.pattern">{{ 'VALIDATION.VALIDATE_NAME.NOT_ALLOWED_CHARACTER' | translate }}</p>
+        <p *ngIf="nameInput.errors?.required">{{ 'VALIDATION.VALIDATE_NAME.EMPTY' | translate }}</p>
+      </div>
+      <div *ngIf="apiErrorMessage" class="error-block"
+        ><p>{{ apiErrorMessage }}</p></div
+      >
+    </div>
+  </div>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button
+      ngSpdButton="primary"
+      (click)="rename()"
+      [disabled]="!itemName.length || !!nameInput.errors || apiErrorMessage || isLoading || !valueEdited"
+      >{{ 'COMMON.SAVE' | translate }}</button
+    >
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

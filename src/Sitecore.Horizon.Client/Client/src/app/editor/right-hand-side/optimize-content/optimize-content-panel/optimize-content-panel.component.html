@@ -1,0 +1,15 @@
+<ng-spd-slide-in-panel class="optimize-panel" *ngIf="isOpen" @rhsSlideInPanelClose>
+  <ng-spd-slide-in-panel-header
+    class="ml-md"
+    [showBackButton]="true"
+    (back)="onClosePanel()"
+    [icon]="'close'"
+    [size]="'sm'"
+  >
+    {{ 'CONTENT_OPTIMIZATION.OPTIMIZE' | translate }} {{ getChromeDisplayName() }}
+  </ng-spd-slide-in-panel-header>
+
+  <ng-spd-slide-in-panel-content>
+    <app-optimize-content-prompt [chrome]="chrome"></app-optimize-content-prompt>
+  </ng-spd-slide-in-panel-content>
+</ng-spd-slide-in-panel>

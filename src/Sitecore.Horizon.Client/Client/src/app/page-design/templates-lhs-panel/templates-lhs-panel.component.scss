@@ -1,0 +1,36 @@
+@import '@sitecore/spd-styles/src/all';
+
+.lhs-panel-container {
+  box-sizing: border-box;
+
+  .header {
+    height: $generic-element-height * 2;
+  }
+
+  .divider {
+    border-bottom: $framework-border;
+    margin: $padding-small 0 $padding-small 0;
+  }
+
+  ng-spd-list {
+    padding-top: $padding-small;
+  }
+
+  [ngSpdListItem] {
+    border-radius: $border-radius-small;
+    span {
+      @include default-text;
+      margin-left: 8px;
+    }
+  }
+
+  .header-title,
+  .content-title {
+    @include heading-xs;
+    text-transform: uppercase;
+  }
+
+  .links {
+    text-decoration: none;
+  }
+}

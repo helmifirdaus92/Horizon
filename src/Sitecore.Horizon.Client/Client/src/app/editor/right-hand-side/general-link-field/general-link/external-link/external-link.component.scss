@@ -1,0 +1,24 @@
+@import '@sitecore/spd-styles/src/all';
+
+.external-link {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-7xs;
+
+  input {
+    border-radius: $border-radius-secondary;
+  }
+  label {
+    font-size: $font-size-14px;
+
+    .required-indicator {
+      position: absolute;
+      margin-left: $padding-xx-small;
+      color: $warning;
+    }
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}

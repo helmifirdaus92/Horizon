@@ -1,0 +1,44 @@
+@import '@sitecore/spd-styles/src/all';
+
+.media-handler {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: $padding-small $padding;
+  width: 100%;
+
+  .search {
+    display: flex;
+    position: relative;
+    margin-right: auto;
+    flex-basis: 30%;
+
+    .close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+  .upload-controls {
+    display: flex;
+    flex-wrap: nowrap;
+    .file-input {
+      display: none;
+    }
+
+    .refresh-btn {
+      border: none;
+    }
+  }
+}
+
+.media-count {
+  font-family: $font;
+  font-weight: $font-weight-semi-bold;
+  padding-left: $padding;
+}
+
+ng-spd-loading-indicator {
+  background-color: $ui-primary-50;
+  height: $padding-x-large !important;
+}

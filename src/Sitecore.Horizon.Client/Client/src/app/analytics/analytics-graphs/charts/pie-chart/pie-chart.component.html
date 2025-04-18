@@ -1,0 +1,38 @@
+<div class="chart-container">
+  <ngx-charts-pie-chart
+    #ngxChartComponent
+    class="chart-component"
+    [view]="config.view"
+    [scheme]="config.colorScheme"
+    [results]="_items"
+    [gradient]="config.gradient"
+    [legend]="config.showLegend"
+    [tooltipDisabled]="false"
+    [doughnut]="config.doughnut"
+    [arcWidth]="0.4"
+    [activeEntries]="activeEntries"
+    (select)="onSelect($event)"
+    (activate)="activateHandler($event)"
+    (deactivate)="deactivateHandler()"
+    [labelFormatting]="formatValueForChart"
+  >
+    <ng-template #tooltipTemplate let-model="model" class="tooltip-container">
+      <div>
+        <span class="tooltip-item-color" [style.background-color]="getTooltipItemColor(model)"></span>
+        {{ formatNameForDisplay(model.name, model) }}:
+        <span class="tooltip-value">{{ formatValueForDisplay(model.value, model) }}</span>
+      </div>
+    </ng-template>
+  </ngx-charts-pie-chart>
+</div>
+<div *ngIf="!isLegendVisible" class="empty-container"></div>
+<app-chart-legend
+  *ngIf="isLegendVisible"
+  [legendLabelFormatter]="formatNameForDisplay"
+  class="legend-container"
+  [activeItem]="activeItem"
+  [legendItems]="legendItems"
+  [palette]="config.colorScheme.domain"
+  (itemHighlighted)="itemHighlightedHandler($event)"
+>
+</app-chart-legend>

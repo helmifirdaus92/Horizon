@@ -1,0 +1,48 @@
+{
+  "Parameters": {
+    "CMSiteName": {
+      "Type": "string"
+    },
+    "CMSitePhysicalPath": {
+      "Type": "string"
+    },
+    "HorizonAppUrl": {
+      "Type": "string"
+    },
+    "HorizonFeatureIntegrationVersion": {
+      "Type": "string"
+    },
+    "NuGetPackageSources": {
+      "Type": "string"
+    }
+  },
+  "Variables": {
+    "CMSite.PhysicalPath.Default": "[joinpath(environment('SystemDrive'), 'inetpub', 'wwwroot', parameter('CMSiteName'))]",
+    "CMSite.PhysicalPath": "[if(equal(parameter('CMSitePhysicalPath'), ''), variable('CMSite.PhysicalPath.Default'), parameter('CMSitePhysicalPath'))]"
+  },
+  "Tasks": {
+    "InstallHorizonFeatureIntegrationContentPackage": {
+      "Type": "InstallFeatureIntegrationContentPackage",
+      "Params": {
+        "SiteName": "[parameter('CMSiteName')]",
+        "SiteFolder": "[variable('CMSite.PhysicalPath')]",
+        "Version": "[parameter('HorizonFeatureIntegrationVersion')]",
+        "Sources": "[parameter('NuGetPackageSources')]"
+      }
+    },
+    "UpdateHorizonClientHostConfig": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('CMSite.PhysicalPath'), 'App_Config', 'Modules', 'Horizon', 'Sitecore.Horizon.Integration.config')]",
+        "XPath": "/configuration/sitecore/settings/setting[@name='Horizon.ClientHost']",
+        "Attributes": {
+          "value": "[ToLower(parameter('HorizonAppUrl'))]"
+        }
+      }
+    }
+  },
+  "Modules": [
+    ".\\Tools\\utils.psm1",
+    ".\\Tools\\horizon.featureintegration.deploy.psm1"
+  ]
+}

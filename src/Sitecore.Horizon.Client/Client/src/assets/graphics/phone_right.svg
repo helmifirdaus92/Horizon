@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="843px" height="838px" viewBox="0 0 843 838" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>PHONE RIGHT</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="103.883057%" y1="52.3286402%" x2="0%" y2="52.3286402%" id="linearGradient-1">
+            <stop stop-color="#292560" offset="0%"></stop>
+            <stop stop-color="#292560" offset="27.1702253%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="73.9663054%" y1="52.3286402%" x2="2.05242222%" y2="52.3286402%" id="linearGradient-2">
+            <stop stop-color="#292560" offset="0%"></stop>
+            <stop stop-color="#292560" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="CANVAS-bg-&amp;-devices" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy" transform="translate(-3318.000000, -2864.000000)">
+            <g id="phone" transform="translate(1787.000000, 2666.000000)">
+                <g id="gfx" transform="translate(0.000000, 178.000000)">
+                    <g id="PHONE-RIGHT" transform="translate(1527.000000, 0.000000)">
+                        <g id="Group-29" transform="translate(281.755925, 38.684202)">
+                            <rect id="Rectangle-14" fill="url(#linearGradient-1)" opacity="0.100000001" transform="translate(79.247034, 105.256280) rotate(-45.000000) translate(-79.247034, -105.256280) " x="41.8896239" y="30.6786479" width="74.7148202" height="149.155264"></rect>
+                            <rect id="Rectangle-14-Copy" fill="#292560" transform="translate(104.453425, 80.096171) rotate(-45.000000) translate(-104.453425, -80.096171) " x="67.0960152" y="5.5185396" width="74.7148202" height="149.155264" rx="37.3574101"></rect>
+                        </g>
+                        <g id="Group-28" transform="translate(435.401547, 436.044461) rotate(-45.000000) translate(-435.401547, -436.044461) translate(320.901547, -64.955539)">
+                            <polygon id="Combined-Shape" fill="url(#linearGradient-2)" opacity="0.100000001" points="17.9611724 1000.24871 0.555133652 0.364624736 186.463292 0.493780875 195.262586 1001.89963"></polygon>
+                            <path d="M195.284521,15.7076665 L195.284521,15.7076665 C213.787758,15.7076665 228.787595,30.7075038 228.787595,49.2107407 L228.787595,942.930376 L195.284521,1001.98915 L161.781447,942.930376 L161.781447,49.2107407 C161.781447,30.7075038 176.781284,15.7076665 195.284521,15.7076665 Z" id="Rectangle-8-Copy-4" fill="#632CFF"></path>
+                            <rect id="Rectangle-8-Copy-3" fill="#292560" x="176.364326" y="0" width="35.4738432" height="287.419354" rx="17.7369216"></rect>
+                        </g>
+                        <g id="Group-11" transform="translate(158.923384, 228.768956)">
+                            <polygon id="Rectangle-14" fill="url(#linearGradient-2)" opacity="0.100000001" transform="translate(120.581151, 147.902802) rotate(-45.000000) translate(-120.581151, -147.902802) " points="83.7140321 15.6472927 157.44827 15.6472927 157.44827 280.158311 83.7140321 280.158311"></polygon>
+                            <path d="M148.480592,-12.2028411 L148.480592,-12.2028411 C168.84174,-12.2028411 185.347711,4.30313028 185.347711,24.6642778 L185.347711,215.441058 C185.347711,235.802206 168.84174,252.308177 148.480592,252.308177 L148.480592,252.308177 C128.119445,252.308177 111.613473,235.802206 111.613473,215.441058 L111.613473,24.6642778 C111.613473,4.30313028 128.119445,-12.2028411 148.480592,-12.2028411 Z" id="Rectangle-14-Copy" fill="#632CFF" transform="translate(148.480592, 120.052668) rotate(-45.000000) translate(-148.480592, -120.052668) "></path>
+                        </g>
+                        <g id="Group-29-Copy-2" transform="translate(370.526260, 435.649825)">
+                            <rect id="Rectangle-14" fill="url(#linearGradient-2)" opacity="0.100000001" transform="translate(79.247034, 105.256280) rotate(-45.000000) translate(-79.247034, -105.256280) " x="41.8896239" y="30.6786479" width="74.7148202" height="149.155264"></rect>
+                            <rect id="Rectangle-14-Copy" fill="#F4B91E" transform="translate(104.453425, 80.096171) rotate(-45.000000) translate(-104.453425, -80.096171) " x="67.0960152" y="5.5185396" width="74.7148202" height="149.155264" rx="37.3574101"></rect>
+                        </g>
+                        <g id="Group-29-Copy" transform="translate(320.710606, 543.054252)">
+                            <polygon id="Rectangle-14" fill="url(#linearGradient-2)" opacity="0.100000001" transform="translate(53.342798, 78.024948) rotate(-45.000000) translate(-53.342798, -78.024948) " points="15.9853884 40.7356069 90.7002086 40.7356069 90.7002086 115.31429 15.9853884 115.31429"></polygon>
+                            <path d="M78.4811212,15.5754986 L78.6131597,15.5754986 C99.2074944,15.5754986 115.902501,32.2705055 115.902501,52.8648402 L115.902501,52.8648402 C115.902501,73.4591748 99.2074944,90.1541817 78.6131597,90.1541817 L78.4811212,90.1541817 C57.8867865,90.1541817 41.1917796,73.4591748 41.1917796,52.8648402 L41.1917796,52.8648402 C41.1917796,32.2705055 57.8867865,15.5754986 78.4811212,15.5754986 Z" id="Rectangle-14-Copy" fill="#632CFF" transform="translate(78.547140, 52.864840) rotate(-45.000000) translate(-78.547140, -52.864840) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

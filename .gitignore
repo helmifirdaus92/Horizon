@@ -1,0 +1,92 @@
+
+#ignore thumbnails created by windows
+Thumbs.db
+
+# Brew build related
+tools/**
+!tools
+!tools/packages.config
+!tools/packages.config.md5sum
+!tools/Addins
+tools/Addins/*
+!tools/Addins/packages.config
+!tools/Modules
+tools/Modules/*
+!tools/Modules/packages.config
+tmp/
+*.tgz
+buildscript/tools/
+build
+*.md5sum
+
+#Ignore files build by Visual Studio
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+![Tt]est[Rr]esult*.cs
+.vs/
+[Aa]rtifacts/
+project.lock.json
+packages/
+SCTools/
+
+#Ignore files build by Visual Studio Code
+.vscode
+
+# Ignore tmp Rider files
+.idea/
+
+/GitVersion.yml
+logs/
+*.tgzbuildscript/tools/**# Vim tmp file
+*.swp
+/buildscript/deploy.config.local.json
+
+# NCrunch
+*.ncrunch*.user
+_NCrunch_*
+*.crunch.xml
+*.ncrunchsolution*
+nCrunchTemp_*
+
+#Ignore output folder
+output/
+
+# Ignore local dev https certificate
+dev-cert.pfx
+
+# Ignore .feature.cs generated files
+*.feature.cs
+
+# Ignore certificate related file
+domains.ext
+RootCA.*
+
+# Container related
+buildscript/containers/
+/src/Sitecore.Horizon.Host/wwwroot/horizon/HorizonManifest.json
+src/Sitecore.Horizon.Client/Client/pacts/node_modules
+src/Sitecore.Horizon.Client/Client/pacts/generated-pacts
+src/Sitecore.Horizon.Client/Client/pacts/junit.xml

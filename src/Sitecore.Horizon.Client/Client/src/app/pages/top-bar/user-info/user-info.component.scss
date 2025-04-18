@@ -1,0 +1,15 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  display: flex;
+  position: relative;
+  isolation: isolate;
+  align-items: center;
+}
+
+.full-size-btn {
+  width: 100%;
+  border-radius: 0 !important;
+  justify-content: flex-start;
+}

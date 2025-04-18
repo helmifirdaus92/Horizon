@@ -1,0 +1,313 @@
+<ng-spd-dialog-panel
+  (keyup.enter)="
+    step === 'create-design-and-assign-template' && !assignTemplate ? create() : (step = 'configure-insert-options');
+    addNewTemplateWithInsertOptions()
+  "
+>
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header class="dialog-header">
+    <div *ngIf="step === 'configure-insert-options'" class="back-button">
+      <button
+        ngSpdIconButton
+        icon="arrow-left"
+        aria-label="Back"
+        (click)="step = 'create-design-and-assign-template'; removeNewTemplate()"
+      ></button>
+      <span>{{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.INSERT_OPTIONS_HEADER_BACK' | translate }}</span>
+    </div>
+    <div>
+      {{
+        step === 'create-design-and-assign-template'
+          ? ('PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CREATE_PAGE_DESIGN_HEADER' | translate)
+          : ('PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.INSERT_OPTIONS_HEADER' | translate)
+      }}
+    </div>
+  </ng-spd-dialog-header>
+  <div *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+  <div class="dialog-body">
+    <div class="create-dialog" *ngIf="step === 'create-design-and-assign-template'">
+      <div class="input">
+        <label ngSpdLabel for="design-name">{{
+          'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CREATE_PAGE_DESIGN_LABEL' | translate
+        }}</label>
+        <input
+          #designNameInput="ngModel"
+          ngSpdInput
+          type="text"
+          id="design-name"
+          required
+          maxlength="255"
+          pattern="^(?!^\s+$)[a-zA-Z0-9_ ]+$"
+          [isInvalid]="!!designNameInput.errors && (!!designNameInput.dirty || !!designNameInput.touched)"
+          [appForbiddenNames]="existingDesignNames"
+          autofocus="true"
+          [placeholder]="'COMMON.NAME' | translate"
+          [(ngModel)]="designName"
+          [disabled]="isLoading"
+        />
+        <div *ngIf="designNameInput.invalid && (designNameInput.dirty || designNameInput.touched)" class="error-block">
+          <p *ngIf="designNameInput.errors?.isForbidden">{{ 'VALIDATION.VALIDATE_NAME.ALREADY_USED' | translate }}</p>
+          <p *ngIf="designNameInput.errors?.pattern">{{
+            'VALIDATION.VALIDATE_NAME.NOT_ALLOWED_CHARACTER' | translate
+          }}</p>
+          <p *ngIf="designNameInput.errors?.required">{{ 'VALIDATION.VALIDATE_NAME.EMPTY' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="assign-template">
+        <div class="assign-template-title pb-md">
+          {{ 'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.ASSIGN_TEMPELATE_TO_PAGE_DESIGN' | translate }}
+          <a
+            href="https://doc.sitecore.com/xmc/en/developers/xm-cloud/data-templates-733367.html"
+            target="_blank"
+            class="link"
+            >{{ 'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.LEARN_MORE' | translate }}</a
+          >
+        </div>
+
+        <div class="options">
+          <div class="option">
+            <input
+              type="radio"
+              name="assign-template-options"
+              id="assignLater"
+              [value]="false"
+              [(ngModel)]="assignTemplate"
+            />
+            <label ngSpdLabel for="assignLater">{{
+              'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.ASSIGN_TEMPLATE_LATER' | translate
+            }}</label>
+          </div>
+          <div class="option">
+            <input
+              type="radio"
+              name="assign-template-options"
+              id="assignNow"
+              [value]="true"
+              [(ngModel)]="assignTemplate"
+              (change)="templateName = designName"
+              [disabled]="!existingTemplates.length"
+            />
+            <label ngSpdLabel for="assignNow">{{
+              'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.ASSIGN_TEMPLATE_NOW' | translate
+            }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="choose-tempalte" *ngIf="assignTemplate">
+        <div class="choose-template-title pb-md">
+          {{ 'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CHOOSE_TEMPLATE' | translate }}
+        </div>
+
+        <div class="options">
+          <!-- <div class="option">
+            <input
+              type="radio"
+              name="choose-template-options"
+              id="createNew"
+              [value]="'create-new'"
+              [(ngModel)]="chooseTemplateOptions"
+            />
+            <label ngSpdLabel for="createNew">{{
+              'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CREATE_NEW_TEMPLATE' | translate
+            }}</label>
+          </div> -->
+          <div class="option">
+            <input
+              type="radio"
+              name="choose-template-options"
+              id="assignExisting"
+              [value]="'assign-existing'"
+              [(ngModel)]="chooseTemplateOptions"
+            />
+            <label ngSpdLabel for="assignExisting">{{
+              'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.ASSIGN_EXISTING' | translate
+            }}</label>
+          </div>
+          <div class="option">
+            <input
+              type="radio"
+              name="choose-template-options"
+              id="copyExisting"
+              [value]="'copy-existing'"
+              [(ngModel)]="chooseTemplateOptions"
+            />
+            <label ngSpdLabel for="copyExisting">{{
+              'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.COPY_EXISTING' | translate
+            }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="input" *ngIf="assignTemplate && chooseTemplateOptions === 'create-new'">
+        <label ngSpdLabel for="template-name-new">{{
+          'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CREATE_PAGE_TEMPLATE' | translate
+        }}</label>
+        <input
+          #templateNameInput="ngModel"
+          ngSpdInput
+          type="text"
+          id="template-name-new"
+          required
+          maxlength="255"
+          pattern="^(?!^\s+$)[a-zA-Z0-9_ ]+$"
+          [isInvalid]="!!templateNameInput.errors && (!!templateNameInput.dirty || !!templateNameInput.touched)"
+          [appForbiddenNames]="existingTemplateNames"
+          [placeholder]="'COMMON.NAME' | translate"
+          [(ngModel)]="templateName"
+          [disabled]="isLoading"
+        />
+        <div
+          *ngIf="templateNameInput.invalid && (templateNameInput.dirty || templateNameInput.touched)"
+          class="error-block"
+        >
+          <p *ngIf="templateNameInput.errors?.isForbidden">{{ 'VALIDATION.VALIDATE_NAME.ALREADY_USED' | translate }}</p>
+          <p *ngIf="templateNameInput.errors?.pattern">{{
+            'VALIDATION.VALIDATE_NAME.NOT_ALLOWED_CHARACTER' | translate
+          }}</p>
+          <p *ngIf="templateNameInput.errors?.required">{{ 'VALIDATION.VALIDATE_NAME.EMPTY' | translate }}</p>
+        </div>
+        <p class="helper-text">{{
+          'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CREATE_PAGE_TEMPLATE_INFO' | translate
+        }}</p>
+      </div>
+
+      <div
+        class="input"
+        *ngIf="
+          assignTemplate && (chooseTemplateOptions === 'assign-existing' || chooseTemplateOptions === 'copy-existing')
+        "
+      >
+        <label ngSpdLabel for="template-items-droplist">{{
+          'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CHOOSE_EXISTING_TEMPLATE' | translate
+        }}</label>
+        <ng-spd-droplist
+          *ngIf="existingTemplates.length"
+          id="template-items-droplist"
+          [selectedValue]="selectedExistingTemplate?.template?.templateId"
+          [placeholder]="'COMMON.CHOOSE' | translate"
+          (selectedValueChange)="selectTemplate($event)"
+        >
+          <ng-template *ngFor="let item of existingTemplates" ngSpdDroplistItem [value]="item.template.templateId">
+            {{ item.template.name }}
+            <span *ngIf="item.pageDesign">
+              {{
+                '&nbsp;' +
+                  ('PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.USED_BY'
+                    | translate: { pageDesignName: item.pageDesign.displayName })
+              }}</span
+            >
+          </ng-template>
+        </ng-spd-droplist>
+      </div>
+
+      <div class="copy-existing" *ngIf="assignTemplate && chooseTemplateOptions === 'copy-existing'">
+        <div class="input">
+          <label ngSpdLabel for="template-name">{{
+            'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CREATE_PAGE_TEMPLATE' | translate
+          }}</label>
+          <input
+            #templateNameInput="ngModel"
+            ngSpdInput
+            type="text"
+            id="template-name"
+            required
+            maxlength="255"
+            pattern="^(?!^\s+$)[a-zA-Z0-9_ ]+$"
+            [isInvalid]="!!templateNameInput.errors && (!!templateNameInput.dirty || !!templateNameInput.touched)"
+            [appForbiddenNames]="existingTemplateNames"
+            [placeholder]="'COMMON.NAME' | translate"
+            [(ngModel)]="templateName"
+            [disabled]="isLoading"
+          />
+          <div
+            *ngIf="templateNameInput.invalid && (templateNameInput.dirty || templateNameInput.touched)"
+            class="error-block"
+          >
+            <p *ngIf="templateNameInput.errors?.isForbidden">{{
+              'VALIDATION.VALIDATE_NAME.ALREADY_USED' | translate
+            }}</p>
+            <p *ngIf="templateNameInput.errors?.pattern">{{
+              'VALIDATION.VALIDATE_NAME.NOT_ALLOWED_CHARACTER' | translate
+            }}</p>
+            <p *ngIf="templateNameInput.errors?.required">{{ 'VALIDATION.VALIDATE_NAME.EMPTY' | translate }}</p>
+          </div>
+          <p class="helper-text">{{
+            'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CREATE_PAGE_TEMPLATE_INFO' | translate
+          }}</p>
+        </div>
+      </div>
+
+      <ng-spd-inline-notification
+        *ngIf="assignTemplate && chooseTemplateOptions === 'assign-existing' && selectedExistingTemplate?.pageDesign"
+        severity="info"
+        class="warning-block"
+      >
+        <p
+          [innerHTML]="
+            'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.CHOOSE_EXISTING_USED_TEMPLATE_WARNING'
+              | translate
+                : {
+                    newPageDesignName: designName,
+                    oldPageDesignName: selectedExistingTemplate?.pageDesign?.displayName,
+                  }
+          "
+        >
+        </p>
+      </ng-spd-inline-notification>
+
+      <div *ngIf="apiErrorMessage" class="error-block"
+        ><p>{{ apiErrorMessage }}</p></div
+      >
+    </div>
+    <div class="create-dialog" *ngIf="step === 'configure-insert-options'">
+      <app-insert-options-configuration
+        class="pt-sm"
+        [selectedTemplateId]="
+          chooseTemplateOptions === 'assign-existing' && selectedExistingTemplate
+            ? selectedExistingTemplate.template.templateId
+            : PLACEHOLDER_TEMPLATE_ID
+        "
+        [templatesList]="existingTemplates"
+        (childInsertOptions)="updateChildInsertOptions($event)"
+        (parentInsertOptions)="updateParentInsertOptions($event)"
+      ></app-insert-options-configuration>
+      <div *ngIf="apiErrorMessage" class="error-block"
+        ><p>{{ apiErrorMessage }}</p></div
+      >
+    </div>
+  </div>
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button
+      *ngIf="step === 'create-design-and-assign-template' && !assignTemplate"
+      ngSpdButton="primary"
+      (click)="create()"
+      [disabled]="!designName.length || !!designNameInput?.errors || apiErrorMessage || isLoading"
+      >{{ 'COMMON.CREATE' | translate }}</button
+    >
+    <button
+      *ngIf="step === 'create-design-and-assign-template' && assignTemplate"
+      ngSpdButton="primary"
+      (click)="step = 'configure-insert-options'; addNewTemplateWithInsertOptions()"
+      [disabled]="
+        !!designNameInput?.errors ||
+        (chooseTemplateOptions !== 'assign-existing' && !!templateNameInput?.errors) ||
+        (chooseTemplateOptions !== 'create-new' && !selectedExistingTemplate) ||
+        apiErrorMessage ||
+        isLoading
+      "
+      >{{ 'PAGE_DESIGNS.WORKSPACE.CREATE_PAGE_DESIGN_DIALOG.NEXT_STEP' | translate }}</button
+    >
+    <button
+      *ngIf="step === 'configure-insert-options'"
+      ngSpdButton="primary"
+      (click)="saveChanges()"
+      [disabled]="apiErrorMessage || isLoading"
+      >{{ 'COMMON.CREATE' | translate }}</button
+    >
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

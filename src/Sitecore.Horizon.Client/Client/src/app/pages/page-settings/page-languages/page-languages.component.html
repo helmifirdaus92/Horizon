@@ -1,0 +1,21 @@
+<ng-spd-accordion class="v2 mt-l mb-l">
+  <ng-spd-accordion-header [isOpened]="isAccordionOpen" (isOpenedChange)="getItemLangaugeVersions($event)">{{
+    'COMMON.LANGUAGES' | translate
+  }}</ng-spd-accordion-header>
+  <ng-spd-accordion-content class="pt-0">
+    <div class="item-languages">
+      <div>
+        @for (item of itemLanguageVersions; track item) {
+          <div class="item-language">
+            @if (item.versions.length > 0) {
+              <i class="normal mdi mdi-check mr-xs"></i>
+            } @else {
+              <i class="normal mdi mdi-minus mr-xs"></i>
+            }
+            <span>{{ item.language }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </ng-spd-accordion-content>
+</ng-spd-accordion>

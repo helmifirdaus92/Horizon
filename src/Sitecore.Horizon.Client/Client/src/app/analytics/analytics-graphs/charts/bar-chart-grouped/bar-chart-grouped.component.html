@@ -1,0 +1,76 @@
+<div class="chart-container">
+  <ngx-charts-bar-vertical-2d
+    *ngIf="!horizontal"
+    #ngxChartComponent
+    class="chart-component"
+    [animations]="config.animations"
+    [roundEdges]="config.roundEdges"
+    [view]="config.view"
+    [scheme]="config.colorScheme"
+    [results]="_items"
+    [gradient]="false"
+    [xAxis]="config.showXAxis"
+    [yAxis]="config.showYAxis"
+    [legend]="config.showLegend"
+    [showXAxisLabel]="config.showXAxisLabel"
+    [showYAxisLabel]="config.showYAxisLabel"
+    [xAxisLabel]="config.xAxisLabel"
+    [yAxisLabel]="config.yAxisLabel"
+    [yScaleMax]="config.yScaleMax"
+    [roundEdges]="config.roundEdges"
+    [barPadding]="config.barPadding"
+    [noBarWhenZero]="noBarWhenZero"
+    (select)="onSelect($event)"
+    (activate)="activateHandler($event)"
+    (deactivate)="deactivateHandler()"
+    [activeEntries]="activeEntries"
+    [groupPadding]="config.groupPadding"
+  >
+    <ng-template #tooltipTemplate let-model="model" class="tooltip-container">
+      {{ formatSeriesNameForDisplay(model.name, model) }} {{ formatNameForChart(model.series) }}:
+      <span class="tooltip-value">{{ formatValueForDisplay(model.value, model) }}</span>
+    </ng-template>
+  </ngx-charts-bar-vertical-2d>
+  <ngx-charts-bar-horizontal-2d
+    *ngIf="horizontal"
+    #ngxChartComponent
+    [animations]="config.animations"
+    [roundEdges]="config.roundEdges"
+    [view]="config.view"
+    [scheme]="config.colorScheme"
+    [results]="_items"
+    [gradient]="config.gradient"
+    [xAxis]="config.showXAxis"
+    [yAxis]="config.showYAxis"
+    [legend]="config.showLegend"
+    [showXAxisLabel]="config.showXAxisLabel"
+    [showYAxisLabel]="config.showYAxisLabel"
+    [xAxisLabel]="config.xAxisLabel"
+    [yAxisLabel]="config.yAxisLabel"
+    [xScaleMax]="config.xScaleMax"
+    [roundEdges]="config.roundEdges"
+    [barPadding]="config.barPadding"
+    [noBarWhenZero]="noBarWhenZero"
+    (select)="onSelect($event)"
+    (activate)="activateHandler($event)"
+    (deactivate)="deactivateHandler()"
+    [activeEntries]="activeEntries"
+    [groupPadding]="config.groupPadding"
+  >
+    <ng-template #tooltipTemplate let-model="model" class="tooltip-container">
+      {{ formatSeriesNameForDisplay(model.name, model) }} {{ formatNameForChart(model.series) }}:
+      <span class="tooltip-value">{{ formatValueForDisplay(model.value, model) }}</span>
+    </ng-template>
+  </ngx-charts-bar-horizontal-2d>
+</div>
+<div *ngIf="!isLegendVisible" class="empty-container"></div>
+<app-chart-legend
+  *ngIf="isLegendVisible"
+  [legendLabelFormatter]="formatNameForDisplay"
+  class="legend-container"
+  [activeItem]="activeItem"
+  [legendItems]="legendItems"
+  [palette]="config.colorScheme.domain"
+  (itemHighlighted)="itemHighlightedHandler($event)"
+>
+</app-chart-legend>

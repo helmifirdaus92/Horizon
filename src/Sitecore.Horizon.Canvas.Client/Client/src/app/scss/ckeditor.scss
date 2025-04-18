@@ -1,0 +1,58 @@
+@import 'variables';
+
+.ck.ck-balloon-panel {
+  z-index: $horizon-zIndex-editorToolbar !important;
+  min-width: 150px;
+}
+
+.ck.ck-dropdown {
+  max-width: 80px;
+}
+
+.ck-focused {
+  border: none !important;
+}
+
+// Removes browser default outline for focus
+.ck.ck-editor__editable_inline {
+  outline: none;
+  cursor: text;
+  display: block;
+}
+
+/* Make <li> elements inherit list-style-type only from their parent <ul> or <ol> */
+/* Editor only applies inline style to <ul> and <ol> elements, not individual <li> elements, to prevent overwriting of <li> styles by other classes on the page */
+.ck.ck-content ul li {
+  list-style-type: inherit;
+}
+
+.ck.ck-content ol li {
+  list-style-type: inherit;
+}
+
+.ck-editor__editable li .ck-list-bogus-paragraph {
+  display: initial;
+}
+
+/* Reduce spacing between the first and last child elements in the CKEditor5 inline editable area,
+   as the default spacing is too large. */
+
+.ck.ck-editor__editable_inline > :first-child {
+  margin-top: var(--ck-spacing-extra-tiny) !important;
+}
+
+.ck.ck-editor__editable_inline > :last-child {
+  margin-bottom: var(--ck-spacing-extra-tiny) !important;
+}
+
+// Keep the placeholder for rich-text editor if the content is empty
+// This is a workaround for the issue where the placeholder disappears when page is selected as data source
+// and field is not defined in the page.
+.rich-text {
+  min-height: $padding-large !important;
+}
+
+.ck.ck-balloon-panel.ck-tooltip {
+  z-index: $horizon-zIndex-editorToolbar + 1 !important;
+  text-align: center;
+}

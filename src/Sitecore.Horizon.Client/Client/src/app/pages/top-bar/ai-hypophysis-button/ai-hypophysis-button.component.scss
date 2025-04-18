@@ -1,0 +1,12 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+
+.w-350 {
+  width: 350px;
+}

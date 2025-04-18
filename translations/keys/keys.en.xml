@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitecore>
+  <phrase key="#{5FC21038-D3FF-404B-981A-60A256AEAA59}#{AA4A4643-5BFC-45A7-B9D9-5183A5211D99}" itemid="{5FC21038-D3FF-404B-981A-60A256AEAA59}" fieldid="{AA4A4643-5BFC-45A7-B9D9-5183A5211D99}" path="/sitecore/client/Applications/Launchpad/PageSettings/Buttons/ContentEditing/Horizon" fieldname="Text" template="LaunchPad-Button">
+    <en>Pages</en>
+  </phrase>
+  <phrase key="#{5FC21038-D3FF-404B-981A-60A256AEAA59}#{B5E02AD9-D56F-4C41-A065-A133DB87BDEB}" itemid="{5FC21038-D3FF-404B-981A-60A256AEAA59}" fieldid="{B5E02AD9-D56F-4C41-A065-A133DB87BDEB}" path="/sitecore/client/Applications/Launchpad/PageSettings/Buttons/ContentEditing/Horizon" fieldname="__Display name" template="LaunchPad-Button">
+    <en>Pages</en>
+  </phrase>
+</sitecore>

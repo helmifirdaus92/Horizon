@@ -1,0 +1,19 @@
+{
+  "name": "sitecore-pages-pacts",
+  "version": "1.0.0",
+  "description": "Contract tests for Sitecore Pages",
+  "private": true,
+  "scripts": {
+    "test": "jest --no-cache"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@pact-foundation/pact": "^12.1.0",
+    "@types/jest": "^29.5.8",
+    "axios": "^1.5.1",
+    "jest": "^29.7.0",
+    "jest-pact": "^0.11.0",
+    "jest-teamcity": "^1.11.0",
+    "ts-jest": "^29.1.1"
+  }
+}

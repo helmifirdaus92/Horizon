@@ -1,0 +1,5 @@
+@import '@sitecore/spd-styles/src/all';
+
+.description {
+  @include subtle-text();
+}

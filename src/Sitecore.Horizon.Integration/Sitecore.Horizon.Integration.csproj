@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!-- NU1603: An approximate best match of version was resolved -->
+    <NoWarn>$(NoWarn);NU1603;NU1604</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Sitecore.Mvc" PrivateAssets="All" />
+    <PackageReference Include="Sitecore.ExperienceEditor" PrivateAssets="All" />
+    <PackageReference Include="Sitecore.Launchpad" PrivateAssets="All" />
+    <PackageReference Include="Sitecore.LayoutService" PrivateAssets="All" />
+    <PackageReference Include="Sitecore.LayoutService.Personalization" PrivateAssets="All" />
+  </ItemGroup>
+</Project>

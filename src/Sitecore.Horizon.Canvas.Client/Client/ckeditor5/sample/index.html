@@ -1,0 +1,49 @@
+<!DOCTYPE html><!--
+Copyright (c) 2014-2023, CKSource Holding sp. z o.o. All rights reserved.
+This file is licensed under the terms of the MIT License (see LICENSE.md).
+-->
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CKEditor 5 – super build</title>
+  <style>
+    body {
+      max-width: 800px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CKEditor&nbsp;5 – super build</h1>
+
+  <div id="classic-editor">
+    <h2>Sample</h2>
+
+    <p>This is an instance of the <a href="https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/predefined-builds.html#classic-editor">classic editor build</a>.</p>
+  </div>
+
+  <div id="inline-editor">
+    <h2>Sample</h2>
+
+    <p>This is an instance of the <a href="https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/predefined-builds.html#inline-editor">inline editor build</a>.</p>
+  </div>
+
+  <script src="../build/ckeditor.js"></script>
+  <script>
+    CKEDITOR.CKEditorClassic
+      .create(document.querySelector('#classic-editor'))
+      .catch(err => {
+        console.error(err.stack);
+      });
+
+    CKEDITOR.CKEditorInline
+      .create(document.querySelector('#inline-editor'))
+      .catch(err => {
+        console.error(err.stack);
+      });
+  </script>
+
+</body>
+</html>

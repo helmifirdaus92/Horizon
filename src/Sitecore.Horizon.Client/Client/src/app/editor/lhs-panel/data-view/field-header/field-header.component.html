@@ -1,0 +1,67 @@
+<div class="container" [ngClass]="size ? 'sm' : ' '">
+  <div class="left-content">
+    <div class="header">
+      @if (field.templateField.type === 'Datetime') {
+        <span class="name">{{ field.templateField.name }} (UTC)</span>
+        <i [ngSpdTooltip]="'EDITOR.DATA_VIEW.DATETIME_FIELD_INFO' | translate" class="mdi mdi-information-outline"></i>
+      } @else {
+        <span class="name">{{ field.templateField.name }}</span>
+      }
+      <ng-content select="[infoContent]"></ng-content>
+    </div>
+
+    <app-tag
+      class="tag mb-xs"
+      *ngIf="field.templateField.versioning === 'SHARED'"
+      [ngSpdTooltip]="'EDITOR.DATA_VIEW.SHARED_VALUE_TEXT' | translate"
+      tooltipPosition="below"
+      [size]="'sm'"
+    >
+      {{ 'EDITOR.DATA_VIEW.SHARED' | translate }}
+    </app-tag>
+  </div>
+  <div
+    class="action-buttons"
+    [ngSpdPopover]="multiListSelectedValues"
+    popoverPosition="left-bottom"
+    [popoverOffset]="5"
+    [popoverShowDelay]="0"
+    [popoverHideDelay]="0"
+    [hideOnBackdropClick]="true"
+    [customClass]="'selected-values-popover'"
+    #selectedItemsInstance="ngSpdPopover"
+  >
+    <button
+      *ngIf="isRearrangeSupported"
+      class="rearrange"
+      ngSpdIconButton
+      size="sm"
+      [disabled]="mapSelectedValue.length < 2"
+      (click)="selectedItemsInstance.toggle(); toggleRearrangeItems.emit(); $event.stopPropagation()"
+      [icon]="'swap-vertical'"
+      [ngSpdTooltip]="'EDITOR.DATA_VIEW.REARRANGE_TITLE' | translate"
+    ></button>
+    <button
+      class="reset"
+      ngSpdIconButton
+      size="sm"
+      [icon]="'reload'"
+      (click)="resetField.emit()"
+      [ngSpdTooltip]="'EDITOR.DATA_VIEW.STANDARD_VALUE_TEXT' | translate"
+      [disabled]="field.containsStandardValue"
+    ></button>
+  </div>
+</div>
+
+<ng-template #multiListSelectedValues let-popoverRef>
+  <div class="header">
+    <button
+      class="close-button"
+      ngSpdIconButton="ghost"
+      icon="close"
+      aria-label="close"
+      (click)="popoverRef.hide()"
+    ></button>
+  </div>
+  <ng-content select="[mappedSelectedLists]"></ng-content>
+</ng-template>

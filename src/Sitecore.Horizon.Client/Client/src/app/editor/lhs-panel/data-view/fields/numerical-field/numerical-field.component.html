@@ -1,0 +1,35 @@
+@if (field.templateField.type === 'Number') {
+  <input
+    class="input-fields"
+    ngSpdInput
+    #textModel="ngModel"
+    type="number"
+    step="any"
+    [(ngModel)]="inputValue"
+    (input)="onInputChange(textModel, true)"
+    (blur)="onInputChange(textModel, false)"
+    [isInvalid]="!isFieldValid(field)"
+    [size]="size"
+  />
+} @else if (field.templateField.type === 'Integer') {
+  <input
+    class="input-fields"
+    ngSpdInput
+    #textModel="ngModel"
+    type="number"
+    min="0"
+    step="any"
+    pattern="[0-9]*"
+    [max]="maxIntegerValue"
+    [min]="minIntegerValue"
+    [(ngModel)]="inputValue"
+    (input)="onInputChange(textModel, true)"
+    (blur)="onInputChange(textModel, false)"
+    (keydown)="preventScientificNotation($event)"
+    [isInvalid]="!isFieldValid(field) || !!textModel.errors"
+    [size]="size"
+  />
+  <p *ngIf="textModel.errors" class="error-message">{{
+    'EDITOR.DATA_VIEW.NOT_VALID_VALUE' | translate: { value: field.value.rawValue }
+  }}</p>
+}

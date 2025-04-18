@@ -1,0 +1,129 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true,
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "prettier",
+      ],
+      "plugins": [
+        "eslint-plugin-import",
+        "eslint-plugin-jsdoc",
+        "eslint-plugin-prefer-arrow",
+        "@typescript-eslint",
+        "@angular-eslint",
+        "header",
+        "jasmine",
+      ],
+      "rules": {
+        "header/header": [
+          2,
+          "block",
+          [
+            "!",
+            " * © Sitecore Corporation A/S. All rights reserved. Sitecore® is a registered trademark of Sitecore Corporation A/S.",
+            " ",
+          ],
+          2,
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": ["app", "test", "ng-spd"],
+            "style": "kebab-case",
+          },
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase",
+          },
+        ],
+        "@angular-eslint/no-host-metadata-property": "off",
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "_", "varsIgnorePattern": "_" }],
+        "@angular-eslint/use-component-view-encapsulation": "error",
+        "@angular-eslint/no-output-native": "off",
+        "@typescript-eslint/array-type": [
+          "error",
+          {
+            "default": "array-simple",
+          },
+        ],
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/no-explicit-any": [
+          "error",
+          {
+            "fixToUnknown": true,
+          },
+        ],
+        "@typescript-eslint/explicit-member-accessibility": [
+          "off",
+          {
+            "accessibility": "explicit",
+          },
+        ],
+        "@typescript-eslint/no-require-imports": "error",
+        "brace-style": ["error", "1tbs"],
+        "id-blacklist": "off",
+        "id-match": "off",
+        "import/no-default-export": "error",
+        "import/order": "error",
+        "max-classes-per-file": ["error", 2],
+        "max-len": [
+          "warn",
+          {
+            "ignorePattern": "import",
+            "code": 120,
+            "ignoreTemplateLiterals": true,
+            "ignoreStrings": true,
+            "ignoreTrailingComments": true,
+            "ignoreUrls": true,
+            "ignoreComments": true,
+          },
+        ],
+        "no-underscore-dangle": "off",
+        "no-extra-boolean-cast": "off",
+        "@typescript-eslint/no-empty-object-type": "warn",
+        "@typescript-eslint/no-unsafe-function-type": "warn",
+        "@typescript-eslint/no-wrapper-object-types": "warn",
+        "@typescript-eslint/no-unused-expressions": "warn",
+      },
+    },
+    {
+      "files": ["*spec.ts", "*test*", "*stub*", "*mock*"],
+      "rules": {
+        "max-classes-per-file": "off",
+        "max-len": "off",
+        "no-prototype-builtins": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@angular-eslint/component-selector": "off",
+        "@typescript-eslint/no-empty-object-type": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off",
+        "@typescript-eslint/no-require-imports": "off",
+      },
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended", "plugin:@angular-eslint/recommended"],
+      "parser": "@angular-eslint/template-parser",
+      "rules": {
+        "@angular-eslint/template/no-negated-async": "off",
+      },
+    },
+  ],
+}

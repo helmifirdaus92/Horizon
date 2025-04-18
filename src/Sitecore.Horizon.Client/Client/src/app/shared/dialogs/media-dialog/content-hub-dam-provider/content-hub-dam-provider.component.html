@@ -1,0 +1,3 @@
+<iframe class="content-hub-dam-iframe" [attr.src]="safeUrl" *ngIf="isInitialized"></iframe>
+
+<p class="content-hub-dam-error-message" *ngIf="!isInitialized">{{ 'DAM.CANNOT_LOAD_IFRAME_TEXT' | translate }}</p>

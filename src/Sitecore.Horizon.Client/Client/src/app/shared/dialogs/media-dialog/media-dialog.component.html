@@ -1,0 +1,50 @@
+<ng-template #mediaProvider>
+  <app-content-hub-dam-provider (mediaSelect)="selectionChanged($event)"></app-content-hub-dam-provider>
+</ng-template>
+
+<ng-template #platformMediaProvider>
+  <app-media-library
+    [currentValue]="selection"
+    [sources]="sources"
+    [mediaTypes]="mediaTypes"
+    (mediaSelect)="selectionChanged($event)"
+  ></app-media-library>
+</ng-template>
+
+<ng-spd-dialog-panel (keyup.enter)="submitDisabled ? '' : submit()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header [visibleBorders]="true">{{ 'EDITOR.IMAGE.ADD_MEDIA' | translate }}</ng-spd-dialog-header>
+
+  <ng-spd-tab-group #providerExtensions aria-label="Media provider tabs" class="provider-extentions-nav">
+    <button
+      ngSpdTab
+      [templateRef]="platformMediaProvider"
+      [selected]="true"
+      [title]="'MEDIA.MEDIA_LIBRARY' | translate"
+      class="provider-extentions-btn"
+    >
+      <h4>{{ 'MEDIA.MEDIA_LIBRARY' | translate }}</h4>
+    </button>
+    <button
+      ngSpdTab
+      [templateRef]="mediaProvider"
+      [title]="'MEDIA.CONTENT_HUB' | translate"
+      class="provider-extentions-btn"
+    >
+      <h4>{{ 'MEDIA.CONTENT_HUB' | translate }}</h4>
+    </button>
+  </ng-spd-tab-group>
+
+  <div class="dialog-body">
+    <ng-spd-tab-outlet [group]="providerExtensions" class="media-provider"></ng-spd-tab-outlet>
+
+    <app-media-details class="media-details" [sources]="sources" [media]="selection"></app-media-details>
+  </div>
+
+  <ng-spd-dialog-actions [visibleBorders]="true">
+    <button ngSpdButton="outline" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="submit()" [disabled]="submitDisabled">{{
+      'EDITOR.IMAGE.ADD_SELECTED' | translate
+    }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

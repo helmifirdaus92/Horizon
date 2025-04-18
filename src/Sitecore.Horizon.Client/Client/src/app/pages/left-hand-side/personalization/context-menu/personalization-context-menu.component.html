@@ -1,0 +1,30 @@
+<ng-template #popoverTemplate let-popoverRef>
+  <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+    <button ngSpdListItem (click)="editVariant.emit(); popoverRef.hide()" [disabled]="canvasIsLoading">
+      <i class="mdi normal mdi-pencil-outline mr-sm"></i>
+      {{ 'PERSONALIZATION.EDIT_AUDIENCE' | translate }}
+    </button>
+    <button ngSpdListItem (click)="renameVariant.emit(); popoverRef.hide()" [disabled]="canvasIsLoading">
+      <i class="mdi normal mdi-form-textbox mr-sm"></i>
+      {{ 'PERSONALIZATION.RENAME_PAGE_VARIANT' | translate }}
+    </button>
+    <button ngSpdListItem (click)="promptDeleteVariant(); popoverRef.hide()" [disabled]="canvasIsLoading">
+      <i class="mdi normal mdi-delete-outline mr-sm"></i>
+      {{ 'COMMON.DELETE' | translate }}
+    </button>
+  </ng-spd-list>
+</ng-template>
+
+<button
+  ngSpdIconButton
+  icon="dots-horizontal"
+  [attr.aria-label]="'PERSONALIZATION.CONTEXT_MENU' | translate"
+  [ngSpdPopover]="popoverTemplate"
+  popoverPosition="below"
+  [popoverOffset]="0"
+  [popoverShowDelay]="0"
+  [popoverHideDelay]="0"
+  [hideOnBackdropClick]="true"
+  #popoverInstance="ngSpdPopover"
+  (click)="popoverInstance.toggle(); $event.stopPropagation()"
+></button>

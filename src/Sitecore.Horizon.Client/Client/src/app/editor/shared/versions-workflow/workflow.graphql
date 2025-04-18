@@ -1,0 +1,44 @@
+mutation ExecuteCommand($input: ExecuteCommandInput!) {
+  executeWorkflowCommand(input: $input) {
+    completed
+    error
+    datasourcesCommandResult {
+      completed
+      error
+    }
+    pageWorkflowValidationResult {
+      pageItemResult {
+        ...Validation
+      }
+      defaultDatasourceItemsResult {
+        ...Validation
+      }
+      personalizedDatasourceItemsResult {
+        ...Validation
+      }
+    }
+  }
+}
+
+fragment Validation on ItemValidationResult {
+  itemId
+  itemName
+  itemRulesResult {
+    ...ValidationRecord
+  }
+  fieldRulesResult {
+    fieldName
+    fieldItemId
+    records {
+      ...ValidationRecord
+    }
+  }
+}
+
+fragment ValidationRecord on ItemValidationRecord {
+  validatorResult
+  validatorTitle
+  validatorText
+  validatorDescription
+  errors
+}

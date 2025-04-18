@@ -1,0 +1,78 @@
+<ng-spd-dialog-panel
+  (keyup.enter)="
+    apiErrorMessage || isLoading || selectedFolder?.itemId === parentId || !canMoveToSelectedFolder || !!cardBeingEdited
+      ? ''
+      : move()
+  "
+>
+  <app-notifications [notificationScope]="'dialog'"></app-notifications>
+
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>
+    <div class="move-to-header">
+      <button
+        *ngIf="closestAncestorId && selectedFolder?.itemId !== rootId"
+        ngSpdIconButton
+        [icon]="'chevron-left'"
+        (click)="navigateToFolder(closestAncestorId)"
+      ></button>
+      <span *ngIf="selectedFolder?.itemId === rootId"
+        >{{ 'PAGE_DESIGNS.WORKSPACE.MOVE' | translate }} "{{ itemName }}"</span
+      >
+      <span *ngIf="selectedFolder?.itemId !== rootId">{{ selectedFolder?.displayName }}</span>
+    </div>
+  </ng-spd-dialog-header>
+
+  <div class="dialog-body">
+    <div class="move-item-dialog">
+      <ng-container *ngIf="childFolders.length">
+        <div class="design-content">
+          <div class="flat-list">
+            <ng-spd-item-card
+              *ngFor="let folder of childFolders"
+              [title]="folder.name"
+              [clickable]="folder.itemId !== tempFolderId"
+              [arrow]="true"
+              [enableEdit]="folder.itemId === cardBeingEdited"
+              [borderBottom]="true"
+              icon="folder-outline"
+              (itemClick)="navigateToFolder(folder.itemId)"
+              (submitContentEdit)="onSubmitContentEdit($event)"
+              (cancelContentEdit)="onCancelContentEdit()"
+            >
+            </ng-spd-item-card>
+          </div>
+        </div>
+      </ng-container>
+      <app-empty-state
+        *ngIf="!childFolders?.length"
+        [description]="'PAGE_DESIGNS.WORKSPACE.EMPTY_FOLDER' | translate"
+        [paddingTop]="0"
+      ></app-empty-state>
+    </div>
+  </div>
+
+  <ng-spd-dialog-actions>
+    <div class="actions-wrapper">
+      <button ngSpdButton="sliding" icon="plus" (click)="createTempFolderItem()">
+        {{ 'EDITOR.NEW_FOLDER' | translate }}
+      </button>
+
+      <div class="actions-right">
+        <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+        <button
+          ngSpdButton="primary"
+          (click)="move()"
+          [disabled]="
+            apiErrorMessage ||
+            isLoading ||
+            selectedFolder?.itemId === parentId ||
+            !canMoveToSelectedFolder ||
+            !!cardBeingEdited
+          "
+          >{{ 'PAGE_DESIGNS.WORKSPACE.MOVE_HERE' | translate }}</button
+        >
+      </div>
+    </div>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

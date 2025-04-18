@@ -1,0 +1,34 @@
+{
+    "$schema": "../.sitecore/schemas/ModuleFile.schema.json",
+    "namespace": "SXAHeadlessTenant",
+    "items": {
+		"path": ".",
+        "includes": [
+            {
+                "name":"sitecore/templates/Project/SXAHeadlessTenant",
+                "path":"/sitecore/templates/Project/SXAHeadlessTenant",
+                "scope":"ItemAndDescendants"
+            },
+            {
+                "name":"sitecore/layout/Renderings/Project/SXAHeadlessTenant",
+                "path":"/sitecore/layout/Renderings/Project/SXAHeadlessTenant",
+                "scope":"ItemAndDescendants"
+            },
+            {
+                "name":"sitecore/layout/Placeholder Settings/Project/SXAHeadlessTenant",
+                "path":"/sitecore/layout/Placeholder Settings/Project/SXAHeadlessTenant",
+                "scope":"ItemAndDescendants"
+            },
+            {
+                "name":"sitecore/media library/Project/SXAHeadlessTenant",
+                "path":"/sitecore/media library/Project/SXAHeadlessTenant",
+                "scope":"ItemAndDescendants"
+            },
+            {
+                "name":"sitecore/content/SXAHeadlessTenant",
+                "path":"/sitecore/content/SXAHeadlessTenant",
+                "scope":"ItemAndDescendants"
+            }
+        ]
+    }
+}

@@ -1,0 +1,76 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="container p-l">
+    <h2>{{ siteName$ | async }}</h2>
+
+    <div class="container__rhs ml-auto mr-0">
+      <div class="ml-sm">
+        <label for="timeFilter">{{ 'ANALYTICS.TIME' | translate }}</label>
+        <ng-spd-droplist
+          id="timeFilter"
+          [disabled]="!state.isPosIdentifierDefined || !isCdpAppConfigured"
+          [selectedValue]="state.duration"
+          (selectedValueChange)="selectDuration($event)"
+        >
+          <ng-template
+            *ngFor="let item of durationFilterOptions"
+            ngSpdDroplistItem
+            [value]="item.value"
+            [label]="'ANALYTICS.DURATION_FILTER.' + item.id | translate"
+          >
+            {{ 'ANALYTICS.DURATION_FILTER.' + item.id | translate }}
+          </ng-template>
+        </ng-spd-droplist>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Data -->
+  <app-analytics-error-banner
+    *ngIf="state.isPosIdentifierDefined && isCdpAppConfigured && !state.hasData"
+    class="mb-l"
+    [title]="'ANALYTICS.SITE_ANALYTICS.NO_DATA_AVAILABLE' | translate"
+    [text]="'ANALYTICS.SITE_ANALYTICS.NO_DATA_MESSAGE' | translate"
+    [linkText]="'ANALYTICS.SITE_ANALYTICS.KNOWLEDGE_BASE' | translate"
+    [linkUrl]="'https://support.sitecore.com/kb'"
+    [icon]="'chart-bar'"
+  ></app-analytics-error-banner>
+
+  <!-- API is not configured -->
+  <app-analytics-error-banner
+    class="mb-l"
+    *ngIf="!isCdpAppConfigured"
+    [title]="'ANALYTICS.NO_CDP_APP_URL.HEADER' | translate"
+    [text]="'ANALYTICS.NO_CDP_APP_URL.DESCRIPTION' | translate"
+    [icon]="'target'"
+  ></app-analytics-error-banner>
+
+  <!-- No POS -->
+  @if (isFeatureEnabled()) {
+    <app-analytics-error-banner
+      *ngIf="isCdpAppConfigured && !state.isPosIdentifierDefined"
+      class="mb-l"
+      [title]="'ANALYTICS.NO_ANALITYCS_IDENTIFIER.HEADER' | translate"
+      [text]="'ANALYTICS.NO_ANALITYCS_IDENTIFIER.DESCRIPTION' | translate"
+      [linkText]="'ANALYTICS.NO_ANALITYCS_IDENTIFIER.DASHBOARD_SETTINGS' | translate"
+      [linkUrl]="(dashboardSettingUrl$ | async) || undefined"
+      [icon]="'target'"
+    ></app-analytics-error-banner>
+  } @else {
+    <app-analytics-error-banner
+      *ngIf="isCdpAppConfigured && !state.isPosIdentifierDefined"
+      class="mb-l"
+      [title]="'ANALYTICS.NO_POS_IDENTIFIER.HEADER' | translate"
+      [text]="'ANALYTICS.NO_POS_IDENTIFIER.DESCRIPTION' | translate"
+      [linkText]="'ANALYTICS.NO_POS_IDENTIFIER.DASHBOARD_SETTINGS' | translate"
+      [linkUrl]="(dashboardSettingUrl$ | async) || undefined"
+      [icon]="'target'"
+    ></app-analytics-error-banner>
+  }
+  <app-site-analytics-graphs
+    class="pl-l pr-l pb-l"
+    [siteAnalytics]="state.siteAnalyticsData"
+    [isValidData]="state.isPosIdentifierDefined && isCdpAppConfigured"
+    [isLoading]="!!(isLoading$ | async)"
+    [duration]="state.duration"
+  ></app-site-analytics-graphs>
+</ng-container>

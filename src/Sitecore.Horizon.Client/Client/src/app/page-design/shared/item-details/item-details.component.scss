@@ -1,0 +1,89 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  .main-body {
+    width: 100%;
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  .thumbnail-container {
+    display: grid;
+    place-items: center;
+    height: calc($card-medium - ($padding-x-large * 2));
+
+    .thumbnail-image {
+      width: 100%;
+      border: 1px solid $ui-gray-100;
+      border-radius: $border-radius-small;
+      box-sizing: border-box;
+      height: 100%;
+    }
+
+    .thumbnail-icon {
+      font-size: calc($generic-header-height + $generic-element-height);
+      width: 100%;
+      box-sizing: border-box;
+      height: $pop-panel-min-width;
+      color: $framework-border-color;
+      display: grid;
+      place-items: center;
+    }
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+
+    .display-name {
+      word-wrap: break-word;
+
+      &.large {
+        @include heading-md;
+        word-wrap: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .details-heading {
+    @include section-heading;
+  }
+
+  .select-default {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 60px;
+
+    .mdi {
+      font-size: $font-size-46px;
+    }
+
+    .text {
+      @include subtle-text;
+    }
+  }
+
+  .template-usage-count-label {
+    box-sizing: content-box;
+    width: fit-content;
+    margin-bottom: 20px;
+  }
+}
+
+// Customize the scrollbar for the containers
+::-webkit-scrollbar {
+  width: $padding-small;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba($brand-charcoal-light, 0.8);
+  border-radius: $border-radius-primary;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: $brand-charcoal-light;
+}

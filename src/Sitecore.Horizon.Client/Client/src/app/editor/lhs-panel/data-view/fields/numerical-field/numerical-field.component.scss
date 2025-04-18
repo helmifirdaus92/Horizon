@@ -1,0 +1,7 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.error-message {
+  color: $brand-signal-error;
+}

@@ -1,0 +1,29 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+ng-spd-icon-button-group {
+  display: flex;
+  margin-right: $padding-small;
+}
+
+.row {
+  display: flex;
+  margin-top: $padding-small;
+
+  ng-spd-icon-button-group:last-child {
+    margin-right: 0;
+  }
+}
+
+h4 {
+  @include heading-xs;
+  margin: $padding-small 0 $padding-x-small;
+}
+
+ng-spd-slide-in-panel-content {
+  padding: $padding;
+}
+
+ng-spd-slide-in-panel {
+  @include rhs-overlay;
+}

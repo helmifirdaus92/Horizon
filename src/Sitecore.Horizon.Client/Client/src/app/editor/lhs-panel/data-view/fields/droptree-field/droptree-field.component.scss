@@ -1,0 +1,9 @@
+@import '@sitecore/spd-styles/src/all';
+
+.selected-item {
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: rtl;
+  unicode-bidi: normal;
+}

@@ -1,0 +1,23 @@
+<div class="app-editor-wrapper" (click)="deselectChrome()"></div>
+<div
+  class="editor-chrome transition"
+  [style.width]="!(device$ | async)?.width ? '100%' : (device$ | async)?.width + 'px'"
+  [class.show-borders]="(device$ | async)!.width && (device$ | async)!.width < (editorWidth$ | async)!"
+  [class.not-flexible]="(device$ | async)?.width"
+>
+  <app-editor-workspace-error *ngIf="isError"></app-editor-workspace-error>
+
+  <div #iframeContainer class="editor-content-wrapper">
+    <div
+      class="select-partial-design-message"
+      *ngIf="!selectedPartialDesigns?.length && !iframeIsLoading && (activeNavigation$ | async) === 'editpagedesign'"
+    >
+      <span class="mdi mdi-cursor-default-click-outline"></span>
+      <p class="text">{{ 'PAGE_DESIGNS.WORKSPACE.SELECT_PARTIAL_DESIGN' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="loader-overlay" *ngIf="iframeIsLoading">
+    <ng-spd-loading-indicator class="loader"></ng-spd-loading-indicator>
+  </div>
+</div>

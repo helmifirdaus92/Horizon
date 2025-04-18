@@ -1,0 +1,120 @@
+@import 'variables';
+
+.sc-designing-frame {
+  border: $border-xx-small solid $brand-primary-default;
+  box-sizing: border-box;
+  pointer-events: none;
+  position: absolute;
+  z-index: $horizon-zIndex-frame;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.empty-placeholder-frame {
+    border: $border-xx-small solid $brand-primary-x-dark;
+    background: $brand-primary-selected;
+
+    &.non-droppable {
+      background-color: transparent;
+    }
+  }
+
+  &.non-droppable {
+    border-color: $brand-signal-error;
+  }
+}
+
+.empty-frame-chip {
+  background-color: $brand-ui-white !important;
+  border: 1px solid #e5e5e5;
+  color: $brand-ui-black !important;
+  border-radius: $border-radius !important;
+  box-shadow: $box-shadow;
+}
+/* Loading indicator */
+.horizon-loading-indicator {
+  width: 32px;
+  position: relative;
+  z-index: 1;
+
+  & > div {
+    position: absolute;
+    top: calc(50% - 4px);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $brand-primary-default;
+
+    &:nth-child(1) {
+      left: 0;
+      animation: ldr-anim-dot1 0.3s ease-in infinite;
+      z-index: 0;
+    }
+
+    &:nth-child(2) {
+      left: 0;
+      animation: ldr-anim-dot2 0.3s linear infinite;
+      z-index: 1;
+    }
+
+    &:nth-child(3) {
+      left: 12px;
+      animation: ldr-anim-dot3 0.3s linear infinite;
+      z-index: 1;
+    }
+
+    &:nth-child(4) {
+      left: 24px;
+      animation: ldr-anim-dot4 0.3s ease-out infinite;
+      z-index: 0;
+    }
+  }
+}
+
+@keyframes ldr-anim-dot1 {
+  0% {
+    transform: scale(0.1);
+    background-color: $brand-primary-default;
+  }
+
+  100% {
+    transform: scale(0.75);
+    background-color: $brand-primary-default;
+  }
+}
+
+@keyframes ldr-anim-dot2 {
+  0% {
+    transform: translate(0, 0) scale(0.75);
+    background-color: $brand-primary-light;
+  }
+
+  100% {
+    transform: translate(12px, 0) scale(1);
+    background-color: $brand-primary-light;
+  }
+}
+
+@keyframes ldr-anim-dot3 {
+  0% {
+    transform: translate(0, 0) scale(1);
+    background-color: $brand-primary-light;
+  }
+
+  100% {
+    transform: translate(12px, 0) scale(0.75);
+    background-color: $brand-primary-light;
+  }
+}
+
+@keyframes ldr-anim-dot4 {
+  0% {
+    transform: scale(0.75);
+    background-color: $brand-primary-default;
+  }
+
+  100% {
+    transform: scale(0.1);
+    background-color: $brand-primary-default;
+  }
+}

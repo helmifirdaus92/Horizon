@@ -1,0 +1,13 @@
+<span [ngSpdBadge]="variant">
+  <ng-container *ngIf="status === 'COMPLETED' || status === 'PRODUCTION'">
+    <ng-container *ngIf="isPagePublished">
+      {{ status === 'COMPLETED' ? ('COMPONENT_TESTING.ENDED' | translate) : ('COMPONENT_TESTING.LIVE' | translate) }}
+    </ng-container>
+    <ng-container *ngIf="!isPagePublished">
+      {{ 'COMPONENT_TESTING.PENDING' | translate }}
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="status === 'DRAFT'">
+    {{ status }}
+  </ng-container>
+</span>

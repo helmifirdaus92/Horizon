@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>$(NoWarn);CS0618</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>$(NoWarn);CS0618</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" PrivateAssets="All" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+
+    <PackageReference Include="GraphQL" />
+    <PackageReference Include="GraphQL-Parser" />
+
+    <PackageReference Include="Sitecore.ExperienceEditor" />
+    <PackageReference Include="Sitecore.LayoutService" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Sitecore.Horizon.Integration\Sitecore.Horizon.Integration.csproj" />
+    <ProjectReference Include="..\Sitecore.Horizon.Integration.Tests.Unit.Shared\Sitecore.Horizon.Integration.Tests.Unit.Shared.csproj" />
+  </ItemGroup>
+</Project>

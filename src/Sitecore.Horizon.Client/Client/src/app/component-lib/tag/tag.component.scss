@@ -1,0 +1,132 @@
+@import '@sitecore/spd-styles/src/all';
+
+$component-height: 1.375rem;
+$tag-lg-height: 1.5rem;
+$tag-md-height: $component-height;
+$tag-sm-height: 1.25rem;
+$tag-xs-height: 1.125rem;
+
+:host {
+  @include default-text;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: $padding-xx-small;
+  padding: 0 $padding-small;
+  border-radius: $border-radius-secondary;
+  box-sizing: border-box;
+  width: auto;
+  line-height: $component-height;
+  background-color: $ui-gray-100;
+  color: $color-gray-x-dark;
+  white-space: nowrap;
+  font-weight: $font-weight-regular;
+
+  .mdi:not(.mdi-close)::before {
+    color: $color;
+  }
+
+  // Color variants
+  &.red {
+    background-color: $background-red;
+    color: $ui-red-800;
+    .mdi:not(.mdi-close)::before {
+      color: $ui-red-800;
+    }
+  }
+  &.orange {
+    background-color: $background-orange;
+    color: $ui-orange-800;
+    .mdi:not(.mdi-close)::before {
+      color: $ui-orange-800;
+    }
+  }
+  &.yellow {
+    background-color: $background-yellow;
+    color: $ui-orange-800;
+    .mdi:not(.mdi-close)::before {
+      color: $ui-orange-800;
+    }
+  }
+  &.green {
+    background-color: $background-green;
+    color: $ui-green-800;
+    .mdi:not(.mdi-close)::before {
+      color: $ui-green-800;
+    }
+  }
+  &.teal {
+    background-color: $background-teal;
+    color: $ui-teal-800;
+    .mdi:not(.mdi-close)::before {
+      color: $ui-teal-800;
+    }
+  }
+  &.cyan {
+    background-color: $background-cyan;
+    color: $ui-cyan-800;
+    .mdi:not(.mdi-close)::before {
+      color: $ui-cyan-800;
+    }
+  }
+  &.blue {
+    background-color: $background-blue;
+    color: $ui-blue-800;
+    .mdi:not(.mdi-close)::before {
+      color: $ui-blue-800;
+    }
+  }
+  &.purple {
+    background-color: $background-purple;
+    color: $ui-purple-800;
+    .mdi:not(.mdi-close)::before {
+      color: $ui-purple-800;
+    }
+  }
+  &.pink {
+    background-color: $background-pink;
+    color: $ui-pink-800;
+    .mdi:not(.mdi-close)::before {
+      color: $ui-pink-800;
+    }
+  }
+
+  .mdi {
+    cursor: pointer;
+    position: relative;
+    right: $padding-x-small;
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: medium;
+
+    &:hover {
+      color: $ui-gray-700;
+    }
+
+    &.mdi-close {
+      right: 0;
+      left: $spacing-8xs;
+    }
+  }
+
+  &.lg {
+    height: $tag-lg-height;
+    font-size: $font-size-14px;
+  }
+
+  &.md {
+    height: $component-height;
+    font-size: $font-size-14px;
+  }
+
+  &.sm {
+    height: $tag-sm-height;
+    font-size: $font-size-13px;
+  }
+
+  &.xs {
+    height: $tag-xs-height;
+  }
+}

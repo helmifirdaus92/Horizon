@@ -1,0 +1,7 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  .sitetype-tabs {
+    height: $generic-header-height;
+  }
+}

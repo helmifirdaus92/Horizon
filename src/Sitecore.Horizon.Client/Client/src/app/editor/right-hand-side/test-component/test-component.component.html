@@ -1,0 +1,254 @@
+<ng-container *ngIf="abTest.flowDefinition as flowDefinition">
+  <div class="header py-md px-sm">
+    <div class="header-section">
+      <h4 class="my-0">{{ flowDefinition.name }}</h4>
+      @if (flowDefinition.status === 'DRAFT') {
+        <button
+          ngSpdIconButton
+          [icon]="'trash-can-outline'"
+          (click)="deleteTest()"
+          [attr.title]="'COMPONENT_TESTING.DELETE_EXPERIMENT' | translate"
+        ></button>
+      }
+    </div>
+
+    <hr class="hr my-sm" />
+    <div class="header-section sub-header">
+      <app-experiment-status
+        [status]="flowDefinition.status"
+        [isPagePublished]="isPagePublished"
+      ></app-experiment-status>
+
+      @if (flowDefinition.status === 'DRAFT') {
+        <button
+          class="configure-experiment px-sm"
+          ngSpdButton="ghost"
+          icon="cog-outline"
+          size="sm"
+          (click)="configureExperiment()"
+        >
+          {{ 'COMPONENT_TESTING.CONFIGURE.LABEL' | translate }}
+        </button>
+        <button
+          class="px-sm"
+          ngSpdButton="outline"
+          size="sm"
+          icon="play-circle-outline"
+          [ngSpdPopover]="popoverStartCheckList"
+          popoverPosition="right-bottom"
+          [popoverOffset]="-10"
+          [popoverShowDelay]="0"
+          [popoverHideDelay]="0"
+          [hideOnBackdropClick]="true"
+          #popoverRef="ngSpdPopover"
+          (click)="popoverRef.toggle(); $event.stopPropagation()"
+        >
+          {{ 'COMPONENT_TESTING.START.LABEL' | translate }}
+        </button>
+
+        <ng-template #popoverStartCheckList>
+          <app-start-test-check-list
+            [abTest]="abTest"
+            (closePopover)="popoverRef.toggle()"
+            (goToConfiguration)="popoverRef.toggle(); configureExperiment()"
+            (startTest)="popoverRef.toggle(); startTest()"
+          ></app-start-test-check-list>
+        </ng-template>
+      } @else if (isPagePublished) {
+        <button
+          class="px-sm"
+          ngSpdButton="outline"
+          icon="stop-circle-outline"
+          size="sm"
+          (click)="endTest(); $event.stopPropagation()"
+        >
+          {{ 'COMPONENT_TESTING.END.LABEL' | translate }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <app-experiment-status-notification
+    [flowDefinition]="flowDefinition"
+    [isPagePublished]="isPagePublished"
+  ></app-experiment-status-notification>
+
+  <div class="my-sm view-analytics-section" *ngIf="flowDefinition.status !== 'DRAFT'">
+    <button
+      ngSpdButton="outlinePrimary"
+      class="mx-sm px-sm"
+      icon="chart-box-outline"
+      size="sm"
+      (click)="openAnalytics()"
+    >
+      {{ 'COMPONENT_TESTING.VIEW_ANALYTICS' | translate }}
+    </button>
+  </div>
+  <hr class="hr" />
+  @if (abTest.flowDefinition.status !== 'COMPLETED') {
+    <ng-spd-tab-group class="px-xs">
+      @for (variant of flowDefinition.variants; track variant; let index = $index) {
+        <button
+          ngSpdTab
+          [colorScheme]="'colored'"
+          [size]="'large'"
+          [selected]="index === selectedTestIndex"
+          [title]="variant.name"
+          class="variant-tab-btn"
+          [disabled]="flowDefinition.status === 'COMPLETED'"
+          (click)="selectTestVariant(index, variant)"
+        >
+          <h6 class="m-0 p-0">{{ testIndex[index] }}</h6>
+        </button>
+      }
+
+      <ng-container *ngIf="flowDefinition.status === 'DRAFT'">
+        <div
+          [title]="
+            flowDefinition.variants.length === 6
+              ? ('COMPONENT_TESTING.MAX_VARIANTS' | translate)
+              : ('COMPONENT_TESTING.ADD_VARIANT' | translate)
+          "
+        >
+          <button
+            ngSpdTab
+            class="add-new variant-tab-btn"
+            #addVariantBtn
+            [colorScheme]="'colored'"
+            [size]="'large'"
+            [selected]="false"
+            [disabled]="flowDefinition.variants.length === 6"
+            (click)="addVariantBtn.selected = false; addVariant()"
+          >
+            <h6 class="m-0 p-0"><i class="mdi mdi-plus"></i></h6>
+          </button>
+        </div>
+      </ng-container>
+    </ng-spd-tab-group>
+
+    <hr class="hr" />
+
+    <div class="px-sm">
+      <div class="variant-options p-sm flex-row justify-space-between">
+        <div
+          *ngIf="!showEditVariantName; else editVariantName"
+          class="variant-name-section flex-row align-items-center"
+        >
+          <span class="name-text">
+            {{ flowDefinition.variants[selectedTestIndex].name }}
+          </span>
+          <span class="px-xs"> ({{ flowDefinition.traffic.splits[selectedTestIndex].split }}%) </span>
+        </div>
+
+        <ng-template #editVariantName>
+          <div class="edit-variant-name-input">
+            <input
+              #nameInput="ngModel"
+              ngSpdInput
+              type="text"
+              id="experiment-name"
+              required
+              maxlength="255"
+              minlength="1"
+              pattern="^(?!^\s+$)[a-zA-Z0-9_ ]+$"
+              [isInvalid]="!!nameInput.errors && (!!nameInput.dirty || !!nameInput.touched)"
+              [appForbiddenNames]="getOtherVariantsNames()"
+              [placeholder]="'COMPONENT_TESTING.VARIANT_NAME_PLACEHOLDER' | translate"
+              [(ngModel)]="editedVariantName"
+              (blur)="onBlurEditName(!nameInput.invalid)"
+              (keyup.enter)="onSubmitEditName(!nameInput.invalid)"
+              (keyup.esc)="onCancelEditName()"
+            />
+
+            <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error-block">
+              <p *ngIf="nameInput.errors?.isForbidden">{{ 'VALIDATION.VALIDATE_NAME.ALREADY_USED' | translate }}</p>
+              <p *ngIf="nameInput.errors?.pattern">{{
+                'VALIDATION.VALIDATE_NAME.NOT_ALLOWED_CHARACTER' | translate
+              }}</p>
+              <p *ngIf="nameInput.errors?.required">{{ 'VALIDATION.VALIDATE_NAME.EMPTY' | translate }}</p>
+            </div>
+          </div>
+        </ng-template>
+
+        <app-variant-actions-context-menu
+          [disabled]="isControlVariant() || isLoading"
+          [disableResetVariant]="
+            abTest.rendering.appliedPersonalizationActions.length === 0 || flowDefinition.status !== 'DRAFT'
+          "
+          [disableDeleteVariant]="flowDefinition.variants.length <= 2 || flowDefinition.status !== 'DRAFT'"
+          (renameBtnClick)="
+            editedVariantName = flowDefinition.variants[selectedTestIndex].name; showEditVariantName = true
+          "
+          (resetBtnClick)="resetVariant(flowDefinition.variants[selectedTestIndex])"
+          (deleteBtnClick)="deleteVariant(flowDefinition.variants[selectedTestIndex])"
+        ></app-variant-actions-context-menu>
+      </div>
+    </div>
+
+    <ng-spd-loading-indicator class="py-md" *ngIf="isLoading"></ng-spd-loading-indicator>
+
+    <ng-container *ngIf="!isLoading && !isControlVariant()">
+      <div
+        class="personalize-options m-sm"
+        *ngIf="abTest.rendering.appliedPersonalizationActions.length === 0; else editVariantActions"
+      >
+        <button class="m-sm" ngSpdButton="ghostPrimary" icon="content-copy" (click)="copyComponent()">
+          {{ 'COMPONENT_TESTING.COPY_COMPONENT' | translate }}
+        </button>
+        <button class="m-sm" ngSpdButton="ghostPrimary" icon="swap-horizontal" (click)="swapComponent()">
+          {{ 'COMPONENT_TESTING.SWAP_COMPONENT' | translate }}
+        </button>
+        <button class="m-sm" ngSpdButton="ghostPrimary" icon="eye-off-outline" (click)="hideComponent()">
+          {{ 'COMPONENT_TESTING.HIDE_COMPONENT' | translate }}
+        </button>
+      </div>
+    </ng-container>
+  }
+  <ng-spd-slide-in-panel *ngIf="showSelectComponent" @rhsSlideInPanelClose>
+    <ng-spd-slide-in-panel-header class="component-list" icon="close" (back)="showSelectComponent = false"
+      >{{ 'EDITOR.RENDERING.RENDERING' | translate }}
+    </ng-spd-slide-in-panel-header>
+
+    <ng-spd-slide-in-panel-content>
+      <app-component-gallery
+        (selectRendering)="
+          isFEaasRendering($event)
+            ? changeRenderingDetailsForFEaasOrByocVariant($event)
+            : changeRenderingAndDataSourceForVariant($event)
+        "
+        [phAllowedRenderingIds]="allowedRenderingIds"
+      ></app-component-gallery>
+    </ng-spd-slide-in-panel-content>
+  </ng-spd-slide-in-panel>
+
+  <ng-template #editVariantActions>
+    <div class="px-sm">
+      <div class="variant-action-type-text">
+        <div class="flex-row align-items-center px-sm py-md">
+          <i class="mdi mdi-information color-primary mr-sm"></i>
+          {{ getAppliedActionTranslationKey() | translate }}
+        </div>
+      </div>
+      <ng-container
+        *ngIf="
+          abTest.rendering.appliedPersonalizationActions.includes('SetRenderingAction') ||
+          abTest.rendering.appliedPersonalizationActions.includes('SetDataSourceAction')
+        "
+      >
+      </ng-container>
+      <ng-container *ngIf="abTest.rendering.appliedPersonalizationActions.includes('SetRenderingAction')">
+        <div
+          class="rendering pb-md pt-md"
+          [ngClass]="{ border: !isFEaasRendering(abTest.rendering.renderingDefinitionId) }"
+        >
+          <button ngSpdInfoButton type="button" (click)="swapComponent()">
+            <h4 ngSpdInfoButtonTitle>{{ 'EDITOR.RENDERING.RENDERING' | translate }}</h4>
+            <span ngSpdInfoButtonDescription>
+              {{ abTest.rendering.displayName }}
+            </span>
+          </button>
+        </div>
+      </ng-container>
+    </div>
+  </ng-template>
+</ng-container>

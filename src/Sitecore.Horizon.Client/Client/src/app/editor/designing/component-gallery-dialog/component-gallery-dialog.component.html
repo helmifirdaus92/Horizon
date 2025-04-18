@@ -1,0 +1,12 @@
+<ng-spd-dialog-panel class="gallery-container" id="galleryContainer">
+  <ng-spd-dialog-close-button class="pr-xs mx-0 my-xs" (close)="close()"></ng-spd-dialog-close-button>
+
+  <ng-spd-dialog-header [visibleBorders]="true" class="header px-sm">{{
+    'NAV.COMPONENTS' | translate
+  }}</ng-spd-dialog-header>
+
+  <app-component-gallery
+    (selectRendering)="selectRendering($event)"
+    [phAllowedRenderingIds]="allowedRenderingIds"
+  ></app-component-gallery>
+</ng-spd-dialog-panel>

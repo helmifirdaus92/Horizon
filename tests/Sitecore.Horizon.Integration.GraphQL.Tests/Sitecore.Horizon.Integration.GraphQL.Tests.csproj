@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SitecoreInternal>true</SitecoreInternal>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.40" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.Sinks.NUnit" Version="1.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sitecore.Pages.E2EFramework.Ui.ApiHelpers\Sitecore.Pages.E2EFramework.UI.Tests.ApiHelpers.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config.json" PackagePath="wwwroot\bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(OutputPath)\*.dll" PackagePath="wwwroot\bin" Visible="false" />
+    <Content Include="$(OutputPath)\*.deps.json" PackagePath="wwwroot\bin" Visible="false" />
+    <Content Include="$(OutputPath)\*.runtimeconfig.json" PackagePath="wwwroot\bin" Visible="false" />
+  </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);NU1603</NoWarn>
+  </PropertyGroup>
+</Project>

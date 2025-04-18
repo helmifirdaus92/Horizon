@@ -1,0 +1,24 @@
+@import 'variables';
+
+// To prevent opacity applied to every child node, we define the variable saperately
+$default-state-bg: rgba($brand-primary-default, $hover-opacity);
+$error-state-bg: rgba($brand-signal-error, $hover-opacity);
+
+.sc-rendering-drop-zone {
+  display: flex;
+  justify-content: center;
+  background: $default-state-bg;
+
+  position: absolute;
+  z-index: $horizon-zIndex-dropZone;
+
+  &.error {
+    background-color: $error-state-bg;
+  }
+
+  &.notDefinedCanDrop {
+    box-sizing: border-box;
+    background: unset;
+    border: $border-xx-small dashed $brand-primary-default;
+  }
+}

@@ -1,0 +1,32 @@
+<label ngSpdLabel for="linkUrl" class="mt-sm">{{ 'EDITOR.RTE.LINK.PATH' | translate }}</label>
+<input
+  ngSpdInput
+  type="text"
+  [(ngModel)]="draftLink.url"
+  [placeholder]="'EDITOR.RTE.LINK.PATH_PLACEHOLDER' | translate"
+  name="linkUrl"
+/>
+
+<label ngSpdLabel for="linkTarget" class="mt-sm">{{ 'EDITOR.RTE.LINK.TARGET' | translate }}</label>
+<select ngSpdInput [(ngModel)]="draftLink.target" name="linkTarget">
+  <option [ngValue]="null">{{ 'EDITOR.RTE.LINK.SAME_TAB' | translate }}</option>
+  <option [ngValue]="'_blank'">{{ 'EDITOR.RTE.LINK.NEW_TAB' | translate }}</option>
+</select>
+
+<label ngSpdLabel for="linkTitle" class="mt-sm">{{ 'EDITOR.RTE.LINK.ALT_TEXT' | translate }}</label>
+<input
+  ngSpdInput
+  type="text"
+  [(ngModel)]="draftLink.title"
+  [placeholder]="'EDITOR.RTE.LINK.ALT_TEXT_PLACEHOLDER' | translate"
+  name="linkTitle"
+/>
+
+<div class="buttons">
+  <button ngSpdButton="outline" (click)="visitLink()" [disabled]="!draftLink.url" type="button" name="btnTestUrl">
+    {{ 'EDITOR.RTE.LINK.TEST_URL' | translate }}
+  </button>
+  <button ngSpdButton="outline" (click)="removeLink()" [disabled]="!draftLink.url" type="button" name="btnResetEl">
+    {{ 'EDITOR.RTE.LINK.REMOVE_LINK' | translate }}
+  </button>
+</div>

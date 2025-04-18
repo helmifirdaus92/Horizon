@@ -1,0 +1,54 @@
+<div class="chart-container">
+  <ngx-charts-line-chart
+    #ngxChartComponent
+    class="chart-component"
+    [view]="config.view"
+    [animations]="config.animations"
+    [scheme]="config.colorScheme"
+    [results]="_items"
+    [gradient]="config.gradient"
+    [xAxis]="config.showXAxis"
+    [yAxis]="config.showYAxis"
+    [legend]="config.showLegend"
+    [showXAxisLabel]="config.showXAxisLabel"
+    [showYAxisLabel]="config.showYAxisLabel"
+    [xAxisLabel]="config.xAxisLabel"
+    [yAxisLabel]="config.yAxisLabel"
+    [autoScale]="config.autoScale"
+    [gradient]="true"
+    [yScaleMin]="config.yScaleMin"
+    [yScaleMax]="config.yScaleMax"
+    (select)="onSelect($event)"
+    (activate)="activateHandler($event)"
+    (deactivate)="deactivateHandler()"
+    [activeEntries]="activeEntries"
+    [xAxisTickFormatting]="formatNameForChart"
+    [yAxisTickFormatting]="formatValueForChart"
+  >
+    <ng-template #tooltipTemplate let-model="model" class="tooltip-container">
+      <span class="tooltip-item-color" [style.background-color]="getTooltipItemColor(model)"></span>
+      {{ formatSeriesNameForDisplay(model.series, model) }}:
+      <span class="tooltip-value">{{ formatValueForDisplay(model.value, model) }}</span>
+    </ng-template>
+    <ng-template #seriesTooltipTemplate let-model="model" class="tooltip-container multi-series">
+      <div class="multi-series-tooltip-container">
+        <div *ngFor="let item of model; let i = index; trackBy: itemTracker" class="tooltip-line">
+          <span class="tooltip-item-color" [style.background-color]="getTooltipItemColorByIndex(i)"></span>
+          {{ formatSeriesNameForDisplay(item.series, item) }}:
+          <span class="tooltip-value">{{ formatValueForDisplay(item.value, item) }}</span>
+        </div>
+      </div>
+    </ng-template>
+  </ngx-charts-line-chart>
+</div>
+<div *ngIf="!isLegendVisible" class="empty-container"></div>
+<app-chart-legend
+  *ngIf="isLegendVisible"
+  [legendLabelFormatter]="formatNameForDisplay"
+  class="legend-container"
+  [activeItem]="activeItem"
+  [legendItems]="legendItems"
+  [palette]="config.colorScheme.domain"
+  (itemHighlighted)="itemHighlightedHandler($event)"
+>
+</app-chart-legend>

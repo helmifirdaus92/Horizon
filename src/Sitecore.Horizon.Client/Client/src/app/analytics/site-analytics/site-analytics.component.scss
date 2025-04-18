@@ -1,0 +1,41 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+
+  .container__rhs {
+    display: inline-flex;
+    margin-right: 0;
+    margin-left: auto;
+    flex-wrap: nowrap;
+
+    ng-spd-droplist {
+      display: inline-block;
+      min-width: $pop-panel-min-width;
+    }
+  }
+}
+
+.segment {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  font-size: $font-size-10px;
+  text-transform: uppercase;
+  color: $color-deemphasize;
+
+  .segment__1 {
+    color: $brand-primary-default;
+  }
+  .segment__2 {
+    color: $brand-signal-warning;
+  }
+}

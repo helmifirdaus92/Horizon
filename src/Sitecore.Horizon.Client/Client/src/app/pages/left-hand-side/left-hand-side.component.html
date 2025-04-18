@@ -1,0 +1,109 @@
+<ng-container *appLet="activeNavigation$ | async as activeNavigation">
+  <div
+    class="lhs-container"
+    [class.hidden]="
+      !(
+        activeNavigation === 'editor' ||
+        activeNavigation === 'analytics' ||
+        activeNavigation === 'editpartialdesign' ||
+        activeNavigation === 'editpagebranch'
+      )
+    "
+  >
+    <div class="editor-lhs-nav pt-xs" *ngIf="activeNavigation === 'editor' || activeNavigation === 'editpagebranch'">
+      <ng-container *ngIf="activeNavigation === 'editpagebranch'; else editorTemplate">
+        <button
+          class="m-xs ml-md"
+          type="button"
+          ngSpdIconButton
+          icon="file-outline"
+          [attr.aria-label]="'PAGE_DESIGNS.WORKSPACE.BRANCH_TREE' | translate"
+          [title]="'PAGE_DESIGNS.WORKSPACE.BRANCH_TREE' | translate"
+          [ngClass]="{
+            'lhs-nav-active': selectedEditorContent === 'sitetree',
+          }"
+          (click)="selectedEditorContent = 'sitetree'"
+        >
+        </button>
+      </ng-container>
+
+      <ng-template #editorTemplate>
+        <button
+          class="m-xs ml-md"
+          type="button"
+          ngSpdIconButton
+          icon="file-outline"
+          [attr.aria-label]="'EDITOR.CONTENT_TREE.SEARCH.FILE_PAGES' | translate"
+          [title]="'EDITOR.CONTENT_TREE.SEARCH.FILE_PAGES' | translate"
+          (click)="selectedEditorContent = 'sitetree'"
+          [ngClass]="{
+            'lhs-nav-active': selectedEditorContent === 'sitetree',
+          }"
+        >
+        </button>
+      </ng-template>
+      <button
+        class="m-xs"
+        type="button"
+        ngSpdIconButton
+        icon="view-grid-plus-outline"
+        [attr.aria-label]="'NAV.COMPONENTS' | translate"
+        [title]="'NAV.COMPONENTS' | translate"
+        (click)="selectedEditorContent = 'components'"
+        [ngClass]="{
+          'lhs-nav-active': selectedEditorContent === 'components',
+        }"
+        [disabled]="!!(isLhsPanelExpanded$ | async)"
+      >
+      </button>
+    </div>
+    <app-content-tree-area
+      [class.hidden]="
+        (selectedEditorContent !== 'sitetree' && activeNavigation === 'editor') ||
+        (selectedEditorContent !== 'sitetree' && activeNavigation === 'editpagebranch') ||
+        activeNavigation === 'editpartialdesign'
+      "
+    ></app-content-tree-area>
+
+    <div
+      class="components-wrapper"
+      [class.hidden]="
+        !(
+          (selectedEditorContent === 'components' && activeNavigation === 'editor') ||
+          (selectedEditorContent === 'components' && activeNavigation === 'editpagebranch') ||
+          activeNavigation === 'editpartialdesign'
+        )
+      "
+    >
+      <app-component-gallery
+        [clearSearch]="
+          !(
+            (selectedEditorContent === 'components' && activeNavigation === 'editor') ||
+            (selectedEditorContent === 'components' && activeNavigation === 'editpagebranch') ||
+            activeNavigation === 'editpartialdesign'
+          )
+        "
+      ></app-component-gallery>
+    </div>
+  </div>
+
+  <ng-container *ngIf="activeNavigation === 'personalization'">
+    <app-personalization></app-personalization>
+  </ng-container>
+
+  <ng-container
+    *ngIf="
+      activeNavigation === 'templates' ||
+      activeNavigation === 'pagedesigns' ||
+      activeNavigation === 'partialdesigns' ||
+      activeNavigation === 'pagetemplates' ||
+      activeNavigation === 'pagebranches'
+    "
+  >
+    <app-templates-lhs-panel [activeNavigationState]="activeNavigation"></app-templates-lhs-panel>
+  </ng-container>
+
+  <ng-container *ngIf="activeNavigation === 'editpagedesign'">
+    <app-page-designs-lhs-panel></app-page-designs-lhs-panel>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,24 @@
+@import '@sitecore/spd-styles/src/all';
+
+// ATTENTION: this component doesn't have view encapsulation therefore any styles here are global. Use carefully!
+// This component makes some calculation based on sizes defined here. Remember to update the component.ts file accordingly.
+app-media-content {
+  display: block;
+  position: relative;
+  padding-top: 40px;
+
+  cdk-virtual-scroll-viewport {
+    height: 100%;
+    // Hide scroll-x to avoid rare cases where the scrollbar might appear for a "split second" while content is adjusting to the available width
+    overflow-x: hidden;
+  }
+
+  .cdk-virtual-scroll-content-wrapper {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: $padding;
+    justify-content: space-around;
+    padding: 0 40px 40px;
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "Parameters": {
+    "CMInstanceName": {
+      "Type": "string",
+      "DefaultValue": "Horizon"
+    },
+    "ContentSecurityPolicyValue": {
+      "Type": "string"
+    },
+    "SitecoreDamPackagePath": {
+      "Type": "string",
+      "DefaultValue": "\\\\mars\\QA\\Sitecore Connect for Sitecore DAM\\Sitecore Connect for Sitecore DAM-2.0.0.zip"
+    }
+  },
+  "Variables": {
+    "CMInstanceUrl": "[concat('https://', parameter('CMInstanceName'))]",
+    "CMPhysicalPath": "[joinpath(environment('SystemDrive'), 'inetpub', 'wwwroot', parameter('CMInstanceName'))]"
+  },
+  "Register": {
+    "Tasks": {
+      "InstallPackage": "Invoke-InstallPackageTask"
+    }
+  },
+  "Tasks": {
+    "InstallSitecoreDamPackage": {
+      "Type": "InstallPackage",
+      "Params": [
+        {
+          "SiteFolder": "[variable('CMPhysicalPath')]",
+          "SiteUrl": "[variable('CMInstanceUrl')]",
+          "PackagePath": "[parameter('SitecoreDamPackagePath')]"
+        }
+      ]
+    },
+    "AddDamToContentSecurityPolicy": {
+      "Type": "SetXml",
+      "Params": {
+				"FilePath": "[joinpath(variable('CMPhysicalPath'), 'Web.config')]",
+				"XPath": "/configuration/location/system.webServer/httpProtocol/customHeaders/add[@name='Content-Security-Policy']",
+				"Attributes": {
+          "value": "[parameter('ContentSecurityPolicyValue')]"
+				}
+      }
+    }
+  },
+  "Modules": [
+    ".\\Tools\\utils.psm1"
+  ]
+}

@@ -1,0 +1,38 @@
+<ng-spd-dialog-panel [ngClass]="'test-body'">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header class="pl-l">{{
+    'COMPONENT_TESTING.END_EXPERIMENT_DIALOG.HEADER' | translate
+  }}</ng-spd-dialog-header>
+  <ng-spd-dialog-content>
+    <div class="content-wrapper">
+      <div class="dialog-body">
+        <div>
+          {{ 'COMPONENT_TESTING.END_EXPERIMENT_DIALOG.DESCRIPTION' | translate }}
+        </div>
+
+        <div class="statistical-significance-note pt-md" *ngIf="!isStatisticalSignificanceReached">
+          {{ 'COMPONENT_TESTING.END_EXPERIMENT_DIALOG.STATISTICAL_SIGNIFICANCE_NOTE' | translate }}
+        </div>
+
+        <div class="text-subtle pt-l">
+          {{ 'COMPONENT_TESTING.END_EXPERIMENT_DIALOG.SELECT_VARIANT' | translate }}
+        </div>
+
+        <div class="pt-sm variants-list">
+          @for (variant of variants; track variant) {
+            <div class="variant-option">
+              <input type="radio" [id]="variant.ref" [value]="variant" [(ngModel)]="selectedVariant" />
+              <label [for]="variant.ref">{{ variant.name }} </label>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </ng-spd-dialog-content>
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" [disabled]="!selectedVariant" (click)="save()">{{
+      'COMMON.SAVE' | translate
+    }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

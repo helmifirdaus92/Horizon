@@ -1,0 +1,55 @@
+<app-field-header
+  [field]="field"
+  [mapSelectedValue]="selectedValues"
+  [isRearrangeSupported]="true"
+  [isStandardValue]="field.containsStandardValue"
+  (toggleRearrangeItems)="mapRearrangeItemList()"
+  (resetField)="restField()"
+>
+  <div mappedSelectedLists>
+    @if (rearrangeItemTemplate) {
+      <ng-container
+        [ngTemplateOutlet]="rearrangeItemTemplate"
+        [ngTemplateOutletContext]="{ field: field }"
+      ></ng-container>
+    }
+  </div>
+</app-field-header>
+
+<div class="treelist-ex-field">
+  @if (!selectedValues.length) {
+    <button class="select-item-button" ngSpdButton="solidPrimary" [size]="'xs'" (click)="openItemSelectionDialog()">
+      <span>
+        {{ 'EDITOR.DATA_VIEW.SELECT_ITEM' | translate }}
+      </span></button
+    >
+  } @else {
+    <div class="current-value-wrapper">
+      <div
+        class="values"
+        [ngSpdPopover]="currentValueTempRef"
+        [popoverPosition]="'below'"
+        [popoverShowDelay]="0"
+        [popoverHideDelay]="0"
+        [popoverOffset]="2"
+        (mouseenter)="
+          !currentValuePopover.isPopoverVisible() && currentValuePopover.show(500); $event.stopPropagation()
+        "
+        (mouseleave)="currentValuePopover.hide(0)"
+        #currentValuePopover="ngSpdPopover"
+        >{{ 'EDITOR.DATA_VIEW.SELECTED_ITEM_COUNT' | translate: { selectedItems: selectedValues.length } }}</div
+      >
+      <button class="edit-item-button" ngSpdButton="solidPrimary" [size]="'xs'" (click)="openItemSelectionDialog()">{{
+        'EDITOR.DATA_VIEW.EDIT_ITEMS' | translate
+      }}</button>
+    </div>
+  }
+</div>
+
+<ng-template #currentValueTempRef>
+  <div class="selected-value">
+    @for (selectedValue of selectedValues; track selectedValue.itemId) {
+      <span>{{ selectedValue.displayName }}</span>
+    }
+  </div>
+</ng-template>

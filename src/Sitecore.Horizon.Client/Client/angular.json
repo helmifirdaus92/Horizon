@@ -1,0 +1,151 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "horizon-client": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "progress": false,
+            "outputPath": "dist",
+            "baseHref": "/",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "polyfills": ["zone.js"],
+            "assets": ["src/assets"],
+            "inlineStyleLanguage": "scss",
+            "styles": ["src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/scss"]
+            },
+            "allowedCommonJsDependencies": [
+              "@sitecore/horizon-messaging",
+              "@sitecore/page-composer-sdk",
+              "@sitecore/spd-styles",
+              "fast-json-stable-stringify",
+              "app",
+              "url",
+              "rfdc",
+              "tiny-emitter",
+              "inversify",
+              "error-stack-parser",
+              "opentracing/lib/constants",
+              "opentracing/lib/span",
+              "opentracing/lib/tracer"
+            ],
+            "preserveSymlinks": true
+          },
+          "configurations": {
+            "development": {
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true
+            },
+            "local": {
+              "baseHref": "/",
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true
+            },
+            "local-server": {
+              "baseHref": "/",
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true
+            },
+            "prod": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "commonChunk": true,
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "allScript",
+                  "maximumError": "7mb",
+                  "maximumWarning": "7mb"
+                },
+                {
+                  "type": "all",
+                  "maximumError": "7mb",
+                  "maximumWarning": "7mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "defaultConfiguration": "local",
+
+          "configurations": {
+            "local": {
+              "buildTarget": "horizon-client:build:local"
+            },
+            "local-server": {
+              "buildTarget": "horizon-client:build:local-server"
+            },
+            "production": {
+              "buildTarget": "horizon-client:build:production-settings,production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "horizon-client:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "src/tsconfig.spec.json",
+            "styles": ["src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/scss", "node_modules"]
+            },
+            "assets": ["src/assets"],
+            "codeCoverageExclude": ["src/app/graphql.service.ts"],
+            "preserveSymlinks": true
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/app/**/*.ts", "src/app/**/*.html"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false,
+    "schematicCollections": ["@angular-eslint/schematics"]
+  }
+}

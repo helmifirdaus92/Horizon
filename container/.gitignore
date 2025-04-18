@@ -1,0 +1,19 @@
+certs/
+deploy/traefik/config/
+deploy/traefik/root/
+deploy/tmp/
+deploy/k8s/xm1
+deploy/k8s/xp1
+
+!certs/genCert.ps1
+*.zip
+
+platformConfig
+deploy/k8s/ltsc2019/xm1
+deploy/k8s/ltsc2019/xp1
+tmp
+
+#Extracted horizon/FI/UTF artifacts
+build-images/hrz/horizonArtifacts
+build-images/cm/featureIntegrationArtifacts
+build-images/cm/utf

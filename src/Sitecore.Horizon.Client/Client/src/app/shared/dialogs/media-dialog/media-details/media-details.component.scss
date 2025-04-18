@@ -1,0 +1,65 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+:host {
+  padding: $padding;
+}
+
+ng-spd-thumbnail {
+  border: $framework-border;
+  box-sizing: border-box;
+  height: 259px;
+}
+
+.field-value,
+ng-spd-thumbnail {
+  margin-bottom: $padding-small;
+}
+
+.field-name {
+  font-weight: $font-weight-bold;
+}
+
+.empty {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    margin-bottom: $padding-small;
+  }
+}
+
+.field-value {
+  @include text-nowrap-ellipsis;
+}
+
+.icon-wrapper {
+  border-radius: $border-radius-medium;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - $padding-small);
+  width: calc(100% - $padding-small);
+
+  &.doc {
+    background-color: $background-cyan;
+  }
+  &.pdf {
+    background-color: $background-danger;
+  }
+  &.docx {
+    background-color: $background-blue;
+  }
+
+  .mdi-file-document-outline {
+    color: $brand-cyan-600;
+  }
+  .mdi-file-pdf-box {
+    color: $brand-red-600;
+  }
+  .mdi-file-word-box {
+    color: $brand-blue-600;
+  }
+}

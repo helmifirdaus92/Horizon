@@ -1,0 +1,228 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+}
+
+::ng-deep {
+  .header-content {
+    overflow: hidden;
+  }
+}
+
+.item-title {
+  @include text-nowrap-ellipsis;
+}
+
+.divider {
+  border-bottom: $framework-border;
+  margin: $padding-small 0 $padding-small 0;
+}
+
+.edit-page-desing-lhs-panel {
+  box-sizing: border-box;
+}
+
+.header-title {
+  @include heading-xs;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  padding-top: $padding-x-small;
+}
+
+.selected-partial-design-item {
+  padding: $padding-small;
+  border-radius: $border-radius-medium;
+
+  .content-container {
+    display: flex;
+    align-items: left;
+    flex-direction: row;
+
+    .content-left {
+      display: flex;
+      flex-direction: row;
+
+      .thumbnail-container {
+        display: grid;
+        place-items: center;
+        width: $generic-element-height;
+        height: $generic-element-height;
+
+        .thumbnail-image {
+          width: 100%;
+          height: 100%;
+          border: 1px solid $ui-gray-100;
+          border-radius: $border-radius-small;
+          box-sizing: border-box;
+        }
+
+        .thumbnail-icon {
+          color: $framework-border-color;
+          display: grid;
+          place-items: center;
+        }
+      }
+    }
+
+    .action {
+      display: flex;
+      align-items: right;
+    }
+  }
+
+  &.placeholder,
+  &:has(.placeholder) {
+    opacity: 0.5;
+    border: 1px dashed $brand-charcoal-light;
+    background-color: $ui-gray-100;
+    div {
+      display: none;
+    }
+  }
+}
+
+.dragging {
+  opacity: 0.5;
+}
+
+.available-partial-designs-header {
+  flex-direction: column;
+}
+
+.available-partial-designs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc($generic-element-height * 6), 1fr));
+  gap: $padding-small;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .available-partial-design-item {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: $brand-ui-white;
+    grid-template-rows: auto 1fr auto;
+    gap: $padding-small;
+    width: 100%;
+    height: 256px;
+    border: $framework-border;
+    border-radius: $border-radius-medium;
+    padding: $padding;
+    text-align: left;
+    font-weight: $font-weight-semi-bold;
+    cursor: pointer;
+
+    &:hover {
+      border: $border;
+      background-color: $brand-framework-bg-hover;
+    }
+
+    .thumbnail-container {
+      max-height: fit-content;
+      display: grid;
+      place-items: center;
+      flex-grow: 1;
+
+      .thumbnail-image {
+        max-height: 186px;
+        width: 100%;
+        height: 100%;
+        border: 1px solid $ui-gray-100;
+        border-radius: $border-radius-small;
+        box-sizing: border-box;
+      }
+
+      .thumbnail-icon {
+        font-size: calc($generic-header-height + $generic-element-height);
+        width: $pop-panel-min-width;
+        height: $pop-panel-min-width;
+        color: $framework-border-color;
+        display: grid;
+        place-items: center;
+      }
+    }
+  }
+}
+
+.search {
+  padding-bottom: $padding;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+ng-spd-tab-group {
+  border-bottom: $framework-border;
+  display: flex;
+
+  button {
+    flex-grow: 1;
+    font-weight: $font-weight-semi-bold;
+    height: $generic-header-height;
+  }
+}
+
+.details-tab {
+  .mdi-alert-outline {
+    padding-left: $padding-x-small;
+    font-size: 1.2rem;
+    color: $ui-orange-500;
+  }
+}
+.loading {
+  padding-top: $spacing-4xs;
+}
+
+.edit-page-desing-details-panel {
+  .go-to-templates-link {
+    margin-left: $spacing-4xs;
+    color: $ui-purple-500;
+    display: flex;
+    align-items: center;
+    font-weight: $font-weight-semi-bold;
+    background: transparent;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .no-data-template {
+    border-color: $ui-primary-100;
+    background-color: $ui-primary-100;
+    display: flex;
+    justify-content: center;
+    margin-bottom: $spacing-6xs;
+    padding: $spacing-6xs;
+
+    .mdi {
+      color: $ui-purple-500;
+      margin: 0 $spacing-6xs;
+    }
+  }
+
+  .data-templates {
+    padding: $spacing-4xs $spacing-4xs 0 $spacing-4xs;
+
+    .data-template-title {
+      font-weight: $font-weight-semi-bold;
+    }
+
+    ul {
+      padding-left: $padding-x-small;
+      margin: auto;
+
+      li {
+        list-style: none;
+      }
+    }
+  }
+}

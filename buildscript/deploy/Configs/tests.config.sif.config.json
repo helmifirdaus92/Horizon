@@ -1,0 +1,236 @@
+{
+  "Parameters": {
+    "InstanceName": {
+      "Type": "string"
+    },
+    "CmInstanceName": {
+      "Type": "string"
+    },
+    "HrzInstanceName": {
+      "Type": "string"
+    },
+    "PrcInstanceName": {
+      "Type": "string"
+    },
+    "CmInstancePhysicalPath": {
+      "Type": "string",
+      "Description": "websiteDir"
+    },
+    "Topology": {
+      "Type": "string"
+    },
+    "ProcessingInstancePhysicalPath": {
+      "Type": "string",
+      "Description": "websiteDir"
+    },
+    "CollectionInstanceName": {
+      "Type": "string"
+    },
+    "SearchInstanceName": {
+      "Type": "string"
+    },
+    "SkipTopologyAdjustments": {
+      "Type": "boolean",
+      "DefaultValue": "true"
+    },
+    "AdditionalSiteHost": {
+      "Type": "string",
+      "DefaultValue": "AdditionalSite"
+    },
+    "DeployedTestsLocation": {
+      "Type": "string",
+      "DefaultValue": ""
+    },
+    "SkipChDamPluginTestsDeployment": {
+      "Type": "boolean",
+      "DefaultValue": "false"
+    },
+    "ContentHubUrl": {
+      "Type": "string",
+      "DefaultValue": ""
+    },
+    "SkipGraphQLIntegrationTests": {
+      "Type": "boolean",
+      "DefaultValue": "false"
+    },
+    "SkipExtensibilityTests": {
+      "Type": "boolean",
+      "DefaultValue": "false"
+    },
+    "SkipTestsDeployment": {
+      "Type": "boolean",
+      "DefaultValue": "false"
+    },
+    "NewE2ETests": {
+      "Type": "boolean",
+      "DefaultValue": "false"
+    },
+    "UseCustomComposeDeploy": {
+      "Type": "boolean",
+      "DefaultValue": "false"
+    }
+  },
+  "Variables": {
+    "ConnectionStrConfig": "[concat(parameter('ProcessingInstancePhysicalPath'), '\\App_Config\\ConnectionStrings.config')]",
+    "HorizonHostAppName": "[concat('https://', parameter('HrzInstanceName'))]",
+    "CmUrl": "[concat('https://', parameter('CmInstanceName'))]",
+    "PrcUrl": "[concat('https://', parameter('PrcInstanceName'))]",
+    "DeployedTestsFolder": "[parameter('DeployedTestsLocation')]",
+    "ProcessingInstanceFolder": "[parameter('ProcessingInstancePhysicalPath')]",
+    "XconnectCollectionUrl": "[concat('https://', parameter('CollectionInstanceName'))]",
+    "XconnectSearchUrl": "[concat('https://', parameter('SearchInstanceName'))]",
+    "AdditionalSiteHost": "[concat(parameter('CmInstanceName'), parameter('AdditionalSiteHost'))]",
+    "FullAdditionalSiteHost": "[concat('https://', variable('AdditionalSiteHost'))]",
+    "NoAnalytics": "[equal(parameter('Topology'), 'XM1'))]",
+    "IdentityServerPoolName": "[concat(parameter('InstanceName'), '-IdentityServer')]",
+    "IdentityServerPhysicalPath": "[joinpath(environment('SystemDrive'), 'inetpub', 'wwwroot', variable('IdentityServerPoolName'))]",
+    "SitecoreIdentityServerHostXml": "[joinpath(variable('IdentityServerPhysicalPath'), 'Config', 'production', 'Sitecore.IdentityServer.Host.xml')]"
+  },
+  "Register": {
+    "ConfigFunction": {
+      "TestPath": "Test-Path"
+    }
+  },
+  "Tasks": {
+    "AddTopologyAlternativeHttpsCORS": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[variable('SitecoreIdentityServerHostXml')]",
+        "XPath": "/Settings/Sitecore/IdentityServer/Clients/DefaultClient/AllowedCorsOrigins",
+        "Element": "TopologyAdditionalSiteHttpsCorsOrigin",
+        "Value": "[concat('https://', parameter('CmInstanceName'), 'additionalsite')]"
+      },
+      "Skip": "[parameter('UseCustomComposeDeploy')]"
+    },
+    "ApplyAdditionalSSLBindingToCM": {
+      "Type": "AddAlternativeSSLSiteBinding",
+      "Params": {
+        "SiteName": "[parameter('CmInstanceName')]",
+        "HostHeader": "[variable('AdditionalSiteHost')]"
+      },
+      "Skip": "[parameter('UseCustomComposeDeploy')]"
+    },
+    "AdditionalSiteHost": {
+      "Type": "HostHeader",
+      "Params": {
+        "Hostname": "[variable('AdditionalSiteHost')]"
+      },
+      "Skip": "[parameter('UseCustomComposeDeploy')]"
+    },
+    "EditorTestsConfig1": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.Integration.Editor.Tests.UI.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='CM']",
+        "Attributes": {
+          "value": "[variable('CmUrl')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'),parameter('NewE2ETests'))]"
+    },
+    "EditorTestsConfig2": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.Integration.Editor.Tests.UI.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='Horizon']",
+        "Attributes": {
+          "value": "[variable('HorizonHostAppName')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'),parameter('NewE2ETests'))]"
+    },
+    "EditorTestsConfig3": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.Integration.Editor.Tests.UI.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='AdditionalSiteHost']",
+        "Attributes": {
+          "value": "[variable('FullAdditionalSiteHost')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'),parameter('NewE2ETests'))]"
+    },
+    "GraphQLTestsConfig1": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.Integration.Editor.Tests.GraphQL.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='CM']",
+        "Attributes": {
+          "value": "[variable('CmUrl')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'), parameter('SkipGraphQLIntegrationTests'))]"
+    },
+    "GraphQLTestsConfig2": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.Integration.Editor.Tests.GraphQL.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='Horizon']",
+        "Attributes": {
+          "value": "[variable('HorizonHostAppName')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'), parameter('SkipGraphQLIntegrationTests'))]"
+    },
+    "ContentHubDamPlugin1": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.ContentHub.Dam.Plugin.Tests.UI.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='CM']",
+        "Attributes": {
+          "value": "[variable('CmUrl')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'), parameter('SkipChDamPluginTestsDeployment'))]"
+    },
+    "ContentHubDamPlugin2": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.ContentHub.Dam.Plugin.Tests.UI.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='Horizon']",
+        "Attributes": {
+          "value": "[variable('HorizonHostAppName')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'), parameter('SkipChDamPluginTestsDeployment'))]"
+    },
+    "ContentHubDamPlugin3": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.ContentHub.Dam.Plugin.Tests.UI.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='ContentHub']",
+        "Attributes": {
+          "value": "[parameter('ContentHubUrl')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'), parameter('SkipChDamPluginTestsDeployment'))]"
+    },
+    "Extensibility1": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.Extensibility.Tests.UI.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='CM']",
+        "Attributes": {
+          "value": "[variable('CmUrl')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'), parameter('SkipExtensibilityTests'))]"
+    },
+    "Extensibility2": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('DeployedTestsFolder'), 'Sitecore.Horizon.Extensibility.Tests.UI.dll.config')]",
+        "XPath": "/configuration/instances/add[@key='Horizon']",
+        "Attributes": {
+          "value": "[variable('HorizonHostAppName')]"
+        }
+      },
+      "Skip": "[or(parameter('SkipTestsDeployment'), parameter('SkipExtensibilityTests'))]"
+    }
+  },
+  "Modules": [
+    ".\\Tools\\tests.deploy.psm1",
+    ".\\Tools\\horizon.deploy.psm1",
+    ".\\Tools\\common.deploy.extensions.psm1"
+  ]
+}

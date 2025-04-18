@@ -1,0 +1,61 @@
+<app-rendering-details-personalized
+  *ngIf="isPersonalizationMode()"
+  class="rhs-block-element pr-md pb-md pl-md"
+  [chrome]="chrome"
+  [rhsMessaging]="rhsMessaging"
+  [isRenderingHidden]="isHideRenderingActionApplied"
+  [displayName]="displayName"
+></app-rendering-details-personalized>
+
+@if (!isHideRenderingActionApplied) {
+  <app-toggle-buttons class="mx-sm mb-sm mt-md" [hasBorder]="true">
+    <button
+      ngSpdButton="ghost"
+      [title]="'RHS.DESIGN_LABEL' | translate"
+      [class.selected]="mode === 'design'"
+      (click)="mode = 'design'"
+      size="sm"
+      icon="brush"
+    >
+      {{ 'RHS.DESIGN_LABEL' | translate }}
+    </button>
+    <button
+      ngSpdButton="ghost"
+      [title]="'RHS.CONTENT_LABEL' | translate"
+      [class.selected]="mode === 'content'"
+      (click)="mode = 'content'"
+      size="sm"
+      icon="text-box-edit-outline"
+    >
+      {{ 'RHS.CONTENT_LABEL' | translate }}
+    </button>
+  </app-toggle-buttons>
+
+  @if (mode === 'design') {
+    @if (isForm) {
+      <div class="no-option pt-md pb-sm">
+        <span class="no-option-text"> {{ 'RHS.ELEMENT_NO_OPTION_TEXT' | translate }} </span>
+      </div>
+    } @else if (isFeaas) {
+      <div class="feaas-region">
+        <app-feaas-rhs-region [chrome]="chrome"></app-feaas-rhs-region>
+      </div>
+    } @else if (isLayoutContainer) {
+      <ng-container *ifFeatureEnabled="'pages_super-layout-component'">
+        <app-layout-container-details [chrome]="chrome"></app-layout-container-details>
+      </ng-container>
+    } @else {
+      <app-sitecore-region
+        *appRecreateOnPropertyChange="chrome?.chromeId"
+        name="EditingShell.PropertiesPanel.SelectionDetails"
+      ></app-sitecore-region>
+    }
+  } @else if (mode === 'content') {
+    @if (isContentOptimizationAllowed()) {
+      <div class="mx-sm mt-md" *ifFeatureEnabled="'pages_content-optimization-rhs'">
+        <app-optimize-content-button [hasTextFields]="hasTextFields"></app-optimize-content-button>
+      </div>
+    }
+    <app-rendering-data-source [chrome]="chrome" [abTest]="abTest"></app-rendering-data-source>
+  }
+}

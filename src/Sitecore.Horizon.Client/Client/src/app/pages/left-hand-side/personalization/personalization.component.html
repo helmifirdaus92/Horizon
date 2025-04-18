@@ -1,0 +1,129 @@
+<ng-container *ngIf="isApiConnected && isCdpAppConfigured">
+  <ng-container *ngIf="isPosIdentifierDefined; else posTemplate">
+    <ng-container *ngIf="!isAbTestConfigured; else componentTestEnabledMessageTemplate">
+      <div class="header-container" [class.show-border]="hasScroll">
+        <div class="header">
+          <h5 class="title" [title]="'PERSONALIZATION.NAV_LABEL' | translate">{{
+            'PERSONALIZATION.NAV_LABEL' | translate
+          }}</h5>
+          <p class="description" [innerHtml]="'PERSONALIZATION.DESCRIPTION' | translate"></p>
+        </div>
+        <ng-spd-header-with-button
+          class="subheader"
+          [title]="'PERSONALIZATION.PAGE_VARIANTS' | translate"
+          [btnText]="'PERSONALIZATION.CREATE_VARIANT' | translate"
+          [icon]="'plus'"
+          [isDisabled]="!(canEditVariant$ | async) || isLoading || variants.length >= 8"
+          (btnClick)="createVariant()"
+        ></ng-spd-header-with-button>
+      </div>
+
+      <div (scroll)="storeScroll($event)" class="scroll-list">
+        <ng-spd-list *ngIf="!isLoading">
+          <button ngSpdListItem (click)="selectVariant()" [select]="null === activeVariant">
+            <span class="default-variant"
+              ><span class="text m-0">{{ 'COMMON.DEFAULT' | translate }}</span>
+              <span>{{ 'PERSONALIZATION.DEFAULT_VARIANT_DETAILS' | translate }}</span></span
+            >
+          </button>
+          <button
+            class="list-item"
+            [class.hovered]="contextMenu.popoverIsActive()"
+            *ngFor="let item of variants; index as index"
+            ngSpdListItem
+            (click)="!item.enableEdit ? selectVariant(item) : undefined"
+            [select]="item?.variantId === activeVariant?.variantId"
+          >
+            <span class="variant-list">
+              <span
+                [ngSpdContentEditable]="!!item.enableEdit"
+                (submit)="renamePageVariant(item.variantId, $event, variantNameEl); item.enableEdit = false"
+                (cancel)="item.enableEdit = false"
+                class="text m-0"
+                #variantNameEl
+                >{{ item.variantName }}</span
+              >
+              <span class="audience-title">{{ 'PERSONALIZATION.AUDIENCE' | translate }}: {{ item.audienceName }}</span>
+            </span>
+            <app-personalization-context-menu
+              #contextMenu
+              class="context-menu"
+              [variantName]="item.variantName"
+              [canvasIsLoading]="!!(canvasIsLoading$ | async)"
+              (editVariant)="editVariant(item.variantId)"
+              (renameVariant)="item.enableEdit = true"
+              (deleteVariant)="deleteVariant(item)"
+              [class.hide]="!(canEditVariant$ | async)"
+            ></app-personalization-context-menu>
+          </button>
+        </ng-spd-list>
+
+        <ng-spd-loading-indicator *ngIf="isLoading"></ng-spd-loading-indicator>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="!isApiConnected && isCdpAppConfigured">
+  <ng-spd-empty-state
+    [headline]="'PERSONALIZATION.API_ERRORS.SERVER_FAILURE_ERROR_MESSAGE.VARIANT_HEADLINE' | translate"
+    [icon]="'illustration-load-error'"
+    [iconSize]="'small'"
+    [paddingTop]="100"
+  >
+    <p
+      >{{ 'PERSONALIZATION.API_ERRORS.SERVER_FAILURE_ERROR_MESSAGE.API_INACCESSIBLE' | translate
+      }}<button class="reload-page" (click)="reloadApplication()">{{
+        'PERSONALIZATION.API_ERRORS.SERVER_FAILURE_ERROR_MESSAGE.REFRESH_PAGE' | translate
+      }}</button>
+      {{ 'PERSONALIZATION.API_ERRORS.SERVER_FAILURE_ERROR_MESSAGE.CONTACT_ADMIN' | translate }}
+    </p>
+  </ng-spd-empty-state>
+</ng-container>
+
+<ng-container *ngIf="!isCdpAppConfigured">
+  <div class="no-cdpApp-template">
+    <div class="header">
+      <span><i class="mdi mdi-close-circle-outline"></i></span>
+      <h5 class="title m-md">{{ 'PERSONALIZATION.NO_CDP_APP_URL.HEADER' | translate }}</h5>
+    </div>
+    <p class="description m-0">{{ 'PERSONALIZATION.NO_CDP_APP_URL.DESCRIPTION' | translate }}</p>
+  </div>
+</ng-container>
+
+<ng-template #posTemplate>
+  @if (isFeatureEnabled()) {
+    <div class="no-pos-template">
+      <div class="header">
+        <span><i class="mdi mdi-target"></i></span>
+        <h5 class="title m-md">{{ 'PERSONALIZATION.NO_PERSONALIZE_IDENTIFIER.HEADER' | translate }}</h5>
+      </div>
+      <p class="description mt-0">{{ 'PERSONALIZATION.NO_PERSONALIZE_IDENTIFIER.DESCRIPTION' | translate }}</p>
+      <a class="description m-md" target="_blank" [attr.href]="(dashboardSettingUrl$ | async) || ''">{{
+        'PERSONALIZATION.NO_PERSONALIZE_IDENTIFIER.DASHBOARD_SETTINGS' | translate
+      }}</a>
+    </div>
+  } @else {
+    <div class="no-pos-template">
+      <div class="header">
+        <span><i class="mdi mdi-target"></i></span>
+        <h5 class="title m-md">{{ 'PERSONALIZATION.NO_POS_IDENTIFIER.HEADER' | translate }}</h5>
+      </div>
+      <p class="description mt-0">{{ 'PERSONALIZATION.NO_POS_IDENTIFIER.DESCRIPTION' | translate }}</p>
+      <a class="description m-md" target="_blank" [attr.href]="(dashboardSettingUrl$ | async) || ''">{{
+        'PERSONALIZATION.NO_POS_IDENTIFIER.DASHBOARD_SETTINGS' | translate
+      }}</a>
+    </div>
+  }
+</ng-template>
+
+<ng-template #componentTestEnabledMessageTemplate>
+  <div class="component-test-enabled-template">
+    <div class="header">
+      <h5 class="title m-md" [title]="'PERSONALIZATION.NAV_LABEL' | translate">{{
+        'PERSONALIZATION.NAV_LABEL' | translate
+      }}</h5>
+      <p class="description mt-0">{{ 'PERSONALIZATION.AB_TESTING_RUNNING_MESSAGE' | translate }}</p>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,64 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  ::ng-deep {
+    div.disabled {
+      opacity: 50%;
+    }
+
+    .content {
+      align-items: center;
+    }
+  }
+
+  ng-spd-card {
+    .info {
+      height: $chart-height;
+      display: grid;
+      align-content: center;
+      place-items: center;
+      width: 20%;
+    }
+
+    .loading {
+      width: 100%;
+      display: grid;
+      place-items: center;
+    }
+
+    app-heatmap-chart {
+      margin: 0 10%;
+      width: 80%;
+      height: $chart-height;
+
+      &.rows-1 {
+        height: $generic-element-height * 2;
+      }
+
+      &.rows-2 {
+        height: $generic-element-height * 3;
+      }
+
+      &.rows-3 {
+        height: $generic-element-height * 4;
+      }
+
+      &.rows-4 {
+        height: $generic-element-height * 5;
+      }
+
+      &.rows-5 {
+        height: $generic-element-height * 6;
+      }
+
+      &.rows-6 {
+        height: $generic-element-height * 7;
+      }
+
+      &.rows-7 {
+        height: $generic-element-height * 8;
+      }
+    }
+  }
+}

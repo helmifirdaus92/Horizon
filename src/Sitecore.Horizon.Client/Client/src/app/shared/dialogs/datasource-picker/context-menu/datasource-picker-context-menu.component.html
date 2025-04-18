@@ -1,0 +1,19 @@
+<button
+  *ngIf="node.isCompatible && !node.isRoot && !isStartOrRootItem()"
+  ngSpdIconButton="ghostPrimary"
+  icon="content-copy"
+  id="hrzMenuDuplicateDatasource"
+  [attr.aria-label]="'EDITOR.ITEMS_BROWSER.CONTEXT_MENU.DUPLICATE' | translate"
+  [title]="'EDITOR.ITEMS_BROWSER.CONTEXT_MENU.DUPLICATE' | translate"
+  (click)="duplicateDatasource()"
+  [disabled]="node.enableEdit"
+></button>
+<button
+  ngSpdIconButton="ghostPrimary"
+  icon="plus"
+  id="hrzMenuAddCreateDatasource"
+  [attr.aria-label]="'EDITOR.ITEMS_BROWSER.CONTEXT_MENU.CREATE_NEW' | translate"
+  [title]="'EDITOR.ITEMS_BROWSER.CONTEXT_MENU.CREATE_NEW' | translate"
+  (click)="createDatasource()"
+  [disabled]="node.enableEdit"
+></button>

@@ -1,0 +1,8 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.checkbox-field {
+  display: flex;
+  align-items: flex-start;
+}

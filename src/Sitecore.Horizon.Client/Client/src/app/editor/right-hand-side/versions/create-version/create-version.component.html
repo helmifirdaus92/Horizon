@@ -1,0 +1,30 @@
+<ng-spd-dialog-panel (keyup.enter)="create()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>
+    {{ 'VERSIONS.CREATE.HEADER' | translate }}
+  </ng-spd-dialog-header>
+
+  <div class="dialog-body">
+    <div class="action-dialog">
+      <div class="input">
+        <label ngSpdLabel for="version-actions"
+          >{{ 'COMMON.NAME' | translate }}
+          <span class="font-normal">({{ 'VERSIONS.CREATE.OPTIONAL' | translate }})</span>
+        </label>
+        <input
+          ngSpdInput
+          type="text"
+          [placeholder]="'VERSIONS.CREATE.NAME_PLACEHOLDER' | translate"
+          name="versionName"
+          autocomplete="off"
+          #inputEl
+          [(ngModel)]="name"
+        />
+      </div>
+    </div>
+  </div>
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="create()">{{ 'COMMON.CREATE' | translate }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

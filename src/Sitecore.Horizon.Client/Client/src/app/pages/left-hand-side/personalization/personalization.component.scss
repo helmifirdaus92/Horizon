@@ -1,0 +1,175 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+$button-width: 230px;
+
+:host {
+  position: relative;
+  height: 100%;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  overflow: hidden;
+
+  .header-container,
+  .component-test-enabled-template {
+    &.show-border {
+      border-bottom: $framework-border;
+      box-shadow: $box-shadow;
+    }
+
+    .header {
+      align-items: center;
+      text-align: center;
+      box-sizing: content-box;
+      display: grid;
+      grid-template-rows: $generic-header-height 1fr;
+      padding: 0 $padding;
+
+      .title {
+        @include heading-sm;
+        margin: 0;
+      }
+
+      .description {
+        @include default-text;
+        margin: 0;
+        padding: 0 0 $padding 0;
+        border-bottom: $framework-border;
+      }
+    }
+  }
+
+  .subheader {
+    // to keep the border/shadow over the context menu area
+    z-index: $content-tree-context-zindex;
+  }
+
+  .scroll-list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    button {
+      height: $generic-header-height + $padding;
+      padding-right: $padding-x-small;
+    }
+
+    .default-variant,
+    .variant-list {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: $button-width;
+
+      .text {
+        @include heading-sm;
+        @include text-nowrap-ellipsis;
+        width: inherit;
+
+        &[contenteditable='true'] {
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          box-shadow: inset $box-shadow-focus;
+          outline: 1px solid transparent;
+          background-color: $brand-ui-white;
+          padding: $padding-x-small;
+          height: $padding-large;
+        }
+      }
+      // line-clamp do not have a good support on firefox and safari so to limit audienceTitle to fix length and have ellipise
+      // their is no workaround on these browsers. But we still want to use these properties for supported browser and fallback to default if not.
+      .audience-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+    .list-item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      &:hover,
+      &.hovered {
+        .context-menu {
+          display: flex;
+          margin-left: auto;
+        }
+      }
+
+      &.select {
+        .context-menu {
+          display: flex;
+          margin-left: auto;
+        }
+      }
+      .context-menu {
+        display: none;
+      }
+
+      .hide {
+        visibility: hidden;
+      }
+    }
+  }
+
+  ng-spd-slide-in-panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index: 1;
+
+    ng-spd-slide-in-panel-header {
+      border-bottom: $framework-border;
+    }
+  }
+
+  .reload-page {
+    background-color: $brand-ui-white;
+    color: $brand-primary-default;
+    text-decoration: underline;
+    border: none;
+    cursor: pointer;
+    font-family: $font;
+    font-size: $font-size-12px;
+  }
+  // No cdpApp template style
+  .no-cdpApp-template,
+  .no-pos-template {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: $padding;
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .mdi {
+        color: $brand-primary-default;
+        font-size: $font-size-46px;
+      }
+
+      .title {
+        @include heading-md;
+        font-weight: $font-weight-semi-bold;
+        text-align: center;
+      }
+    }
+
+    .description {
+      text-align: center;
+    }
+  }
+}

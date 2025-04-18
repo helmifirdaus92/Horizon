@@ -1,0 +1,63 @@
+<ng-container *ngIf="!isLoading">
+  <ng-spd-tab-group class="general-link-types">
+    <button
+      ngSpdTab
+      colorScheme="colored"
+      [selected]="linkType === 'internal'"
+      [title]="'EDITOR.LINK.TYPE.INTERNAL' | translate"
+      (click)="linkType = 'internal'"
+      class="general-link-type-button"
+    >
+      <span class="mdi mdi-link-box-variant-outline"></span>
+    </button>
+
+    <button
+      ngSpdTab
+      colorScheme="colored"
+      [selected]="linkType === 'external'"
+      [title]="'EDITOR.LINK.TYPE.EXTERNAL' | translate"
+      (click)="linkType = 'external'"
+      class="general-link-type-button"
+    >
+      <span class="mdi mdi-link-variant"></span>
+    </button>
+
+    <button
+      ngSpdTab
+      colorScheme="colored"
+      [selected]="linkType === 'media'"
+      [title]="'EDITOR.LINK.TYPE.MEDIA' | translate"
+      (click)="linkType = 'media'"
+      class="general-link-type-button"
+    >
+      <span class="mdi mdi-image-outline"></span>
+    </button>
+
+    <button
+      ngSpdTab
+      colorScheme="colored"
+      [selected]="linkType === 'mailto'"
+      [title]="'EDITOR.LINK.TYPE.EMAIL' | translate"
+      (click)="linkType = 'mailto'"
+      class="general-link-type-button"
+    >
+      <span class="mdi mdi-email-outline"></span>
+    </button>
+  </ng-spd-tab-group>
+
+  <div>
+    @if (linkType === 'internal') {
+      <app-internal-link [value]="currentValue" (valueChange)="emitValue($event)" [size]="'sm'"></app-internal-link>
+    } @else if (linkType === 'external') {
+      <app-external-link [value]="currentValue" (valueChange)="emitValue($event)" [size]="'sm'"></app-external-link>
+    } @else if (linkType === 'media') {
+      <app-media-link [value]="currentValue" (valueChange)="emitValue($event)" [size]="'sm'"></app-media-link>
+    } @else if (linkType === 'mailto') {
+      <app-email-link [value]="currentValue" (valueChange)="emitValue($event)" [size]="'sm'"></app-email-link>
+    }
+  </div>
+
+  <button class="clear-btn mt-md" ngSpdButton="outline" (click)="emitValue(null)">{{
+    'EDITOR.LINK.CLEAR' | translate
+  }}</button>
+</ng-container>

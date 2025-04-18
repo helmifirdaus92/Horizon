@@ -1,0 +1,71 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  display: inline-flex;
+}
+
+::ng-deep {
+  .publish-options-popover {
+    margin-left: -10px;
+  }
+  .btn-icon {
+    .mdi {
+      color: $brand-ui-white;
+    }
+  }
+}
+
+.publish-button {
+  display: inline-flex;
+  flex-grow: 1;
+  border-radius: $border-radius-primary;
+  overflow: hidden;
+
+  .btn-icon {
+    width: $btn-width-md !important;
+    height: $btn-height-md !important;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+  .btn-main {
+    flex-grow: 1;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .divider {
+    width: 1px;
+  }
+}
+
+.publish-button-list {
+  width: $pop-panel-min-width * 2;
+
+  .content-wrapper {
+    padding: $padding;
+  }
+
+  .header {
+    font-size: $font-size-18px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .button-wrapper {
+    border-top: $framework-border;
+    padding-top: $padding;
+    margin-top: $padding-small;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.popover-dialog {
+  padding: $padding-x-small $padding-small;
+  border-radius: 0;
+  background-color: $font-primary-default;
+  color: $brand-ui-white;
+  inline-size: 253px;
+  overflow-wrap: break-word;
+}

@@ -1,0 +1,336 @@
+{
+  "COMMON": {
+    "CANCEL": "Afbryd",
+    "CREATE": "Opret",
+    "CREATE_NEW": "Opret ny",
+    "MENU": "Menu",
+    "RENAME": "Omdøb",
+    "DUPLICATE": "Dupliker",
+    "REMOVE": "Fjern",
+    "DELETE": "Slet"
+  },
+  "EXTENSIONS": {
+    "SECTIONS": {
+      "DETAILS": "Detaljer"
+    }
+  },
+  "ERRORS": {
+    "OPERATION_GENERIC": "En fejl forhindrede handlingen i at blive fuldført.",
+    "ITEM_NOT_FOUND": "Elementet er blevet flyttet eller slettet. Tryk på F5 for at opdatere din skærm.",
+    "CONTEXT_COERCED": "Det ønskede element kan ikke vises. Enten findes elementet ikke, eller også har du ikke tilladelse til at se det.",
+    "CONTEXT_NOT_FOUND": "Siden blev ikke indlæst korrekt. Prøv at opdatere siden. Hvis fejlen opstår igen, skal du kontakte systemadministratoren."
+  },
+  "DEVICE": {
+    "PHONE": "Telefon",
+    "TABLET": "Tablet",
+    "DESKTOP": "Stationær computer",
+    "ALL": "Alle enheder",
+    "ROTATE": "Roter"
+  },
+  "NAV": {
+    "MAIN": "Primær",
+    "WORKSPACE": "Arbejdsområde",
+    "EDITOR": "Sideredigering",
+    "PAGES": "Sider",
+    "LAUNCHPAD": "Launchpad",
+    "HELP": "Hjælp",
+    "UNDO": "Fortryd",
+    "REDO": "Annuller fortryd",
+    "EXPAND": "Udvid",
+    "COLLAPSE": "Skjul",
+    "METADATA": "Metadata",
+    "GO_BACK": "Gå tilbage"
+  },
+  "EDITOR": {
+    "ADD_TO_PAGE": "Føj til side",
+    "CREATE_PAGE": "Opret side",
+    "CREATE_NEW": "Opret ny",
+    "CREATE_FOLDER": "Opret mappe",
+    "CREATE_PAGE_ON_SAME_LEVEL": "Opret side på samme niveau",
+    "ITEM_ALREADY_DEFINED_ON_THIS_LEVEL": "Der findes allerede et '{{name}}' element på dette niveau. Der kan ikke være to elementer med samme navn på samme niveau.",
+    "CREATE_ITEM_NOT_VALID_NAME": "'{{name}}' er ikke et gyldigt navn.",
+    "CREATE_PAGE_FAILED": "Siden '{{name}}' kan ikke oprettes.",
+    "CREATE_FOLDER_FAILED": "Mappen '{{name}}' kan ikke oprettes.",
+    "CREATE_ITEM_FAILED": "Elementet '{{name}}' kan ikke oprettes.",
+    "CREATE_PAGE_EMPTY_NAME": "Sidenavnet må ikke være tomt.",
+    "CREATE_FOLDER_EMPTY_NAME": "Mappenavnet må ikke være tomt.",
+    "CREATED_BY": "Oprettet af",
+    "CREATED_AT": "Oprettet",
+    "ITEM_NAME": "Elementnavn",
+    "DELETE": "Slet",
+    "DETAILS": "Detaljer",
+    "UNKNOWNSECTION": "Ukendt",
+    "UNCATEGORISED": "Ikke kategoriseret",
+    "PLACEHOLDER_DETAILS": "Pladsholderoplysninger",
+    "PLACEHOLDER_KEY": "Pladsholdernøgle",
+    "ITEM_ID": "Element-id",
+    "ITEM_PATH": "Elementsti",
+    "NEW_PAGE": "Ny side",
+    "NEW_FOLDER": "Ny mappe",
+    "NO_INSERT_OPTIONS": "Indsættelsesmulighederne er ikke indstillet for det overordnede element.",
+    "ALL_PAGES": "Alle sider",
+    "TEMPLATE_PATH": "Skabelonsti",
+    "COMPONENTS": "Komponenter",
+    "RENDERING_INSERT_FAILED": "Der opstod en fejl, og renderingen blev ikke føjet til siden. Prøv at tilføje renderingen igen.",
+    "CONTENT_TREE": {
+      "TITLE": "Sidetræ",
+      "MOVE_ITEM_ERROR": "Der opstod en fejl under flytning af elementet '{{name}}' i indholdstræet.",
+      "MOVE_ITEM_INTO_SUCCESS": "Du placerede {{movedItemName}} i {{targetItemName}}.",
+      "MOVE_ITEM_BEFORE_SUCCESS": "Du har placeret {{movedItemName}} over {{targetItemName}}.",
+      "MOVE_ITEM_AFTER_SUCCESS": "Du har placeret {{movedItemName}} under {{targetItemName}}."
+    },
+    "SAVE": {
+      "PROGRESS": "Gemmer",
+      "COMPLETE": "Gemt den {{datetime}}",
+      "ERRORS": {
+        "ERROR_AFTER_NAV": "Der opstod en fejl under automatisk lagring. Kontrollér, at alle dine ændringer er blevet gemt, før du åbner en anden side.",
+        "ERROR_AFTER_NAV_ACTION": "Gå tilbage",
+        "BASE_TEMPLATE_WAS_CHANGED": "Du er ved at fjerne en eller flere basisskabeloner fra den aktuelle skabelon.\n\nNår du fjerner en basisskabelon, opdaterer Sitecore alle elementerne baseret på den aktuelle skabelon og rydder alle feltværdier i disse elementer, der er tilknyttet felterne i den basisskabelon, du fjernede. Disse feltværdier kan ikke gendannes, når du har fjernet dem.\n\nVil du fortsætte?",
+        "CHANGED_UNVERSIONED_OR_SHARED_FLAG": "Du har ændret det uversionerede eller delte flag.\n\nAktivering af et af disse flag vil starte en baggrundsproces\r\nfor at opdatere alle elementerne baseret på denne skabelon.\n\nDenne proces kan kræve mange ressourcer.\n\nHvis du har aktiveret enten det uversionerede eller delte flag, vil de tidligere versionsværdier for disse\r\nfelter gå tabt.\n\nEr du sikker på, at du vil fortsætte?",
+        "DATASOURCE_MODIFIED_BY_ANOTHER_USER": "Siden eller det tilknyttede indhold er blevet ændret af en anden bruger. Ændringerne kan ikke gemmes. Vil du genindlæse siden og miste dine ændringer?",
+        "INCORRECT_CLONE_SOURCE": "Klonkilden har en forkert værdi. Ret værdien '__Kildeelement' (sektionen 'Avanceret') for at fortsætte.",
+        "INTERNAL_ERROR": "Intern serverfejl.",
+        "ITEM_IS_PROTECTED": "Du kan ikke redigere elementet, da det er beskyttet.",
+        "ITEM_LOCKED_BY_ANOTHER_USER": "Kunne ikke gemme ændringer, da det tilsvarende indhold er blevet låst af en anden bruger.",
+        "ITEM_SHOULD_BE_LOCKED_BEFORE_EDIT": "Kan ikke gemme elementet, da det ikke er blevet låst af den aktuelle bruger.",
+        "NO_WRITE_ACCESS": "Du kan ikke redigere elementet, da du ikke har skriveadgang.",
+        "PAGE_DOES_NOT_EXIST": "Siden findes ikke. Ændringerne kan ikke gemmes. Vil du genindlæse siden og miste dine ændringer?",
+        "PAGE_VERSION_DOES_NOT_EXIST": "Sideversionen findes ikke. Ændringerne kan ikke gemmes. Vil du genindlæse siden og miste dine ændringer?",
+        "PAGE_WAS_MODIFIED": "Siden er ændret af en anden bruger. Ændringerne kan ikke gemmes. Vil du genindlæse siden og miste dine ændringer?",
+        "RELOAD_ACTION_TITLE": "Genindlæs",
+        "VALIDATION_ERROR": "Validering mislykkedes.",
+        "UNABLE_TO_SAVE": "Kan ikke gemme"
+      },
+      "NO_CHANGES": "Ingen ændringer"
+    },
+    "CHANGE_DISPLAY_NAME": {
+      "BUTTON_TEXT": "Rediger det visningsnavnet",
+      "ERRORS": {
+        "INSUFFICIENT_PRIVILEGES": "Du har ikke tilladelse til at ændre visningsnavnet på siden.",
+        "ITEM_IS_LOCKED": "Du kan ikke ændre visningsnavnet for dette element, da elementet er låst af en anden bruger."
+      }
+    },
+    "RENDERING": {
+      "DATASOURCE": "Indholdselement",
+      "NO_DATASOURCE": "Indtast indholdselementsti",
+      "BROWSE_DATASOURCE": "Søg",
+      "REMOVE_RENDERING": "Fjern rendering"
+    },
+    "IMAGE": {
+      "ADD": "Tilføj",
+      "ADD_AN_IMAGE": "Tilføj et billede",
+      "ADD_SELECTED": "Tilføj valgte",
+      "CHANGE": "Skift",
+      "CLEAR": "Ryd",
+      "PATH": "Billedsti",
+      "PATH_PLACEHOLDER": "Angiv stien til billedet.",
+      "NOT_FOUND": "Billedet findes ikke.",
+      "NOT_A_MEDIA": "Elementet er ikke et billede.",
+      "INVALID_SOURCES": "Kilden til dette felt er ikke gyldig. Kontakt din sideadministrator."
+    },
+    "LINK": {
+      "LINK_TYPE": "Linktype",
+      "TYPE": {
+        "EXTERNAL": "Eksternt",
+        "INTERNAL": "Internt"
+      },
+      "OPTIONAL_LABEL": "Valgfrie parametre",
+      "ALT_TEXT": "Linktitel",
+      "TEXT": "Linktekst",
+      "TEXT_PLACEHOLDER": "Indtast linktekst",
+      "ALT_TEXT_PLACEHOLDER": "Indtast linktitel",
+      "CREATE_OR_EDIT_LINK": "Opret eller rediger hyperlink",
+      "OPEN_NEW_WINDOW": "Åbn i nyt vindue",
+      "TARGET": "Mål",
+      "CLASS": "CSS-klasse",
+      "CLASS_PLACEHOLDER": "Indtast CSS-klasse",
+      "PATH": "Sti",
+      "PATH_PLACEHOLDER": "Indtast sti",
+      "URL": "URL",
+      "URL_PLACEHOLDER": "Indtast URL",
+      "BROWSE_ITEM_PATH": "Søg",
+      "ITEM_PATH_PLACEHOLDER": "Indtast indholdselementsti",
+      "QUERY_STRING": "URL-forespørgselsstreng",
+      "QUERY_STRING_PLACEHOLDER": "Indtast URL-forespørgselsstreng",
+      "ANCHOR": "Forankring",
+      "ANCHOR_PLACEHOLDER": "Indtast forankring",
+      "DIALOG": {
+        "INTERNAL_LINK": "Internt link",
+        "ADD_SELECTED": "Tilføj link"
+      }
+    },
+    "NUMBER": {
+      "VALUE_PLACEHOLDER": "Indtast talværdi",
+      "NOT_VALID_NUMBER": "Den indtastede værdi er ikke et gyldigt tal.",
+      "NOT_VALID_VALUE_WAS_NOT_SAVED": "Den indtastede værdi er ikke et gyldigt tal og blev ikke gemt."
+    },
+    "INTEGER": {
+      "VALUE_PLACEHOLDER": "Indtast heltalsværdi",
+      "NOT_VALID_INTEGER": "Den indtastede værdi er ikke et gyldigt heltal.",
+      "NOT_VALID_VALUE_WAS_NOT_SAVED": "Den indtastede værdi er ikke et gyldigt heltal og blev ikke gemt."
+    },
+    "RTE": {
+      "ALIGN": {
+        "CENTER": "Juster midten",
+        "JUSTIFY": "Lige margener",
+        "LEFT": "Juster til venstre",
+        "RIGHT": "Juster højre"
+      },
+      "FORMAT": {
+        "BOLD": "Fed",
+        "ITALIC": "Kursiv",
+        "STRIKETHROUGH": "Gennemstreget",
+        "UNDERLINE": "Understreget"
+      },
+      "HEADER": {
+        "NORMAL": "Normal",
+        "PREFIX": "Header"
+      },
+      "INDENT": {
+        "DECREASE": "Formindsk indrykning",
+        "INCREASE": "Forøg indrykning"
+      },
+      "LINK": {
+        "ALT_TEXT": "Linktitel",
+        "ALT_TEXT_PLACEHOLDER": "Indtast linktitel",
+        "HEADER": "Linkoplysninger",
+        "CREATE_OR_EDIT_LINK": "Opret eller rediger hyperlink",
+        "NEW_TAB": "Ny fane/vindue",
+        "REMOVE_LINK": "Fjern link",
+        "SAME_TAB": "Samme fane",
+        "TARGET": "Mål",
+        "PATH": "Sti",
+        "PATH_PLACEHOLDER": "Indtast URL",
+        "TEST_URL": "Test-URL"
+      },
+      "LIST": {
+        "BULLET": "Punktopstilling",
+        "NUMBERED": "Nummereret liste"
+      },
+      "MEDIA": {
+        "INSERT": "Indsæt medie"
+      },
+      "REMOVE_FORMATTING": "Fjern formatering"
+    },
+    "WORKFLOW": {
+      "ACTION": "Handling",
+      "ACTION_TAKEN": "Udført handling",
+      "CHANGED_BY": "Ændret af",
+      "COMMENT": "Kommentar",
+      "CURRENT_STATUS": "Aktuel tilstand",
+      "ENTER_A_COMMENT": "Indtast en kommentar",
+      "LATEST_WORKFLOW_CHANGE": "Seneste ændring af arbejdsproces",
+      "NO_WORKFLOW": "Ingen arbejdsproces",
+      "NO_ACCESS_RIGHTS_TO_PUBLISH": "Du har ikke tilladelse til at udgive dette element.",
+      "PUBLISHABLE_SETTING_DISABLED": "Du kan ikke udgive dette element, da indstillingen Kan udgives er deaktiveret",
+      "PUBLISHING_RESTRICTIONS": "Dette element har udgivelsesrestriktioner, der forhindrer dig i at udgive det nu.",
+      "PUBLISH_ITEM": "Udgiv element",
+      "PUBLISH_ITEM_WITH_SUBITEMS": "Udgiv element med alle underelementer",
+      "PUBLISH_FAILED": "Udgivelse mislykkedes. Prøv igen. Hvis fejlen opstår igen, skal du kontakte systemadministratoren.",
+      "PUBLISH_SUCCESSFUL": "Elementet \"{{itemName}}\" blev udgivet.",
+      "PUBLISH_WITH_SUBITEMS_SUCCESSFUL": "Elementet \"{{itemName}}\" blev udgivet med underelementer. Behandlede elementer: {{processedItemsCount}}.",
+      "PUBLISHING": "Udgiver...",
+      "UPDATING_WORKFLOW_STATE": "Opdaterer workflow-tilstand...",
+      "WORKFLOW": "Workflow",
+      "WORKFLOW_STEP": "Workflow-tilstand",
+      "WARNINGS": {
+        "DATASOURCE_LOCKED_BY_ANOTHER_USER": "En anden bruger har låst elementet eller det tilknyttede indholdselement.",
+        "ITEM_LOCKED_BY_ANOTHER_USER": "Dine ændringer kan ikke gemmes, fordi en anden bruger har låst indholdselementet.",
+        "NO_WRITE_ACCESS": "Du kan ikke redigere elementet, da du ikke har skriveadgang.",
+        "NO_WORKFLOW_WRITE_ACCESS": "Du har ikke tilladelse til at opdatere dette element til den næste workflow-tilstand.",
+        "UNKNOWN_SERVER_ERROR": "Server returnerede en ukendt fejl."
+      }
+    },
+    "ITEMS_BROWSER": {
+      "HEADER_TEXT": "Tildel indholdselement",
+      "ASSIGN": "Tildel",
+      "CONTENT_ITEMS": "Indholdselementer",
+      "SELECT_TEMPLATE_TITLE": "Vælg skabelonen for det nye indholdselement",
+      "NEW_CONTENT_ITEM": "Nyt indholdselement",
+      "CONTEXT_MENU": {
+        "BUTTON_LABEL": "Kontekstmenu",
+        "CREATE_NEW": "Opret ny"
+      }
+    },
+    "WORKSPACE_EMPTY": {
+      "HEADER": "Siden kan ikke vises",
+      "DESCRIPTION": "Renderingsværten for dit websted er ikke blevet konfigureret. Kontakt din systemadministrator for at få hjælp."
+    }
+  },
+
+  "MEDIA": {
+    "FILE_NAME": "Filnavn",
+    "FILE_TYPE": "Filtype",
+    "FILE_SIZE": "Filstørrelse",
+    "DIMENSIONS": "Dimensioner",
+    "PATH": "Sti",
+    "ALT_TEXT": "Alternativ tekst",
+    "DETAILS_EMPTY": "Vælg en fil for at få vist den.",
+    "EMPTY_FOLDER": "Ingen mediefiler i denne mappe.",
+    "NO_SEARCH_RESULTS": "Ingen resultater matcher din søgesætning.<br />Prøv igen.",
+    "LIMIT_REACHED": "Vi viser {{limit}} billeder for at sikre optimal ydeevne. Der er flere tilgængelige billeder. Begræns søgningen, eller vælg en anden mappe.",
+    "SEARCH_PLACEHOLDER": "Søg",
+    "ERRORS": {
+      "NOT_FOUND": "Stien er ikke gyldig.",
+      "SOURCE_NOT_FOUND": "Kilden til dette felt er ikke gyldig. Kontakt din sideadministrator.",
+      "GENERIC": "Der skete noget. Genindlæs dialogboksen for at prøve igen."
+    }
+  },
+  "SITE_LANGUAGE": {
+    "NO_SITES": "Ingen sites",
+    "NO_LANGUAGES": "Ingen sprog",
+    "CONTEXT_LANGUAGE": "Kontekstsprog",
+    "CONTEXT_SITE": "Kontekstside",
+    "LANGUAGE_SWITCHER": "Sprogskifter",
+    "SITE_SWITCHER": "Sideskifter"
+  },
+  "VERSIONS": {
+    "HEADER": "Versioner",
+    "VERSION": "Version",
+    "NAME": "Navn",
+    "UNNAMED": "Unavngivet",
+    "LAST_MODIFIED": "Sidst ændret",
+    "LAST_MODIFIED_VALUE": "{{ date }} af {{ name }}",
+    "PUBLISH_DATE": "Udgivelsesdato",
+    "NO_DATE": "Ingen dato",
+    "VERSION_CREATED_SUCCESSFUL": "Version \"{{ Version }}\" for \"{{ itemName }}\" blev oprettet automatisk",
+    "MENU": {
+      "DUPLICATE_ERROR": "Der opstod en fejl under kopiering af en ny version",
+      "REMOVE_ERROR": "Der opstod en fejl under sletning af en ny version"
+    },
+    "LIST": {
+      "HEADER": "Oversigt",
+      "VERSIONS": "Versioner",
+      "CREATE": "Opret ny"
+    },
+    "CREATE": {
+      "HEADER": "Opret version",
+      "NAME": "Versionsnavn",
+      "NAME_PLACEHOLDER": "Indtast versionsnavn",
+      "OPTIONAL": "Valgfrit",
+      "WORKFLOW": "Tildelt workflow-tilstand",
+      "DRAFT": "Udkast",
+      "ERROR": "Der opstod en fejl under oprettelse af en ny version"
+    },
+    "RENAME": {
+      "HEADER": "Omdøb version",
+      "NAME": "Versionsnavn",
+      "NAME_PLACEHOLDER": "Indtast versionsnavn",
+      "OPTIONAL": "Valgfrit",
+      "WORKFLOW": "Tildelt workflow-tilstand",
+      "DRAFT": "Udkast",
+      "ERROR": "Der opstod en fejl under omdøbning af en version"
+    },
+    "PUBLISHING": {
+      "MENU_LABEL": "Planlæg udgivelse"
+    }
+  },
+  "CANVAS_TRANSLATIONS": {
+    "NO_TEXT_IN_FIELD": "[Ingen tekst i felt]",
+    "PLACEHOLDER_EMPTY": "The {{placeholderName}} placeholder is empty. <br />Darg and drop components from the left hand side panel."
+  },
+  "DAM_TRANSLATIONS": {
+    "DOWNLOAD_LABEL": "Download",
+    "CANNOT_LOAD_IFRAME_TEXT": "DAM-udbyderen kan ikke vises. Prøv at opdatere siden. Hvis fejlen opstår igen, skal du kontakte systemadministratoren."
+  }
+}

@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Sitecore.Framework.Runtime.Build" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sitecore.Framework.Runtime.Abstractions" />
+    <PackageReference Include="Sitecore.Framework.Runtime.Commands" />
+  </ItemGroup>
+
+</Project>

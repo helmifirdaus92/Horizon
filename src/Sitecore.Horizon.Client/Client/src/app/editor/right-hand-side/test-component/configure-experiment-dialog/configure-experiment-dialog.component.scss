@@ -1,0 +1,116 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  .header-text {
+    margin-top: 0;
+    margin-bottom: 0;
+    min-width: 100px;
+  }
+
+  .flex-row + .flex-row {
+    margin-top: $padding-small;
+  }
+}
+
+ng-spd-dialog-panel {
+  overflow-y: auto;
+}
+
+ng-spd-dialog-actions {
+  margin-top: auto;
+}
+
+.dialog-body {
+  padding: 0 $padding-large $padding-large;
+  overflow-y: auto;
+
+  .test-name-field {
+    width: $size-xs;
+
+    input {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .completion-options {
+    width: $size-xs;
+  }
+}
+
+.splits-error {
+  color: $brand-signal-error;
+}
+
+.header-options-info {
+  margin-left: 100px;
+  display: flex;
+  gap: $padding-x-small;
+
+  &.completion-header {
+    width: 100%;
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: calc(100% - 20px);
+    }
+  }
+}
+
+.error-block p {
+  margin: 0;
+  color: $brand-signal-error;
+}
+
+.card-container {
+  border: $framework-border;
+  border-radius: $border-radius-small;
+
+  ::ng-deep {
+    .ng-spd-accordion-header {
+      border: none;
+    }
+    ng-spd-accordion-content:after {
+      display: none;
+    }
+  }
+}
+
+.form-group {
+  display: inline-flex;
+
+  input {
+    width: 4em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    box-sizing: content-box;
+  }
+
+  .right-label {
+    border-top-right-radius: $border-radius-secondary;
+    border-bottom-right-radius: $border-radius-secondary;
+    background-color: $background-gray;
+    border: $framework-border;
+    width: 44px;
+    box-sizing: border-box;
+    border-left: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.evenly-distribute {
+  display: flex;
+  justify-content: flex-end;
+}
+
+::ng-deep {
+  .ng-spd-accordion-header {
+    text-decoration: none !important;
+  }
+}

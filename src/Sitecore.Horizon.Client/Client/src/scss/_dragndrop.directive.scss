@@ -1,0 +1,17 @@
+/*
+  Prevent any child elements of a drop target to trigger drag events.
+
+  This allows us to calculate the dragenter and dragleave phases predictably
+  by only allowing those events on the drop element itself.
+  This workaround has been found to be the most reliable way to understand when a drop target has a dragged element over it.
+
+  While there are some other ways to solve it, given that browsers behave slightly different in this area.
+  This solution is so far the most relibable.
+
+  Other approches (which have proven unreliable) include:
+   - Keep a count of dragenter-dragleave occurrences.
+   - Ignore events where the event.target is not the drop element.
+*/
+[appDragndropContainer]._dragndrop_mode_ ._dragndrop_droptarget_ * {
+  pointer-events: none;
+}

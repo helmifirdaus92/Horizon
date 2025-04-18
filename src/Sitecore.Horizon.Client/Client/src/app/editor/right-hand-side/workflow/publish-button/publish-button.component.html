@@ -1,0 +1,65 @@
+<div
+  class="content-wrapper"
+  [ngSpdPopover]="publishItemPopoverTemplate"
+  (mouseenter)="buttonState.title && publishItemInfoPopover.show()"
+  (mouseleave)="publishItemInfoPopover.hide()"
+  [popoverPosition]="'below'"
+  [popoverOffset]="5"
+  #publishItemInfoPopover="ngSpdPopover"
+>
+  <div class="publish-button">
+    <button
+      [ngSpdPopover]="popoverTemplate"
+      popoverPosition="below"
+      [popoverOffset]="2"
+      [popoverShowDelay]="0"
+      [popoverHideDelay]="0"
+      [hideOnBackdropClick]="true"
+      class="btn-main"
+      ngSpdButton="primary"
+      icon="chevron-down"
+      iconPosition="right"
+      #popoverInstance="ngSpdPopover"
+      [class.active]="popoverInstance.isPopoverVisible()"
+      [customClass]="'publish-options-popover'"
+      [disabled]="publishInProgress || !buttonState.enabled"
+      (click)="popoverInstance.toggle(); $event.stopPropagation()"
+      >{{ (publishInProgress ? 'EDITOR.WORKFLOW.PUBLISHING' : 'EDITOR.WORKFLOW.PUBLISH') | translate }}
+    </button>
+  </div>
+</div>
+
+<ng-template #popoverTemplate let-popoverRef>
+  <ng-spd-list class="publish-button-list">
+    <div class="content-wrapper">
+      <span class="header mb-sm">{{ 'EDITOR.WORKFLOW.PUBLISH' | translate }}</span>
+      <ng-spd-checkbox
+        id="publish-page"
+        [text]="'EDITOR.WORKFLOW.PUBLISH_PAGE' | translate"
+        [checked]="true"
+        [disabled]="true"
+      ></ng-spd-checkbox>
+      <ng-spd-checkbox
+        id="publish-subpages"
+        [text]="'EDITOR.WORKFLOW.PUBLISH_PAGE_WITH_SUBPAGES' | translate"
+        [(checked)]="withSubpages"
+      ></ng-spd-checkbox>
+      <ng-spd-checkbox
+        id="publish-languages"
+        [text]="'EDITOR.WORKFLOW.PUBLISH_PAGE_WITH_LANGUAGES' | translate"
+        [(checked)]="withLanguages"
+      ></ng-spd-checkbox>
+      <div class="button-wrapper">
+        <button ngSpdButton="solidSuccess" class="publish" (click)="publish(); popoverRef.hide()">
+          {{ 'EDITOR.WORKFLOW.START_PUBLISH' | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-spd-list>
+</ng-template>
+
+<ng-template #publishItemPopoverTemplate>
+  <div class="popover-dialog" *ngIf="buttonState.title" (mouseenter)="publishItemInfoPopover.hide()">
+    <span [innerHTML]="buttonState.title | translate: buttonState.titleArgs"></span>
+  </div>
+</ng-template>

@@ -1,0 +1,41 @@
+<div class="filter-menu">
+  <div class="title">{{ 'EDITOR.RENDERING.DATA_SOURCE' | translate }}</div>
+  <ng-container *appLet="dataSources$ | async as dataSourcesRoot">
+    <div class="external" *ngIf="dataSourcesRoot.dataSources.externalDataSources.length > 0">
+      <ng-spd-checkbox
+        [text]="'EDITOR.RENDERING.EXTERNAL_DATASOURCES' | translate"
+        class="description"
+        [checked]="!!dataSourcesRoot.isExternalRootChecked"
+        (checkedChange)="toggleRootCategory($event, 'external')"
+      ></ng-spd-checkbox>
+      <div class="list">
+        <ng-spd-checkbox
+          *ngFor="let dataSource of dataSourcesRoot.dataSources.externalDataSources"
+          [text]="dataSource.name"
+          [checked]="!!dataSourcesRoot.isExternalRootChecked || dataSource.isChecked"
+          (checkedChange)="toggleDataSourceItem(dataSource.dataSourceId, $event, 'external')"
+          class="description"
+        ></ng-spd-checkbox>
+      </div>
+    </div>
+    <div class="xm-cloud" *ngIf="dataSourcesRoot.dataSources.xmCloudDataSources.length > 0">
+      <ng-spd-checkbox
+        [text]="'EDITOR.RENDERING.XMCLOUD_DATASOURCES' | translate"
+        class="description"
+        [checked]="!!dataSourcesRoot.isXmCloudRootChecked"
+        (checkedChange)="toggleRootCategory($event, 'xmCloud')"
+      ></ng-spd-checkbox>
+      <div class="list">
+        <ng-spd-checkbox
+          *ngFor="let dataSource of dataSourcesRoot.dataSources.xmCloudDataSources"
+          [text]="dataSource.name"
+          [ngClass]="'description'"
+          [checked]="!!dataSourcesRoot.isXmCloudRootChecked || dataSource.isChecked"
+          (checkedChange)="toggleDataSourceItem(dataSource.dataSourceId, $event, 'xmCloud')"
+        ></ng-spd-checkbox>
+      </div>
+    </div>
+  </ng-container>
+
+  <span>{{ 'EDITOR.RENDERING.COMPONENTS_FILTER' | translate }}</span>
+</div>

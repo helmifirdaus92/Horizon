@@ -1,0 +1,165 @@
+<ng-spd-accordion class="v2">
+  <ng-spd-accordion-header [isOpened]="isAccordionOpen" (isOpenedChange)="getPageDesign($event)">
+    {{ 'PAGE_DESIGNS.WORKSPACE.PAGE_DESIGN' | translate }}
+  </ng-spd-accordion-header>
+  <ng-spd-accordion-content class="pt-0">
+    <div *ngIf="useDesignFromTemplate" class="show-current-page-design-wrapper use-design-from-template">
+      <div class="use-design-checkbox">
+        <ng-spd-checkbox #useDesignFromTemplateCheckbox [checked]="true" [disabled]="!canWrite"></ng-spd-checkbox>
+        <span>{{ 'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.USE_DESIGN_FROM_TEMPLATES' | translate }}</span>
+      </div>
+
+      <div>
+        <div class="drop-list-wrapper mt-sm">
+          <span>{{ 'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.OVERRIDE' | translate }}</span>
+          <div class="droplist mt-sm" [ngClass]="{ 'disabled-state': useDesignFromTemplateCheckbox.checked }">
+            <ng-spd-droplist
+              *ngIf="pageDesigns$ | async; let pageDesigns"
+              id="pageDesignDroplist"
+              [selectedValue]="templatePageDesign?.itemId"
+              [placeholder]="'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.CHOOSE' | translate"
+              [disabled]="useDesignFromTemplateCheckbox.checked"
+              (selectedValueChange)="selectPageDesign($event, pageDesigns)"
+            >
+              <ng-template *ngFor="let pageDesign of pageDesigns" ngSpdDroplistItem [value]="pageDesign.itemId">
+                {{ pageDesign.displayName }}
+              </ng-template>
+            </ng-spd-droplist>
+          </div>
+
+          <div class="actions pt-md" *ngIf="buttonsVisible">
+            <button
+              ngSpdButton="outline"
+              (click)="cancelSelection()"
+              (keyup)="cancelSelection()"
+              [disabled]="popoverInstanceRef.isPopoverVisible()"
+              >{{ 'COMMON.CANCEL' | translate }}</button
+            >
+            <div class="button-wrapper">
+              <button
+                ngSpdButton="solidPrimary"
+                [ngSpdPopover]="savePopover"
+                popoverPosition="left-above"
+                [popoverOffset]="-50"
+                [popoverShowDelay]="0"
+                [popoverHideDelay]="0"
+                [hideOnBackdropClick]="true"
+                #popoverInstanceRef="ngSpdPopover"
+                [disabled]="
+                  !canWrite ||
+                  !selectedPageDesign ||
+                  templatePageDesign?.itemId === selectedPageDesign.itemId ||
+                  (!useDesignFromTemplate && currentPageDesign?.itemId === selectedPageDesign.itemId) ||
+                  (!useDesignFromTemplate && !selectedPageDesign)
+                "
+                class="ml-sm"
+                (click)="popoverInstanceRef.toggle(); $event.stopPropagation()"
+                >{{ 'COMMON.SAVE' | translate }}</button
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!useDesignFromTemplate" class="select-page-design-wrapper">
+      <div class="use-design-checkbox">
+        <ng-spd-checkbox (checkedChange)="restorePageDesign($event)" [disabled]="!canWrite"></ng-spd-checkbox>
+        <span>{{ 'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.USE_DESIGN_FROM_TEMPLATES' | translate }}</span>
+      </div>
+      <div class="drop-list-wrapper mt-sm" [ngClass]="{ 'disabled-state': useDesignFromTemplate }">
+        <span>{{ 'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.OVERRIDE' | translate }}</span>
+        <div class="droplist mt-sm">
+          <ng-spd-droplist
+            *ngIf="pageDesigns$ | async; let pageDesigns"
+            id="pageDesignDroplist"
+            [selectedValue]="selectedPageDesign?.itemId"
+            [placeholder]="'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.CHOOSE' | translate"
+            (selectedValueChange)="selectPageDesign($event, pageDesigns)"
+          >
+            <ng-template *ngFor="let pageDesign of pageDesigns" ngSpdDroplistItem [value]="pageDesign.itemId">
+              {{ pageDesign.displayName }}
+            </ng-template>
+          </ng-spd-droplist>
+        </div>
+
+        <div class="actions pt-md" *ngIf="buttonsVisible">
+          <button
+            ngSpdButton="outline"
+            (click)="cancelSelection()"
+            (keyup)="cancelSelection()"
+            [disabled]="popoverInstanceRef.isPopoverVisible()"
+            >{{ 'COMMON.CANCEL' | translate }}</button
+          >
+          <div class="button-wrapper">
+            <button
+              ngSpdButton="solidPrimary"
+              [ngSpdPopover]="savePopover"
+              popoverPosition="left-above"
+              [popoverOffset]="-50"
+              [popoverShowDelay]="0"
+              [popoverHideDelay]="0"
+              [hideOnBackdropClick]="true"
+              #popoverInstanceRef="ngSpdPopover"
+              [disabled]="
+                !canWrite ||
+                popoverInstanceRef.isPopoverVisible() ||
+                (useDesignFromTemplate && !currentPageDesign) ||
+                (!useDesignFromTemplate && currentPageDesign?.itemId === selectedPageDesign?.itemId) ||
+                (!useDesignFromTemplate && !selectedPageDesign)
+              "
+              class="ml-sm"
+              (click)="popoverInstanceRef.toggle(); $event.stopPropagation()"
+              >{{ 'COMMON.SAVE' | translate }}</button
+            >
+          </div>
+        </div>
+      </div>
+      <ng-template #restoreDefaultPageDesign let-restorepPopoverRef>
+        <div class="popover p-md">
+          <div class="header">
+            <h3 class="h3 m-0">{{
+              'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.CONFIRM_SAVE.TITLE' | translate
+            }}</h3>
+            <p class="description">{{
+              'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.CONFIRM_SAVE.DESCRIPTION' | translate
+            }}</p>
+          </div>
+
+          <div class="actions">
+            <button ngSpdButton="ghostPrimary" (click)="restorepPopoverRef.hide()">{{
+              'COMMON.CANCEL' | translate
+            }}</button>
+            <button ngSpdButton="solidPrimary" class="ml-sm" (click)="restorepPopoverRef.hide()">{{
+              'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.CONFIRM_SAVE.CONTINUE_WITH_SAVE' | translate
+            }}</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </ng-spd-accordion-content>
+</ng-spd-accordion>
+
+<ng-template #noWritePermissionInfoTemplate>
+  <div class="popover-dialog write-access">
+    <span [innerHTML]="'PAGE_DESIGNS.WORKSPACE.NO_WRITE_ACCESS' | translate"></span>
+  </div>
+</ng-template>
+
+<ng-template #savePopover let-popoverRef>
+  <div class="popover p-md">
+    <div class="header">
+      <h3 class="h3 m-0">{{ 'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.CONFIRM_SAVE.TITLE' | translate }}</h3>
+      <p class="description">{{
+        'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.CONFIRM_SAVE.DESCRIPTION' | translate
+      }}</p>
+    </div>
+
+    <div class="actions">
+      <button ngSpdButton="ghostPrimary" (click)="popoverRef.hide()">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button ngSpdButton="solidPrimary" class="ml-sm" (click)="popoverRef.hide(); savePageDesign()">{{
+        'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.CONFIRM_SAVE.CONTINUE_WITH_SAVE' | translate
+      }}</button>
+    </div>
+  </div>
+</ng-template>

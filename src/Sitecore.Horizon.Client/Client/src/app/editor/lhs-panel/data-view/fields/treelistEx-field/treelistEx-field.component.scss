@@ -1,0 +1,30 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.current-value-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-6xs;
+
+  .values {
+    min-height: $spacing-sm;
+    font-size: $font-size-14px;
+    font-weight: $font-weight-regular;
+    color: $background-neutral;
+    cursor: pointer;
+  }
+}
+
+.selected-value {
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-6xs;
+  gap: $padding-x-small;
+  min-width: $spacing-12xl;
+  background-color: $brand-gray-700;
+  color: $inverse-text-color;
+  font-size: $font-size-14px;
+  font-weight: $font-weight-regular;
+}

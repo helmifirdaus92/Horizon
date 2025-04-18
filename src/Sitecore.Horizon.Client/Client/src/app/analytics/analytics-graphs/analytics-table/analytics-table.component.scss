@@ -1,0 +1,24 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  ::ng-deep {
+    div.disabled {
+      opacity: 50%;
+    }
+  }
+
+  .loading {
+    width: 100%;
+    display: grid;
+    place-items: center;
+  }
+
+  .trend-up {
+    color: $ui-green-500;
+  }
+
+  .trend-down {
+    color: $ui-red-500;
+  }
+}

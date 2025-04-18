@@ -1,0 +1,48 @@
+<ng-spd-accordion *ngFor="let collection of componentsCollections$ | async">
+  <ng-spd-accordion-header
+    #groupsHeader
+    [isOpened]="!accordionHeaderOpenList.get(collection.name)"
+    (isOpenedChange)="accordionHeaderOpenList.set(collection.name, !groupsHeader.isOpened)"
+    ><div>{{ collection.name }}</div>
+  </ng-spd-accordion-header>
+  <ng-spd-accordion-content>
+    <div
+      *ngFor="let component of collection.components"
+      class="card-container"
+      draggable="true"
+      (dragstart)="componentDragstart($event, component)"
+      (dragend)="componentDragend()"
+      (click)="selectComponent(component)"
+      (keyup)="selectComponent(component)"
+    >
+      <div class="thumbnail-wrapper">
+        <ng-container *ngIf="component.thumbnail | async as thumbnail">
+          <img
+            #img
+            class="thumbnail-image"
+            draggable="false"
+            [src]="thumbnail.url"
+            (load)="setStyles($event, thumbnail)"
+            (mouseenter)="scrollThumbnailDown($event)"
+            (mouseleave)="scrollThumbnailUp($event)"
+            alt=""
+          />
+          <div *ngIf="isThumbnailTooHigh(thumbnail, img)" class="thumbnail-image-bottom-shade"></div> </ng-container
+      ></div>
+
+      <div class="card-footer p-sm"
+        ><div
+          class="card-text"
+          [title]="!isExternalComponent(component) ? component.name : component.title || component.name"
+        >
+          {{ !isExternalComponent(component) ? component.name : component.title || component.name }}</div
+        >
+        <ng-container *ngIf="!isExternalComponent(component)">
+          <div *ngIf="!component.published" class="to-be-published-tag">{{
+            'EDITOR.RENDERING.TO_BE_PUBLISHED' | translate
+          }}</div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-spd-accordion-content>
+</ng-spd-accordion>

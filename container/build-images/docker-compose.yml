@@ -1,0 +1,28 @@
+services:
+  cm-with-utf:
+    image: sitecore-horizon-integration-${TOPOLOGY}-cm
+    build:
+      context: ./cm
+      dockerfile: Horizon-CMWithUTF.Dockerfile
+      args:
+        BASE_IMAGE: ${CM_BASE_IMAGE}
+  cm:
+    image: sitecore-horizon-integration-${TOPOLOGY}-cm
+    build:
+      context: ./cm
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: ${CM_BASE_IMAGE}
+  hrz:
+    image: sitecore-horizon
+    build:
+      context: ./hrz
+      args:
+        BASE_IMAGE: ${HRZ_BASE_IMAGE}
+  jsshost:
+    image: jssapp:latest
+    build:
+      context: ./jsshost
+      args:
+        JSS_BASE_IMAGE: ${JSS_BASE_IMAGE}
+        NODEJS_VERSION: ${NODEJS_VERSION}

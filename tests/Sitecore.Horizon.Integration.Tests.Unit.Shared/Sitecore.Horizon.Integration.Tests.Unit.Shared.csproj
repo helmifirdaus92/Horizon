@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Sitecore.Horizon.Tests.Unit.Shared</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture.AutoNSubstitute" />
+    <PackageReference Include="AutoFixture.Xunit2" />
+    <PackageReference Include="AutoFixture.Idioms" />
+    <PackageReference Include="Sitecore.NSubstituteUtils" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="NSubstitute" />
+
+    <PackageReference Include="Sitecore.Mvc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Sitecore.Horizon.Integration\Sitecore.Horizon.Integration.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,38 @@
+// Set relative paths for ico-moon fonts according to this project
+$icomoon-font-path: '~@sitecore/spd-icons/src/sitecore-product-design-icons/fonts';
+@import '@sitecore/spd-icons/src/spd-icons';
+
+@font-face {
+  font-family: 'Material Design Icons';
+  src: url('../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2?v=7.4.47') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@import '@mdi/font/scss/variables';
+$mdi-font-size-base: 22px;
+@import '@mdi/font/scss/functions';
+@import '@mdi/font/scss/core';
+@import '@mdi/font/scss/icons';
+@import '@mdi/font/scss/extras';
+
+// // Set relative paths for ico-moon fonts according to this project
+// $icomoon-font-path: '~@sitecore/spd-icons/src/sitecore-product-design-icons/fonts';
+// @import '@sitecore/spd-icons/src/spd-icons';
+
+// LIBS
+@import '@sitecore/spd-styles/src/all';
+@include spd-overlay;
+@import './scss/charts';
+
+@import '../node_modules/@angular/cdk/overlay/index';
+@include overlay;
+
+// VARIABLES
+@import './scss/variables';
+
+// GLOBAL STYLES
+@import './scss/global';
+@import './scss/dragndrop.directive';
+@import './scss/spacing';
+@import './scss/typography';
+@import './scss/layout';

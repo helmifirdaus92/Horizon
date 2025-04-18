@@ -1,0 +1,147 @@
+<ng-spd-tree [dataSource]="treeDataSource" [treeControl]="treeControl" appDragndropContainer>
+  <!-- FOLDER -->
+  <ng-spd-nested-tree-node
+    *ngSpdTreeNodeDef="let node; level as level; when: isFolder"
+    [title]="node.text"
+    [attr.data-id]="node.id"
+  >
+    <div
+      class="node"
+      [class.hovered]="contextMenu.popoverIsActive()"
+      [class.disabled]="isNewItemCreationInProgress(node)"
+      [ngSpdTreeNodePadding]="level"
+      ngSpdTreeNodeToggle
+      [appDraggable]="node.id"
+      (draggableDragstart)="collapse(node)"
+      #draggable="draggable"
+      [draggable]="!node.enableEdit"
+      (appDrop)="onNodeDrop($event, node)"
+      [canDrop]="!draggable.isDragging"
+      appExpandOnDragover
+    >
+      <app-highlight-drop-node [beforeAfterHeight]="dropBeforeAfterHeight">
+        <button
+          ngSpdIconButton
+          class="context-tree-drag-button"
+          [title]="'EDITOR.DRAG_TO_REARRANGE' | translate"
+          *ngIf="!isNewItemCreationInProgress(node)"
+          [icon]="'drag-vertical'"
+        >
+        </button>
+
+        <div *ngIf="isNewItemCreationInProgress(node)" class="loading-indicator">
+          <ng-spd-loading-indicator></ng-spd-loading-indicator>
+        </div>
+
+        <button ngSpdTreeToggleButton></button>
+        <div class="node-content" [appDragndropDragimage]="dragImageStyles">
+          <span class="mdi mdi-folder-outline item-icon-normal"></span>
+          <div class="node-text-wrapper">
+            <span
+              class="node-text"
+              #editableNode
+              [(ngSpdContentEditable)]="node.enableEdit"
+              (submit)="onNodeSubmit(node, $event); editableNode.scrollLeft = 0"
+              (cancel)="onNodeCancel(node)"
+              >{{ node.text }}</span
+            >
+          </div>
+        </div>
+        <div class="context-menu-icons-wrapper">
+          <app-content-tree-context
+            #contextMenu
+            [node]="node"
+            [class.hide]="isNewItemCreationInProgress(node)"
+            [rootNodesIds]="contentTreeRootsIds"
+          ></app-content-tree-context>
+        </div>
+      </app-highlight-drop-node>
+    </div>
+    <div *ngIf="treeControl.isExpanded(node)" ngSpdTreeNodeOutlet>
+      <ng-spd-loading-indicator *ngIf="node.isLoading" [delay]="300"></ng-spd-loading-indicator>
+    </div>
+  </ng-spd-nested-tree-node>
+
+  <!-- PAGES -->
+  <ng-spd-nested-tree-node *ngSpdTreeNodeDef="let node; level as level" [title]="node.text" [attr.data-id]="node.id">
+    <ng-container *appLet="node.hasVersions$ | async as hasVersions">
+      <div
+        class="node underlined-text"
+        [class.hovered]="contextMenu.popoverIsActive()"
+        ngSpdTreeNodeSelectable
+        tabindex="-1"
+        role="link"
+        [attr.data-itemId]="node.id"
+        [class.selected]="isSelected(node)"
+        [class.disabled]="isNewItemCreationInProgress(node)"
+        [class.no-versions]="!hasVersions"
+        (click)="select(node)"
+        (keyup)="select(node)"
+        [ngSpdTreeNodePadding]="level"
+        [appDraggable]="node.id"
+        #draggable="draggable"
+        [draggable]="!node.enableEdit"
+        (draggableDragstart)="collapse(node)"
+        (appDrop)="onNodeDrop($event, node)"
+        [canDrop]="!draggable.isDragging"
+        appExpandOnDragover
+      >
+        <app-highlight-drop-node [beforeAfterHeight]="dropBeforeAfterHeight">
+          <button
+            ngSpdIconButton
+            class="context-tree-drag-button"
+            [title]="'EDITOR.DRAG_TO_REARRANGE' | translate"
+            *ngIf="!isNewItemCreationInProgress(node)"
+            [icon]="'drag-vertical'"
+          >
+          </button>
+
+          <div *ngIf="isNewItemCreationInProgress(node)" class="loading-indicator">
+            <ng-spd-loading-indicator></ng-spd-loading-indicator>
+          </div>
+
+          <button ngSpdTreeToggleButton></button>
+          <div class="node-content" [class.no-versions]="!hasVersions" [appDragndropDragimage]="dragImageStyles">
+            <span class="mdi mdi-file-outline item-icon-normal"></span>
+            <div class="node-text-wrapper">
+              <span
+                class="node-text"
+                #editableNode
+                [(ngSpdContentEditable)]="node.enableEdit"
+                (submit)="onNodeSubmit(node, $event); editableNode.scrollLeft = 0"
+                (cancel)="onNodeCancel(node)"
+                >{{ node.text }}</span
+              >
+            </div>
+          </div>
+
+          <div class="context-menu-icons-wrapper">
+            <span
+              [title]="'COMPONENT_TESTING.PAGE_HAS_AB_TESTS' | translate"
+              class="mdi mdi-flask mdi-18px abtest-icon"
+              *ngIf="hasAbTest(node)"
+              (click)="openPageAbTestsDialog(node.id)"
+            ></span>
+            <span
+              [title]="'PERSONALIZATION.PAGE_HAS_PERSONALIZATION' | translate"
+              class="mdi mdi-target-account mdi-18px personalized-icon"
+              *ngIf="hasPersonalization(node)"
+            ></span>
+
+            <app-content-tree-context
+              #contextMenu
+              [node]="node"
+              [isSelectedNode]="isSelected(node)"
+              [class.hide]="isNewItemCreationInProgress(node)"
+              [rootNodesIds]="contentTreeRootsIds"
+              (createVersionChange)="createNewVersion(node)"
+            ></app-content-tree-context>
+          </div>
+        </app-highlight-drop-node>
+      </div>
+    </ng-container>
+    <div *ngIf="treeControl.isExpanded(node)" ngSpdTreeNodeOutlet>
+      <ng-spd-loading-indicator *ngIf="node.isLoading" [delay]="300"></ng-spd-loading-indicator>
+    </div>
+  </ng-spd-nested-tree-node>
+</ng-spd-tree>

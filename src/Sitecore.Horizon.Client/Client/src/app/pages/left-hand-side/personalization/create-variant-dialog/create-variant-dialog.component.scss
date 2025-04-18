@@ -1,0 +1,98 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+
+// ******* DISCONNECTED MODE *******
+.small-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ng-spd-dialog-panel {
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .dialog-body {
+    box-sizing: border-box;
+    display: flex;
+    padding: $padding-large;
+    align-items: center;
+    justify-content: center;
+
+    .variant-dialog {
+      flex: 0 0 50%;
+      .input {
+        width: 30%;
+      }
+    }
+  }
+  .disconnected {
+    flex: 0 0 60%;
+    margin: auto;
+  }
+}
+
+// ******* CONNECTED MODE *******
+.large-dialog {
+  height: 100%;
+  width: 100%;
+
+  ng-spd-dialog-panel {
+    height: calc(100% - $padding-x-small);
+  }
+
+  .editor {
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .dialog-body {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  .loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: grid;
+    place-items: center;
+    background-color: rgba($brand-ui-white, 0.2);
+  }
+}
+
+.header {
+  font-weight: $font-weight-medium;
+  font-size: $font-size-16px;
+}
+
+.h5 {
+  @include heading-sm;
+}
+.hidden {
+  display: none;
+}
+
+.error-block p {
+  margin: 0;
+  color: $brand-signal-error;
+}
+
+:host {
+  ::ng-deep {
+    label {
+      padding-bottom: $padding-x-small;
+    }
+  }
+}

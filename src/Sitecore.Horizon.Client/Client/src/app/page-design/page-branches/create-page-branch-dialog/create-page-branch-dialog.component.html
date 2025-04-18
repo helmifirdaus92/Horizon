@@ -1,0 +1,97 @@
+<ng-spd-dialog-panel>
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>{{ 'PAGE_DESIGNS.WORKSPACE.NEW_PAGE_BRANCH' | translate }}</ng-spd-dialog-header>
+
+  <div class="container">
+    <div class="input">
+      <label ngSpdLabel for="design-name">{{ 'PAGE_DESIGNS.WORKSPACE.BRANCH_NAME' | translate }}</label>
+      <input
+        #nameInput="ngModel"
+        autocomplete="off"
+        ngSpdInput
+        type="text"
+        id="design-name"
+        required
+        maxlength="255"
+        pattern="^(?!^\s+$)[a-zA-Z0-9_ ]+$"
+        [isInvalid]="!!nameInput.errors && (!!nameInput.dirty || !!nameInput.touched)"
+        [appForbiddenNames]="existingNames"
+        autofocus="true"
+        [placeholder]="'COMMON.NAME' | translate"
+        [(ngModel)]="pageBranchItemName"
+        [disabled]="isLoading"
+      />
+      <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error-block">
+        <p *ngIf="nameInput.errors?.isForbidden">{{ 'VALIDATION.VALIDATE_NAME.ALREADY_USED' | translate }}</p>
+        <p *ngIf="nameInput.errors?.pattern">{{ 'VALIDATION.VALIDATE_NAME.NOT_ALLOWED_CHARACTER' | translate }}</p>
+        <p *ngIf="nameInput.errors?.required">{{ 'VALIDATION.VALIDATE_NAME.EMPTY' | translate }}</p>
+      </div>
+    </div>
+    <div class="loading" *ngIf="isLoading">
+      <ng-spd-loading-indicator></ng-spd-loading-indicator>
+    </div>
+    <h3
+      class="templates-selection-prompt-text"
+      [title]="'PAGE_DESIGNS.WORKSPACE.CHOOSE_TEMPLATE_FOR_BRANCH_ROOT_NODE' | translate"
+      >{{ 'PAGE_DESIGNS.WORKSPACE.CHOOSE_TEMPLATE_FOR_BRANCH_ROOT_NODE' | translate }}</h3
+    >
+
+    <div class="templates-grid" *ngIf="tenantTemplates$ | async; let tenantTemplates">
+      <ng-spd-item-card
+        *ngFor="let tenantTemplate of tenantTemplates"
+        [cardType]="'vertical'"
+        [title]="tenantTemplate.template.name"
+        [clickable]="true"
+        (itemClick)="selectedTemplate = tenantTemplate"
+        [selected]="selectedTemplate?.template?.templateId === tenantTemplate.template.templateId"
+      >
+        <div ngSpdItemCardContent class="thumbnail-container">
+          <img
+            *ngIf="tenantTemplate.pageDesign && tenantTemplate.pageDesign.thumbnailUrl"
+            [src]="tenantTemplate.pageDesign.thumbnailUrl | cmUrl"
+            [alt]="tenantTemplate.pageDesign.displayName"
+            class="thumbnail-image"
+          />
+          <i
+            *ngIf="!tenantTemplate.pageDesign || (tenantTemplate.pageDesign && !tenantTemplate.pageDesign.thumbnailUrl)"
+            class="mdi mdi-view-dashboard-outline thumbnail-icon"
+          ></i>
+        </div>
+
+        <div ngSpdItemCardVerticalActions class="preview-icon">
+          <button
+            ngSpdIconButton="rounded"
+            icon="eye-outline"
+            [disabled]="!tenantTemplate.pageDesign"
+            class="disabled-button"
+            [title]="'PAGE_DESIGNS.WORKSPACE.PREVIEW_MAPPED_PAGE_DESIGN' | translate"
+            (click)="previewMappedPageDesign(tenantTemplate.pageDesign?.itemId); $event.stopPropagation()"
+          ></button>
+        </div>
+      </ng-spd-item-card>
+    </div>
+
+    <app-empty-state
+      *ngIf="!(tenantTemplates$ | async)?.length && !isLoading"
+      [title]="'PAGE_DESIGNS.WORKSPACE.NO_AVAILABLE_TEMPLATES' | translate"
+      [btnText]="'PAGE_DESIGNS.WORKSPACE.GO_TO_TEMPLATES' | translate"
+      (btnClick)="openPageTemplates()"
+    ></app-empty-state>
+  </div>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button
+      ngSpdButton="primary"
+      [disabled]="
+        !selectedTemplate?.template?.templateId ||
+        !pageBranchItemName.length ||
+        !!nameInput.errors ||
+        apiErrorMessage ||
+        isLoading
+      "
+      (click)="createPageBranch(selectedTemplate?.template?.templateId, pageBranchItemName)"
+      >{{ 'COMMON.CREATE' | translate }}</button
+    >
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

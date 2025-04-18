@@ -1,0 +1,178 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'breakpoints';
+
+$collapse-btn-transition: linear 50ms;
+$collapse-btn-top-position: $spacing-4xl;
+$collapse-initial-btn-top-position: $spacing-7xl;
+$rhs-collapse-width: 34px;
+
+/*
+  Workaround to adjust the height of dropdown toggle buttons inside the topbar.
+  The dropdown toggle has a fixed hight that doesn't match the topbar.
+*/
+:host ::ng-deep {
+  .top-bar-right {
+    align-items: center;
+  }
+
+  ng-spd-top-bar .ng-spd-droplist-toggle {
+    height: $generic-header-height;
+  }
+
+  ng-spd-page-pane.collapsable.hide {
+    width: $rhs-collapse-width !important;
+    visibility: visible;
+    cursor: pointer;
+
+    app-editor-rhs {
+      display: none;
+    }
+  }
+}
+
+ng-spd-split-pane {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: $page-pane-z-index;
+  border-right: $framework-border;
+  border-color: $page-background-color;
+  box-sizing: border-box;
+
+  &.static.hide {
+    transition:
+      width 0.25s ease-in-out,
+      visibility 0s linear 0.25s;
+    visibility: hidden;
+    width: 0 !important;
+  }
+}
+
+.left-hand-side {
+  flex-grow: 1;
+  flex-basis: 0;
+  overflow: hidden;
+}
+
+.router-animation-wrapper {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.workspace-top-bar {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  height: 0;
+  width: 100%;
+  overflow: visible;
+  position: absolute;
+  left: 0;
+  top: $collapse-initial-btn-top-position;
+
+  .rotate {
+    transform: rotate(180deg);
+  }
+
+  .toggle-panel-btn {
+    opacity: 0;
+    z-index: 0;
+    transition: opacity $collapse-btn-transition;
+    line-height: initial;
+
+    ::ng-deep {
+      i.mdi {
+        box-sizing: border-box;
+        border-radius: 50%;
+        inset: 10px;
+        background-color: white;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    &:hover,
+    &.collapse-btn-show,
+    &.toggle-rhs-hide.rotate,
+    &.toggle-lhs-hide:not(.rotate) {
+      background-color: transparent !important; // Overwrite default styles
+      opacity: 1;
+      z-index: 1;
+    }
+
+    @include media-breakpoint-down(md) {
+      &:not(.toggle-lhs-hide) {
+        background-color: transparent !important; // Overwrite default styles
+        opacity: 1;
+        z-index: 1;
+      }
+    }
+
+    &.toggle-rhs-hide {
+      position: fixed;
+      right: calc($spacing-17xl + 20px);
+      z-index: 5;
+      transition:
+        right 0.3s ease-in-out,
+        opacity 0.2s ease,
+        transform 0.2s ease;
+
+      &.rotate {
+        top: $collapse-btn-top-position;
+        right: 0;
+        width: $rhs-collapse-width;
+        z-index: 5;
+
+        ::ng-deep {
+          i.mdi {
+            background-color: transparent !important;
+            border: 0 !important;
+            inset: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+ng-spd-page-pane {
+  border-left: $framework-border;
+  border-color: $page-background-color;
+  position: relative;
+  z-index: $page-pane-z-index;
+  margin-top: 10px;
+
+  &.collapse {
+    visibility: hidden;
+    width: 0;
+  }
+
+  &.fluid {
+    position: fixed;
+    right: 200px;
+    top: 200px;
+    border: $framework-border;
+    box-shadow: $box-shadow;
+    border-radius: $border-radius-medium;
+  }
+}
+
+ng-spd-page-header {
+  z-index: 4;
+  height: max-content;
+
+  nav {
+    display: flex;
+  }
+}
+
+.button-header-margin {
+  margin-left: 1px;
+}
+
+.page-notification {
+  top: 66px; // Account for the editor header size, so the notification will be shown below. This will affect other modes like "Analytics" and "Templates", but it is expected and agreed with UX.
+}

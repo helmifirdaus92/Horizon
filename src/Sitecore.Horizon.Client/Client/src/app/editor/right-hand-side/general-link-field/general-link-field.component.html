@@ -1,0 +1,1 @@
+<app-general-link *ngIf="currentValue$ | async as data" [value]="data.value" (valueChange)="linkValueChanged($event)">

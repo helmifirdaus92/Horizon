@@ -1,0 +1,68 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.ab-test-configure-container {
+  .section {
+    margin-bottom: $spacing-3xs;
+
+    h3 {
+      margin-top: 0;
+    }
+
+    p {
+      font-size: $font-size-14px;
+      margin: 0;
+    }
+
+    .variant-item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-7xs;
+      margin-bottom: $spacing-7xs;
+
+      .variant-version-badge {
+        background-color: $ui-gray-100;
+        display: inline-block;
+        width: $spacing-2xs;
+        height: $spacing-2xs;
+        border-radius: $border-radius-small;
+        text-align: center;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+        box-sizing: border-box;
+      }
+    }
+
+    &.traffic-allocation-section,
+    &.advanced-options-section {
+      .variant-item,
+      > p {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+          text-align: right;
+          flex-grow: 1;
+          font-size: $font-size-24px;
+        }
+      }
+    }
+  }
+
+  .total {
+    font-size: $font-size-14px !important;
+    font-weight: $font-weight-bold;
+  }
+
+  .hr {
+    margin: $padding 0;
+  }
+
+  .statistical-sigificance-note {
+    font-size: $font-size-14px;
+    margin: 0;
+    padding-top: $padding-x-small;
+  }
+}

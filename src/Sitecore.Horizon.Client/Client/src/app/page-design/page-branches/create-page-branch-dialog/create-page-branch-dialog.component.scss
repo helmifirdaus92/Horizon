@@ -1,0 +1,64 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  .container {
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0 $padding-large 0 $padding-large;
+    padding: $padding-x-large $padding-x-large $padding-x-large $padding-x-large;
+
+    background-color: $brand-ui-white;
+    border: $framework-border;
+    border-radius: $border-radius-large;
+    overflow: auto;
+
+    .input {
+      max-width: $size-md;
+
+      .error-block p {
+        margin: 0;
+        color: $brand-signal-error;
+      }
+    }
+
+    .templates-selection-prompt-text {
+      padding-top: $padding;
+    }
+
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(calc($generic-element-height * 6), 1fr));
+      gap: $padding;
+
+      ng-spd-item-card {
+        .thumbnail-container {
+          display: grid;
+          place-items: center;
+
+          .thumbnail-image {
+            width: 100%;
+            border: 1px solid $ui-gray-100;
+            border-radius: $border-radius-small;
+            box-sizing: border-box;
+          }
+
+          .thumbnail-icon {
+            font-size: calc($generic-header-height + $generic-element-height);
+            width: $pop-panel-min-width;
+            height: $pop-panel-min-width;
+            color: $framework-border-color;
+            display: grid;
+            place-items: center;
+          }
+        }
+
+        .preview-icon {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}

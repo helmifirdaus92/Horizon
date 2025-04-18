@@ -1,0 +1,57 @@
+<div #container tabindex="0" class="external-link" (focusout)="onFocusOut($event)">
+  <div class="link-text wrapper">
+    <label ngSpdLabel for="linkText" class="mt-sm" [size]="size"
+      >{{ 'EDITOR.LINK.TEXT' | translate }}
+      <span *ngIf="!draftLink.value.text" role="presentation" class="required-indicator">*</span>
+    </label>
+    <input
+      #textInputRef="ngModel"
+      ngSpdInput
+      type="text"
+      [ngModel]="draftLink.value.text"
+      (ngModelChange)="draftLink.value.text = $event.trim()"
+      [isInvalid]="!draftLink.value.text && !!textInputRef.touched"
+      (click)="$event.stopPropagation()"
+      name="linkText"
+      autocomplete="off"
+      [size]="size"
+    />
+  </div>
+  <div class="link-title wrapper">
+    <label ngSpdLabel for="linkTitle" [size]="size">{{ 'EDITOR.LINK.ALT_TEXT' | translate }}</label>
+    <input
+      ngSpdInput
+      type="text"
+      (click)="$event.stopPropagation()"
+      [(ngModel)]="draftLink.value.title"
+      name="linkTitle"
+      autocomplete="off"
+      [size]="size"
+    />
+  </div>
+  <div class="link-url wrapper">
+    <label ngSpdLabel for="linkUrl" [size]="size"
+      >{{ 'EDITOR.LINK.URL' | translate }}
+      <span *ngIf="!draftLink.value.url" role="presentation" class="required-indicator">*</span>
+    </label>
+    <input
+      #linkInputRef="ngModel"
+      ngSpdInput
+      type="text"
+      [ngModel]="draftLink.value.url"
+      (ngModelChange)="draftLink.value.url = $event.trim()"
+      [isInvalid]="!draftLink.value.url && !!linkInputRef.touched"
+      (click)="$event.stopPropagation()"
+      name="linkUrl"
+      autocomplete="off"
+      required
+      [size]="size"
+    />
+  </div>
+
+  <ng-spd-checkbox
+    [text]="'EDITOR.LINK.OPEN_NEW_WINDOW' | translate"
+    [checked]="draftLink.value.target === '_blank'"
+    (checkedChange)="$event ? (draftLink.value.target = '_blank') : (draftLink.value.target = '')"
+  ></ng-spd-checkbox>
+</div>

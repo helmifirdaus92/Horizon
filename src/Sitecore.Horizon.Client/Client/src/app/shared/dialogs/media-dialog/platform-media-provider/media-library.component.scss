@@ -1,0 +1,66 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  display: flex;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: $pane-min-width; // to avoid the content to disapear completely when there is no space
+}
+
+.pane {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow-y: auto;
+  width: $pane-min-width;
+}
+
+.pane.left {
+  border-right: $framework-border;
+}
+
+.pane.right {
+  border-left: $framework-border;
+}
+
+app-media-action-bar {
+  flex-shrink: 0;
+}
+
+app-media-content {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+app-notifications {
+  display: block;
+  position: relative;
+}
+
+.empty {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+
+  img {
+    margin-bottom: $padding;
+  }
+
+  p {
+    text-align: center;
+  }
+}
+
+::ng-deep {
+  ng-spd-timed-notification-item .text {
+    white-space: pre-wrap;
+  }
+}

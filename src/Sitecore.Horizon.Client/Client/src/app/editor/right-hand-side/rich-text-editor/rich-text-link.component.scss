@@ -1,0 +1,16 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+.buttons {
+  display: flex;
+  margin-top: $padding;
+
+  button {
+    flex: 1 1 0;
+    min-width: initial;
+
+    &:first-child {
+      margin-right: $padding;
+    }
+  }
+}

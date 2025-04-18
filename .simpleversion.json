@@ -1,0 +1,10 @@
+{
+    "version": "8.1.*",
+    "metadata": [],
+    "branches": {
+    "release": [
+        "^(refs/)?(heads/)?release/[^/]+/master$",
+        "^(refs/)?(heads/)?master$"
+    ]
+    }
+}

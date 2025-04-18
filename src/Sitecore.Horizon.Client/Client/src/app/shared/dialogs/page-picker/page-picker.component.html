@@ -1,0 +1,10 @@
+<div class="loading-indicator-container px-md m-auto" *ngIf="isLoading">
+  <ng-spd-horizontal-bars-loading-indicator [barAmount]="10"></ng-spd-horizontal-bars-loading-indicator>
+</div>
+<app-item-tree
+  [data]="data$ | async"
+  [select]="itemId | normalizeGuid"
+  [getChildren]="getChildrenThisBound"
+  (selectChange)="onSelect($event)"
+>
+</app-item-tree>

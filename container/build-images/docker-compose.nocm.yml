@@ -1,0 +1,14 @@
+services:
+  hrz:
+    image: sitecore-horizon
+    build:
+      context: ./hrz
+      args:
+        BASE_IMAGE: ${HRZ_BASE_IMAGE}
+  jsshost:
+    image: jssapp:latest
+    build:
+      context: ./jsshost
+      args:
+        JSS_BASE_IMAGE: ${JSS_BASE_IMAGE}
+        NODEJS_VERSION: ${NODEJS_VERSION}

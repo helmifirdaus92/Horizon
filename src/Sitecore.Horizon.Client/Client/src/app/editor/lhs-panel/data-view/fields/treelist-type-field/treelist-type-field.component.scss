@@ -1,0 +1,25 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.multi-tree-list-items {
+  display: flex;
+  gap: $padding;
+  align-items: center;
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    flex: 1;
+  }
+  .remove-items {
+    display: flex;
+    height: $spacing-xl;
+  }
+}

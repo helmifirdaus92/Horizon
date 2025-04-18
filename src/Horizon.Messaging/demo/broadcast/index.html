@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <style>
+    .recipients {
+      width: 50%;
+      height: 95vh;
+      float: right;
+      border: 2px solid black;
+
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .recipient {
+      flex-grow: 1;
+      flex-basis: 100%;
+
+      overflow-y: auto;
+    }
+
+    .kill {
+      float: right;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="recipients">
+    <h1>Recipients</h1>
+    <button name="add-recipient">Add recipient</button>
+    <template id="recipient-template">
+      <div class="recipient">
+        <h2>Recipient #<span id="recipient-id"></span>&nbsp;&nbsp;&nbsp;&nbsp;<button name="kill">X</button></h2>
+        <button name="call-rpc">Call remote method</button>
+
+        <pre id="recipient-output"></pre>
+      </div>
+    </template>
+  </div>
+
+  <a href="../index.html">Back</a>
+
+  <h1>Broadcast - Host frame</h1>
+  <br />
+  <button name="send-message">Send message to recipients</button>
+  <button name="send-sync-message">Send sync message to recipients</button>
+  <br />
+  <br />
+  LOG:
+  <pre id="output"></pre>
+
+
+  <script data-main="/dist/demo/broadcast/index"
+          src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js"
+          integrity="sha256-lIXwkX+X/PT2Ol6jZSAP/VfxI/RROCovmhrS4v1RrJs=" crossorigin="anonymous"></script>
+</body>
+
+</html>

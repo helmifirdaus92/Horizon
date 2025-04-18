@@ -1,0 +1,293 @@
+<!-- Selector -->
+<div class="alignment-selector">
+  <button class="drag" ngSpdIconButton icon="drag-vertical"></button>
+  <button
+    ngSpdDroplistToggle
+    class="toggle-popover"
+    [ngSpdPopover]="popoverTemplate"
+    [popoverPosition]="'below'"
+    [popoverShowDelay]="0"
+    [popoverHideDelay]="0"
+    [popoverOffset]="0"
+    [opened]="popoverInstanceRef.isPopoverVisible()"
+    [hideOnBackdropClick]="true"
+    #popoverInstanceRef="ngSpdPopover"
+    (click)="popoverInstanceRef.toggle(); $event.stopPropagation()"
+  >
+    <span class="placeholder">
+      <p class="base">{{ currentBaseAligTranslationKey | translate }}</p>
+      <span class="position">
+        <p *ngIf="isDistribute">{{ 'RHS.SUPER_LAYOUT.DISTRIBUTE' | translate }}</p>
+        <p>{{ currentPosTranslationKey | translate }}</p>
+      </span>
+    </span>
+  </button>
+</div>
+
+<!-- Alignment template -->
+<ng-template #popoverTemplate>
+  <div class="alignment-content">
+    <div class="left-panel">
+      <h1 class="heading">{{ 'RHS.SUPER_LAYOUT.LAYOUT' | translate }}</h1>
+      <div class="alignment-switcher">
+        <button
+          ngSpdIconButton="ghostPrimary"
+          (click)="setDirection('horizontal')"
+          icon="arrow-right-thin"
+          [title]="'RHS.SUPER_LAYOUT.HORIZONTAL' | translate"
+          [size]="'sm'"
+          [selected]="direction === 'horizontal'"
+        ></button>
+        <button
+          ngSpdIconButton="ghostPrimary"
+          (click)="setDirection('vertical')"
+          icon="arrow-down-thin"
+          [title]="'RHS.SUPER_LAYOUT.VERTICAL' | translate"
+          [selected]="direction === 'vertical'"
+          [size]="'sm'"
+        ></button>
+      </div>
+      <div class="layout-switcher">
+        <ng-spd-switch
+          *ngIf="direction === 'horizontal'"
+          [text]="'RHS.SUPER_LAYOUT.WRAP' | translate"
+          (changeEmitter)="isWrappedChanged.emit($event)"
+          [checked]="isWrapped === true"
+        >
+        </ng-spd-switch>
+        <ng-spd-switch
+          [text]="'RHS.SUPER_LAYOUT.DISTRIBUTE' | translate"
+          (changeEmitter)="toggleDistributeAlignment($event)"
+          [checked]="isDistribute === true"
+        >
+        </ng-spd-switch>
+      </div>
+    </div>
+
+    <!-- Alignment selection -->
+    <div class="right-panel">
+      <h1 class="heading">{{ 'RHS.SUPER_LAYOUT.ALIGNMENT' | translate }}</h1>
+
+      <!-- Horizontal -->
+      <div class="row-container" *ngIf="direction === 'horizontal'">
+        <div class="row">
+          <ng-container *ngIf="!isDistribute || position !== 'distributed-start'; else distributeTop">
+            <button (click)="setPosition('top-left')" class="item" [title]="'RHS.SUPER_LAYOUT.TOP_LEFT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'top-left'">
+                  <ng-container [ngTemplateOutlet]="topGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button (click)="setPosition('top-center')" class="item" [title]="'RHS.SUPER_LAYOUT.TOP_CENTER' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'top-center'">
+                  <ng-container *ngTemplateOutlet="topGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button (click)="setPosition('top-right')" class="item" [title]="'RHS.SUPER_LAYOUT.TOP_RIGHT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'top-right'">
+                  <ng-container *ngTemplateOutlet="topGroupSelected"> </ng-container>
+                </ng-container>
+              </span>
+            </button>
+          </ng-container>
+        </div>
+        <div class="row">
+          <ng-container *ngIf="!isDistribute || position !== 'distributed-center'; else distributeCenter">
+            <button (click)="setPosition('center-left')" [title]="'RHS.SUPER_LAYOUT.CENTER_LEFT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'center-left'">
+                  <ng-container *ngTemplateOutlet="centerGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button (click)="setPosition('center-center')" [title]="'RHS.SUPER_LAYOUT.CENTER_CENTER' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'center-center'">
+                  <ng-container *ngTemplateOutlet="centerGroupSelected"></ng-container> </ng-container
+              ></span>
+            </button>
+            <button (click)="setPosition('center-right')" [title]="'RHS.SUPER_LAYOUT.CENTER_RIGHT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'center-right'">
+                  <ng-container *ngTemplateOutlet="centerGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+          </ng-container>
+        </div>
+        <div class="row">
+          <ng-container *ngIf="!isDistribute || position !== 'distributed-end'; else distributeBottom">
+            <button (click)="setPosition('bottom-left')" [title]="'RHS.SUPER_LAYOUT.BOTTOM_LEFT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'bottom-left'">
+                  <ng-container *ngTemplateOutlet="bottomGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button (click)="setPosition('bottom-center')" [title]="'RHS.SUPER_LAYOUT.BOTTOM_CENTER' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'bottom-center'">
+                  <ng-container *ngTemplateOutlet="bottomGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button (click)="setPosition('bottom-right')" [title]="'RHS.SUPER_LAYOUT.BOTTOM_RIGHT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'bottom-right'">
+                  <ng-container *ngTemplateOutlet="bottomGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Vertical -->
+      <div class="row-container vertical" *ngIf="direction === 'vertical'">
+        <div class="row">
+          <ng-container *ngIf="!isDistribute || position !== 'distributed-start'; else distributeTop">
+            <button (click)="setPosition('top-left')" class="item" [title]="'RHS.SUPER_LAYOUT.TOP_LEFT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'top-left'">
+                  <ng-container [ngTemplateOutlet]="topGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button
+              (click)="setPosition('center-left')"
+              class="item"
+              [title]="'RHS.SUPER_LAYOUT.CENTER_LEFT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'center-left'">
+                  <ng-container *ngTemplateOutlet="topGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button
+              (click)="setPosition('bottom-left')"
+              class="item"
+              [title]="'RHS.SUPER_LAYOUT.BOTTOM_LEFT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'bottom-left'">
+                  <ng-container *ngTemplateOutlet="topGroupSelected"> </ng-container>
+                </ng-container>
+              </span>
+            </button>
+          </ng-container>
+        </div>
+        <div class="row">
+          <ng-container *ngIf="!isDistribute || position !== 'distributed-center'; else distributeCenter">
+            <button (click)="setPosition('top-center')" [title]="'RHS.SUPER_LAYOUT.TOP_CENTER' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'top-center'">
+                  <ng-container *ngTemplateOutlet="centerGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button (click)="setPosition('center-center')" [title]="'RHS.SUPER_LAYOUT.CENTER_CENTER' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'center-center'">
+                  <ng-container *ngTemplateOutlet="centerGroupSelected"></ng-container> </ng-container
+              ></span>
+            </button>
+            <button (click)="setPosition('bottom-center')" [title]="'RHS.SUPER_LAYOUT.BOTTOM_CENTER' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'bottom-center'">
+                  <ng-container *ngTemplateOutlet="centerGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+          </ng-container>
+        </div>
+        <div class="row">
+          <ng-container *ngIf="!isDistribute || position !== 'distributed-end'; else distributeBottom">
+            <button (click)="setPosition('top-right')" [title]="'RHS.SUPER_LAYOUT.TOP_RIGHT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'top-right'">
+                  <ng-container *ngTemplateOutlet="bottomGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button (click)="setPosition('center-right')" [title]="'RHS.SUPER_LAYOUT.CENTER_RIGHT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'center-right'">
+                  <ng-container *ngTemplateOutlet="bottomGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+            <button (click)="setPosition('bottom-right')" [title]="'RHS.SUPER_LAYOUT.BOTTOM_RIGHT' | translate"
+              ><span class="alignment">
+                <ng-container *ngIf="position === 'bottom-right'">
+                  <ng-container *ngTemplateOutlet="bottomGroupSelected"></ng-container>
+                </ng-container>
+              </span>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Horizontal/Vertical alignment active state icon -->
+<ng-template #topGroupSelected>
+  <div class="top-group-selected">
+    <div class="icon-block" [class.vertical]="direction === 'vertical'">
+      <div class="block-1"></div>
+      <div class="block-2"></div>
+      <div class="block-3"></div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #centerGroupSelected>
+  <div class="center-group-selected">
+    <div class="icon-block" [class.vertical]="direction === 'vertical'">
+      <div class="block-1"></div>
+      <div class="block-2"></div>
+      <div class="block-3"></div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #bottomGroupSelected>
+  <div class="bottom-group-selected">
+    <div class="icon-block" [class.vertical]="direction === 'vertical'">
+      <div class="block-1"></div>
+      <div class="block-2"></div>
+      <div class="block-3"></div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Distribute horizontal/vertical active state icon -->
+<ng-template #distributeTop>
+  <div class="distribute-top">
+    <div class="icon-block-distribute" [class.vertical]="direction === 'vertical'">
+      <div class="block-1"></div>
+      <div class="block-2"></div>
+      <div class="block-3"></div
+    ></div>
+  </div>
+</ng-template>
+<ng-template #distributeCenter>
+  <div class="distribute-center">
+    <div class="icon-block-distribute" [class.vertical]="direction === 'vertical'">
+      <div class="block-1"></div>
+      <div class="block-2"></div>
+      <div class="block-3"></div
+    ></div>
+  </div>
+</ng-template>
+
+<ng-template #distributeBottom>
+  <div class="distribute-bottom">
+    <div class="icon-block-distribute" [class.vertical]="direction === 'vertical'">
+      <div class="block-1"></div>
+      <div class="block-2"></div>
+      <div class="block-3"></div
+    ></div>
+  </div>
+</ng-template>

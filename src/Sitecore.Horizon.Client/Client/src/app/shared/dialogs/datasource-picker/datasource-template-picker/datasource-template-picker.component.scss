@@ -1,0 +1,14 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  ng-spd-slide-in-panel {
+    background: $bg;
+  }
+
+  .list {
+    padding-top: $padding;
+  }
+}

@@ -1,0 +1,13 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: flex;
+  white-space: nowrap;
+
+  button {
+    box-sizing: border-box;
+    padding: 0;
+    width: $generic-header-height;
+    height: $generic-header-height;
+  }
+}

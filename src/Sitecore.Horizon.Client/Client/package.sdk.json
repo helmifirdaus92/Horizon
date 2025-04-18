@@ -1,0 +1,12 @@
+{
+  "name": "@sitecore/horizon-sdk",
+  "version": "0.0.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "@sitecore/page-composer-sdk": ">=1.0.0"
+  }
+}

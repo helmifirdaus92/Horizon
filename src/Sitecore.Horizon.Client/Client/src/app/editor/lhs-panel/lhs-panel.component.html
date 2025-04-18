@@ -1,0 +1,19 @@
+<div class="header">
+  <div class="header-text" *ngIf="getHeader() as header">
+    <img [src]="header.iconUrl" [alt]="header.text" class="logo-img" />
+    {{ header.text }}
+  </div>
+
+  <div>
+    <ng-container *ngIf="hasExpand()">
+      <button *ngIf="!(isExpanded$ | async)" ngSpdIconButton icon="fullscreen" (click)="toggleExpand()"></button>
+      <button *ngIf="!!(isExpanded$ | async)" ngSpdIconButton icon="fullscreen-exit" (click)="toggleExpand()"></button>
+    </ng-container>
+    <button ngSpdIconButton icon="close" (click)="closePanel()"></button>
+  </div>
+</div>
+
+<ng-container #viewContainerRef></ng-container>
+
+<div class="pane-divider" (mousedown)="startDragging($event)" (touchstart)="startDragging($event)"></div>
+<div class="overlay" *ngIf="isDragging"></div>

@@ -1,0 +1,55 @@
+<ng-spd-dialog-panel>
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>
+    {{ 'EDITOR.DATA_VIEW.SELECT_ITEM' | translate }}
+  </ng-spd-dialog-header>
+
+  @if (!isLoading) {
+    <div [appWatchScrollToBottom]="true" (scrolledToBottom)="onFetchNextDsBatch.emit()" class="dialog-body">
+      <div class="item-tree">
+        <span class="text-bold mb-sm">{{ 'EDITOR.DATA_VIEW.ALL_ITEMS' | translate }}</span>
+        <app-item-tree
+          [data]="data"
+          [getChildren]="getChildrenThisBound"
+          [expandSelected]="true"
+          [contextMenu]="addButton"
+        >
+        </app-item-tree>
+      </div>
+      @if (currentValue.length) {
+        <div class="selected-items-list">
+          <span class="text-bold mb-sm">{{ 'EDITOR.DATA_VIEW.SELECTED_ITEMS' | translate }}</span>
+          @for (item of currentValue; track item.itemId) {
+            <div class="item">
+              <span class="name">{{ item.displayName }}</span>
+              <button
+                ngSpdIconButton="ghost"
+                icon="minus"
+                [title]="'EDITOR.DATA_VIEW.REMOVE' | translate"
+                (click)="removeItem(item.itemId)"
+              ></button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+    <ng-spd-dialog-actions>
+      <button ngSpdButton="outline" (click)="close()" [size]="'sm'">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button ngSpdButton="primary" [size]="'sm'" (click)="saveNewValue()">
+        {{ 'EDITOR.DATA_VIEW.SAVE' | translate }}
+      </button>
+    </ng-spd-dialog-actions>
+  } @else {
+    <ng-spd-loading-indicator class="pt-md pb-md"></ng-spd-loading-indicator>
+  }
+</ng-spd-dialog-panel>
+
+<ng-template #addButton let-contextNode="node">
+  <button
+    ngSpdIconButton="ghostPrimary"
+    icon="plus"
+    [attr.aria-label]="'EDITOR.DATA_VIEW.ADD_ITEM' | translate"
+    [title]="'EDITOR.DATA_VIEW.ADD_ITEM' | translate"
+    (click)="addItem(contextNode.id, contextNode.displayName); $event.stopPropagation()"
+  ></button>
+</ng-template>

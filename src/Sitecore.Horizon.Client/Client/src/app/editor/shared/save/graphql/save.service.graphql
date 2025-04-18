@@ -1,0 +1,30 @@
+mutation Save($input: SaveItemInput!) {
+  saveItem(input: $input) {
+    errors {
+      errorCode
+      message
+      itemId
+    }
+    validationErrors {
+      aborted
+      errorMessage
+    }
+    warnings
+    savedItems {
+      id
+      revision
+      version
+      fields {
+        id
+        value
+        originalValue
+        reset
+      }
+    }
+    newCreatedVersions {
+      itemId
+      displayName
+      versionNumber
+    }
+  }
+}

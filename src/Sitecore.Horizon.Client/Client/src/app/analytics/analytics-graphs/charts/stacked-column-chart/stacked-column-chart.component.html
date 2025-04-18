@@ -1,0 +1,43 @@
+<div class="chart-container">
+  <ngx-charts-bar-horizontal-stacked
+    *ngIf="hasMultipleSeries"
+    #ngxChartComponent
+    class="chart-component"
+    [view]="config.view"
+    [animations]="config.animations"
+    [scheme]="config.colorScheme"
+    [results]="_items"
+    [gradient]="config.gradient"
+    [xAxis]="config.showXAxis"
+    [yAxis]="config.showYAxis"
+    [legend]="config.showLegend"
+    [showXAxisLabel]="config.showXAxisLabel"
+    [showYAxisLabel]="config.showYAxisLabel"
+    [xAxisLabel]="config.xAxisLabel"
+    [yAxisLabel]="config.yScaleMax + ''"
+    [barPadding]="config.barPadding"
+    (select)="onSelect($event)"
+    (activate)="activateHandler($event)"
+    (deactivate)="deactivateHandler()"
+    [activeEntries]="activeEntries"
+    [xAxisTickFormatting]="formatValueForChart"
+    [yAxisTickFormatting]="formatNameForChart"
+  >
+    <ng-template #tooltipTemplate let-model="model" class="tooltip-container">
+      <span class="tooltip-item-color" [style.background-color]="getTooltipItemColor(model)"></span>
+      {{ formatSeriesNameForDisplay(model.name, model) }}:
+      <span class="tooltip-value">{{ formatValueForDisplay(model.value, model) }}</span>
+    </ng-template>
+  </ngx-charts-bar-horizontal-stacked>
+</div>
+<div *ngIf="!isLegendVisible" class="empty-container"></div>
+<app-chart-legend
+  *ngIf="isLegendVisible"
+  [legendLabelFormatter]="formatNameForDisplay"
+  class="legend-container"
+  [activeItem]="activeItem"
+  [legendItems]="legendItems"
+  [palette]="config.colorScheme.domain"
+  (itemHighlighted)="itemHighlightedHandler($event)"
+>
+</app-chart-legend>

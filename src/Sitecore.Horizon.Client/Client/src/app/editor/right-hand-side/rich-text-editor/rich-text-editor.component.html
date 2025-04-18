@@ -1,0 +1,172 @@
+<select ngSpdInput [ngModel]="formatting.header" (ngModelChange)="header($event)">
+  <option *ngFor="let header of headers" [ngValue]="header">{{
+    header === undefined
+      ? ('EDITOR.RTE.HEADER.NORMAL' | translate)
+      : ('EDITOR.RTE.HEADER.PREFIX' | translate) + ' ' + (header || '')
+  }}</option>
+</select>
+
+<div class="row">
+  <ng-spd-icon-button-group ngSpdIconButtonCheck>
+    <button
+      ngSpdIconButton
+      icon="format-bold"
+      [attr.aria-label]="'EDITOR.RTE.FORMAT.BOLD' | translate"
+      [title]="'EDITOR.RTE.FORMAT.BOLD' | translate"
+      [selected]="!!formatting.bold"
+      #bold
+      (click)="format('bold', bold.selected)"
+    ></button>
+    <button
+      ngSpdIconButton
+      icon="format-italic"
+      [attr.aria-label]="'EDITOR.RTE.FORMAT.ITALIC' | translate"
+      [title]="'EDITOR.RTE.FORMAT.ITALIC' | translate"
+      [selected]="!!formatting.italic"
+      #italic
+      (click)="format('italic', italic.selected)"
+    ></button>
+    <button
+      ngSpdIconButton
+      icon="format-underline"
+      [attr.aria-label]="'EDITOR.RTE.FORMAT.UNDERLINE' | translate"
+      [title]="'EDITOR.RTE.FORMAT.UNDERLINE' | translate"
+      [selected]="!!formatting.underline"
+      #underline
+      (click)="format('underline', underline.selected)"
+    ></button>
+    <button
+      ngSpdIconButton
+      icon="format-strikethrough"
+      [attr.aria-label]="'EDITOR.RTE.FORMAT.STRIKETHROUGH' | translate"
+      [title]="'EDITOR.RTE.FORMAT.STRIKETHROUGH' | translate"
+      [selected]="!!formatting.strike"
+      #strikethrough
+      (click)="format('strike', strikethrough.selected)"
+    ></button>
+  </ng-spd-icon-button-group>
+  <ng-spd-icon-button-group ngSpdIconButtonRadio>
+    <button
+      ngSpdIconButton
+      icon="format-list-bulleted-square"
+      [attr.aria-label]="'EDITOR.RTE.LIST.BULLET' | translate"
+      [title]="'EDITOR.RTE.LIST.BULLET' | translate"
+      [selected]="isSelected('list', 'bullet')"
+      (click)="list('bullet')"
+    ></button>
+    <button
+      ngSpdIconButton
+      icon="format-list-numbered"
+      [attr.aria-label]="'EDITOR.RTE.LIST.NUMBERED' | translate"
+      [title]="'EDITOR.RTE.LIST.NUMBERED' | translate"
+      [selected]="isSelected('list', 'ordered')"
+      (click)="list('ordered')"
+    ></button>
+  </ng-spd-icon-button-group>
+</div>
+
+<div class="row">
+  <ng-spd-icon-button-group ngSpdIconButtonRadio>
+    <button
+      ngSpdIconButton
+      icon="format-align-left"
+      [attr.aria-label]="'EDITOR.RTE.ALIGN.LEFT' | translate"
+      [title]="'EDITOR.RTE.ALIGN.LEFT' | translate"
+      [selected]="isSelected('align', false)"
+      (click)="align(false)"
+    ></button>
+    <button
+      ngSpdIconButton
+      icon="format-align-center"
+      [attr.aria-label]="'EDITOR.RTE.ALIGN.CENTER' | translate"
+      [title]="'EDITOR.RTE.ALIGN.CENTER' | translate"
+      [selected]="isSelected('align', 'center')"
+      (click)="align('center')"
+    ></button>
+    <button
+      ngSpdIconButton
+      icon="format-align-right"
+      [attr.aria-label]="'EDITOR.RTE.ALIGN.RIGHT' | translate"
+      [title]="'EDITOR.RTE.ALIGN.RIGHT' | translate"
+      [selected]="isSelected('align', 'right')"
+      (click)="align('right')"
+    ></button>
+    <button
+      ngSpdIconButton
+      icon="format-align-justify"
+      [attr.aria-label]="'EDITOR.RTE.ALIGN.JUSTIFY' | translate"
+      [title]="'EDITOR.RTE.ALIGN.JUSTIFY' | translate"
+      [selected]="isSelected('align', 'justify')"
+      (click)="align('justify')"
+    ></button>
+  </ng-spd-icon-button-group>
+  <ng-spd-icon-button-group>
+    <button
+      ngSpdIconButton
+      icon="format-indent-increase"
+      [attr.aria-label]="'EDITOR.RTE.INDENT.INCREASE' | translate"
+      [title]="'EDITOR.RTE.INDENT.INCREASE' | translate"
+      (click)="indent(+1)"
+      [disabled]="formatting.indent === 8"
+    ></button>
+    <button
+      ngSpdIconButton
+      icon="format-indent-decrease"
+      [attr.aria-label]="'EDITOR.RTE.INDENT.DECREASE' | translate"
+      [title]="'EDITOR.RTE.INDENT.DECREASE' | translate"
+      (click)="indent(-1)"
+      [disabled]="formatting.indent === 0 || formatting.indent === undefined"
+    ></button>
+  </ng-spd-icon-button-group>
+</div>
+
+<div class="row">
+  <ng-spd-icon-button-group>
+    <button
+      ngSpdIconButton
+      icon="format-clear"
+      [disabled]="!hasSelection"
+      [attr.aria-label]="'EDITOR.RTE.REMOVE_FORMATTING' | translate"
+      [title]="'EDITOR.RTE.REMOVE_FORMATTING' | translate"
+      (click)="reset()"
+    ></button>
+  </ng-spd-icon-button-group>
+  <ng-spd-icon-button-group>
+    <button
+      ngSpdIconButton
+      icon="link"
+      [disabled]="!(isEditingLink || hasSelection)"
+      [attr.aria-label]="'EDITOR.RTE.LINK.CREATE_OR_EDIT_LINK' | translate"
+      [title]="'EDITOR.RTE.LINK.CREATE_OR_EDIT_LINK' | translate"
+      (click)="showLink = true"
+    ></button>
+  </ng-spd-icon-button-group>
+  <ng-spd-icon-button-group>
+    <button
+      ngSpdIconButton
+      icon="image"
+      [attr.aria-label]="'EDITOR.RTE.MEDIA.INSERT' | translate"
+      [title]="'EDITOR.RTE.MEDIA.INSERT' | translate"
+      (click)="selectFromMediaDialog()"
+    ></button>
+  </ng-spd-icon-button-group>
+
+  <ng-spd-icon-button-group>
+    <button
+      ngSpdIconButton
+      icon="code-tags"
+      [attr.aria-label]="'EDITOR.RTE.EDIT_SOURCE_CODE' | translate"
+      [title]="'EDITOR.RTE.EDIT_SOURCE_CODE' | translate"
+      (click)="editSourceCode()"
+    ></button>
+  </ng-spd-icon-button-group>
+</div>
+
+<ng-spd-slide-in-panel *ngIf="showLink" @rhsSlideInPanel>
+  <ng-spd-slide-in-panel-header (back)="showLink = false"
+    >{{ 'EDITOR.RTE.LINK.HEADER' | translate }}
+  </ng-spd-slide-in-panel-header>
+  <ng-spd-slide-in-panel-content (focusout)="onLinkPanelFocusChange()">
+    <app-rich-text-link [link]="link" (linkChange)="setLink($event)"></app-rich-text-link>
+  </ng-spd-slide-in-panel-content>
+</ng-spd-slide-in-panel>

@@ -1,0 +1,13 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+$transition: ease 200ms;
+
+.description {
+  @include subtle-text();
+}
+
+input {
+  transition: $transition;
+}

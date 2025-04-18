@@ -1,0 +1,102 @@
+<ng-spd-accordion class="v2">
+  <ng-spd-accordion-header [isOpened]="isAccordionOpen" (isOpenedChange)="getItemInsetOptions($event)">
+    {{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.INSERT_OPTIONS' | translate }}
+  </ng-spd-accordion-header>
+  <ng-spd-accordion-content class="pt-0">
+    <div *ngIf="isLoading">
+      <ng-spd-loading-indicator></ng-spd-loading-indicator>
+    </div>
+    <div class="content">
+      <div class="template">
+        <div class="open-page-templates">
+          <p class="template-name mb-sm mr-l mt-0">
+            {{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PAGE_TEMPLATE' | translate }}:
+            <span>&nbsp;{{ pageTemplate?.template?.name }}</span>
+          </p>
+          <a
+            [title]="'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.OPEN_TEMPLATES_AREA' | translate"
+            class="link"
+            [routerLink]="['/templates/pagetemplates']"
+            queryParamsHandling="merge"
+            target="_blank"
+          >
+            {{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.OPEN_TEMPLATES_AREA' | translate }}
+          </a>
+        </div>
+        <div class="sub-header mt-xs">{{
+          'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PAGE_TEMPLATE_INSERT_OPTIONS' | translate
+        }}</div>
+        <div class="sub-header-helper-text mb-sm">{{
+          'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PAGE_TEMPLATE_INSERT_OPTIONS_HELPER_TEXT' | translate
+        }}</div>
+        <div *ngIf="!pageTemplateInsertOptions.length">
+          {{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PAGE_TEMPLATE_INSERT_OPTIONS_NOT_CONFIGURED' | translate }}
+        </div>
+        <div *ngFor="let option of pageTemplateInsertOptions" class="item">
+          <i class="icon mdi mdi-check"></i><span>{{ option.displayName }}</span>
+        </div>
+      </div>
+      <div class="page">
+        <div class="sub-header-wrapper">
+          <div class="sub-header">{{
+            'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PAGE_LOCAL_INSERT_OPTIONS' | translate
+          }}</div>
+
+          <div class="restore-template ml-sm" [hidden]="!page?.permissions?.canWrite || this.reset">
+            <i
+              class="mdi mdi-restore"
+              (click)="restoreDefaultInsertOptions()"
+              (keyup)="restoreDefaultInsertOptions()"
+              [ngSpdTooltip]="
+                'PAGE_DESIGNS.WORKSPACE.MANAGE_PAGE_DESIGN_DIALOG.RESTORE_TO_DEFAULT_TEMPLATE' | translate
+              "
+              tooltipPosition="above"
+            ></i>
+          </div>
+        </div>
+        <div class="sub-header-helper-text mb-sm">{{
+          'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.PAGE_LOCAL_INSERT_OPTIONS_HELPER_TEXT' | translate
+        }}</div>
+
+        <div class="checkbox-list" *ngFor="let item of templatesList">
+          <div
+            [ngSpdPopover]="noWritePermissionInfoTemplate"
+            (mouseenter)="popoverRef.show(500)"
+            (mouseleave)="popoverRef.hide()"
+            [popoverPosition]="'below'"
+            [popoverOffset]="5"
+            #popoverRef="ngSpdPopover"
+          >
+            <ng-spd-checkbox
+              [disabled]="!page?.permissions?.canWrite"
+              [checked]="isPageInsertOption(item.template.templateId)"
+              (checkedChange)="updatePageInsertOptions($event, item.template.templateId, item.template.name)"
+            >
+            </ng-spd-checkbox>
+          </div>
+          <span>{{ item.template.name }}</span>
+        </div>
+        <div class="actions pt-sm">
+          <div class="button-wrapper">
+            <button
+              ngSpdButton="solidPrimary"
+              [disabled]="!page?.permissions?.canWrite || !isChanged"
+              class="ml-sm"
+              (click)="saveChanges()"
+              >{{ 'COMMON.SAVE' | translate }}</button
+            >
+          </div>
+        </div>
+        <div *ngIf="apiErrorMessage" class="error-block">
+          <p>{{ apiErrorMessage }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-spd-accordion-content>
+</ng-spd-accordion>
+
+<ng-template #noWritePermissionInfoTemplate>
+  <div class="popover-dialog" *ngIf="!page?.permissions?.canWrite">
+    <span [innerHTML]="'PAGE_DESIGNS.WORKSPACE.NO_WRITE_ACCESS' | translate"></span>
+  </div>
+</ng-template>

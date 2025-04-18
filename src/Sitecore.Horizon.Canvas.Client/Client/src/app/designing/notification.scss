@@ -1,0 +1,21 @@
+@import 'variables';
+
+.sc-error-block {
+  display: flex;
+  box-sizing: border-box;
+  width: max-content;
+  height: $padding-x-large;
+  border-radius: $border-radius-small;
+  background-color: $brand-signal-error;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  z-index: $horizon-zIndex-elementOutline;
+
+  .sc-error-text {
+    display: block;
+    padding: $padding-small;
+    color: $color-inverse;
+    font-size: 14px;
+  }
+}

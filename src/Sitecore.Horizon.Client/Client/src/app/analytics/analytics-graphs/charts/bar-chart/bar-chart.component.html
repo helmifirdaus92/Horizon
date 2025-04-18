@@ -1,0 +1,81 @@
+<div class="chart-container">
+  <ngx-charts-bar-vertical
+    *ngIf="!horizontal"
+    #ngxChartComponent
+    class="chart-component"
+    [view]="config.view"
+    [animations]="config.animations"
+    [scheme]="config.colorScheme"
+    [results]="_items"
+    [gradient]="config.gradient"
+    [xAxis]="config.showXAxis"
+    [yAxis]="config.showYAxis"
+    [legend]="config.showLegend"
+    [showXAxisLabel]="config.showXAxisLabel"
+    [showYAxisLabel]="config.showYAxisLabel"
+    [xAxisLabel]="config.xAxisLabel"
+    [yAxisLabel]="config.yAxisLabel"
+    [yScaleMin]="config.yScaleMin"
+    [yScaleMax]="config.yScaleMax"
+    [barPadding]="config.barPadding"
+    [noBarWhenZero]="noBarWhenZero"
+    [roundEdges]="config.roundEdges"
+    (select)="onSelect($event)"
+    (activate)="activateHandler($event)"
+    (deactivate)="deactivateHandler()"
+    [activeEntries]="activeEntries"
+    [xAxisTickFormatting]="formatNameForChart"
+    [yAxisTickFormatting]="formatValueForChart"
+  >
+    <ng-template #tooltipTemplate let-model="model" class="tooltip-container">
+      <span class="tooltip-item-color" [style.background-color]="getTooltipItemColor(model)"></span>
+      {{ formatNameForDisplay(model.name, model) }}:
+      <span class="tooltip-value">{{ formatValueForDisplay(model.value, model) }}</span>
+    </ng-template>
+  </ngx-charts-bar-vertical>
+  <ngx-charts-bar-horizontal
+    *ngIf="horizontal"
+    #ngxChartComponent
+    class="chart-component"
+    [view]="config.view"
+    [animations]="config.animations"
+    [scheme]="config.colorScheme"
+    [results]="_items"
+    [gradient]="config.gradient"
+    [xAxis]="config.showXAxis"
+    [yAxis]="config.showYAxis"
+    [legend]="config.showLegend"
+    [showXAxisLabel]="config.showXAxisLabel"
+    [showYAxisLabel]="config.showYAxisLabel"
+    [xAxisLabel]="config.xAxisLabel"
+    [yAxisLabel]="config.yAxisLabel"
+    [xScaleMin]="config.xScaleMin"
+    [xScaleMax]="config.xScaleMax"
+    [barPadding]="config.barPadding"
+    [noBarWhenZero]="noBarWhenZero"
+    [roundEdges]="config.roundEdges"
+    (select)="onSelect($event)"
+    (activate)="activateHandler($event)"
+    (deactivate)="deactivateHandler()"
+    [activeEntries]="activeEntries"
+    [xAxisTickFormatting]="formatNameForChart"
+    [yAxisTickFormatting]="formatValueForChart"
+  >
+    <ng-template #tooltipTemplate let-model="model" class="tooltip-container">
+      <span class="tooltip-item-color" [style.background-color]="getTooltipItemColor(model)"></span>
+      {{ formatNameForDisplay(model.name, model) }}:
+      <span class="tooltip-value">{{ formatValueForDisplay(model.value, model) }}</span>
+    </ng-template>
+  </ngx-charts-bar-horizontal>
+</div>
+<div *ngIf="!isLegendVisible" class="empty-container"></div>
+<app-chart-legend
+  *ngIf="isLegendVisible"
+  [legendLabelFormatter]="formatNameForDisplay"
+  class="legend-container"
+  [activeItem]="activeItem"
+  [legendItems]="legendItems"
+  [palette]="config.colorScheme.domain"
+  (itemHighlighted)="itemHighlightedHandler($event)"
+>
+</app-chart-legend>

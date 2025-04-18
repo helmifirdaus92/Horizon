@@ -1,0 +1,18 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  align-items: center;
+  display: flex;
+  height: $generic-header-height;
+  box-sizing: border-box;
+
+  button {
+    z-index: 1;
+  }
+
+  h4 {
+    @include heading-xs;
+    flex: 1;
+    font-size: $font-size-14px;
+  }
+}

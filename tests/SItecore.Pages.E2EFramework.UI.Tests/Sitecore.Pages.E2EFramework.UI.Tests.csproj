@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="4.0.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="Serilog.Sinks.NUnit" Version="1.0.3" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.40" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sitecore.Pages.E2EFramework.UI.Wrappers\Sitecore.Pages.E2EFramework.UI.Tests.Wrappers.csproj" />
+    <ProjectReference Include="..\Sitecore.Pages.E2EFramework.Ui.ApiHelpers\Sitecore.Pages.E2EFramework.UI.Tests.ApiHelpers.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config.json" PackagePath="wwwroot\bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+  </ItemGroup>
+</Project>

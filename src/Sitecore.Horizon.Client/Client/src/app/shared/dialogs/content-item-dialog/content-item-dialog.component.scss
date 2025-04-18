@@ -1,0 +1,16 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.picker-dialog-body{
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.content-header {
+  height: $generic-header-height;
+  border-bottom: $framework-border;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+}

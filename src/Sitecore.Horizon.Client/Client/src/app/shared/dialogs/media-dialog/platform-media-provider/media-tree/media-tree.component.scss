@@ -1,0 +1,28 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+[ngSpdTreeNodeSelectable] {
+  user-select: none;
+  height: $generic-element-height;
+
+  .item-icon-normal {
+    margin-right: 4px;
+  }
+
+  .text {
+    @include text-nowrap-ellipsis;
+    padding-right: $padding-small;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.ng-spd-tree-toggle {
+  padding-left: $padding-small;
+  padding-right: 2px;
+}

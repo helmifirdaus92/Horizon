@@ -1,0 +1,31 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.list-container {
+  box-sizing: border-box;
+  width: $pane-min-width;
+  border-radius: $border-radius-small;
+
+  .list-option {
+    display: block;
+    padding: $padding-small;
+  }
+}
+
+.empty-container {
+  padding: $padding;
+  display: flex;
+  flex-direction: column;
+  gap: $padding-small;
+  align-items: center;
+  justify-content: center;
+
+  .description {
+    font-weight: $font-weight-regular;
+  }
+
+  .title {
+    font-size: $font-size-16px;
+    font-weight: $font-weight-semi-bold;
+  }
+}

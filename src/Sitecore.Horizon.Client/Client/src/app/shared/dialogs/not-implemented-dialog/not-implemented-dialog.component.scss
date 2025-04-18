@@ -1,0 +1,17 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+button {
+  min-width: 120px;
+}
+
+p {
+  margin-top: $padding-small;
+  margin-bottom: $padding;
+}
+
+h4 {
+  @include heading-md;
+  margin-top: 0;
+  margin-bottom: 0;
+}

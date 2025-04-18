@@ -1,0 +1,42 @@
+<app-field-header
+  [field]="field"
+  [mapSelectedValue]="mapSelectedValue"
+  [isRearrangeSupported]="true"
+  [isStandardValue]="field.containsStandardValue"
+  (toggleRearrangeItems)="mapRearrangeItemList()"
+  (resetField)="resetToStandardValue.emit()"
+>
+  <div mappedSelectedLists>
+    @if (rearrangeItemTemplate) {
+      <ng-container
+        [ngTemplateOutlet]="rearrangeItemTemplate"
+        [ngTemplateOutletContext]="{ field: field }"
+      ></ng-container>
+    }
+  </div>
+</app-field-header>
+
+<ng-spd-droplist
+  [allowMultipleSelection]="true"
+  [templateType]="'custom'"
+  [customWidth]="300"
+  [reversedMode]="true"
+  (scrolledToBottom)="fetchNextDatasourceBatch.emit()"
+>
+  <div class="p-sm pt-0">
+    @if (field.templateField.dataSource.length > 0) {
+      <ng-spd-checkbox
+        *ngFor="let item of field.templateField.dataSource"
+        [text]="item.displayName"
+        [checked]="isChecklistItemSelected(item.itemId)"
+        (checkedChange)="onMultiListFieldValueChange($event, item.displayName, item.itemId)"
+      >
+      </ng-spd-checkbox>
+    } @else {
+      <div class="m-sm">{{ 'EDITOR.DATA_VIEW.NO_DATASOURCE_ITEMS' | translate }}</div>
+    }
+  </div>
+  <div selectedList>
+    {{ 'EDITOR.DATA_VIEW.ITEMS_SELECTED' | translate: { selectedItems: mapSelectedValue.length } }}
+  </div>
+</ng-spd-droplist>

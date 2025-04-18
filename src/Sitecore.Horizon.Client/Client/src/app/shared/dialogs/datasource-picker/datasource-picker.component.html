@@ -1,0 +1,32 @@
+<ng-template #contextMenu let-contextNode="node">
+  <app-datasource-picker-context-menu
+    [node]="contextNode"
+    (invokeAction)="handleContextMenuActionInvoke($event)"
+    (contextMenuStateChange)="handleContextMenuState($event)"
+  >
+  </app-datasource-picker-context-menu>
+</ng-template>
+
+<app-item-tree
+  [data]="data$ | async"
+  [select]="datasource$ | async | normalizeGuid"
+  [getChildren]="getChildren"
+  [contextMenu]="contextMenu"
+  [contextMenuState]="contextMenuIsActive"
+  [highlightIncompatibleNodes]="true"
+  [class.hide]="templatePickerContext.showPicker"
+  (selectChange)="onSelect($event)"
+  (nodeChange)="nodeChange($event)"
+  (scroll)="storeScroll($event)"
+>
+</app-item-tree>
+
+<!-- Template picker mode
+     Shows component as an overlay hiding everything else -->
+<app-datasource-template-picker
+  *ngIf="templatePickerContext.showPicker"
+  [renderingDefinition]="(renderingDefinition$ | async)!"
+  [item]="templatePickerContext.node"
+  (result)="handleTemplatePickerResult($event)"
+>
+</app-datasource-template-picker>

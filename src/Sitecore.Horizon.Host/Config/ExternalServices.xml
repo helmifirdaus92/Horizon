@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Settings>
+  <Inventory>
+    <APIBaseUrl>https://platform-inventory-staging.sitecore-staging.cloud/</APIBaseUrl>
+  </Inventory>
+  <XMCloud>
+    <SystemId>8db0ad22-445f-43fb-8d8e-f23c9396c974</SystemId>
+  </XMCloud>
+  <Dashboard>
+    <BaseUrl>https://xmapps-staging.sitecore-staging.cloud</BaseUrl>
+  </Dashboard>
+  <Portal>
+    <BaseUrl>https://portal-staging.sitecore-staging.cloud</BaseUrl>
+  </Portal>
+  <Forms>
+    <ApiBaseUrl>https://forms-entities-{region}-staging.sitecore-staging.cloud</ApiBaseUrl>
+  </Forms>
+  <EdgePlatform>
+    <BaseUrl>https://edge-platform-staging.sitecore-staging.cloud</BaseUrl>
+  </EdgePlatform>
+  <FeatureFlags>
+    <BaseUrl>https://featureflags-staging.sitecore-staging.cloud/</BaseUrl>
+  </FeatureFlags>
+  <XMDeployApp>
+    <APIBaseUrl>https://xmclouddeploy-api-staging.sitecore-staging.cloud</APIBaseUrl>
+    <AppBaseUrl>https://deploy-staging.sitecore-staging.cloud/</AppBaseUrl>
+  </XMDeployApp>
+  <ExplorerApp>
+    <BaseUrl>https://explorer-staging.sitecore-staging.cloud</BaseUrl>
+  </ExplorerApp>
+  <ApmServer>
+    <BaseUrl>https://apm-server-prod-euw.sitecorecloud.io/</BaseUrl>
+  </ApmServer>
+  <XMAppsApi>
+    <BaseUrl>https://sites-api-staging.sitecore-staging.cloud</BaseUrl>
+  </XMAppsApi>
+  <GenAiApi>
+    <BaseUrl>https://ai-ab-testing-api-{region}-staging.sitecore-staging.cloud</BaseUrl>
+  </GenAiApi>
+  <Analytics>
+    <BaseUrl>https://engage-analytics{region}production.boxever.com</BaseUrl>
+    <RegionsMapper>euw=-eu-west-1-;use=.us-east-1.;usw=.us-east-1.;jpe=.ap-northeast-1.;aue=-ap-southeast-2-;sg=-ap-southeast-2-;Default=-eu-west-1-</RegionsMapper>
+  </Analytics>
+  <BrandManagement>
+    <BaseUrl>https://ai-brands-api-{region}-staging.sitecore-staging.cloud</BaseUrl>
+  </BrandManagement>
+  <AppEnvironment>staging</AppEnvironment>
+  <GainsightProductKey>AP-BR1SACAOWQ2G-2-4</GainsightProductKey>
+</Settings>

@@ -1,0 +1,120 @@
+<div class="image-field-container">
+  <div class="header-info mb-xs">
+    <div class="left-content">
+      <div class="header">
+        <span class="name">{{ 'EDITOR.IMAGE.IMAGE_PLACEHOLDER' | translate }}</span>
+        <div
+          infoContent
+          class="info"
+          [ngSpdPopover]="headerInfoTemplate"
+          (mouseenter)="popoverInstance.show()"
+          (mouseleave)="popoverInstance.hide()"
+          [popoverPosition]="'above'"
+          [popoverOffset]="0"
+          #popoverInstance="ngSpdPopover"
+        >
+          <span type="button" class="mdi mdi-information-outline" aria-label="Info"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="image-field-content"
+    [class.dragging]="isDragging"
+    [class.has-value]="hasValue"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    <ng-template [ngTemplateOutlet]="containerContent"></ng-template>
+  </div>
+
+  <label ngSpdLabel for="path" class="mt-sm" [size]="'sm'">{{ 'EDITOR.IMAGE.PATH' | translate }}</label>
+  <input
+    ngSpdInput
+    type="text"
+    [placeholder]="'EDITOR.IMAGE.PATH_PLACEHOLDER' | translate"
+    [title]="path$ | async"
+    [class.invalid]="invalidPath"
+    [ngModel]="path$ | async"
+    (ngModelChange)="onPathChange($event)"
+    [ngModelOptions]="{ updateOn: 'blur' }"
+    (keyup.enter)="blurElement($event.target)"
+    (input)="invalidPath = false"
+    aria-label="Image Path"
+    [size]="'sm'"
+  />
+
+  <label ngSpdLabel class="label mt-sm" [size]="'sm'">{{ 'EDITOR.DATA_VIEW.ALT_TEXT' | translate }}</label>
+  <input
+    #textModel="ngModel"
+    ngSpdInput
+    [ngModel]="imageAltText"
+    (ngModelChange)="imageAltText = $event"
+    (blur)="validateImageAltText.emit(textModel)"
+    type="text"
+    class="input"
+    aria-label="Alt Text"
+    [size]="'sm'"
+  />
+</div>
+
+<ng-template #containerContent>
+  <div class="image-section">
+    <span class="image-placeholder">
+      <ng-spd-thumbnail
+        *ngIf="thumbnailData$ | async as value; else emptyThumbnail"
+        class="thumbnail"
+        (mouseenter)="showOverlay = true; $event.stopPropagation()"
+        (mouseleave)="showOverlay = false"
+      >
+        <img [src]="value.src | resizeMedia: thumbnailMaxHeight | cmUrl" [alt]="value.alt" />
+        <div class="overlay" [class.hide]="!showOverlay">
+          <button
+            ngSpdIconButton="solidNeutral"
+            [icon]="'publish'"
+            [size]="'sm'"
+            [ngSpdTooltip]="'EDITOR.DATA_VIEW.CHANGE' | translate"
+            [tooltipPosition]="'above'"
+            (click)="selectFromMediaDialog()"
+            aria-label="Change Image"
+          ></button>
+          <button
+            ngSpdIconButton="solidDanger"
+            [icon]="'close'"
+            [size]="'sm'"
+            [ngSpdTooltip]="'EDITOR.DATA_VIEW.REMOVE' | translate"
+            [tooltipPosition]="'above'"
+            (click)="clear()"
+            aria-label="Remove Image"
+          ></button>
+        </div>
+      </ng-spd-thumbnail>
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #emptyThumbnail>
+  <ng-spd-thumbnail class="thumbnail-icon">
+    <img
+      src="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/spot-file-upload-neutral"
+      [attr.alt]="'EDITOR.DATA_VIEW.UPLOAD_IMAGE' | translate"
+    />
+  </ng-spd-thumbnail>
+  <div class="upload-image">
+    <span class="upload-text" (click)="selectFromMediaDialog()">{{ 'EDITOR.DATA_VIEW.UPLOAD' | translate }}</span>
+    <span class="drop-text">{{ 'EDITOR.DATA_VIEW.DROP_IMAGE' | translate }}</span>
+  </div>
+</ng-template>
+
+<ng-template #headerInfoTemplate>
+  <div class="supported-file-types">
+    <div class="extensions">
+      <span *ngFor="let ext of supportedFileExtensions; let isLast = last">
+        {{ ext }}<span *ngIf="!isLast">,</span>
+      </span>
+    </div>
+    <span class="file-max-size">{{ 'EDITOR.DATA_VIEW.MAXIMUM_SIZE' | translate }} {{ fileMaxSize }}</span>
+  </div>
+</ng-template>

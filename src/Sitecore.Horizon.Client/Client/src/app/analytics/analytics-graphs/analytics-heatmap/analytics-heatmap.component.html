@@ -1,0 +1,23 @@
+<ng-spd-card class="pb-sm mt-md" [disabled]="disabled">
+  <ng-spd-card-header
+    [title]="
+      variantName
+        ? ('ANALYTICS.SITE_ANALYTICS.TITLES.VISITS_BY_TIME_OF_DAY' | translate) + ' ' + '-' + ' ' + variantName
+        : ('ANALYTICS.SITE_ANALYTICS.TITLES.VISITS_BY_TIME_OF_DAY' | translate)
+    "
+    [tooltipText]="isSecondVariant ? '' : ('ANALYTICS.SITE_ANALYTICS.DESCRIPTIONS.VISITS_BY_TIME_OF_DAY' | translate)"
+    [hasBackground]="true"
+  >
+  </ng-spd-card-header>
+  <app-heatmap-chart
+    id="hrzSaHeatMapGraph"
+    *ngIf="!isLoading"
+    class="rows-{{ rowCount }}"
+    [items]="manipulatedChartData ? manipulatedChartData : []"
+    [paletteIndex]="isSecondVariant ? 1 : 0"
+  ></app-heatmap-chart>
+
+  <div class="loading" *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+</ng-spd-card>

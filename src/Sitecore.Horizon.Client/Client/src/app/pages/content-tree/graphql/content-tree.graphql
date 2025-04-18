@@ -1,0 +1,92 @@
+query GetItemAncestors($path: String!, $language: String!, $siteName: String!) {
+  item(path: $path, language: $language, site: $siteName, enableItemFiltering: false) {
+    id
+    children {
+      ...ContentTreeNode
+    }
+    ancestors {
+      ...ContentTreeNode
+      children {
+        ...ContentTreeNode
+      }
+    }
+  }
+}
+
+query GetItemChildren($path: String!, $language: String!, $siteName: String!) {
+  item(path: $path, language: $language, site: $siteName, enableItemFiltering: false) {
+    id
+    children {
+      ...ContentTreeNode
+    }
+  }
+}
+
+mutation DeleteItem($input: DeleteItemInput!) {
+  deleteItem(input: $input) {
+    success
+  }
+}
+
+mutation ChangeDisplayName($input: ChangeDisplayNameInput!) {
+  changeDisplayName(input: $input) {
+    item {
+      id
+      displayName
+    }
+  }
+}
+
+mutation DuplicateItem($input: DuplicateItemInput!) {
+  duplicateItem(input: $input) {
+    item {
+      id
+      path
+      displayName
+    }
+  }
+}
+
+mutation CreatePage($input: CreatePageInput!) {
+  createPage(input: $input) {
+    item {
+      id
+      displayName
+    }
+  }
+}
+
+mutation CreateFolder($input: CreateFolderInput!) {
+  createFolder(input: $input) {
+    item {
+      id
+      displayName
+    }
+  }
+}
+
+mutation MoveItem($input: MoveItemInput!) {
+  moveItem(input: $input) {
+    success
+  }
+}
+
+fragment ContentTreeNode on Content {
+  id
+  name
+  displayName
+  hasChildren
+  locking {
+    lockedByCurrentUser
+    isLocked
+  }
+  ... on Folder {
+    isFolder
+  }
+  permissions {
+    canWrite
+    canDelete
+    canRename
+    canCreate
+  }
+}

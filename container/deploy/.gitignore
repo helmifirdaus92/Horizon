@@ -1,0 +1,6 @@
+# Sitecore docker folders
+runspace/
+
+#Sitecore docker files
+images.*.json
+packagesContent

@@ -1,0 +1,26 @@
+@import '@sitecore/spd-styles/src/all';
+
+.email-link {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-7xs;
+
+  input {
+    border-radius: $border-radius-secondary;
+  }
+
+  label {
+    position: relative;
+    font-size: $font-size-14px;
+
+    .required-indicator {
+      position: absolute;
+      margin-left: $padding-xx-small;
+      color: $warning;
+    }
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}

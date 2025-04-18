@@ -1,0 +1,87 @@
+<!-- Tile section: Site Analytics -->
+<app-single-stat-tiles
+  [activeSessionCountData]="siteAnalytics?.activeSessionCount"
+  [visitorCountData]="siteAnalytics?.activeGuestCount"
+  [avgSessionDurationData]="siteAnalytics?.sessionDurationAverage"
+  [bounceRateData]="siteAnalytics?.bouncedSessionCount"
+  [isLoading]="isLoading"
+  [disabled]="!isValidData"
+></app-single-stat-tiles>
+
+<!-- Time-series -->
+<div class="mt-md">
+  <app-analytics-timeseries
+    [visitsChartData]="siteAnalytics?.sessionTimeseries"
+    [visitorsChartData]="siteAnalytics?.activeGuestTimeseries"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+    [duration]="duration"
+  ></app-analytics-timeseries>
+</div>
+
+<!-- Heatmap -->
+<div class="mt-md">
+  <app-analytics-heatmap
+    [chartData]="siteAnalytics?.sessionHeatmap"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+  ></app-analytics-heatmap>
+</div>
+
+<div class="mt-md row">
+  <!-- Top Pages -->
+  <div class="col">
+    <app-analytics-top-pages
+      [chartData]="siteAnalytics?.viewsByPageHist"
+      [isLoading]="isLoading"
+      [disabled]="!isValidData"
+    ></app-analytics-top-pages>
+  </div>
+
+  <!-- Top Countries -->
+  <div class="col">
+    <app-analytics-top-countries
+      [chartData]="siteAnalytics?.sessionsByCountryHist"
+      [isLoading]="isLoading"
+      [disabled]="!isValidData"
+    ></app-analytics-top-countries>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="mt-md">
+  <app-analytics-table
+    [chartData]="siteAnalytics?.sessionsByFirstPageHist"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+  ></app-analytics-table>
+</div>
+
+<!-- Heatmap -->
+<div class="mt-md">
+  <app-analytics-source
+    [chartData]="siteAnalytics?.sessionsByRefererHist"
+    [isLoading]="isLoading"
+    [disabled]="!isValidData"
+  ></app-analytics-source>
+</div>
+
+<div class="mt-md row">
+  <!-- Devices -->
+  <div class="col">
+    <app-analytics-browser
+      [chartData]="siteAnalytics?.sessionsByDeviceHist"
+      [isLoading]="isLoading"
+      [disabled]="!isValidData"
+    ></app-analytics-browser>
+  </div>
+
+  <!-- Operating System -->
+  <div class="col">
+    <app-analytics-operating-systems
+      [chartData]="siteAnalytics?.sessionsByOperatingSystemHist"
+      [isLoading]="isLoading"
+      [disabled]="!isValidData"
+    ></app-analytics-operating-systems>
+  </div>
+</div>

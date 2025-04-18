@@ -1,0 +1,59 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+
+.options-header {
+  @include section-heading;
+  display: flex;
+  align-items: center;
+}
+
+.rhs-block-element {
+  display: block;
+}
+
+// Feaas region style workaround to avoid multiple scrollbars
+.feaas-region {
+  margin-top: $padding;
+  border-top: $framework-border;
+  ::ng-deep {
+    app-feaas-rhs-region {
+      .feaas-v886f1 {
+        overflow: inherit !important;
+      }
+    }
+    feaas-picker {
+      height: initial !important;
+    }
+  }
+}
+
+app-toggle-buttons {
+  button {
+    margin-left: auto;
+    &:hover:not(.selected) {
+      background-color: $brand-framework-bg-hover;
+    }
+  }
+  .selected {
+    background-color: $brand-primary-selected! important;
+    color: $brand-primary-default! important;
+    ::ng-deep {
+      .mdi{
+        color: $brand-primary-default! important;
+      }
+    }
+  }
+}
+
+.no-option {
+  display: flex;
+  align-items: center;
+  padding-left: $icon-width + $padding;
+  padding-right: $icon-width + $padding;
+
+  .no-option-text {
+    @include tiny-text;
+    flex: 1;
+    text-align: center;
+  }
+}

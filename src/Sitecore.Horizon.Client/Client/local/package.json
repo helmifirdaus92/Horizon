@@ -1,0 +1,22 @@
+{
+  "name": "local-server",
+  "version": "1.0.0",
+  "description": "Spin up local proxy server to allow loading SXA extensions",
+  "main": "src/index.ts",
+  "scripts": {
+    "serve": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node ./dist/index.js\""
+  },
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.21.0",
+    "http-proxy-middleware": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.7",
+    "ts-node": "^10.9.2",
+    "tsc-watch": "^6.2.0",
+    "typescript": "^5.4.5"
+  }
+}

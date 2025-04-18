@@ -1,0 +1,69 @@
+<app-field-header
+  [field]="field"
+  [mapSelectedValue]="mapSelectedValue"
+  [isRearrangeSupported]="true"
+  [isStandardValue]="field.containsStandardValue"
+  (toggleRearrangeItems)="mapRearrangeItemList()"
+  (resetField)="resetToStandardValue.emit()"
+>
+  <div mappedSelectedLists>
+    @if (rearrangeItemTemplate) {
+      <ng-container
+        [ngTemplateOutlet]="rearrangeItemTemplate"
+        [ngTemplateOutletContext]="{ field: field }"
+      ></ng-container>
+    }
+  </div>
+</app-field-header>
+
+<ng-spd-droplist
+  [allowMultipleSelection]="true"
+  [templateType]="'custom'"
+  [customWidth]="300"
+  [reversedMode]="true"
+  (showSelection)="setTreeData()"
+  (closeSelection)="isAddMode = false"
+  [size]="size"
+  (scrolledToBottom)="fetchNextDatasourceBatch.emit()"
+>
+  <div class="p-sm pt-0">
+    @if (data.length && !isLoading) {
+      <app-item-tree
+        [data]="data"
+        [getChildren]="getChildrenThisBound"
+        [expandSelected]="false"
+        (selectChange)="onSelectionChange($event.id, $event.displayName, true)"
+      >
+      </app-item-tree>
+    } @else if (isLoading) {
+      <ng-spd-loading-indicator class="pt-md pb-md"></ng-spd-loading-indicator>
+    } @else {
+      <div class="m-sm">{{ 'EDITOR.DATA_VIEW.NO_DATASOURCE_ITEMS' | translate }}</div>
+    }
+  </div>
+  <div selectedList>
+    <div class="multi-tree-list-items">
+      <div class="tags pt-xs pb-xs">
+        @for (selectedValue of mapSelectedValue; track selectedValue.itemId) {
+          <app-tag
+            size="md"
+            [isDismissible]="true"
+            (actionClick)="
+              onSelectionChange(selectedValue.itemId, selectedValue.displayName, false); $event.stopPropagation()
+            "
+            >{{ selectedValue.displayName }}</app-tag
+          >
+        }
+      </div>
+      <div class="remove-items">
+        <button
+          *ngIf="mapSelectedValue.length >= 2"
+          ngSpdIconButton
+          [icon]="'close'"
+          (click)="removeAllValues(); $event.stopPropagation()"
+        >
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-spd-droplist>

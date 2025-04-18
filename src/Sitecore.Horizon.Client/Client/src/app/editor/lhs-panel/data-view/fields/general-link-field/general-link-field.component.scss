@@ -1,0 +1,40 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.link-type-option {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+
+ng-spd-tab-group {
+  border: $framework-border;
+  border-radius: $border-radius-secondary;
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-9xs;
+  .general-link-type-button {
+    flex-direction: column;
+    height: $gallery-icon-height;
+    width: $spacing-3xl;
+
+    &:hover, &:active, &:focus, &.active {
+      background: $brand-primary-xx-light;
+      border-bottom: $border-xx-small solid transparent !important;
+      border-radius: $border-radius;
+    }
+    &:not(.active) {
+      border-bottom: $border-xx-small solid transparent;
+    }
+
+  }
+  ::ng-deep {
+    .rounded {
+      height: 2rem !important;
+    }
+  }
+}

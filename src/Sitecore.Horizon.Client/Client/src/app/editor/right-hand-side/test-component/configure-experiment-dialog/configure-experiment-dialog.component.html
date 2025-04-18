@@ -1,0 +1,332 @@
+<ng-spd-dialog-panel>
+  <ng-spd-dialog-close-button (close)="cancel()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>{{ 'COMPONENT_TESTING.CONFIGURE.HEADER' | translate }}</ng-spd-dialog-header>
+
+  <div class="dialog-body">
+    <div class="test-name-field">
+      <label ngSpdLabel for="experiment-name">{{ 'COMPONENT_TESTING.CONFIGURE.NAME' | translate }}</label>
+      <input
+        #nameInput="ngModel"
+        ngSpdInput
+        type="text"
+        id="experiment-name"
+        required
+        maxlength="255"
+        minlength="1"
+        pattern="^(?!^\s+$)[a-zA-Z0-9_ ]+$"
+        [isInvalid]="!!nameInput.errors && (!!nameInput.dirty || !!nameInput.touched)"
+        [appForbiddenNames]="(existingNames | async) ?? undefined"
+        [placeholder]="'COMPONENT_TESTING.CONFIGURE.NAME' | translate"
+        [(ngModel)]="internalFlowDefinition.name"
+      />
+    </div>
+
+    <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error-block">
+      <p *ngIf="nameInput.errors?.isForbidden">{{ 'VALIDATION.VALIDATE_NAME.ALREADY_USED' | translate }}</p>
+      <p *ngIf="nameInput.errors?.pattern">{{ 'VALIDATION.VALIDATE_NAME.NOT_ALLOWED_CHARACTER' | translate }}</p>
+      <p *ngIf="nameInput.errors?.required">{{ 'VALIDATION.VALIDATE_NAME.EMPTY' | translate }}</p>
+    </div>
+
+    <!-- Goal setting -->
+    <app-goal-setting
+      [internalFlowDefinition]="internalFlowDefinition"
+      [renderingInstanceId]="renderingInstanceId"
+      (removeGoal)="removeTargetPage($event)"
+      (bouncesGoalChange)="addGoalsTarget($event)"
+      (exitsGoalsChange)="addGoalsTarget($event)"
+      (customGoalChange)="addGoalsTarget($event)"
+      (pageViewGoalsChange)="addGoalsTarget($event)"
+    ></app-goal-setting>
+
+    <!-- Traffic allocation -->
+    <ng-spd-accordion class="card-container traffic-splits mt-md">
+      <ng-spd-accordion-header #trafficSplits [isOpened]="splitsAreInvalidStatic">
+        <p class="header-text">{{ 'COMPONENT_TESTING.CONFIGURE.ASSIGN_TRAFFIC' | translate }}</p>
+        @if (!trafficSplits.isOpened) {
+          <div class="header-options-info">
+            @for (variant of internalFlowDefinition.variants; track variant; let index = $index) {
+              <p class="text-subtle">
+                {{ variant.name }}: {{ internalFlowDefinition.traffic.splits[index].split }}%
+                <span *ngIf="index < internalFlowDefinition.variants.length - 1">,</span>
+              </p>
+            }
+          </div>
+        }
+      </ng-spd-accordion-header>
+
+      <ng-spd-accordion-content>
+        <div class="evenly-distribute mb-sm">
+          <div *ngIf="splitsAreInvalid()" class="ml-0 mr-auto splits-error fs-14">
+            {{ 'COMPONENT_TESTING.CONFIGURE.SPLITS_ERROR' | translate }}
+          </div>
+          <button ngSpdButton="outline" size="xs" type="button" (click)="distributeSplitsEvenly()">{{
+            'COMPONENT_TESTING.CONFIGURE.EVEN_SPLITS' | translate
+          }}</button>
+        </div>
+        <div
+          class="flex-row justify-space-between align-items-center"
+          *ngFor="let variant of internalFlowDefinition.variants; let index = index"
+        >
+          {{ variant.name }}
+
+          <div class="form-group">
+            <input
+              class="splits-input"
+              ngSpdInput
+              type="number"
+              min="0"
+              max="100"
+              [isInvalid]="splitsAreInvalid()"
+              [attr.name]="variant.name + 'Traffic'"
+              [(ngModel)]="internalFlowDefinition.traffic.splits[index].split"
+              autocomplete="off"
+            />
+            <span class="right-label">%</span>
+          </div>
+        </div>
+      </ng-spd-accordion-content>
+    </ng-spd-accordion>
+
+    <h3 class="mt-l">{{ 'COMPONENT_TESTING.CONFIGURE.OPTIONAL_CONFIGURATION' | translate }}</h3>
+
+    <!-- on completion options -->
+    <ng-spd-accordion class="card-container on-completion mt-md">
+      <ng-spd-accordion-header #completion [isOpened]="false">
+        <p class="header-text">{{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.LABEL' | translate }}</p>
+        @if (!completion.isOpened) {
+          <div class="text-subtle header-options-info completion-header">
+            <p>
+              {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.IF_WINNING_VARIANT' | translate }}:
+              @if (internalFlowDefinition.postTestAction?.conclusive === 'SET_TRAFFIC_TO_CONTROL_VARIANT') {
+                {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.WINNING_VARIANT_OPTION_2' | translate }}
+              } @else {
+                {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.WINNING_VARIANT_OPTION_1' | translate }},
+              }
+              {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.IF_TEST_INCONCLUSIVE' | translate }}:
+              @if (internalFlowDefinition.postTestAction?.inconclusive === 'SET_TRAFFIC_TO_CONTROL_VARIANT') {
+                {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.TEST_INCONCLUSIVE_OPTION_2' | translate }}
+              } @else {
+                {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.TEST_INCONCLUSIVE_OPTION_1' | translate }}
+              }
+            </p>
+          </div>
+        }
+      </ng-spd-accordion-header>
+      <ng-spd-accordion-content>
+        <div class="flex-row justify-space-between align-items-center">
+          {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.IF_WINNING_VARIANT' | translate }}
+        </div>
+        <div class="flex-row justify-space-between align-items-center">
+          <ng-spd-droplist
+            class="completion-options"
+            [selectedValue]="internalFlowDefinition.postTestAction?.conclusive ?? 'SET_TRAFFIC_TO_WINNING_VARIANT'"
+            (selectedValueChange)="setPostTestActionConclusive($event)"
+          >
+            <ng-template
+              ngSpdDroplistItem
+              [value]="'SET_TRAFFIC_TO_WINNING_VARIANT'"
+              [label]="'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.WINNING_VARIANT_OPTION_1 | translate'"
+            >
+              {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.WINNING_VARIANT_OPTION_1' | translate }}
+            </ng-template>
+            <ng-template
+              ngSpdDroplistItem
+              [value]="'SET_TRAFFIC_TO_CONTROL_VARIANT'"
+              [label]="'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.WINNING_VARIANT_OPTION_2 | translate'"
+            >
+              {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.WINNING_VARIANT_OPTION_2' | translate }}
+            </ng-template>
+          </ng-spd-droplist>
+        </div>
+        <div class="flex-row justify-space-between align-items-center">
+          {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.IF_TEST_INCONCLUSIVE' | translate }}
+        </div>
+        <div class="flex-row justify-space-between align-items-center">
+          <ng-spd-droplist
+            class="completion-options"
+            [selectedValue]="internalFlowDefinition.postTestAction?.inconclusive ?? 'KEEP_RUNNING_TEST'"
+            (selectedValueChange)="setPostTestActionInconclusive($event)"
+          >
+            <ng-template
+              ngSpdDroplistItem
+              [value]="'KEEP_RUNNING_TEST'"
+              [label]="'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.TEST_INCONCLUSIVE_OPTION_1 | translate'"
+            >
+              {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.TEST_INCONCLUSIVE_OPTION_1' | translate }}
+            </ng-template>
+            <ng-template
+              ngSpdDroplistItem
+              [value]="'SET_TRAFFIC_TO_CONTROL_VARIANT'"
+              [label]="'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.TEST_INCONCLUSIVE_OPTION_2 | translate'"
+            >
+              {{ 'COMPONENT_TESTING.CONFIGURE.ON_COMPLETION.TEST_INCONCLUSIVE_OPTION_2' | translate }}
+            </ng-template>
+          </ng-spd-droplist>
+        </div>
+      </ng-spd-accordion-content>
+    </ng-spd-accordion>
+
+    <!-- Advance options -->
+    <ng-spd-accordion class="card-container advance-options mt-md">
+      <ng-spd-accordion-header #advanceOptions [isOpened]="sampleSizeConfigIsInvalidStatic">
+        <p class="header-text"> {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.LABEL' | translate }}</p>
+        @if (!advanceOptions.isOpened) {
+          <div class="text-subtle header-options-info">
+            <p>
+              {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.TRAFFIC_ALLOCATION' | translate }}:
+              {{ internalFlowDefinition.traffic.allocation }},
+            </p>
+            <P>
+              {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.BASE_RATE' | translate }}:
+              {{ roundNumbers(internalFlowDefinition.sampleSizeConfig.baseValue * 100, 1) }},</P
+            >
+            <P>
+              {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.DIFFERENCE' | translate }}:
+              {{ roundNumbers(internalFlowDefinition.sampleSizeConfig.minimumDetectableDifference * 100) }},</P
+            >
+            <P>
+              {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.CONFIDENCE' | translate }}:
+              {{ roundNumbers(internalFlowDefinition.sampleSizeConfig.confidenceLevel * 100) }},
+            </P>
+            <P> {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.TOTAL' | translate }}: {{ total() }}</P>
+          </div>
+        }
+      </ng-spd-accordion-header>
+
+      <ng-spd-accordion-content>
+        <div class="flex-row justify-space-between align-items-center">
+          {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.ALLOCATION' | translate }}
+          <div class="form-group">
+            <input
+              ngSpdInput
+              type="number"
+              min="1"
+              max="100"
+              name="trafficAllocation"
+              #trafficAllocation="ngModel"
+              [isInvalid]="!!trafficAllocation.invalid"
+              [(ngModel)]="internalFlowDefinition.traffic.allocation"
+              autocomplete="off"
+            />
+            <span class="right-label">%</span>
+          </div>
+        </div>
+
+        <hr class="hr my-md" />
+
+        <div class="flex-row justify-space-between align-items-center">
+          <p class="text-subtle">{{
+            'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.SET_TOTAL_SAMPLE_SIZE' | translate
+          }}</p>
+          <button
+            class="reset-config"
+            type="button"
+            ngSpdButton="outline"
+            size="xs"
+            (click)="resetSampleSizeConfig()"
+            >{{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.RESET' | translate }}</button
+          >
+        </div>
+
+        <!-- Base rate -->
+        <div class="flex-row justify-space-between align-items-center">
+          <div>
+            <p class="text-bold">
+              {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.BASE_RATE' | translate }}
+            </p>
+            <p class="text-subtle fs-14">{{
+              'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.BASE_RATE_DESCRIPTION' | translate
+            }}</p>
+          </div>
+          <div class="form-group">
+            <input
+              ngSpdInput
+              type="number"
+              min="0.5"
+              step="0.5"
+              max="50"
+              name="baseRate"
+              #baseRate="ngModel"
+              [isInvalid]="!!baseRate.invalid"
+              [ngModel]="roundNumbers(internalFlowDefinition.sampleSizeConfig.baseValue * 100, 1)"
+              (ngModelChange)="internalFlowDefinition.sampleSizeConfig.baseValue = $event / 100"
+              autocomplete="off"
+            />
+            <span class="right-label">%</span>
+          </div>
+        </div>
+
+        <!-- Minimum detectable difference -->
+        <div class="flex-row justify-space-between align-items-center">
+          <div>
+            <p class="text-bold">
+              {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.DIFFERENCE' | translate }}
+            </p>
+            <p class="text-subtle fs-14">{{
+              'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.DIFFERENCE_DESCRIPTION' | translate
+            }}</p>
+          </div>
+          <div class="form-group">
+            <input
+              ngSpdInput
+              type="number"
+              min="1"
+              max="50"
+              name="minDifference"
+              #minDifference="ngModel"
+              [isInvalid]="!!minDifference.invalid"
+              [ngModel]="roundNumbers(internalFlowDefinition.sampleSizeConfig.minimumDetectableDifference * 100)"
+              (ngModelChange)="internalFlowDefinition.sampleSizeConfig.minimumDetectableDifference = $event / 100"
+              autocomplete="off"
+            />
+            <span class="right-label">%</span>
+          </div>
+        </div>
+
+        <!-- Confidence level -->
+        <div class="flex-row justify-space-between align-items-center">
+          <div>
+            <p class="text-bold">
+              {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.CONFIDENCE' | translate }}
+            </p>
+            <p class="text-subtle fs-14">{{
+              'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.CONFIDENCE_DESCRIPTION' | translate
+            }}</p>
+          </div>
+          <div class="form-group">
+            <input
+              ngSpdInput
+              type="number"
+              min="80"
+              max="99"
+              name="confidence"
+              #confidence="ngModel"
+              [isInvalid]="!!confidence.invalid"
+              [ngModel]="roundNumbers(internalFlowDefinition.sampleSizeConfig.confidenceLevel * 100)"
+              (ngModelChange)="internalFlowDefinition.sampleSizeConfig.confidenceLevel = $event / 100"
+              autocomplete="off"
+            />
+            <span class="right-label">%</span>
+          </div>
+        </div>
+
+        <div class="flex-row justify-space-between align-items-center text-bold">
+          <p>
+            {{ 'COMPONENT_TESTING.CONFIGURE.ADVANCED_OPTIONS.TOTAL' | translate }}
+          </p>
+
+          <p>
+            {{ total() }}
+          </p>
+        </div>
+      </ng-spd-accordion-content>
+    </ng-spd-accordion>
+  </div>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="cancel()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="submit()" [disabled]="isFormInValid()">{{
+      'COMMON.SAVE' | translate
+    }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

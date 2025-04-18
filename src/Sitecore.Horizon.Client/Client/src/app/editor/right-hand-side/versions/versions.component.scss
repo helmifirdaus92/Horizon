@@ -1,0 +1,8 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: flex;
+  align-items: center;
+}

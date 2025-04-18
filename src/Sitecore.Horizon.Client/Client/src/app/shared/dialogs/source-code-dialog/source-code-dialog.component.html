@@ -1,0 +1,17 @@
+<ng-spd-dialog-panel>
+  <ng-spd-dialog-content class="mt-xl" [leftAlignText]="true">
+    <textarea
+      ngSpdInput
+      class="source-code"
+      id="sourceCode"
+      name="sourceCode"
+      [(ngModel)]="value"
+      [placeholder]="'EDITOR.RTE.SOURCE_CODE_PLACEHOLDER' | translate"
+    ></textarea>
+  </ng-spd-dialog-content>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="outline" (click)="onDeclineClick()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="onConfirmClick()">{{ 'COMMON.SAVE' | translate }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

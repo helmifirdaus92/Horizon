@@ -1,0 +1,7 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+ng-spd-slide-in-panel {
+  @include rhs-overlay;
+}

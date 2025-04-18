@@ -1,0 +1,24 @@
+<label ngSpdLabel for="dateFieldInput">
+  {{
+    chrome?.fieldType === 'date' ? ('RHS.DATE_FIELD_LABEL' | translate) : ('RHS.DATETIME_FIELD_LABEL' | translate)
+  }} </label
+><input
+  ngSpdInput
+  id="dateFieldInput"
+  [type]="chrome?.fieldType === 'date' ? 'date' : 'datetime-local'"
+  autocomplete="off"
+  [ngModel]="currentValue"
+  (ngModelChange)="currentValue = $event"
+  (blur)="saveNewValue()"
+/>
+<div class="ml-xs mt-xs date-info">
+  @if (currentValue) {
+    <span class="text-format">{{ readableFormat }}</span>
+  }
+  <a
+    class="link"
+    href="https://doc.sitecore.com/xmc/en/developers/xm-cloud/the-simple-field-types.html#the-date-and-datetime-field-types"
+    target="_blank"
+    >{{ 'RHS.DATE_FORMAT_INFO' | translate }}</a
+  >
+</div>

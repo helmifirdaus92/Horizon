@@ -1,0 +1,126 @@
+query GetMediaItem($path: String!, $sources: [String!]!, $language: String!, $site: String!) {
+  mediaItem(path: $path, sources: $sources, language: $language, site: $site) {
+    id
+    alt
+    dimensions
+    displayName
+    extension
+    height
+    parentId
+    path
+    size
+    url
+    width
+    embedUrl
+  }
+}
+
+query GetMediaItemType($path: String!, $language: String!, $site: String!) {
+  item(path: $path, language: $language, site: $site) {
+    id
+    template {
+      id
+      isImage: isTemplateDescendantOfAny(
+        baseTemplateIds: ["C97BA923-8009-4858-BDD5-D8BE5FCCECF7", "F1828A2C-7E5D-4BBD-98CA-320474871548"]
+      )
+      isFile: isTemplateDescendantOfAny(
+        baseTemplateIds: ["777F0C76-D712-46EA-9F40-371ACDA18A1C", "2A130D0C-A2A9-4443-B418-917F857BF6C9"]
+      )
+    }
+  }
+}
+
+query QueryMediaImagesOnly($query: String, $sources: [String!]!, $root: String, $language: String!, $site: String!) {
+  mediaQuery(query: $query, sources: $sources, root: $root, language: $language, site: $site) {
+    hasMoreItems
+    items {
+      displayName
+      id
+      url
+      extension
+    }
+  }
+}
+
+query QueryMedia(
+  $query: String
+  $sources: [String!]!
+  $root: String
+  $language: String!
+  $site: String!
+  $baseTemplateIds: [String!]
+) {
+  mediaQuery(
+    query: $query
+    sources: $sources
+    root: $root
+    language: $language
+    site: $site
+    baseTemplateIds: $baseTemplateIds
+  ) {
+    hasMoreItems
+    items {
+      displayName
+      id
+      url
+      extension
+    }
+  }
+}
+
+query GetMediaFolder($path: String, $language: String!, $site: String!) {
+  mediaFolderItem(path: $path, language: $language, site: $site) {
+    children {
+      displayName
+      hasChildren
+      id
+      permissions {
+        canCreate
+        canDelete
+        canRename
+      }
+    }
+    displayName
+    hasChildren
+    id
+    permissions {
+      canCreate
+      canDelete
+      canRename
+    }
+  }
+}
+
+query GetMediaFolderAncestors($path: String!, $language: String!, $site: String!, $sources: [String!]!) {
+  mediaFolderAncestors(path: $path, sources: $sources, language: $language, site: $site) {
+    displayName
+    hasChildren
+    id
+    parentId
+    permissions {
+      canCreate
+      canDelete
+      canRename
+    }
+  }
+}
+
+mutation UploadMedia($input: UploadMediaInput!) {
+  uploadMedia(input: $input) {
+    mediaItem {
+      id
+      dimensions
+      extension
+      height
+      parentId
+      path
+      size
+      width
+      embedUrl
+      alt
+      displayName
+      url
+    }
+    success
+  }
+}

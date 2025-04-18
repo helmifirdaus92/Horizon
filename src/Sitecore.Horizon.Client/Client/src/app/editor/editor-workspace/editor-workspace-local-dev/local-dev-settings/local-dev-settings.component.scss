@@ -1,0 +1,35 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+$panel-width: 200px;
+$panel-height: 82px;
+
+:host {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 5%;
+  right: 0;
+  box-shadow: $box-shadow;
+
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+
+  background-color: rgba($brand-ui-white, 0.5);
+  overflow: hidden;
+
+  opacity: 0.5;
+  transition: all $animation-speed $animation-easing;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.active {
+  ::ng-deep {
+    i {
+      color: $brand-primary-default !important;
+    }
+  }
+}

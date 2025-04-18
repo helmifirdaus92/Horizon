@@ -1,0 +1,28 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow-y: auto;
+  position: relative;
+}
+
+.tree-title {
+  &.show-border {
+    border-bottom: $framework-border;
+    box-shadow: $box-shadow;
+  }
+}
+
+app-datasource-template-picker {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+}
+
+.hide {
+  display: none !important;
+}

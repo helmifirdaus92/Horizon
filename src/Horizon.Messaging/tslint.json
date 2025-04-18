@@ -1,0 +1,7 @@
+{
+  "extends": ["tslint:recommended", "@sitecore/code-quality/tslint"],
+  "rules": {
+    "ordered-imports": false,
+    "ban": [true, "fdescribe", "fit"]
+  }
+}

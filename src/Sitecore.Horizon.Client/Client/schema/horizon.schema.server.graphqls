@@ -1,0 +1,771 @@
+scalar DateTime
+
+type Query {
+  components(site: String!): Components
+  configuration: Configuration!
+  item(path: String!, language: String!, site: String!, version: Int = null, enableItemFiltering: Boolean = true): Content
+  languages(site: String = null): [Language!]!
+  mediaFolderAncestors(path: String!, sources: [String!]!, language: String!, site: String!): [MediaFolderItem!]!
+  mediaFolderItem(path: String = null, language: String!, site: String!): MediaFolderItem
+  mediaItem(path: String!, sources: [String!]!, language: String!, site: String!): MediaItem
+  mediaQuery(query: String = null, root: String = null, sources: [String!]!, baseTemplateIds: [String!] = null, language: String!, site: String!): MediaQueryResult
+  personalizationRuleInfo: PersonalizationRuleInfo!
+  publishingStatus(handle: String!): PublishingStatus!
+  rawItem(path: String!, language: String!, site: String!, enableItemFiltering: Boolean = true): RawContentItem
+  renderingDefinition(path: String!, contextItemId: String!, language: String!, site: String!): RenderingDefinition
+  resolveDataSource(source: String!, contextItemId: String!, language: String!, site: String!): Content!
+  sites(name: String = null, enableItemFiltering: Boolean = true): [Site!]
+  user: User!
+}
+
+interface Content {
+  ancestors: [Content!]!
+  children: [Content!]!
+  createdBy: String!
+  creationDate: String!
+  displayName: String!
+  hasChildren: Boolean!
+  icon: String!
+  id: String!
+  insertOptions(kind: InsertOptionKind!): [InsertOption!]!
+  isLatestPublishableVersion: Boolean
+  language: String!
+  locking: ContentItemLocking!
+  name: String!
+  parent: Content
+  path: String!
+  permissions: ContentItemPermissions!
+  publishing: ContentItemPublishing!
+  revision: String!
+  template: Template!
+  updatedBy: String!
+  updatedDate: String!
+  version: Int!
+  versionName: String!
+  versions: [Content!]!
+  versionsAll(includeAllLanguages: Boolean = null): [Content!]!
+  workflow: WorkflowState
+}
+
+type Template {
+  baseTemplateIds: [String]
+  displayName: String!
+  field(id: String!): TemplateField
+  id: String!
+  isBranchTemplate: Boolean
+  isTemplateDescendantOfAny(baseTemplateIds: [String!]!): Boolean
+  name: String!
+  path: String!
+}
+
+type TemplateField {
+  id: String!
+  sources: [String!]!
+}
+
+type WorkflowState {
+  canEdit: Boolean
+  commands: [WorkflowCommand]
+  displayName: String
+  finalState: Boolean
+  icon: String
+  id: String
+  warnings: [WorkflowError]
+}
+
+type WorkflowError {
+  errorCode: String
+  id: String
+  message: String
+}
+
+type WorkflowCommand {
+  displayName: String
+  hasUI: Boolean
+  icon: String
+  id: String
+  suppressComment: Boolean
+}
+
+interface InsertOption {
+  displayName: String!
+  id: String!
+}
+
+enum InsertOptionKind {
+  ITEM
+  PAGE
+  FOLDER
+}
+
+type ContentItemPermissions {
+  canCreate: Boolean!
+  canDelete: Boolean!
+  canPublish: Boolean!
+  canRename: Boolean!
+  canWrite: Boolean!
+  canWriteLanguage: Boolean!
+}
+
+type ContentItemLocking {
+  canUnlock: Boolean!
+  isLocked: Boolean!
+  lockedBy: String!
+  lockedByCurrentUser: Boolean!
+}
+
+type ContentItemPublishing {
+  hasPublishableVersion: Boolean!
+  isAvailableToPublish: Boolean!
+  isPublishable: Boolean!
+  validFromDate: String!
+  validToDate: String!
+}
+
+type RawContentItem {
+  ancestors: [Content!]!
+  ancestorsWithSiblings(roots: [String!] = null): [RawContentItem]
+  children: [RawContentItem]
+  createdBy: String!
+  creationDate: String!
+  displayName: String!
+  hasChildren: Boolean!
+  icon: String!
+  id: String!
+  insertOptions(kind: InsertOptionKind! = ITEM): [InsertOption!]!
+  isFolder: Boolean!
+  isLatestPublishableVersion: Boolean
+  language: String!
+  locking: ContentItemLocking!
+  name: String!
+  parent: RawContentItem
+  parentId: String
+  path: String!
+  permissions: ContentItemPermissions!
+  publishing: ContentItemPublishing!
+  revision: String!
+  template: Template!
+  updatedBy: String!
+  updatedDate: String!
+  url: String!
+  version: Int!
+  versionName: String!
+  versions: [Content!]!
+  versionsAll(includeAllLanguages: Boolean = false): [Content!]!
+  workflow: WorkflowState
+}
+
+type Site {
+  appName: String
+  enableWebEdit: String!
+  language: String!
+  layoutServiceConfig: String
+  name: String!
+  pointOfSale: String
+  renderingEngineApplicationUrl: String
+  renderingEngineEndpointUrl: String
+  rootItem(language: String = null): Content
+  rootPath: String!
+  startItem(language: String = null): Content
+  startPath: String!
+}
+
+type Language {
+  displayName: String!
+  englishName: String!
+  iso: String!
+  name: String!
+  nativeName: String!
+}
+
+type User {
+  fqdn: String!
+  fullName: String!
+  profileIconUrl: String
+}
+
+type Components {
+  groups: [ComponentGroup!]!
+  ungrouped: [ComponentInfo!]!
+}
+
+type ComponentGroup {
+  components: [ComponentInfo!]!
+  title: String!
+}
+
+type ComponentInfo {
+  category: String!
+  categoryId: String!
+  componentName: String
+  displayName: String!
+  extendedProperties: [ExtendedProperties]
+  iconUrl: String!
+  id: String!
+}
+
+type ExtendedProperties {
+  name: String
+  value: String
+}
+
+type Configuration {
+  additionalPlatformUrls: [String]!
+  clientLanguage: String!
+  contentRootItemId: String!
+  environmentFeatures: [EnvironmentFeature]
+  hostVerificationToken: String!
+  integrationVersion: String!
+  jssEditingSecret: String
+  personalizeScope: String
+  sessionTimeoutSeconds: String!
+}
+
+type EnvironmentFeature {
+  enabled: Boolean
+  name: String
+}
+
+type MediaItem {
+  alt: String
+  dimensions: String
+  displayName: String!
+  embedUrl: String!
+  extension: String
+  hasMediaStream: Boolean!
+  height: Int
+  id: String!
+  mimeType: String
+  parentId: String!
+  path: String!
+  size: Int
+  url: String!
+  width: Int
+}
+
+type MediaQueryResult {
+  hasMoreItems: Boolean!
+  items: [MediaItem!]!
+}
+
+type MediaFolderItem {
+  children: [MediaFolderItem]
+  displayName: String!
+  hasChildren: Boolean!
+  id: String!
+  parentId: String!
+  permissions: MediaItemPermissions!
+}
+
+type MediaItemPermissions {
+  canCreate: Boolean!
+  canDelete: Boolean!
+  canRename: Boolean!
+}
+
+type PublishingStatus {
+  processedItemsCount: Int
+  stateCode: PublishingState
+}
+
+enum PublishingState {
+  NOT_FOUND
+  FAILED
+  RUNNING
+  COMPLETED
+}
+
+type RenderingDefinition {
+  datasourceRootItems: [RawContentItem!]!
+  templates: [Template!]!
+}
+
+type PersonalizationRuleInfo {
+  actions: RuleActionsInfo!
+  conditions: RuleConditionsInfo!
+  defaultRuleName: String!
+  defaultRuleUniqueId: String!
+}
+
+type RuleConditionsInfo {
+  alwaysTrueConditionTemplate: String!
+  alwaysTrueRuleId: String!
+  audienceVisitorFilterConditionTemplate: String!
+  audienceVisitorInVariantRuleId: String!
+  ruleIdAttributeName: String!
+  uniqueIdPlaceholder: String!
+  variantAttributeName: String!
+  variantValuePlaceholder: String!
+}
+
+type RuleActionsInfo {
+  hideRenderingActionId: String!
+  setDatasourceActionId: String!
+  setRenderingActionId: String!
+  setRenderingParametersActionId: String!
+}
+
+type Mutation {
+  addItemVersion(input: AddItemVersionInput!): AddItemVersionOutput
+  changeDisplayName(input: ChangeDisplayNameInput!): ChangeDisplayNameOutput
+  createFolder(input: CreateFolderInput!): CreateFolderOutput
+  createPage(input: CreatePageInput!): CreatePageOutput
+  createRawItem(input: CreateItemInput!): CreateRawItemOutput
+  deleteItem(input: DeleteItemInput!): DeleteItemOutput
+  deleteItemVersion(input: DeleteItemVersionInput!): DeleteItemVersionOutput
+  deleteLayoutRules(input: DeleteLayoutRulesInput!): DeleteLayoutRulesOutput
+  duplicateItem(input: DuplicateItemInput!): DuplicateItemOutput
+  executeWorkflowCommand(input: ExecuteCommandInput!): ExecuteCommandOutput
+  moveItem(input: MoveItemInput!): MoveItemOutput
+  publishItem(input: PublishItemInput!): PublishItemOutput
+  renameItem(input: RenameItemInput!): RenameItemOutput
+  renameItemVersion(input: RenameItemVersionInput!): RenameItemVersionOutput
+  saveItem(input: SaveItemInput!): SaveItemOutput
+  setLayoutEditingKind(input: SetLayoutEditingKindInput!): SetLayoutEditingKindOutput
+  setPublishingSettings(input: SetPublishingSettingsInput!): SetPublishingSettingsOutput
+  uploadMedia(input: UploadMediaInput!): UploadMediaOutput
+}
+
+type DeleteItemOutput {
+  success: Boolean
+}
+
+input DeleteItemInput {
+  language: String = null
+  site: String = null
+  path: String!
+  deletePermanently: Boolean = null
+}
+
+type DeleteItemVersionOutput {
+  latestPublishableVersion: Content!
+  success: Boolean!
+}
+
+input DeleteItemVersionInput {
+  language: String!
+  site: String!
+  path: String!
+  versionNumber: Int!
+}
+
+type RenameItemOutput {
+  item: Content!
+  success: Boolean!
+}
+
+input RenameItemInput {
+  language: String = null
+  site: String = null
+  path: String!
+  newName: String!
+}
+
+type RenameItemVersionOutput {
+  itemVersion: Content!
+  success: Boolean!
+}
+
+input RenameItemVersionInput {
+  language: String!
+  site: String!
+  path: String!
+  versionNumber: Int!
+  newName: String!
+}
+
+type SaveItemOutput {
+  errors: [SaveItemError]
+  newCreatedVersions: [ItemVersionInfo]
+  savedItems: [SavedItem]
+  validationErrors: [ValidationError]
+  warnings: [String]
+}
+
+type ValidationError {
+  aborted: String
+  errorLevel: String
+  errorMessage: String
+  fieldId: String
+}
+
+type SaveItemError {
+  errorCode: String
+  itemId: String
+  message: String
+}
+
+type SavedItem {
+  fields: [SavedItemField]!
+  id: String!
+  language: String!
+  revision: String!
+  version: Int!
+}
+
+type SavedItemField {
+  id: String
+  originalValue: String
+  reset: String
+  value: String
+}
+
+type ItemVersionInfo {
+  displayName: String!
+  itemId: String!
+  versionNumber: Int!
+}
+
+input SaveItemInput {
+  language: String!
+  site: String!
+  items: [SaveItemDetails] = null
+}
+
+input SaveItemDetails {
+  itemId: String = null
+  itemVersion: Int = null
+  revision: String = null
+  fields: [FieldValue] = null
+  presentationDetails: PresentationDetails = null
+  originalPresentationDetails: PresentationDetails = null
+}
+
+input FieldValue {
+  id: String = null
+  value: String = null
+  originalValue: String = null
+  reset: Boolean = null
+}
+
+input PresentationDetails {
+  kind: LayoutKind!
+  body: String!
+}
+
+enum LayoutKind {
+  FINAL
+  SHARED
+}
+
+type CreatePageOutput {
+  item: Content!
+  success: Boolean!
+}
+
+input CreatePageInput {
+  language: String!
+  site: String!
+  parentId: String!
+  pageName: String!
+  templateId: String!
+}
+
+type DuplicateItemOutput {
+  item: Content!
+  success: Boolean!
+}
+
+input DuplicateItemInput {
+  language: String!
+  site: String!
+  sourceItemId: String!
+  newItemName: String!
+}
+
+type CreateFolderOutput {
+  item: Content!
+  success: Boolean!
+}
+
+input CreateFolderInput {
+  language: String!
+  site: String!
+  parentId: String!
+  folderName: String!
+  templateId: String!
+}
+
+type CreateRawItemOutput {
+  rawItem: RawContentItem!
+  success: Boolean!
+}
+
+input CreateItemInput {
+  language: String!
+  site: String!
+  parentId: String!
+  itemName: String!
+  templateId: String!
+}
+
+type ChangeDisplayNameOutput {
+  item: Content
+  success: Boolean
+}
+
+input ChangeDisplayNameInput {
+  language: String!
+  site: String!
+  path: String!
+  newDisplayName: String!
+}
+
+type MoveItemOutput {
+  success: Boolean!
+}
+
+input MoveItemInput {
+  site: String!
+  itemToMoveId: String!
+  targetId: String!
+  position: MovePosition!
+}
+
+enum MovePosition {
+  BEFORE
+  INTO
+  AFTER
+}
+
+type AddItemVersionOutput {
+  item: Content!
+  success: Boolean!
+}
+
+input AddItemVersionInput {
+  language: String!
+  site: String!
+  path: String!
+  versionName: String = null
+  baseVersionNumber: Int = null
+}
+
+type DeleteLayoutRulesOutput {
+  item: Content!
+  success: Boolean!
+}
+
+input DeleteLayoutRulesInput {
+  language: String!
+  site: String!
+  path: String!
+  variantId: String!
+}
+
+type SetLayoutEditingKindOutput {
+  success: Boolean
+}
+
+input SetLayoutEditingKindInput {
+  kind: LayoutKind!
+  site: String = null
+}
+
+type PublishItemOutput {
+  acknowledged: Boolean!
+  handle: String!
+}
+
+input PublishItemInput {
+  language: String!
+  site: String!
+  itemId: String!
+  publishSubitems: Boolean = null
+}
+
+type SetPublishingSettingsOutput {
+  item: Content!
+  success: Boolean!
+}
+
+input SetPublishingSettingsInput {
+  language: String!
+  site: String!
+  path: String!
+  versionNumber: Int!
+  validFromDate: StringWithPossibleDateTimeFormatGraphType!
+  validToDate: StringWithPossibleDateTimeFormatGraphType!
+  isAvailableToPublish: Boolean!
+}
+
+type ExecuteCommandOutput {
+  completed: Boolean!
+  datasourcesCommandResult: [ExecuteCommandOutput]
+  error: String
+  item: Content!
+  nextStateId: String!
+  pageWorkflowValidationResult: ValidationResult
+}
+
+type ValidationResult {
+  defaultDatasourceItemsResult: [ItemValidationResult]
+  pageItemResult: ItemValidationResult
+  personalizedDatasourceItemsResult: [ItemValidationResult]
+}
+
+type ItemValidationResult {
+  fieldRulesResult: [FieldValidationResult]
+  itemId: String
+  itemName: String
+  itemRulesResult: [ItemValidationRecord]
+}
+
+type ItemValidationRecord {
+  errors: [String]
+  validatorDescription: String
+  validatorResult: String
+  validatorText: String
+  validatorTitle: String
+}
+
+type FieldValidationResult {
+  fieldItemId: String
+  fieldName: String
+  records: [ItemValidationRecord]
+}
+
+input ExecuteCommandInput {
+  language: String!
+  site: String!
+  itemId: String!
+  itemVersion: Int = null
+  commandId: String!
+  comments: String = null
+}
+
+type UploadMediaOutput {
+  mediaItem: MediaItem!
+  success: Boolean!
+}
+
+input UploadMediaInput {
+  language: String!
+  site: String!
+  fileName: String!
+  extension: String!
+  blob: String!
+  destinationFolderId: String = null
+  mediaId: String = null
+}
+
+type Item implements Content {
+  ancestors: [Content!]!
+  children: [Content!]!
+  createdBy: String!
+  creationDate: String!
+  displayName: String!
+  hasChildren: Boolean!
+  icon: String!
+  id: String!
+  insertOptions(kind: InsertOptionKind!): [InsertOption!]!
+  isLatestPublishableVersion: Boolean
+  language: String!
+  locking: ContentItemLocking!
+  name: String!
+  parent: Content
+  path: String!
+  permissions: ContentItemPermissions!
+  publishing: ContentItemPublishing!
+  revision: String!
+  template: Template!
+  updatedBy: String!
+  updatedDate: String!
+  version: Int!
+  versionName: String!
+  versions: [Content!]!
+  versionsAll(includeAllLanguages: Boolean = false): [Content!]!
+  workflow: WorkflowState
+}
+
+type Page implements Content {
+  ancestors: [Content!]!
+  children: [Content!]!
+  createdBy: String!
+  creationDate: String!
+  displayName: String!
+  hasChildren: Boolean!
+  icon: String!
+  id: String!
+  insertOptions(kind: InsertOptionKind!): [InsertOption!]!
+  isLatestPublishableVersion: Boolean
+  language: String!
+  layoutEditingKind: LayoutKind!
+  locking: ContentItemLocking!
+  name: String!
+  parent: Content
+  path: String!
+  permissions: ContentItemPermissions!
+  presentationDetails: String
+  publishing: ContentItemPublishing!
+  revision: String!
+  route: String
+  sharedPresentationDetails: String
+  template: Template!
+  timeline: PageTimeline
+  updatedBy: String!
+  updatedDate: String!
+  url: String
+  version: Int!
+  versionName: String!
+  versions: [Content!]!
+  versionsAll(includeAllLanguages: Boolean = false): [Content!]!
+  workflow: WorkflowState
+}
+
+type PageTimeline {
+  datasources: [ItemTimeline]
+  page: ItemTimeline
+}
+
+type ItemTimeline {
+  id: String
+  ranges: [PublishingRange]
+}
+
+type PublishingRange {
+  publishDate: DateTime
+  unpublishDate: DateTime
+  version: Int
+}
+
+type Folder implements Content {
+  ancestors: [Content!]!
+  children: [Content!]!
+  createdBy: String!
+  creationDate: String!
+  displayName: String!
+  hasChildren: Boolean!
+  icon: String!
+  id: String!
+  insertOptions(kind: InsertOptionKind!): [InsertOption!]!
+  isFolder: Boolean
+  isLatestPublishableVersion: Boolean
+  language: String!
+  locking: ContentItemLocking!
+  name: String!
+  parent: Content
+  path: String!
+  permissions: ContentItemPermissions!
+  publishing: ContentItemPublishing!
+  revision: String!
+  template: Template!
+  updatedBy: String!
+  updatedDate: String!
+  version: Int!
+  versionName: String!
+  versions: [Content!]!
+  versionsAll(includeAllLanguages: Boolean = false): [Content!]!
+  workflow: WorkflowState
+}
+
+type ItemTemplate implements InsertOption {
+  displayName: String!
+  id: String!
+}
+
+type BranchTemplate implements InsertOption {
+  displayName: String!
+  id: String!
+  templateId: String!
+}

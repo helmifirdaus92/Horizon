@@ -1,0 +1,23 @@
+{
+  "solution": {
+    "path": "Sitecore.Horizon.sln",
+    "projects": [
+      "src\\Sitecore.AuthoringHost.Configuration\\Sitecore.AuthoringHost.Configuration.csproj",
+      "src\\Sitecore.Horizon.Authoring.Plugin\\Sitecore.Horizon.Authoring.Plugin.csproj",
+      "src\\Sitecore.Horizon.Canvas.Client\\Sitecore.Horizon.Canvas.Client.csproj",
+      "src\\Sitecore.Horizon.Client.Extensions\\Sitecore.Horizon.Client.Extensions.csproj",
+      "src\\Sitecore.Horizon.Client\\Sitecore.Horizon.Client.csproj",
+      "src\\Sitecore.Horizon.Core\\Sitecore.Horizon.Core.csproj",
+      "src\\Sitecore.Horizon.Host\\Sitecore.Horizon.Host.csproj",
+      "src\\Sitecore.Horizon.Integration.GraphQL\\Sitecore.Horizon.Integration.GraphQL.csproj",
+      "src\\Sitecore.Horizon.Integration.Insights\\Sitecore.Horizon.Integration.Insights.csproj",
+      "src\\Sitecore.Horizon.Integration.XM.Content\\Sitecore.Horizon.Integration.XM.Content.csproj",
+      "src\\Sitecore.Horizon.Integration.XP.Content\\Sitecore.Horizon.Integration.XP.Content.csproj",
+      "src\\Sitecore.Horizon.Integration\\Sitecore.Horizon.Integration.csproj",
+      "tests\\Sitecore.Horizon.Integration.GraphQL.Tests.Unit\\Sitecore.Horizon.Integration.GraphQL.Tests.Unit.csproj",
+      "tests\\Sitecore.Horizon.Integration.Insights.Tests.Unit\\Sitecore.Horizon.Integration.Insights.Tests.Unit.csproj",
+      "tests\\Sitecore.Horizon.Integration.Tests.Unit\\Sitecore.Horizon.Integration.Tests.Unit.csproj",
+      "tests\\Sitecore.Horizon.Integration.Tests.Unit.Shared\\Sitecore.Horizon.Integration.Tests.Unit.Shared.csproj"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="158px" viewBox="0 0 200 158" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="layout" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="empty-folder" transform="translate(-860.000000, -281.000000)" fill="#2B2B2B">
+            <g id="Group" transform="translate(860.000000, 281.000000)">
+                <path d="M185,46 L2,46 L2,15 C2,7.832 7.832,2 15,2 L69.346,2 L98.817,23.613 L99.346,24 L100,24 L185,24 C192.168,24 198,29.832 198,37 L198,53.538 C195.41,49.037 190.564,46 185,46 L185,46 Z M198,143 C198,150.168 192.168,156 185,156 L15,156 C7.832,156 2,150.168 2,143 L2,48 L185,48 C192.168,48 198,53.832 198,61 L198,143 Z M185,22 L100,22 L70,0 L15,0 C6.716,0 0,6.716 0,15 L0,32 L0,143 C0,151.284 6.716,158 15,158 L185,158 C193.284,158 200,151.284 200,143 L200,37 C200,28.716 193.284,22 185,22 L185,22 Z" id="Fill-1"></path>
+                <polygon id="Fill-3" points="127.8281 79.8281 122.1721 74.1721 100.0001 96.3441 77.8281 74.1721 72.1721 79.8281 94.3441 102.0001 72.1721 124.1721 77.8281 129.8281 100.0001 107.6561 122.1721 129.8281 127.8281 124.1721 105.6561 102.0001"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

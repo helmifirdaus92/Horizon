@@ -1,0 +1,195 @@
+{
+  "$schema": "http://schemastore:9999/deployconfig.json",
+  "instanceName": "horizon",
+  "useSif": "true",
+  "testsRootToDeploy": "$currentFolder\\output\\Tests",
+  "deployedTestsLocation": "$testsRootToDeploy\\bin",
+  "reportPath": "$deployedTestsLocation",
+  "deployModules": "false",
+  "localSources": "$rootFolder\\artifacts",
+  "customParameters": {
+    "azureConatinerRegistry": "ideftdevacr",
+    "damSiteUrl": "https://horizondk.stylelabsqa.com",
+    "featureIntegration": {
+      "version": "[7.0.0-r00000,7.0.0]"
+    },
+    "deployedTestsLocation": "$currentFolder\\output\\Tests\\bin",
+    "extensibilityTestsRootDir": "$currentFolder\\output\\Tests\\Extensibility",
+    "xmCloudExpEdgeConnectionString": "url=https://auth-staging-1.sitecore-staging.cloud/oauth/token;client_id=O1iLromLG9gHtqSJpM5395C5nZPrZfO6;client_secret=GHIjbdLuMFKjRvhae22ECTv_e4E0za095Y-xFYF7w7eceLy9Du5u3aEhtO4shwTb;audience=https://api-staging.sitecore-staging.cloud;delivery_endpoint=https://edge-publishing-staging.sitecore-staging.cloud;cdn_uri=https://edge-staging.sitecore-staging.cloud;media_prefix=publishing-connector-tenant/media",
+    "SitecoreFedAuthAuth0Domain": "https://auth-staging-1.sitecore-staging.cloud",
+    "SitecoreFedAuthAuth0CliAudience": "https://xmcloud-cm-staging.sitecore-staging.cloud",
+    "SitecoreFedAuthAuth0CliClientId": "2bU100d0RUQ2hjHp43k7XJNe0OvprtYs",
+    "SitecoreFedAuthAuth0CliClientSecret": "87MTAp_2R9PNp9Exu9wIyUuLV7KJhDBe2g44akQd_XXnTdyhpTMCmcora0RIdVvV",
+    "SitecoreFedAuthAuth0PagesClientId": "tpU14zCANpFoZ0W4jnWZSYe3rtNFxBmR",
+    "SitecoreFedAuthAuth0PagesAudience": "https://api-staging.sitecore-staging.cloud",
+    "SitecoreXmCloudrganizationId":"org_FzUOtp4HjfZYw1Hv",
+    "SitecoreXmCloudTenantId":"4d4c16b1-f22e-4f46-aa1f-08dbca4c7c1e",
+    "SitecoreFedAuthAuth0IsLocal":"false"
+  },
+  "defaultRunner": "nunit.console",
+  "defaultRunnerVersion": "3.7.0",
+  "runSwitches": {
+    "Smoke": "false",
+    "Extensibility": "false",
+    "enableContentHub": "false",
+    "enableSXA": "false",
+    "GraphQLIntegrationTests": "false",
+    "SkipTestsDeployment": "false",
+    "NewE2ETests":"false",
+    "WithSpeedOptimization":"false",
+    "PERFORMANCEUITESTS": "false",
+    "customComposeDeploy": "false"
+  },
+  "testsBasePackages": [
+    {
+      "name": "Sitecore.XMCloud.Latest",
+      "xconnectPackageId": "",
+      "indexWorkerPackageId": "",
+      "automationEnginePackageId": "",
+      "processingEnginePackageId": ""
+    }
+  ],
+  "packages": [
+    {
+      "name": "UTF.WebService",
+      "runSwitches": {
+        "customComposeDeploy": "false"
+      }
+    },
+    {
+      "name": "Sitecore.Horizon.FeatureIntegration.Testing.ExtensibilityUtils",
+      "runSwitches": {
+        "customComposeDeploy": "false"
+      }
+    },
+    {
+      "name": "Sitecore.Horizon.Integration.Editor.Tests.UI",
+      "targetDir": "$testsRootToDeploy",
+      "application": "test",
+      "runSwitches": {
+        "SkipTestsDeployment": "false",
+        "NewE2ETests":"false"
+      },
+      "tests": [
+        {
+          "testRoot": "$deployedTestsLocation",
+          "location": "Sitecore.Horizon.Integration.Editor.Tests.UI.dll",
+          "excludeCategories": "ExcludeFromXMCloudRun"
+        }
+      ]
+    },
+    {
+      "name": "Sitecore.Horizon.Extensibility.Tests.UI",
+      "targetDir": "$testsRootToDeploy",
+      "application": "test",
+      "runSwitches": {
+        "SkipTestsDeployment": "false",
+        "Extensibility": "true"
+      },
+      "tests": [
+        {
+          "testRoot": "$deployedTestsLocation",
+          "location": "Sitecore.Horizon.Extensibility.Tests.UI.dll"
+        }
+      ]
+    },
+    {
+      "name": "Sitecore.Horizon.ContentHub.Dam.Plugin.Tests.UI",
+      "targetDir": "$testsRootToDeploy",
+      "application": "test",
+      "runSwitches": {
+        "SkipTestsDeployment": "false",
+        "enableContentHub": "true"
+      },
+      "tests": [
+        {
+          "testRoot": "$deployedTestsLocation",
+          "location": "Sitecore.Horizon.ContentHub.Dam.Plugin.Tests.UI.dll"
+        }
+      ]
+    },
+    {
+      "name": "Sitecore.Horizon.Integration.GraphQL.Tests",
+      "targetDir": "$testsRootToDeploy",
+      "targetFramework": "net6",
+      "application": "test",
+      "runSwitches": {
+        "SkipTestsDeployment": "false",
+        "GraphQLIntegrationTests": "true"
+      },
+      "tests": [
+        {
+          "testRoot": "$deployedTestsLocation",
+          "location": "Sitecore.Horizon.Integration.GraphQL.Tests.dll",
+          "runner": "dotnet"
+        }
+      ]
+    }
+  ],
+  "sitecoreModules": [
+    {
+      "projectName": "AuthoringHost",
+      "name": "Sitecore.Horizon.Deploy",
+      "parameters": {
+        "enableContentHub": "false",
+        "damSiteUrl": "https://horizondk.stylelabsqa.com",
+        "horizonInstanceName": "horizon-ah"
+      }
+    },
+    {
+      "projectName": "WEB",
+      "name": "Sitecore.XA.Deploy",
+      "parameters": {
+        "cmInstanceName": "horizonCM",
+        "cdInstanceName": "horizonCD",
+        "Sitename": "horizon"
+      }
+    },
+    {
+      "projectName": "Sitecore.JSS.Server",
+      "name": "Sitecore.JSSServer.Deploy",
+      "parameters": {
+        "cMSitename": "horizonCM",
+        "cDSitename": "horizonCD"
+      }
+    },
+    {
+      "projectName": "Sitecore.ManagementServices",
+      "name": "Sitecore.ManagementServices.Deploy",
+      "parameters": {
+        "Sitename": "horizonCM"
+      }
+    },
+    {
+      "projectName": "Sitecore.Publishing.Module",
+      "name": "Sitecore.Publishing.Module.Deploy",
+      "parameters": {
+        "instanceName": "horizon"
+      }
+    }
+  ],
+  "containers": {
+    "deploymentTopology": "XMCloud",
+    "osVersion": "ltsc2019",
+    "packages": [
+      {
+        "name": "Sitecore.Horizon.Integration.GraphQL.Tests",
+        "targetDir": "$targetdir\\pagesApi",
+        "targetDirectory": "$targetdir\\pagesApi",
+        "targetFramework": "net6",
+        "application": "test",
+        "runSwitches": {
+          "SkipTestsDeployment": "false",
+          "GraphQLIntegrationTests": "true"
+        },
+        "tests": [
+          {
+            "location": "Sitecore.Horizon.Integration.GraphQL.Tests.dll",
+            "testRoot": "$targetdir\\pagesApi\\bin",
+            "runner": "dotnet"
+          }
+        ]
+      }
+    ]
+  }
+}

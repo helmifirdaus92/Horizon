@@ -1,0 +1,102 @@
+<div
+  [ngClass]="{
+    'small-dialog': (dialogSteps$ | async) === 'createVariant' || !isConnectedMode,
+    'large-dialog':
+      (isConnectedMode && (dialogSteps$ | async) === 'createAudience') || (dialogSteps$ | async) === 'editVariant',
+  }"
+>
+  <ng-spd-dialog-panel>
+    <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+    <ng-spd-dialog-header [visibleBorders]="true" class="header">
+      <div *ngIf="(dialogSteps$ | async) === 'createVariant' || (dialogSteps$ | async) === 'createAudience'">{{
+        'PERSONALIZATION.CREATE_PAGE_VARIANT' | translate
+      }}</div>
+      <div *ngIf="(dialogSteps$ | async) === 'editVariant'">{{ 'PERSONALIZATION.EDIT_AUDIENCE' | translate }}</div>
+    </ng-spd-dialog-header>
+
+    <app-stepper
+      [class.hidden]="(dialogSteps$ | async) === 'editVariant'"
+      [activeStepIndex]="(dialogSteps$ | async) === 'createVariant' ? 0 : 1"
+    ></app-stepper>
+
+    <!-- Create variant name template -->
+    <ng-container *ngIf="(dialogSteps$ | async) === 'createVariant'">
+      <div class="dialog-body">
+        <div class="variant-dialog">
+          <span
+            ><h5 class="h5">{{ 'PERSONALIZATION.DEFAULT_TEXT' | translate }}</h5>
+          </span>
+          <div class="input">
+            <label ngSpdLabel for="variant-name">{{ 'PERSONALIZATION.PAGE_VARIANT_NAME' | translate }}</label>
+            <input
+              #variantNameValidator="ngModel"
+              ngSpdInput
+              type="text"
+              id="variant-name"
+              autofocus="true"
+              [placeholder]="'COMMON.NAME' | translate"
+              [isInvalid]="!!variantNameValidator.errors"
+              [appValidateVariantName]="flowDefinition?.traffic?.splits"
+              [(ngModel)]="variantName"
+              (keyup.enter)="goToCreateAudienceStep(!!variantNameValidator.errors || !variantName.length)"
+            />
+          </div>
+
+          <div class="error-block">
+            <p *ngIf="variantNameValidator.errors?.isAlreadyUsed">{{
+              'PERSONALIZATION.API_ERRORS.ERROR_VARIANT_NAME_EXISTS' | translate
+            }}</p>
+            <p *ngIf="variantNameValidator.errors?.maxLength">{{ 'PERSONALIZATION.ERROR_LENGTH_LIMIT' | translate }}</p>
+            <p *ngIf="variantNameValidator.errors?.minLength">{{ 'PERSONALIZATION.EMPTY_VARIANT_NAME' | translate }}</p>
+            <p *ngIf="variantNameValidator.errors?.notAllowedCharacter">{{
+              'PERSONALIZATION.ERROR_CHARACTERS_VALIDATION' | translate
+            }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <ng-spd-dialog-actions [visibleBorders]="true" class="mt-auto mb-0">
+        <button ngSpdButton="outlinePrimary" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+        <button
+          ngSpdButton="primary"
+          (click)="goToCreateAudienceStep(!!variantNameValidator.errors || !variantName.length)"
+          [disabled]="!!variantNameValidator.errors || !variantName.length"
+          >{{ 'COMMON.NEXT' | translate }}</button
+        >
+      </ng-spd-dialog-actions>
+    </ng-container>
+
+    <!-- Create audience name template -->
+    <ng-container *ngIf="(dialogSteps$ | async) === 'createAudience' || (dialogSteps$ | async) === 'editVariant'">
+      <ng-container *ngIf="isConnectedMode; else notConnectedMode">
+        <div class="dialog-body">
+          <iframe class="editor" [attr.src]="safeUrl" (load)="onIframeLoadEnd($event.target)"></iframe>
+          <div class="loader" *ngIf="iframeIsLoading">
+            <ng-spd-loading-indicator></ng-spd-loading-indicator>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-spd-dialog-panel>
+</div>
+
+<!-- Disconnected mode template for create audience -->
+<ng-template #notConnectedMode>
+  <div class="dialog-body">
+    <div class="disconnected">
+      <label ngSpdLabel for="audience-name">{{ 'PERSONALIZATION.AUDIENCE_NAME' | translate }}</label>
+      <input
+        ngSpdInput
+        type="text"
+        id="variant-name"
+        [placeholder]="'COMMON.NAME' | translate"
+        [(ngModel)]="audienceName"
+        (keyup.enter)="addVariantToLocalFlowDefinition()"
+      />
+    </div>
+    <button ngSpdButton="primary" type="button" class="mt-md" (click)="addVariantToLocalFlowDefinition()">{{
+      'COMMON.SAVE' | translate
+    }}</button>
+  </div>
+</ng-template>

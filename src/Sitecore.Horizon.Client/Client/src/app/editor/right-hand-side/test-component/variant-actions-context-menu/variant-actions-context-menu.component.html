@@ -1,0 +1,34 @@
+<button
+  class="px-md"
+  [disabled]="disabled()"
+  [class.active]="popoverRef.isPopoverVisible()"
+  ngSpdIconButton
+  icon="dots-horizontal"
+  [ngSpdPopover]="popoverVariants"
+  popoverPosition="left-bottom"
+  [customClass]="'variant-menu-actions-popover'"
+  [popoverOffset]="0"
+  [popoverShowDelay]="0"
+  [popoverHideDelay]="0"
+  [hideOnBackdropClick]="true"
+  #popoverRef="ngSpdPopover"
+  (click)="popoverRef.toggle(); $event.stopPropagation()"
+>
+</button>
+
+<ng-template #popoverVariants let-popoverRef>
+  <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+    <button ngSpdListItem (click)="popoverRef.hide(); renameBtnClick.emit($event)">
+      <i class="mdi mdi-square-edit-outline mr-sm"></i>
+      {{ 'COMPONENT_TESTING.RENAME_VARIANT' | translate }}
+    </button>
+    <button ngSpdListItem [disabled]="disableResetVariant()" (click)="popoverRef.hide(); resetBtnClick.emit($event)">
+      <i class="mdi mdi-restore mr-sm"></i>
+      {{ 'COMPONENT_TESTING.RESET_VARIANT' | translate }}
+    </button>
+    <button ngSpdListItem [disabled]="disableDeleteVariant()" (click)="popoverRef.hide(); deleteBtnClick.emit($event)">
+      <i class="mdi mdi-trash-can-outline mr-sm"></i>
+      {{ 'COMPONENT_TESTING.DELETE_VARIANT' | translate }}
+    </button>
+  </ng-spd-list>
+</ng-template>

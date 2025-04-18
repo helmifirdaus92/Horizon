@@ -1,0 +1,7 @@
+{
+    "ignore_dirs": [
+        "src/Sitecore.Horizon.Client/Client/node_modules",
+        "src/Sitecore.Horizon.Canvas.Client/Client/node_modules",
+        "src/Sitecore.Horizon.Client.Extensions/Client/node_modules"
+    ]
+}

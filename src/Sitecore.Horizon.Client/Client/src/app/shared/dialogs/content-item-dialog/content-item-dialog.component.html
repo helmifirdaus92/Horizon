@@ -1,0 +1,44 @@
+<ng-spd-dialog-panel (keyup.enter)="submitDisabled ? '' : submit()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header [visibleBorders]="true"
+    >{{ 'EDITOR.LINK.DIALOG.INTERNAL_LINK' | translate }}
+  </ng-spd-dialog-header>
+
+  <div class="content-header">
+    <app-site-language-dropdowns
+      class="mr-md content-header-dropdown"
+      [sites]="sites$ | async"
+      [languages]="showLanguageSelector ? (languages$ | async) : null"
+      (siteChange)="onSiteChange($event)"
+      (languageChange)="onLanguageChange($event)"
+    >
+    </app-site-language-dropdowns>
+  </div>
+
+  <div class="picker-dialog-body">
+    @if (showPagesOnly) {
+      <app-page-picker
+        [usePageNames]="false"
+        [site]="site"
+        [language]="selection.language"
+        [itemId]="selection.id"
+        (selectItem)="onItemChange($event.id)"
+      >
+      </app-page-picker>
+    } @else {
+      <app-item-picker
+        [itemId]="selection.id"
+        [language]="selection.language"
+        [site]="site"
+        (selectChange)="onItemChange($event)"
+      ></app-item-picker>
+    }
+  </div>
+
+  <ng-spd-dialog-actions [visibleBorders]="true">
+    <button ngSpdButton="outline" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="submit()" [disabled]="submitDisabled">{{
+      'EDITOR.LINK.DIALOG.ADD_SELECTED' | translate
+    }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

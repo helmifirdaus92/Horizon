@@ -1,0 +1,8 @@
+<div class="dialog-content-wrapper" [style.width.px]="modalWidth">
+  <span class="header">{{ headerText }}</span>
+  <img [src]="src | asset" [attr.alt]="alt | translate" />
+  <span class="description">{{ description }}</span>
+  <div class="footer mb-md">
+    <ng-content select="[footer]"></ng-content>
+  </div>
+</div>

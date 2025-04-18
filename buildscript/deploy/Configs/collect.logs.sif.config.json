@@ -1,0 +1,58 @@
+{
+  "Parameters": {
+    "InstanceName": {
+      "Type": "string"
+    },
+    "Topology": {
+      "Type": "string",
+      "DefaultValue": "XP0"
+    }
+  },
+  "Variables": {
+    "HorizonHostSiteName": "[concat(parameter('InstanceName'), $authoringHostPostfix)]",
+    "XConnectSiteName": "[if(Equal(parameter('Topology'), 'xp1'), concat(parameter('InstanceName'), '_collection'), concat(parameter('InstanceName'), '_xconnect'))]",
+    "SitecoreSiteName": "[if(Equal(parameter('Topology'), 'xp0'), parameter('InstanceName'), concat(parameter('InstanceName'), 'CM'))]",
+    "HorizonHost.Site.LogsPath": "[joinpath(environment('SystemDrive'), 'inetpub', 'wwwroot', variable('HorizonHostSiteName'), 'logs')]",
+    "Sitecore.Site.LogsPath": "[joinpath(environment('SystemDrive'), 'inetpub', 'wwwroot', variable('SitecoreSiteName'), 'App_Data', 'logs')]",
+    "XConnect.Site.LogsPath": "[joinpath(environment('SystemDrive'), 'inetpub', 'wwwroot', variable('XConnectSiteName'),'App_Data', 'logs')]",
+    "HorizonHostLogsExist": "[TestPath(variable('HorizonHost.Site.LogsPath'))]",
+    "SitecoreLogsExist": "[TestPath(variable('Sitecore.Site.LogsPath'))]",
+    "XConnectLogsExist": "[TestPath(variable('XConnect.Site.LogsPath'))]",
+    "OutputLogsFolder": "[joinpath(ResolvePath('..\\..\\.'), 'output\\Release\\logs')]"
+  },
+  "Register": {
+    "ConfigFunction": {
+      "TestPath": "Test-Path"
+    }
+  },
+  "Tasks": {
+    "CollectAuthHostLogs": {
+      "Type": "Copy",
+      "Params": {
+        "Source": "[variable('HorizonHost.Site.LogsPath')]",
+        "Destination": "[variable('OutputLogsFolder')]",
+        "Verbose": true
+      },
+      "Skip": "[not(variable('HorizonHostLogsExist'))]"
+    },
+    "CollectSitecoreLogs": {
+      "Type": "Copy",
+      "Params": {
+        "Source": "[variable('Sitecore.Site.LogsPath')]",
+        "Destination": "[variable('OutputLogsFolder')]",
+        "Verbose": true
+      },
+      "Skip": "[not(variable('SitecoreLogsExist'))]"
+    },
+    "CollectXConnectLogs": {
+      "Type": "Copy",
+      "Params": {
+        "Source": "[variable('XConnect.Site.LogsPath')]",
+        "Destination": "[variable('OutputLogsFolder')]",
+        "Verbose": true
+      },
+      "Skip": "[not(variable('XConnectLogsExist'))]"
+    }
+  },
+  "Modules": [".\\Tools\\horizon.deploy.psm1"]
+}

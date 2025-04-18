@@ -1,0 +1,33 @@
+@import '@sitecore/spd-styles/src/all';
+
+// Class when there is an element dragged over it.
+:host.dragover {
+  &:after {
+    content: '';
+    border: 1px solid $brand-primary-default;
+    box-sizing: border-box;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  }
+
+  &.drop-before {
+    &:after {
+      border: none;
+      border-top: 1px solid $brand-primary-default;
+    }
+  }
+
+  &.drop-after {
+    &:after {
+      border: none;
+      border-bottom: 1px solid $brand-primary-default;
+    }
+  }
+
+  &.no-drop:after {
+    border-color: transparent;
+  }
+}

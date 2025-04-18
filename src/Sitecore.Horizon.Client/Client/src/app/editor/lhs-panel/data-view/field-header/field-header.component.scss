@@ -1,0 +1,83 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .left-content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-9xs;
+    align-items: flex-start;
+    flex: 1;
+
+    .name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: $font-size-14px;
+      font-weight: 500;
+      color: $brand-black-600;
+      opacity: 1;
+    }
+    .header {
+      display: flex;
+      gap: $padding-x-small;
+      align-items: center;
+    }
+  }
+
+  &.sm {
+    .left-content {
+      align-self: center;
+
+      .name {
+        font-weight: $font-weight-medium;
+        font-size: $font-size-13px;
+        color: $font-primary-dark;
+      }
+    }
+    .tag {
+      margin-bottom: $padding-x-small;
+    }
+  }
+}
+
+.left-content:has(.tag) + .action-buttons {
+  align-self: flex-end;
+}
+
+.left-content:not(:has(.tag)) + .action-buttons {
+  align-self: flex-start;
+}
+
+:host {
+  ::ng-deep {
+    .selected-values-popover {
+      height: max-content;
+      box-shadow: $box-shadow !important;
+      border: $framework-border;
+      border-radius: $border-radius-secondary !important;
+      outline: transparent solid 2px;
+      box-sizing: border-box;
+      overflow: auto;
+      padding: $padding-x-small;
+      margin-right: -40px;
+    }
+    ng-spd-droplist {
+      button {
+        height: auto !important;
+      }
+    }
+  }
+}
+
+.header {
+  .close-button {
+    display: block;
+    margin-left: auto;
+  }
+}

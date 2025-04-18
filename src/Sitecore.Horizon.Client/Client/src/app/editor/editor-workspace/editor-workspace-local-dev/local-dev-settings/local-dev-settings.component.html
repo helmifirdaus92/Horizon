@@ -1,0 +1,76 @@
+<ng-container *ngIf="!isProductionMode">
+  <button
+    ngSpdIconButton
+    [icon]="'view-compact-outline'"
+    [class.active]="isShowPanesMode"
+    [attr.aria-label]="'CANVAS_LOADING.SHOW_PANES' | translate"
+    [attr.title]="'CANVAS_LOADING.SHOW_PANES' | translate"
+    (click)="toggleShowingPanes(!isShowPanesMode)"
+  ></button>
+
+  <hr class="hr" />
+
+  <button
+    ngSpdIconButton
+    [icon]="'web'"
+    [class.active]="isDisconnectedMode"
+    [attr.aria-label]="'CANVAS_LOADING.TOGGLE_DISCONNECTED_MODE' | translate"
+    [attr.title]="'CANVAS_LOADING.TOGGLE_DISCONNECTED_MODE' | translate"
+    (click)="toggleDisconnectedMode()"
+  ></button>
+
+  <hr class="hr" />
+
+  <button
+    ngSpdIconButton
+    [icon]="'database'"
+    [class.active]="isInventoryConnectedMode"
+    [attr.aria-label]="'INVENTORY.TOGGLE_DISCONNECTED_MODE' | translate"
+    [attr.title]="'INVENTORY.TOGGLE_DISCONNECTED_MODE' | translate"
+    (click)="toggleInventoryConnectedMode()"
+  ></button>
+
+  <hr class="hr" />
+
+  <a
+    ngSpdIconButton
+    target="_blank"
+    icon="open-in-new"
+    [attr.aria-label]="'CANVAS_LOADING.OPEN_STAGING' | translate"
+    [attr.title]="'CANVAS_LOADING.OPEN_STAGING' | translate"
+    [href]="getPagesURL()"
+  ></a>
+
+  <hr class="hr" />
+
+  <button
+    ngSpdIconButton
+    [icon]="'account-circle-outline'"
+    [class.active]="settingsMenuEnabled"
+    [attr.aria-label]="'CANVAS_LOADING.TOGGLE_SETTINGS_PANEL' | translate"
+    [attr.title]="'CANVAS_LOADING.TOGGLE_SETTINGS_PANEL' | translate"
+    (click)="toggleSettingsEnabledMode()"
+  ></button>
+
+  <hr class="hr" />
+
+  <button
+    ngSpdIconButton
+    [icon]="'puzzle-outline'"
+    [class.active]="isFeaasEnabled"
+    [attr.aria-label]="'CANVAS_LOADING.TOGGLE_FEAAS' | translate"
+    [attr.title]="'CANVAS_LOADING.TOGGLE_FEAAS' | translate"
+    (click)="toggleFeaasEnabledMode()"
+  ></button>
+
+  <hr class="hr" />
+
+  <button
+    ngSpdIconButton
+    [icon]="'sitemap-outline'"
+    [class.active]="isFacadeApiEnabled"
+    [attr.aria-label]="'CANVAS_LOADING.TOGGLE_FACADE_API' | translate"
+    [attr.title]="'CANVAS_LOADING.TOGGLE_FACADE_API' | translate"
+    (click)="toggleFacadeApiMode()"
+  ></button>
+</ng-container>

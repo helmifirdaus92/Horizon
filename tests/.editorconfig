@@ -1,0 +1,8 @@
+[*.cs]
+resharper_object_creation_as_statement_highlighting = do_not_show
+resharper_possible_null_reference_exception_highlighting = do_not_show
+resharper_assign_null_to_not_null_attribute_highlighting = do_not_show
+resharper_unused_variable_highlighting = do_not_show
+resharper_return_value_of_pure_method_is_not_used_highlighting = do_not_show
+resharper_redundant_argument_default_value_highlighting = do_not_show
+resharper_possible_invalid_operation_exception_highlighting = do_not_show

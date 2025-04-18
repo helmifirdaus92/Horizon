@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Content Include="..\..\buildscript\deploy.config.json" PackagePath="configuration" />
+    <Content Include="..\..\buildscript\extensions.psm1" PackagePath="configuration" />
+    <Content Include="..\..\buildscript\xmCloudTest.ps1" PackagePath="configuration" />
+    <Content Include="..\..\buildscript\scripts\**" PackagePath="configuration\scripts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <SitecoreInternal>true</SitecoreInternal>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>TRACE</DefineConstants>
+    <NoWarn>$(NoWarn);1701;1702;NU5128;NU5100;NU5110;NU5111;NU1803;NU1603</NoWarn>
+  </PropertyGroup>
+
+</Project>

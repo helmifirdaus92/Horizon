@@ -1,0 +1,28 @@
+<h1 class="text-center mb-xl">{{ 'EDITOR.PAGE_SETTINGS' | translate }}</h1>
+<ng-container *ngIf="contextValue$ | async as contextValue">
+  <ng-container *appRecreateOnPropertyChange="contextValue">
+    <app-page-rename [context]="contextValue"></app-page-rename>
+    <app-page-languages
+      [context]="contextValue"
+      [isAccordionOpen]="accordionHeaderOpenList.get('languages')"
+      (accordionOpenChange)="accordionHeaderOpenList.set('languages', $event)"
+      class="mb-l"
+    ></app-page-languages>
+    <app-page-design
+      *ngIf="showPageDesign"
+      [isAccordionOpen]="accordionHeaderOpenList.get('designs')"
+      (accordionOpenChange)="accordionHeaderOpenList.set('designs', $event)"
+      class="mb-l"
+    ></app-page-design>
+    <app-page-insert-options
+      *ngIf="showInsertOptions"
+      [isAccordionOpen]="accordionHeaderOpenList.get('insertOpt')"
+      (accordionOpenChange)="accordionHeaderOpenList.set('insertOpt', $event)"
+    ></app-page-insert-options>
+    <app-page-details
+      [isAccordionOpen]="accordionHeaderOpenList.get('details')"
+      (accordionOpenChange)="accordionHeaderOpenList.set('details', $event)"
+      [context]="contextValue"
+    ></app-page-details>
+  </ng-container>
+</ng-container>

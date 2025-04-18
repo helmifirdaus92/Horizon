@@ -1,0 +1,28 @@
+<ng-spd-card [disabled]="disabled">
+  <ng-spd-card-header
+    [title]="
+      (mode !== 'pageAnalytics'
+        ? 'ANALYTICS.SITE_ANALYTICS.TITLES.TOP_PAGES'
+        : 'ANALYTICS.PAGE_ANALYTICS.TITLES.TOP_PAGES'
+      ) | translate
+    "
+    [tooltipText]="
+      (mode !== 'pageAnalytics'
+        ? 'ANALYTICS.SITE_ANALYTICS.DESCRIPTIONS.TOP_PAGES'
+        : 'ANALYTICS.PAGE_ANALYTICS.DESCRIPTIONS.TOP_PAGES'
+      ) | translate
+    "
+    [hasBackground]="true"
+  ></ng-spd-card-header>
+  <app-bar-chart
+    id="hrzTopPagesGraph"
+    *ngIf="!isLoading"
+    [items]="manipulatedChartData ? manipulatedChartData[0].series : []"
+    [horizontal]="true"
+    [isReversedPalette]="true"
+  ></app-bar-chart>
+
+  <div class="loading" *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+</ng-spd-card>

@@ -1,0 +1,46 @@
+<ng-spd-dialog-panel (keyup.enter)="!selectedItem$ ? '' : selectTemplate()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header> {{ 'PAGE_DESIGNS.WORKSPACE.SELECT_A_PAGE_TEMPLATE' | translate }} </ng-spd-dialog-header>
+  <div class="loading" *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+
+  <div class="dialog-body">
+    <div class="main-body pt-l" *ngIf="insertOptions$ | async; let options">
+      <div class="template-design-content">
+        <div class="template-design-list">
+          <ng-spd-item-card
+            *ngFor="let item of options"
+            [cardType]="'vertical'"
+            [title]="item.displayName"
+            (itemClick)="selectedItem$.next(item)"
+            [selected]="(selectedItem$ | async)?.templateId === item.templateId"
+            [clickable]="true"
+          >
+            <div ngSpdItemCardContent class="thumbnail-container">
+              <img
+                *ngIf="item.thumbnailUrl"
+                [src]="item.thumbnailUrl | cmUrl"
+                [alt]="item.displayName"
+                class="thumbnail-image"
+              />
+
+              <i *ngIf="!item.thumbnailUrl" class="mdi mdi-page-layout-header thumbnail-icon"></i>
+            </div>
+          </ng-spd-item-card>
+        </div>
+      </div>
+      <app-empty-state
+        *ngIf="(insertOptionsEmpty$ | async) && !isLoading"
+        [description]="emptyStateDescription"
+        [title]="'PAGE_DESIGNS.WORKSPACE.NO_AVAILABLE_TEMPLATES' | translate"
+      ></app-empty-state>
+    </div>
+  </div>
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" [disabled]="!(selectedItem$ | async)" (click)="selectTemplate()">{{
+      'COMMON.SELECT' | translate
+    }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

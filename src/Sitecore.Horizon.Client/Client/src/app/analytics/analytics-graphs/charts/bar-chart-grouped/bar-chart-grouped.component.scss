@@ -1,0 +1,6 @@
+@import '../base-chart/base-chart.component.scss';
+:host {
+  ::ng-deep .ngx-charts .grid-panel.odd rect {
+    fill: none;
+  }
+}

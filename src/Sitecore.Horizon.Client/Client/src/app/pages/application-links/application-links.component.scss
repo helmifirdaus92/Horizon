@@ -1,0 +1,19 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dashboard-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: $font-size-24px;
+    height: $font-size-24px;
+  }
+}

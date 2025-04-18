@@ -1,0 +1,11 @@
+@import '@sitecore/spd-styles/src/all';
+
+.layout-switch-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: $font-size-13px;
+  font-weight: $font-weight-semi-bold;
+  color: $font-primary-dark;
+}

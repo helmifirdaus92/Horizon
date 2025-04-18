@@ -1,0 +1,15 @@
+# may contain OAuth secrets, do not commit
+.sitecore/
+
+# Ephemeral index caches used by serialization, do not commit
+.scindex
+
+# Don't commit packages
+*.itempackage
+*.sicpackage
+
+#dotnet config, do not commit
+.config
+
+#vscode files, do not commit
+.vscode

@@ -1,0 +1,19 @@
+{
+    "$schema": "../.sitecore/schemas/ModuleFile.schema.json",
+    "namespace": "CustomComponent",
+    "items": {
+		"path": ".",
+        "includes": [
+            {
+                "name":"sitecore/templates/Feature/Custom Templates",
+                "path":"/sitecore/templates/Feature/Custom Templates",
+                "scope":"ItemAndDescendants"
+            },
+            {
+                "name":"sitecore/layout/Renderings/Feature/Custom Components",
+                "path":"/sitecore/layout/Renderings/Feature/Custom Components",
+                "scope":"ItemAndDescendants"
+            }
+        ]
+    }
+}

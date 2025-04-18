@@ -1,0 +1,80 @@
+<div class="back-to-page-design" *ngIf="contextPageDesign$ | async; let contextPageDesign">
+  <button ngSpdButton="primary" icon="arrow-left" (click)="goToEditPageDesign(contextPageDesign)">
+    {{ 'PAGE_DESIGNS.WORKSPACE.BACK_TO_PAGE_DESIGN' | translate }}
+  </button>
+</div>
+
+<div class="main-top-bar">
+  <div class="col left">
+    <app-hz-app-switcher *ngIf="isAppSwitcherEnabled && renderSwitchersAndNavigation()"></app-hz-app-switcher>
+
+    <app-application-links class="mx-sm" *ngIf="renderSwitchersAndNavigation()"></app-application-links>
+
+    <ng-container *ngIf="contextViewInfo && !renderSwitchersAndNavigation()">
+      <div class="page-info with-icon mr-md">
+        <div class="icon mr-sm ml-sm">
+          <i
+            class="mdi"
+            [ngClass]="{
+              'mdi-view-compact-outline': activeNavigation === 'editpagedesign',
+              'mdi-page-layout-header': activeNavigation === 'editpartialdesign',
+              'mdi-source-branch': activeNavigation === 'editpagebranch',
+            }"
+          ></i>
+        </div>
+        <div class="text">
+          <span *ngIf="activeNavigation === 'editpagedesign'">
+            {{ 'PAGE_DESIGNS.WORKSPACE.PAGE_DESIGN' | translate }}
+          </span>
+          <span *ngIf="activeNavigation === 'editpartialdesign'">
+            {{ 'PAGE_DESIGNS.WORKSPACE.PARTIAL_DESIGN' | translate }}
+          </span>
+          <span *ngIf="activeNavigation === 'editpagebranch'">
+            {{ 'PAGE_DESIGNS.WORKSPACE.PAGE_BRANCH' | translate }}
+          </span>
+          <h4>{{ contextViewInfo.header }}</h4>
+        </div>
+      </div>
+    </ng-container>
+
+    <app-site-language-switcher *ngIf="renderSwitchersAndNavigation()"></app-site-language-switcher>
+
+    <app-layout-switch></app-layout-switch>
+
+    <ng-container
+      *ngIf="contextViewInfo && activeNavigation !== 'editpartialdesign' && activeNavigation !== 'editpagedesign'"
+    >
+      <div class="page-info mr-sm opacity-hidden">
+        <h4>{{ contextViewInfo.pageDisplayName }}</h4>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="col center">
+    <app-navigation-bar *ngIf="renderSwitchersAndNavigation()"></app-navigation-bar>
+  </div>
+
+  <div class="col right">
+    <ng-container *ngIf="activeNavigation === 'editor'">
+      <app-ai-hypophysis-button></app-ai-hypophysis-button>
+      <app-extension-lib></app-extension-lib>
+    </ng-container>
+    <ng-container *ngIf="showSettingsBlock">
+      <app-user-info></app-user-info>
+    </ng-container>
+    <ng-container *ngIf="renderGlobalElementsRegion">
+      <app-horizon-workspace-header-preview-link></app-horizon-workspace-header-preview-link>
+
+      <app-workflow-bar></app-workflow-bar>
+    </ng-container>
+
+    <button
+      ngSpdButton="primary"
+      class="my-auto ml-md design-close-btn"
+      (click)="goToDesignList()"
+      *ngIf="!(contextPageDesign$ | async) && !renderSwitchersAndNavigation()"
+    >
+      {{ 'COMMON.CLOSE' | translate }}
+    </button>
+  </div>
+</div>

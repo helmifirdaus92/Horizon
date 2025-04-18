@@ -1,0 +1,49 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.stepper {
+  background-color: $bg;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $icon-width * 3;
+  border-bottom: $border;
+  .steps {
+    display: flex;
+    &.active {
+      .icon {
+        background-color: $brand-primary-default;
+        color: $brand-ui-white;
+      }
+      .text {
+        color: $font-primary-default;
+      }
+    }
+  }
+
+  .divider {
+    border-bottom: $framework-border;
+    margin: $padding-small $padding-small;
+    width: $pop-panel-min-width + $padding-large;
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($font-primary-default, 0.12);
+  color: rgba($font-primary-default, 0.26);
+  border-radius: 50%;
+  height: $icon-width;
+  width: $icon-width;
+  margin-right: $padding-small;
+}
+
+.text {
+  font-weight: $font-weight-regular;
+  font-size: $font-size-16px;
+  color: rgba($font-primary-default, 0.38);
+}

@@ -1,0 +1,33 @@
+<a
+  title="Local launchpad"
+  target="_blank"
+  class="btn-square dashboard-link"
+  [href]="'/sitecore/shell/sitecore/client/Applications/Launchpad' | cmUrl"
+  *ngIf="isDevMode"
+>
+  <img
+    src="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/mark-xm_cloud"
+    alt="Edit - XM Cloud"
+  />
+</a>
+
+<a
+  class="btn-square dashboard-link"
+  [href]="dashboardSettingUrl"
+  [title]="'NAV.APP_BASE_NAME' | translate"
+  *ngIf="!isDevMode"
+>
+  <img
+    src="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/mark-xm_cloud"
+    alt="Edit - XM Cloud"
+  />
+</a>
+
+<xmc-pocket-nav
+  *ngIf="pocketNavigation.isEnabledAndValid"
+  [environment]="pocketNavigation.environment"
+  [tenant]="pocketNavigation.tenant"
+  [organization]="pocketNavigation.organization"
+  [project-id]="pocketNavigation.projectId"
+  [environment-id]="pocketNavigation.environmentId"
+/>

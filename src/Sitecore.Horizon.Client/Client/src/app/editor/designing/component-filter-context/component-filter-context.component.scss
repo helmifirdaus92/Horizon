@@ -1,0 +1,25 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.filter-menu {
+  box-sizing: border-box;
+  padding: $padding;
+  width: 250px;
+
+  .title {
+    font-weight: $font-weight-semi-bold;
+  }
+  .description {
+    font-weight: $font-weight-regular;
+  }
+
+  .list {
+    padding-left: $padding;
+  }
+}
+
+::ng-deep {
+  .cdk-overlay-pane {
+    margin-right: -$padding-x-large;
+  }
+}

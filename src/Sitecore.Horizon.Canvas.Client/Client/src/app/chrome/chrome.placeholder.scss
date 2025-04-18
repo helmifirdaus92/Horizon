@@ -1,0 +1,59 @@
+@import 'variables';
+
+.empty-placeholder {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100px;
+  min-width: $generic-header-height;
+  padding: $padding;
+  justify-content: center;
+  align-items: center;
+  background: $brand-ui-white;
+  border: $border-xx-small dashed $brand-framework-default;
+  margin: $padding-x-small 0;
+  position: relative;
+
+  &:hover {
+    background-color: $brand-primary-selected;
+  }
+  &.hovered {
+    background-color: $brand-primary-selected;
+  }
+
+  .add-comp-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    box-sizing: border-box;
+    height: $padding-x-large;
+    width: $padding-x-large;
+    cursor: pointer;
+    user-select: none;
+    transition: all $animation-speed-fast $animation-easing 0s;
+    background-color: $brand-primary-default;
+    border: transparent;
+    position: absolute;
+
+    &:hover {
+      background-color: $brand-primary-xx-light;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .plus {
+      background-image: url('../assets/icons/plus.svg');
+      width: $icon-width;
+      height: $icon-width;
+    }
+
+    &.disabled {
+      opacity: $disabled-opacity;
+    }
+  }
+}

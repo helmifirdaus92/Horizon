@@ -1,0 +1,20 @@
+/*!
+ * © Sitecore Corporation A/S. All rights reserved. Sitecore® is a registered trademark of Sitecore Corporation A/S.
+ */
+
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.discard-btn {
+  color: $brand-red-600 !important;
+}
+
+@include customized-scrollbar;

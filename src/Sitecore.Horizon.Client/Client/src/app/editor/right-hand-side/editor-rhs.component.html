@@ -1,0 +1,152 @@
+<ng-container *appLet="selectEvent$ | async as selectEvent">
+  @if (showAbTestContext(selectEvent) && (canWrite$ | async)) {
+    <app-test-component [abTestValue]="selectEvent?.abTest"></app-test-component>
+  }
+
+  <div class="content">
+    <div
+      *ngIf="!showAbTestContext(selectEvent)"
+      [ngClass]="{
+        selected: selectEvent?.selection,
+        personalized: selectEvent?.selection?.chrome?.isPersonalized,
+      }"
+      class="header-section"
+      [id]="rhsDragHandleEl"
+    >
+      <h5>{{ headerText$ | async }}</h5>
+
+      @if (isRHSDockFeatureEnabled) {
+        @if (isDocked$ | async) {
+          <button class="toggle-btn" ngSpdIconButton icon="dock-left" (click)="dockToggle()"></button>
+        } @else {
+          <button class="toggle-btn" ngSpdIconButton icon="dock-right" (click)="dockToggle()"></button>
+        }
+      }
+    </div>
+
+    <div
+      class="default-content"
+      *ngIf="!isPersonalizationMode() && !selectEvent?.selection && !showAbTestContext(selectEvent)"
+    >
+      <span><i class="normal mdi mdi-gesture-tap-button"></i></span>
+      <p class="text">{{ 'EDITOR.RHS_DEFAULT_TEXT' | translate }}</p>
+    </div>
+
+    <div class="main-section" [class.hide]="selectEvent?.abTest && !isAbTestVariantEditingAllowed(selectEvent?.abTest)">
+      <ng-container [appChromeRhsEditorSwitch]="selectEvent?.selection">
+        <div *ngIf="selectEvent?.selection?.chrome.chromeType === 'field'" class="options-header px-sm pt-md">
+          <i class="mdi mdi-select-all pr-sm"></i><span>{{ 'RHS.ELEMENT_OPTIONS' | translate }}</span>
+        </div>
+
+        <ng-container *ngIf="!isCkEditorEnabled">
+          <app-rich-text-editor
+            class="rhs-block-element p-md"
+            *appChromeRhsFieldEditorCase="'rich text'; let messaging = messaging"
+            [rhsMessaging]="messaging"
+          >
+          </app-rich-text-editor>
+        </ng-container>
+        <app-image-field
+          class="rhs-block-element pt-md pr-md pb-sm pl-md"
+          *appChromeRhsFieldEditorCase="'image'; let messaging = messaging; let chrome = chrome"
+          [chrome]="chrome"
+          [rhsMessaging]="messaging"
+        >
+        </app-image-field>
+
+        <app-general-link-field
+          class="rhs-block-element p-md"
+          *appChromeRhsFieldEditorCase="'general link'; let messaging = messaging; let chrome = chrome"
+          [chrome]="chrome"
+          [rhsMessaging]="messaging"
+        ></app-general-link-field>
+
+        <app-number-field
+          class="rhs-block-element p-md"
+          *appChromeRhsFieldEditorCase="'number'; let messaging = messaging; let chrome = chrome"
+          [chrome]="chrome"
+          [rhsMessaging]="messaging"
+        >
+        </app-number-field>
+
+        <app-integer-field
+          class="rhs-block-element p-md"
+          *appChromeRhsFieldEditorCase="'integer'; let messaging = messaging; let chrome = chrome"
+          [chrome]="chrome"
+          [rhsMessaging]="messaging"
+        >
+        </app-integer-field>
+
+        <app-date-field
+          class="rhs-block-element p-md"
+          *appChromeRhsFieldEditorCase="'date'; let messaging = messaging; let chrome = chrome"
+          [chrome]="chrome"
+          [rhsMessaging]="messaging"
+        >
+        </app-date-field>
+
+        <app-date-field
+          class="rhs-block-element p-md"
+          *appChromeRhsFieldEditorCase="'datetime'; let messaging = messaging; let chrome = chrome"
+          [chrome]="chrome"
+          [rhsMessaging]="messaging"
+        >
+        </app-date-field>
+
+        @if (isContentOptimizationFeatureEnabled()) {
+          <div *ngIf="isTextField(selectEvent?.selection?.chrome)">
+            <app-optimize-content-button [hasTextFields]="true"></app-optimize-content-button>
+          </div>
+        } @else {
+          <div class="no-option pt-md pb-sm" *ngIf="isFieldWithNoRhsControls(selectEvent?.selection?.chrome)">
+            <span class="no-option-text"> {{ 'RHS.ELEMENT_NO_OPTION_TEXT' | translate }} </span>
+          </div>
+        }
+      </ng-container>
+
+      <ng-container [appChromeRhsEditorSwitch]="getRhsNonFieldChrome(selectEvent?.selection)">
+        <app-placeholder-details
+          *appChromeRhsEditorCase="'placeholder'; let chrome = chrome; let messaging = messaging"
+          class="rhs-block-element"
+          [chrome]="chrome"
+          [rhsMessaging]="messaging"
+        ></app-placeholder-details>
+
+        <ng-container *appChromeRhsEditorCase="'rendering'; let chrome = chrome; let messaging = messaging">
+          <app-rendering-details
+            class="rhs-block-element"
+            [chrome]="chrome"
+            [abTest]="selectEvent?.abTest"
+            [rhsMessaging]="messaging"
+            [displayName]="headerText$ | async"
+          ></app-rendering-details>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <!-- Personalization flow guide template -->
+    <ng-container *ngIf="isPersonalizationMode() && !selectEvent?.selection && !(isCanvasLoading$ | async)">
+      <div class="guide-container">
+        <div class="header">
+          <span><i class="normal mdi mdi-target-account"></i></span>
+          <h4 class="h4">{{ 'PERSONALIZATION.GUIDE.HEADER' | translate }}</h4>
+        </div>
+        <div class="description">
+          <p class="about">{{ 'PERSONALIZATION.GUIDE.ABOUT_VARIANT' | translate }} </p>
+          <ul class="steps">
+            <li>{{ 'PERSONALIZATION.GUIDE.STEPS.1' | translate }}</li>
+            <li>{{ 'PERSONALIZATION.GUIDE.STEPS.2' | translate }}</li>
+            <li>{{ 'PERSONALIZATION.GUIDE.STEPS.3' | translate }}</li>
+            <li>{{ 'PERSONALIZATION.GUIDE.STEPS.4' | translate }}</li>
+          </ul>
+          <p class="highlighted-text">{{ 'PERSONALIZATION.GUIDE.SELECT_COMPONENT' | translate }}</p>
+          <p>{{ 'PERSONALIZATION.GUIDE.ABOUT_FOOTER' | translate }}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<app-external-rhs-sliding-panel></app-external-rhs-sliding-panel>
+<app-ai-hypophysis-panel></app-ai-hypophysis-panel>
+<app-optimize-content-panel [chrome]="(selectEvent$ | async)?.selection?.chrome"></app-optimize-content-panel>

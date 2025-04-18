@@ -1,0 +1,54 @@
+$sides: (top, bottom, left, right);
+
+$breakpoints: (
+  'xl': $padding-x-large,
+  'l': $padding-large,
+  'md': $padding,
+  'sm': $padding-small,
+  'xs': $padding-x-small,
+  'xxs': $padding-xx-small,
+  'auto': auto,
+  '0': 0,
+);
+
+@each $name, $space in $breakpoints {
+  .m-#{$name} {
+    margin: #{$space} !important;
+  }
+
+  .p-#{$name} {
+    padding: #{$space} !important;
+  }
+}
+
+@each $name, $space in $breakpoints {
+  .my-#{$name} {
+    margin-bottom: #{$space} !important;
+    margin-top: #{$space} !important;
+  }
+  .mx-#{$name} {
+    margin-left: #{$space} !important;
+    margin-right: #{$space} !important;
+  }
+
+  .py-#{$name} {
+    padding-bottom: #{$space} !important;
+    padding-top: #{$space} !important;
+  }
+  .px-#{$name} {
+    padding-left: #{$space} !important;
+    padding-right: #{$space} !important;
+  }
+}
+
+@each $name, $space in $breakpoints {
+  @each $side in $sides {
+    .m#{str-slice($side, 0, 1)}-#{$name} {
+      margin-#{$side}: #{$space} !important;
+    }
+
+    .p#{str-slice($side, 0, 1)}-#{$name} {
+      padding-#{$side}: #{$space} !important;
+    }
+  }
+}

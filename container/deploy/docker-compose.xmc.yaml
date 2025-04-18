@@ -1,0 +1,22 @@
+services:
+  traefik:
+    networks:
+      default:
+    command:
+      - "--ping"
+      - "--api.insecure=true"
+      - "--providers.docker.endpoint=npipe:////./pipe/docker_engine"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.file.directory=C:/etc/traefik/config/dynamic"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.websecure.forwardedHeaders.insecure"
+      - "--entryPoints.next.address=:3000"
+    ports:
+      - "443:443"
+  cm:
+    image: sitecore-horizon-integration-xmcloud-cm
+    environment:
+       SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_Audience: "https://api-staging.sitecore-staging.cloud"
+       SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_ClientId: ${SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_ClientId}
+       SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_Url: "https://auth-staging-1.sitecore-staging.cloud/"
+       SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_ClientSecret: ${SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_ClientSecret}

@@ -1,0 +1,47 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+app-content-tree-container {
+  overflow-y: auto;
+  padding-bottom: $padding;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.header-create-page {
+  // to keep the border/shadow over the context menu area
+  z-index: $content-tree-context-zindex;
+  justify-content: flex-start;
+}
+
+.search {
+  position: relative;
+
+  .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+.tree-panel {
+  &.show-border {
+    border-bottom: $framework-border;
+    box-shadow: $box-shadow;
+  }
+}

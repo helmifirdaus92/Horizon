@@ -1,0 +1,204 @@
+<ng-container *ngIf="layoutContainerModel$ | async as layoutContainerModel">
+  <div class="px-sm pr-sm">
+    <ng-spd-tab-group #layoutContainerTabs>
+      <button
+        ngSpdTab
+        [colorScheme]="'colored'"
+        [templateRef]="columnLayouts"
+        [selected]="true"
+        [title]="'RHS.SUPER_LAYOUT.COLUMNS' | translate"
+        class="px-sm"
+      >
+        {{ 'RHS.SUPER_LAYOUT.COLUMNS' | translate }}
+      </button>
+      <button
+        ngSpdTab
+        [colorScheme]="'colored'"
+        [templateRef]="columnSettings"
+        [title]="'RHS.SUPER_LAYOUT.SETTINGS' | translate"
+        class="px-sm"
+      >
+        {{ 'RHS.SUPER_LAYOUT.SETTINGS' | translate }}
+      </button>
+    </ng-spd-tab-group>
+    <ng-spd-tab-outlet [group]="layoutContainerTabs" class="media-provider"></ng-spd-tab-outlet>
+
+    <ng-template #columnLayouts>
+      <div class="layouts-container">
+        <button
+          *ngFor="let template of basicLayoutTemplates"
+          class="layout-template"
+          [class.active]="layoutContainerModel.layoutTemplateKey === template.key"
+          (click)="selectTemplate(template.key, template.columnsCount)"
+          [title]="template.title"
+        >
+          <div *ngFor="let columnClass of template.columns; let i = index" [class]="columnClass + ' layout-element'">
+            <strong>{{ template.columnNames[i] }}</strong>
+          </div>
+        </button>
+        <ng-container *ngIf="showAdvanced">
+          <button
+            *ngFor="let template of advancedLayoutTemplates"
+            class="layout-template"
+            [class.active]="layoutContainerModel.layoutTemplateKey === template.key"
+            (click)="selectTemplate(template.key, template.columnsCount)"
+            [title]="template.title"
+          >
+            <div *ngFor="let columnClass of template.columns; let i = index" [class]="columnClass + ' layout-element'">
+              <strong>{{ template.columnNames[i] }}</strong>
+            </div>
+          </button>
+        </ng-container>
+        <button
+          ngSpdButton="outlinePrimary"
+          class="advanced-templates-btn templates-toggle"
+          (click)="showAdvanced = !showAdvanced"
+        >
+          <span *ngIf="!showAdvanced">{{ 'RHS.SUPER_LAYOUT.SHOW_MORE' | translate }}</span>
+          <span *ngIf="showAdvanced">{{ 'RHS.SUPER_LAYOUT.SHOW_LESS' | translate }}</span>
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #columnSettings>
+      <h5 class="section-heading">{{ 'RHS.SUPER_LAYOUT.COLUMNS' | translate }}</h5>
+      <div class="layout-container-settings">
+        <div *ngFor="let columnLayout of layoutContainerModel.columns; let i = index">
+          <span class="label mb-xs">{{ 'RHS.SUPER_LAYOUT.COLUMN_N' | translate: { index: i + 1 } }}</span>
+          <app-layout-alignment
+            [direction]="columnLayout.direction"
+            (directionChanged)="setDirection($event, i)"
+            [isWrapped]="columnLayout.wrap"
+            (isWrappedChanged)="setWrap($event, i)"
+            [position]="columnLayout.position"
+            (positionChanged)="setPosition($event, i)"
+          ></app-layout-alignment>
+        </div>
+
+        <div>
+          <span class="label mb-xs">{{ 'RHS.SUPER_LAYOUT.GAP' | translate }}</span>
+          <span class="input-wrapper">
+            <input
+              ngSpdInput
+              min="0"
+              type="number"
+              [ngModel]="layoutContainerModel?.containerStyles?.gap?.value"
+              (ngModelChange)="setGap($event, gapUnit || layoutContainerModel.containerStyles.gap.unit)"
+              class="input gap-input"
+            />
+            <div>
+              <ng-spd-droplist
+                class="gap unit-droplist"
+                variant="basic"
+                [selectedValue]="layoutContainerModel.containerStyles.gap.unit"
+                (selectedValueChange)="handleGapUnitUpdate($event, layoutContainerModel.containerStyles.gap)"
+              >
+                <ng-template ngSpdDroplistItem [value]="'px'">
+                  <span>px</span>
+                </ng-template>
+                <ng-template ngSpdDroplistItem [value]="'rem'">
+                  <span>rem</span>
+                </ng-template>
+              </ng-spd-droplist>
+            </div>
+          </span>
+        </div>
+        <!-- column stack -->
+        <div class="column-stack">
+          <span class="label mb-xs">{{ 'RHS.SUPER_LAYOUT.STACK_COLUMNS' | translate }}</span>
+          <ng-spd-droplist
+            [selectedValue]="layoutContainerModel?.stackBreakpoint ?? ('RHS.SUPER_LAYOUT.NEVER' | translate)"
+            variant="basic"
+            (selectedValueChange)="setColumnStackBreakpoint($event)"
+          >
+            @for (device of devices; track device.id) {
+              <ng-template ngSpdDroplistItem [value]="device.stackBreakpoint">
+                <span>{{ device.name }} ({{ device.width }}px)</span>
+              </ng-template>
+            }
+            <ng-template ngSpdDroplistItem [value]="'never'">
+              <span>{{ 'RHS.SUPER_LAYOUT.NEVER' | translate }}</span>
+            </ng-template>
+          </ng-spd-droplist>
+        </div>
+      </div>
+      <h5 class="section-heading">{{ 'RHS.SUPER_LAYOUT.CONTAINER' | translate }}</h5>
+      <div class="layout-container-settings">
+        <div class="width-setting">
+          <span class="label mb-xs">{{ 'RHS.SUPER_LAYOUT.WIDTH' | translate }}</span>
+          <ng-spd-droplist
+            [selectedValue]="layoutContainerModel?.containerStyles?.width?.value === '100%' ? 'full' : 'limited'"
+            variant="basic"
+            (selectedValueChange)="setWidthType($event === 'full')"
+          >
+            <ng-template ngSpdDroplistItem [value]="'full'">
+              <span>{{ 'RHS.SUPER_LAYOUT.FULL_WIDTH' | translate }}</span>
+            </ng-template>
+            <ng-template ngSpdDroplistItem [value]="'limited'">
+              <span>{{ 'RHS.SUPER_LAYOUT.LIMITED_WIDTH' | translate }}</span>
+            </ng-template>
+          </ng-spd-droplist>
+          <span class="input-wrapper mt-xs" *ngIf="layoutContainerModel?.containerStyles?.width?.value !== '100%'">
+            <input
+              class="input width-input"
+              ngSpdInput
+              type="number"
+              min="0"
+              [ngModel]="layoutContainerModel?.containerStyles?.width?.value"
+              (ngModelChange)="setWidth($event, widthUnit || layoutContainerModel.containerStyles.width.unit)"
+            />
+            <div>
+              <ng-spd-droplist
+                class="width unit-droplist"
+                variant="basic"
+                [selectedValue]="layoutContainerModel.containerStyles.width.unit"
+                (selectedValueChange)="handleWidthUnitUpdate($event, layoutContainerModel.containerStyles.width)"
+              >
+                <ng-template ngSpdDroplistItem [value]="'px'">
+                  <span>px</span>
+                </ng-template>
+                <ng-template ngSpdDroplistItem [value]="'rem'">
+                  <span>rem</span>
+                </ng-template>
+              </ng-spd-droplist>
+            </div>
+          </span>
+        </div>
+        <div class="pb-md">
+          <div class="padding-setting">
+            <span class="label mb-xs">{{ 'RHS.SUPER_LAYOUT.PADDING' | translate }}</span>
+            <div class="mb-xs">
+              <ng-spd-droplist
+                class="padding unit-droplist"
+                variant="basic"
+                [selectedValue]="layoutContainerModel.containerStyles.padding.unit"
+                (selectedValueChange)="handlePaddingUnitUpdate($event, layoutContainerModel.containerStyles.padding)"
+              >
+                <ng-template ngSpdDroplistItem [value]="'px'">
+                  <span>px</span>
+                </ng-template>
+                <ng-template ngSpdDroplistItem [value]="'rem'">
+                  <span>rem</span>
+                </ng-template>
+              </ng-spd-droplist>
+            </div>
+          </div>
+          <app-padding-setting
+            [top]="layoutContainerModel.containerStyles.padding.value.top"
+            [right]="layoutContainerModel.containerStyles.padding.value.right"
+            [bottom]="layoutContainerModel.containerStyles.padding.value.bottom"
+            [left]="layoutContainerModel.containerStyles.padding.value.left"
+            (submitSetting)="
+              setPadding(
+                layoutContainerModel.containerStyles.padding.value,
+                $event,
+                paddingUnit || layoutContainerModel.containerStyles.padding.unit
+              )
+            "
+            [unit]="paddingUnit || layoutContainerModel.containerStyles.padding.unit"
+          ></app-padding-setting>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</ng-container>

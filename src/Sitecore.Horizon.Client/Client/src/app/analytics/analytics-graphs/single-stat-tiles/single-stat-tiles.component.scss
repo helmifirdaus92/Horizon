@@ -1,0 +1,26 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: grid;
+  grid-gap: $padding;
+  grid-template-columns: repeat(auto-fit, minmax(#{$icon-width * 10}, 1fr));
+  padding-top: $padding-x-small;
+
+  ::ng-deep {
+    div.disabled {
+      opacity: 50%;
+    }
+  }
+
+  ng-spd-trend {
+    margin: auto;
+  }
+
+  .loading {
+    width: 100%;
+    display: grid;
+    place-items: center;
+  }
+}

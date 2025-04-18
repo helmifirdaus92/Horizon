@@ -1,0 +1,288 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+@mixin icon-block-base($height, $width) {
+  background-color: $brand-primary-default;
+  height: $height;
+  width: $width;
+  border-radius: $border-xx-small;
+}
+
+@mixin icon-block-horizontal() {
+  .block-1 {
+    @include icon-block-base(22px, 8px);
+  }
+  .block-2 {
+    @include icon-block-base(32px, 8px);
+  }
+  .block-3 {
+    @include icon-block-base(15px, 8px);
+  }
+}
+
+@mixin icon-block-vertical() {
+  .block-1 {
+    @include icon-block-base(8px, 15px);
+  }
+  .block-2 {
+    @include icon-block-base(8px, 32px);
+  }
+  .block-3 {
+    @include icon-block-base(8px, 22px);
+  }
+}
+
+.alignment-selector {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: $lhs-panel-width;
+  height: $button-sm-height;
+  border: $framework-border;
+  border-radius: $border-radius-small;
+  gap: $padding-x-small;
+
+  .toggle-popover {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+  }
+
+  .drag {
+    max-height: $button-sm-height;
+    max-width: $button-sm-height;
+  }
+
+  .placeholder {
+    display: flex;
+    max-height: $button-sm-height;
+    align-items: center;
+    gap: $padding-x-small;
+    @include default-text;
+
+    .position {
+      display: flex;
+      align-items: center;
+      gap: $padding-x-small;
+    }
+
+    .base {
+      text-transform: capitalize;
+      &::after {
+        content: ',';
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.alignment-content {
+  display: flex;
+  width: 255px;
+  box-sizing: border-box;
+  gap: $padding-x-large;
+  align-items: flex-start;
+  justify-content: center;
+  padding: $padding-x-small;
+  overflow: hidden;
+
+  .heading {
+    @include default-text;
+  }
+
+  .left-panel {
+    .alignment-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      width: 72px;
+      border: $framework-border;
+      border-radius: $border-radius-primary;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+      padding: $padding-xx-small;
+      gap: 1px;
+    }
+
+    ng-spd-switch {
+      max-height: $padding-large;
+    }
+
+    .layout-switcher {
+      margin-top: $padding-x-small;
+    }
+  }
+
+  .right-panel {
+    .row-container {
+      display: flex;
+      flex-direction: column;
+      width: $generic-header-height * 2;
+      height: $generic-header-height * 2;
+      box-sizing: border-box;
+      border: $framework-border;
+      border-radius: $border-radius-small;
+      justify-content: center;
+      padding: $padding-x-small 0;
+
+      &.vertical {
+        flex-direction: row;
+
+        .row {
+          flex-direction: column;
+          min-width: 0;
+        }
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex: 1;
+        min-height: 0;
+        button {
+          cursor: pointer;
+          border: none;
+          background-color: transparent;
+        }
+      }
+
+      .alignment {
+        position: relative;
+        display: block;
+        background-color: $ui-black-alpha-400;
+        border-radius: 100%;
+        height: 8px;
+        width: 8px;
+      }
+
+      .top-group-selected,
+      .center-group-selected,
+      .bottom-group-selected {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .top-group-selected {
+        .icon-block {
+          @include icon-block-horizontal;
+          display: flex;
+          justify-content: center;
+          padding-top: $padding-x-small;
+          gap: 1px;
+
+          &.vertical {
+            @include icon-block-vertical;
+            flex-direction: column;
+            padding-top: 0;
+            padding-left: $padding-x-small;
+          }
+        }
+      }
+
+      .center-group-selected {
+        .icon-block {
+          @include icon-block-horizontal;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-top: $padding-x-small;
+          gap: 1px;
+
+          &.vertical {
+            @include icon-block-vertical;
+            flex-direction: column;
+            padding-top: 0;
+            padding-left: $padding-x-small;
+          }
+        }
+      }
+
+      .bottom-group-selected {
+        .icon-block {
+          @include icon-block-horizontal;
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          padding-bottom: $padding-xx-small;
+          gap: 1px;
+
+          &.vertical {
+            @include icon-block-vertical;
+            flex-direction: column;
+            padding-right: $padding-x-small;
+            padding-bottom: 0;
+          }
+        }
+      }
+
+      .distribute-top,
+      .distribute-center,
+      .distribute-bottom {
+        display: flex;
+        flex: 1;
+      }
+
+      .distribute-top {
+        .icon-block-distribute {
+          @include icon-block-horizontal();
+          flex: 1;
+          display: flex;
+          justify-content: space-around;
+          padding-top: $padding-x-small;
+
+          &.vertical {
+            @include icon-block-vertical;
+            flex-direction: column;
+            padding-top: 0;
+            padding-left: $padding-x-small;
+          }
+        }
+      }
+
+      .distribute-center {
+        .icon-block-distribute {
+          @include icon-block-horizontal;
+          display: flex;
+          flex: 1;
+          justify-content: space-around;
+          align-items: center;
+
+          &.vertical {
+            @include icon-block-vertical;
+            flex-direction: column;
+            padding-top: 0;
+          }
+        }
+      }
+
+      .distribute-bottom {
+        .icon-block-distribute {
+          @include icon-block-horizontal;
+          display: flex;
+          flex: 1;
+          justify-content: space-around;
+          align-items: flex-end;
+
+          &.vertical {
+            @include icon-block-vertical;
+            flex-direction: column;
+            padding-right: $padding-x-small;
+            padding-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

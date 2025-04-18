@@ -1,0 +1,9 @@
+﻿// © Sitecore Corporation A/S. All rights reserved. Sitecore® is a registered trademark of Sitecore Corporation A/S.
+
+namespace Sitecore.Pages.E2EFramework.UI.Tests.ApiHelpers.SxaRestClient.Responses;
+
+public class MakeLocalPathResponse
+{
+    public string datasource { get; set; }
+    public bool ok { get; set; }
+}

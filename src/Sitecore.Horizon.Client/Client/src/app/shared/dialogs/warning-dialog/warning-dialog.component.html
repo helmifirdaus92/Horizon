@@ -1,0 +1,11 @@
+<ng-spd-dialog-panel (keyup.enter)="onConfirmClick()">
+  <ng-spd-dialog-close-button (close)="onDeclineClick()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header>{{ title }}</ng-spd-dialog-header>
+
+  <ng-spd-dialog-content [leftAlignText]="true" [innerText]="text"></ng-spd-dialog-content>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="onDeclineClick()">{{ declineText }}</button>
+    <button ngSpdButton="warning" (click)="onConfirmClick()">{{ confirmText }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

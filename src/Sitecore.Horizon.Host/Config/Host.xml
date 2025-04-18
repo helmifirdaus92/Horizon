@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Settings>
+  <FederatedUI>
+    <HostBaseUrl>https://localhost:5001</HostBaseUrl>
+  </FederatedUI>
+  <SitecorePlatform>
+    <ContentManagementUrl>https://xmcloudcm.localhost</ContentManagementUrl>
+  </SitecorePlatform>
+</Settings>

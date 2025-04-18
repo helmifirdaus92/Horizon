@@ -1,0 +1,33 @@
+<div #wrapper class="content-wrapper">
+  <div class="tab-group">
+    <ng-spd-tab-group #analyticsGroup>
+      <button
+        ngSpdTab
+        class="pl-md pr-md"
+        [componentType]="siteAnalyticsComponent"
+        (click)="selectComponent('site')"
+        [selected]="(selectedComponent$ | async) === 'site'"
+        loadStrategy="persist"
+        [size]="'large'"
+      >
+        {{ 'ANALYTICS.SITE_ANALYTICS.TITLE' | translate }}
+      </button>
+
+      <button
+        ngSpdTab
+        class="pl-md pr-md"
+        [componentType]="pageAnalyticsComponent"
+        (click)="selectComponent('page')"
+        [selected]="(selectedComponent$ | async) === 'page'"
+        loadStrategy="persist"
+        [size]="'large'"
+      >
+        {{ 'ANALYTICS.PAGE_ANALYTICS.TITLE' | translate }}
+      </button>
+    </ng-spd-tab-group>
+  </div>
+
+  <ng-spd-tab-outlet [group]="analyticsGroup"></ng-spd-tab-outlet>
+</div>
+
+<app-local-dev-settings *ngIf="isLocalDevelopmentMode"></app-local-dev-settings>

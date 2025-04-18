@@ -1,0 +1,188 @@
+@use 'sass:math';
+
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+$editable-margin-2px: 2px;
+$editable-margin-4px: 4px;
+$editable-padding-14px: 14px;
+
+:host {
+  display: block;
+  min-height: 100%;
+
+  ng-spd-tree {
+    ng-spd-nested-tree-node {
+      .node {
+        height: $generic-element-height;
+        display: block;
+        outline: none;
+        position: relative;
+        text-decoration: none;
+        overflow-y: hidden;
+
+        &:hover,
+        &:focus-within,
+        &.hovered,
+        &.selected {
+          .node-text[contentEditable='false'] {
+            padding-right: $padding-x-large;
+          }
+          app-content-tree-context {
+            display: initial;
+          }
+
+          .personalized-icon {
+            margin-right: 0;
+          }
+
+          .context-tree-drag-button {
+            display: initial;
+          }
+        }
+
+        .context-tree-drag-button {
+          background-color: transparent;
+          padding-right: 0;
+          padding-left: 0;
+          border: 0 none;
+          display: none;
+          position: absolute;
+          width: $generic-element-height;
+          height: $generic-element-height;
+          left: 0;
+
+          &:focus,
+          &:focus-within,
+          &:hover {
+            background-color: $brand-framework-bg-hover;
+          }
+        }
+
+        app-highlight-drop-node {
+          align-items: center;
+          display: flex;
+          padding-left: $padding-small;
+
+          &:focus,
+          &:focus-within,
+          &:hover {
+            .context-tree-drag-button {
+              display: initial;
+              cursor: pointer;
+            }
+          }
+
+          .ng-spd-tree-toggle {
+            width: 50px;
+          }
+
+          [ngSpdTreeToggleButton] {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: 25px;
+          }
+
+          .node-content {
+            align-items: center;
+            flex-grow: 1;
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+
+            .item-icon-normal {
+              margin-right: $editable-margin-4px;
+            }
+
+            .node-text-wrapper {
+              display: flex;
+              align-items: center;
+              overflow: hidden;
+              user-select: none;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              width: calc(100% - 65px);
+
+              .node-text {
+                @include text-nowrap-ellipsis;
+                flex: 1; // text edit should stretch to the whole line.
+                align-items: center;
+                outline: none;
+
+                &[contentEditable='true'] {
+                  cursor: text;
+                  background-color: $brand-ui-white;
+                  box-shadow: inset $box-shadow-focus;
+                  height: $generic-element-height;
+                  z-index: 3;
+                  margin-right: $editable-margin-2px;
+                  white-space: nowrap;
+                  text-overflow: unset;
+                  box-sizing: border-box;
+                  user-select: text;
+                  padding: math.div($generic-element-height, 2) 0 0 $padding-x-small;
+                  line-height: 0;
+                  -webkit-user-select: text;
+                  -moz-user-select: text;
+                }
+              }
+            }
+          }
+        }
+
+        app-content-tree-context {
+          display: none;
+          height: 100%; // fixes vertical alignment in Chrome.
+          z-index: $content-tree-context-zindex;
+        }
+
+        &.disabled {
+          background: $brand-ui-white;
+          pointer-events: none;
+          opacity: 40%;
+        }
+
+        &.no-versions:not(.selected) {
+          .node-text,
+          .mdi {
+            color: $ui-gray-300 !important;
+          }
+        }
+      }
+
+      .hide {
+        display: none !important;
+      }
+
+      // Spd tree component supports these css properties only for the tree with [ngSpdTreeNodeSelectable] directive
+      // so we have to set these states to support the case when tree node is not selectable.
+      .node:not(.selected) {
+        &:focus,
+        &:focus-within,
+        &:hover {
+          background-color: $brand-framework-bg-hover;
+        }
+      }
+    }
+  }
+}
+
+.abtest-icon, .personalized-icon {
+  box-sizing: border-box;
+  vertical-align: top;
+  height: $generic-element-height;
+  display: inline-flex;
+  align-items: center;
+  width: 36px;
+  justify-content: center;
+  &:hover:not(.personalized-icon) {
+    background-color: $brand-framework-bg-active;
+  }
+}
+
+.context-menu-icons-wrapper {
+  position: absolute;
+  right: 0;
+}

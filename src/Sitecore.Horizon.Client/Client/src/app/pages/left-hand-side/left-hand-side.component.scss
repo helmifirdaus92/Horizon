@@ -1,0 +1,62 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .lhs-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+
+    &.hidden,
+    .hidden {
+      display: none;
+    }
+  }
+
+  .header {
+    border-bottom: $framework-border;
+    flex: 0 0 $generic-header-height;
+    box-sizing: border-box;
+  }
+
+  .tab {
+    width: $generic-header-height;
+  }
+
+  .content {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .site-tab,
+  .version-tab {
+    width: 50%;
+    span {
+      font-weight: $font-weight-semi-bold;
+    }
+  }
+
+  .site-tab-analytics {
+    width: 100%;
+    span {
+      font-weight: $font-weight-semi-bold;
+    }
+  }
+
+  .components-wrapper {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    height: 100%;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}

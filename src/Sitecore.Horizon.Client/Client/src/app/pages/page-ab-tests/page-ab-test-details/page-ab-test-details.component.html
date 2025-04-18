@@ -1,0 +1,63 @@
+<div class="ab-test-detail-container">
+  <div class="content-container">
+    <div class="header mb-xl">
+      <span *ngIf="showBackButton" (click)="navigateBack()" class="back-button-icon">
+        <i class="mdi mdi-arrow-left"></i>
+      </span>
+      <h1 class="title">{{ pageAbTest.name }}</h1>
+    </div>
+
+    <div class="tabs pl-md pr-md">
+      <ng-spd-tab-group class="tab-group">
+        <button
+          ngSpdTab
+          colorScheme="colored"
+          [selected]="tabSelected === 'performance'"
+          [title]="'COMPONENT_TESTING.OVERVIEW.VARIANT_PERFORMANCE' | translate"
+          (click)="tabSelected = 'performance'"
+        >
+          {{ 'COMPONENT_TESTING.OVERVIEW.VARIANT_PERFORMANCE' | translate }}
+        </button>
+        <button
+          ngSpdTab
+          colorScheme="colored"
+          [selected]="tabSelected === 'configuration'"
+          [title]="'COMPONENT_TESTING.OVERVIEW.APPLIED_CONFIGURATIONS' | translate"
+          (click)="tabSelected = 'configuration'"
+        >
+          {{ 'COMPONENT_TESTING.OVERVIEW.APPLIED_CONFIGURATIONS' | translate }}
+        </button>
+      </ng-spd-tab-group>
+    </div>
+    <div class="pl-md pr-md">
+      <ng-container *ngIf="tabSelected === 'performance'">
+        <app-page-ab-test-performance [pageAbTest]="pageAbTest"></app-page-ab-test-performance>
+      </ng-container>
+      <ng-container *ngIf="tabSelected === 'configuration'">
+        <app-page-ab-test-configuration [pageAbTest]="pageAbTest"></app-page-ab-test-configuration>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="footer-actions">
+    <button
+      ngSpdButton="outlinePrimary"
+      class="mx-mm px-mm"
+      size="md"
+      (click)="openAnalytics()"
+      [disabled]="pageAbTest.status === 'DRAFT'"
+    >
+      {{ 'COMPONENT_TESTING.VIEW_ANALYTICS' | translate }}
+    </button>
+    <button
+      *ngIf="!isTestEnded()"
+      ngSpdButton="outline"
+      ngSpdButton="outlinePrimary"
+      class="mx-mm px-mm"
+      size="md"
+      (click)="selectTest()"
+    >
+      {{ 'COMPONENT_TESTING.GO_TO_TEST' | translate }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<Project>
+  <!--
+        !!! DO NOT MODIFY THIS FILE !!!
+
+        This file is owned by BREW and will be overwritten when BREW runs.
+    -->
+
+  <!-- Versioning -->
+  <PropertyGroup Condition="'$(Version)' == ''">
+    <Version>0.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Revision)' == ''">
+    <Revision>0000</Revision>
+  </PropertyGroup>
+
+  <!-- Packaging and Attributes -->
+  <PropertyGroup>
+    <Company>$(Company)</Company>
+    <Authors>$(Company)</Authors>
+    <Owners>$(Company)</Owners>
+    <Copyright>$(Copyright)</Copyright>
+    <Trademark>$(Trademark)</Trademark>
+    <PackageTags>Sitecore</PackageTags>
+    <PackageIcon>$(IconFileName)</PackageIcon>
+    <PackagelicenseUrl></PackagelicenseUrl>
+    <PackageLicenseFile>$(LicenceFileName)</PackageLicenseFile>
+    <PackageprojectUrl></PackageprojectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Build: $(Version) GitSHA: $(Sha)</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <!-- Compilation -->
+  <PropertyGroup>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <AssemblyVersion>$([System.Text.RegularExpressions.Regex]::Match($(Version), '^\d+\.\d+').Value).0.0</AssemblyVersion>
+    <FileVersion>$([System.Text.RegularExpressions.Regex]::Match($(Version), '^\d+\.\d+\.\d+\.\d+').Value)</FileVersion>
+    <FileVersion Condition="'$(FileVersion)'==''">$([System.Text.RegularExpressions.Regex]::Match($(Version), '^\d+\.\d+\.\d+').Value).0</FileVersion>
+  </PropertyGroup>
+
+  <!-- Other -->
+  <PropertyGroup>
+    <!-- Ignore missing xml comments -->
+    <NoWarn>$(NoWarn);CS1591;NU1803</NoWarn>
+    <!-- Git sha for metadata attribute -->
+    <GitSHA Condition="'$(Sha)' == ''">LOCAL</GitSHA>
+    <!-- Generate docs -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsBuildServer>false</IsBuildServer>
+  </PropertyGroup>
+
+  <!-- Additonal Git Sha attribute for assembly info-->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute" Condition="'$(Sha)' != ''">
+      <_Parameter1>GitSHA</_Parameter1>
+      <_Parameter2>$(Sha)</_Parameter2>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Reflection.AssemblyTrademarkAttribute" Condition="'$(Trademark)' != ''">
+      <_Parameter1>$(Trademark)</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="$(LicenceFilePath)" Pack="true" PackagePath=""/>
+    <None Include="$(IconFilePath)" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)\custom.build.props" Condition="exists('$(MSBuildThisFileDirectory)\custom.build.props')" />
+</Project>

@@ -1,0 +1,7 @@
+@inherits System.Web.Mvc.WebViewPage
+@using Sitecore.Mvc;
+<div>
+  @Html.Sitecore().BeginField("GeneralLinkField", new { haschildren = true })
+  @Html.Sitecore().Field("title")
+  @Html.Sitecore().EndField()
+</div>

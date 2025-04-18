@@ -1,0 +1,60 @@
+<ng-spd-tab-group class="general-link-types">
+  <button
+    ngSpdTab
+    colorScheme="colored"
+    [selected]="linkType === 'internal'"
+    [title]="'EDITOR.LINK.TYPE.INTERNAL' | translate"
+    (click)="linkType = 'internal'"
+    class="general-link-type-button"
+  >
+    <span class="mdi mdi-link-box-variant-outline"></span>
+  </button>
+
+  <button
+    ngSpdTab
+    colorScheme="colored"
+    [selected]="linkType === 'external'"
+    [title]="'EDITOR.LINK.TYPE.EXTERNAL' | translate"
+    (click)="linkType = 'external'"
+    class="general-link-type-button"
+  >
+    <span class="mdi mdi-link-variant"></span>
+  </button>
+
+  <button
+    ngSpdTab
+    colorScheme="colored"
+    [selected]="linkType === 'media'"
+    [title]="'EDITOR.LINK.TYPE.MEDIA' | translate"
+    (click)="linkType = 'media'"
+    class="general-link-type-button"
+  >
+    <span class="mdi mdi-image-outline"></span>
+  </button>
+
+  <button
+    ngSpdTab
+    colorScheme="colored"
+    [selected]="linkType === 'mailto'"
+    [title]="'EDITOR.LINK.TYPE.EMAIL' | translate"
+    (click)="linkType = 'mailto'"
+    class="general-link-type-button"
+  >
+    <span class="mdi mdi-email-outline"></span>
+  </button>
+</ng-spd-tab-group>
+
+<ng-container [ngSwitch]="linkType">
+  <ng-container *ngSwitchCase="'external'">
+    <app-external-link (valueChange)="emitValue($event)" [value]="generalLinkValue" [size]="size"></app-external-link>
+  </ng-container>
+  <ng-container *ngSwitchCase="'internal'">
+    <app-internal-link [value]="generalLinkValue" (valueChange)="emitValue($event)" [size]="size"></app-internal-link>
+  </ng-container>
+  <ng-container *ngSwitchCase="'media'">
+    <app-media-link [value]="generalLinkValue" (valueChange)="emitValue($event)" [size]="size"></app-media-link>
+  </ng-container>
+  <ng-container *ngSwitchCase="'mailto'">
+    <app-email-link [value]="generalLinkValue" (valueChange)="emitValue($event)" [size]="size"></app-email-link>
+  </ng-container>
+</ng-container>

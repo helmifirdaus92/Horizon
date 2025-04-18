@@ -1,0 +1,19 @@
+@import 'variables';
+
+:host {
+  ::ng-deep {
+    div.disabled {
+      opacity: 50%;
+    }
+
+    .content {
+      height: $chart-height;
+    }
+  }
+
+  .loading {
+    width: 100%;
+    display: grid;
+    place-items: center;
+  }
+}

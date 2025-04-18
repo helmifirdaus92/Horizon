@@ -1,0 +1,18 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/reportportal/agent-net-vstest/master/src/ReportPortal.VSTest.TestLogger/ReportPortal.config.schema",
+  "enabled": true,
+  "server": {
+    "url": "http://report-portal.eastus.cloudapp.azure.com/api/v1/",
+    "project": "default_personal",
+    "authentication": {
+      "uuid": "ad2141ce-7ecd-4a27-a26e-e0b69b8af0ef"
+    }
+  },
+  "launch": {
+    "name": "Sample App Integration UI Tests",
+    "description": "This is sample test suite for ReportPortal",
+    "debugMode": false,
+    "attributes": [ "console", "os:linux" ]
+  },
+  "rootNamespaces": [ "Sitecore.Symphony.SiteManager.Integration.UITests" ]
+}

@@ -1,0 +1,26 @@
+@import 'variables';
+
+.sc-watermark {
+  // This is needed to solve issue with spaces in Firefox
+  -moz-only-whitespace: pre-wrap !important;
+  &:empty:before {
+    content: attr(scdefaulttext);
+    opacity: $disabled-opacity;
+    display: inline-block;
+  }
+
+  &:global(.ql-blank) {
+    position: relative;
+    &::before {
+      content: attr(data-placeholder);
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      left: 0;
+    }
+
+    &:focus::before {
+      opacity: $disabled-opacity;
+    }
+  }
+}

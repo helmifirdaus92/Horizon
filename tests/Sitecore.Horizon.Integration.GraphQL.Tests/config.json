@@ -1,0 +1,16 @@
+{
+  "CMUrl": "https://xmcloudcm.localhost",
+  "xmCloudClientId": "2bU100d0RUQ2hjHp43k7XJNe0OvprtYs",
+  "xmCloudClientSecret": "87MTAp_2R9PNp9Exu9wIyUuLV7KJhDBe2g44akQd_XXnTdyhpTMCmcora0RIdVvV",
+  "AuthClientId": "jqmVgbui9KzVk7BKr0BWytnjQPpdzIKB",
+  "xmCloudAPIAudience": "https://api-staging.sitecore-staging.cloud",
+  "xmCloudAuthAuthority": "https://auth-staging-1.sitecore-staging.cloud",
+  "OrganizationId": "org_FzUOtp4HjfZYw1Hv",
+  "AdminUser": "admin@pagestest.com",
+  "AdminPassword": "Pi2(Zq1?Rm0.Cc0,Fv5/",
+  "UserEmail": "user@pagestest.com",
+  "UserPassword": "Qp9/Uk7*Ng7/Fs5+Tt0(",
+  "InventoryApi": "https://platform-inventory-staging.sitecore-staging.cloud/api/inventory/v1/",
+  "IdentityApi": "https://identity-staging.sitecore-staging.cloud",
+  "RunLocal": false
+}

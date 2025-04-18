@@ -1,0 +1,19 @@
+{
+    "$schema": "../.sitecore/schemas/ModuleFile.schema.json",
+    "namespace": "RenderingHost",
+    "items": {
+		"path": ".",
+        "includes": [
+            {
+                "name": "sitecore/system/Settings/Services/Rendering Hosts",
+                "path": "/sitecore/system/Settings/Services/Rendering Hosts/Default",
+                "scope": "singleItem"
+            },
+            {
+                "name":"sitecore/system/Settings/Services/API Keys",
+                "path":"/sitecore/system/Settings/Services/API Keys/APIKey",
+                "scope":"singleItem"
+            }
+        ]
+    }
+}

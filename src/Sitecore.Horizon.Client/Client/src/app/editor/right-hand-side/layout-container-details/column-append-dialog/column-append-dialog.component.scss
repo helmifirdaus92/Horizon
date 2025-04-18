@@ -1,0 +1,33 @@
+@import '@sitecore/spd-styles/src/all';
+
+.dialog-body {
+  padding: $padding-small;
+
+  .action-dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .column-group {
+      border-radius: $border-radius-medium;
+      border: $border;
+      display: flex;
+      width: fit-content;
+      box-sizing: border-box;
+      gap: $padding-x-small;
+      padding: $padding-x-small;
+
+      .column {
+        border-radius: $border-radius-medium;
+        display: flex;
+        width: $spacing-sm;
+        height: 70px;
+        box-sizing: border-box;
+      }
+    }
+    .description {
+      padding-top: $padding-small;
+      padding: $padding-small;
+    }
+  }
+}

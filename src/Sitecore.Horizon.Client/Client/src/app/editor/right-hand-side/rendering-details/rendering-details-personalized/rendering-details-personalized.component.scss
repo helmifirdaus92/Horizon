@@ -1,0 +1,63 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.browse-btn {
+  flex-shrink: 0;
+  border: $border;
+}
+
+.datasource-input {
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  &.right-align {
+    text-align: right; // need to specify it to avoid text jumping of input el focus because of "rtl"
+    direction: rtl;
+    unicode-bidi: normal;
+  }
+}
+
+.rendering {
+  box-sizing: content-box;
+  border-bottom: $framework-border;
+}
+
+.reset {
+  & > button {
+    width: 100%;
+  }
+  box-sizing: border-box;
+}
+
+ng-spd-slide-in-panel {
+  @include rhs-overlay;
+}
+
+.component-list {
+  border-bottom: $framework-border;
+}
+
+ng-spd-switch {
+  ::ng-deep {
+    .spd-toggle-button-box {
+      z-index: -1;
+    }
+  }
+}
+
+.warning-block {
+  background-color: $ui-orange-100;
+  border-radius: $border-radius-medium;
+
+  ::ng-deep {
+    span {
+      color: $ui-orange-500;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+}

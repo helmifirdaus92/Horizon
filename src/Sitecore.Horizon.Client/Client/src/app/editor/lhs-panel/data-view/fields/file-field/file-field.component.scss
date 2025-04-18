@@ -1,0 +1,79 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.file-field-container {
+  background-color: $brand-ui-white;
+  border-radius: $border-radius-secondary;
+  border: $framework-border;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: $padding-small;
+  gap: $padding-small;
+
+  &.has-value {
+    border-style: none;
+    background-color: transparent;
+    padding: 0;
+    min-height: $spacing-3xl;
+  }
+
+  .file-section {
+    display: flex;
+    gap: $spacing-6xs;
+    align-items: center;
+    height: $spacing-3xl;
+    background-color: rgba(0, 0, 0, 0.03);
+    width: 100%;
+    padding-inline: $spacing-6xs;
+    border-radius: $border-radius-small;
+    box-sizing: border-box;
+  }
+
+  .mdi-file-document-outline {
+    &.doc {
+      color: $brand-cyan-600;
+    }
+  }
+  .mdi-file-pdf-box {
+    color: $brand-red-600;
+  }
+  .mdi-file-word-box {
+    color: $brand-blue-600;
+  }
+
+  .change-file-menu {
+    position: absolute;
+    z-index: 9999;
+    border-radius: 100%;
+    height: $spacing-sm;
+    width: $spacing-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: $brand-neutral-500;
+    color: $brand-ui-white;
+
+    &.active {
+      background-color: $brand-neutral-700;
+    }
+  }
+
+  ng-spd-thumbnail {
+    height: $font-size-50px;
+    width: $font-size-50px;
+    position: relative;
+  }
+
+  .upload-text {
+    color: $brand-primary-default;
+    font-size: $font-size-14px;
+    cursor: pointer;
+  }
+}
+
+.dialog-content {
+  min-width: 100px;
+}

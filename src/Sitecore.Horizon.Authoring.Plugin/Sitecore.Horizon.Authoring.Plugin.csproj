@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Sitecore.Framework.Runtime.Build" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <!-- NU1608: Detected package version outside of dependency constraint -->
+    <!-- NU1603: An approximate best match of version was resolved -->
+    <NoWarn>$(NoWarn);NU1608;NU1603</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsNotAsErrors>CS8604;CS8600;CS8602</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningsNotAsErrors>CS8604;CS8600;CS8602</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack.NetCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.12" />
+    <PackageReference Include="Sitecore.Framework.Runtime.Abstractions" />
+    <PackageReference Include="Sitecore.Framework.Runtime.Commands" />
+
+    <PackageReference Include="Serilog.Enrichers.Environment" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Sitecore.Framework.Logging.Serilog" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sitecore.Horizon.Client\Sitecore.Horizon.Client.csproj" />
+    <ProjectReference Include="..\Sitecore.Horizon.Canvas.Client\Sitecore.Horizon.Canvas.Client.csproj" />
+    <ProjectReference Include="..\Sitecore.Horizon.Core\Sitecore.Horizon.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\hotfixes\**" PackagePath="hotfixes" />
+    <Content Include="build\*.targets" PackagePath="build" />
+  </ItemGroup>
+
+</Project>

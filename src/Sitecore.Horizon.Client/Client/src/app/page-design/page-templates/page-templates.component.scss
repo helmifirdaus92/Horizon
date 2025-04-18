@@ -1,0 +1,264 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+:host {
+  .card-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    box-sizing: border-box;
+    height: 100%;
+    padding: $padding-large $padding-x-large $padding-x-large $padding-x-large;
+    overflow-y: auto;
+
+    .header-container {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+
+      .header {
+        @include heading-lg;
+      }
+
+      .sub-header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+
+        .description {
+          @include subtle-text;
+          padding: $padding-small $padding 0 0;
+          margin-right: auto;
+        }
+
+        .sub-header-actions {
+          display: flex;
+          align-items: center;
+
+          .icon {
+            margin-right: $padding-xx-small * 4;
+          }
+        }
+      }
+    }
+
+    .content {
+      box-sizing: border-box;
+      display: flex;
+      padding-top: $padding;
+      overflow: hidden;
+      gap: $padding;
+
+      .left-container,
+      .right-container {
+        box-sizing: border-box;
+        background-color: $brand-ui-white;
+        border: $framework-border;
+        border-radius: $border-radius-large;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .left-container {
+        flex: 1;
+
+        .templates-list-container {
+          height: 100%;
+          width: 100%;
+          overflow-y: auto;
+
+          ng-spd-table {
+            width: auto;
+
+            .table-head {
+              @include section-heading();
+              text-transform: none;
+              border-bottom: $framework-border;
+            }
+
+            tbody tr td {
+              height: calc($generic-element-height * 2);
+            }
+
+            .row-text {
+              @include text-nowrap-ellipsis;
+            }
+
+            .page-design-wrapper {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            }
+
+            .page-design {
+              display: grid;
+              grid-template-columns: auto 1fr;
+              align-items: center;
+
+              .page-design-thumbnail-image,
+              .page-design-thumbnail-icon {
+                width: $spacing-4xl;
+                height: $spacing-4xl;
+                display: grid;
+                place-items: center;
+                border-radius: $border-radius-small;
+                overflow: hidden;
+              }
+
+              .page-design-thumbnail-image {
+                box-sizing: border-box;
+                border: $framework-border;
+
+                > img {
+                  width: 100%;
+                }
+              }
+            }
+
+            .insert-options {
+              display: flex;
+              align-items: center;
+              flex-wrap: wrap;
+              justify-content: space-between;
+            }
+
+            .modified-date {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.popover-dialog {
+  padding: $padding-x-small $padding-small;
+  border-radius: $border-radius;
+  background-color: $font-primary-default;
+  color: $brand-ui-white;
+  inline-size: 253px;
+  overflow-wrap: break-word;
+}
+
+// Remove when new design is released
+.old-design {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  box-sizing: border-box;
+  height: 100%;
+  padding: $padding-large $padding-x-large $padding-x-large $padding-x-large;
+  overflow-y: auto;
+
+  .header-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    .header {
+      @include heading-lg;
+    }
+
+    .sub-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+
+      .description {
+        @include subtle-text;
+        padding: $padding-small $padding 0 0;
+        margin-right: auto;
+      }
+
+      .sub-header-actions {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          margin-right: $padding-xx-small * 4;
+        }
+      }
+    }
+  }
+
+  .content {
+    box-sizing: border-box;
+    display: flex;
+    padding-top: $padding;
+    overflow: hidden;
+    gap: $padding;
+
+    .left-container,
+    .right-container {
+      box-sizing: border-box;
+      background-color: $brand-ui-white;
+      border: $framework-border;
+      border-radius: $border-radius-large;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .left-container {
+      flex: 1;
+
+      .templates-list-container {
+        height: 100%;
+        width: 100%;
+        overflow-y: auto;
+
+        .templates-list {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(calc($generic-element-height * 6), 1fr));
+          gap: $padding;
+
+          ng-spd-item-card {
+            .thumbnail-container {
+              display: grid;
+              place-items: center;
+
+              .thumbnail-image {
+                width: 100%;
+                border: 1px solid $ui-gray-100;
+                border-radius: $border-radius-small;
+                box-sizing: border-box;
+              }
+
+              .thumbnail-icon {
+                font-size: calc($generic-header-height + $generic-element-height);
+                width: $pop-panel-min-width;
+                height: $pop-panel-min-width;
+                color: $framework-border-color;
+                display: grid;
+                place-items: center;
+              }
+            }
+
+            .page-design {
+              display: grid;
+              grid-template-columns: 1fr auto;
+
+              .page-design-left {
+                display: flex;
+                flex-direction: column;
+
+                .details-heading {
+                  @include section-heading;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .right-container {
+      width: $card-medium;
+    }
+  }
+}
+
+@include customized-scrollbar;

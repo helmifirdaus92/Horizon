@@ -1,0 +1,335 @@
+{
+  "COMMON": {
+    "CANCEL": "Abbrechen",
+    "CREATE": "Erstellen",
+    "CREATE_NEW": "Neu erstellen",
+    "MENU": "Menü",
+    "RENAME": "Umbenennen",
+    "DUPLICATE": "Duplizieren",
+    "REMOVE": "Entfernen",
+    "DELETE": "Löschen"
+  },
+  "EXTENSIONS": {
+    "SECTIONS": {
+      "DETAILS": "Details"
+    }
+  },
+  "ERRORS": {
+    "OPERATION_GENERIC": "Ein Fehler verhinderte den Abschluss des Vorgangs.",
+    "ITEM_NOT_FOUND": "Das Element wurde verschoben oder gelöscht. Drücken Sie F5, um die Anzeige zu aktualisieren.",
+    "CONTEXT_COERCED": "Das gewünschte Element kann nicht angezeigt werden. Entweder existiert das Element nicht oder Sie sind nicht berechtigt, es aufzurufen.",
+    "CONTEXT_NOT_FOUND": "Die Seite wurde nicht korrekt geladen. Versuchen Sie, die Seite zu aktualisieren. Wenn der Fehler erneut auftritt, wenden Sie sich bitte an Ihren Systemadministrator."
+  },
+  "DEVICE": {
+    "PHONE": "Smartphone",
+    "TABLET": "Tablet",
+    "DESKTOP": "Desktop",
+    "ALL": "Alle Geräte",
+    "ROTATE": "Drehen"
+  },
+  "NAV": {
+    "MAIN": "Hauptseite",
+    "WORKSPACE": "Arbeitsbereich",
+    "EDITOR": "Seiteneditor",
+    "PAGES": "Seiten",
+    "LAUNCHPAD": "Launchpad",
+    "HELP": "Hilfe",
+    "UNDO": "Rückgängig",
+    "REDO": "Wiederholen",
+    "EXPAND": "Ausklappen",
+    "COLLAPSE": "Einklappen",
+    "METADATA": "Metadaten",
+    "GO_BACK": "Zurück"
+  },
+  "EDITOR": {
+    "ADD_TO_PAGE": "Zur Seite hinzufügen",
+    "CREATE_PAGE": "Seite erstellen",
+    "CREATE_NEW": "Neu erstellen",
+    "CREATE_FOLDER": "Ordner erstellen",
+    "CREATE_PAGE_ON_SAME_LEVEL": "Seite auf gleicher Ebene erstellen",
+    "ITEM_ALREADY_DEFINED_ON_THIS_LEVEL": "Auf dieser Ebene existiert bereits ein Element „'{{name}}'“. Es können nicht zwei Elemente mit demselben Namen auf derselben Ebene vorhanden sein.",
+    "CREATE_ITEM_NOT_VALID_NAME": "'{{name}}' ist kein gültiger Name.",
+    "CREATE_PAGE_FAILED": "Die Seite „'{{name}}'“ kann nicht erstellt werden.",
+    "CREATE_FOLDER_FAILED": "Der Ordner „'{{name}}'“ kann nicht erstellt werden.",
+    "CREATE_ITEM_FAILED": "Das Element „'{{name}}'“ kann nicht erstellt werden.",
+    "CREATE_PAGE_EMPTY_NAME": "Der Seitenname darf nicht leer sein.",
+    "CREATE_FOLDER_EMPTY_NAME": "Der Ordnername darf nicht leer sein.",
+    "CREATED_BY": "Erstellt von",
+    "CREATED_AT": "Erstellt",
+    "ITEM_NAME": "Name des Elements",
+    "DELETE": "Löschen",
+    "DETAILS": "Details",
+    "UNKNOWNSECTION": "Unbekannt",
+    "UNCATEGORISED": "Nicht kategorisiert",
+    "PLACEHOLDER_DETAILS": "Platzhalterdetails",
+    "PLACEHOLDER_KEY": "Platzhalterschlüssel",
+    "ITEM_ID": "Element-ID",
+    "ITEM_PATH": "Elementpfad",
+    "NEW_PAGE": "Neue Seite",
+    "NEW_FOLDER": "Neuer Ordner",
+    "NO_INSERT_OPTIONS": "Die Einfügeoptionen sind für das übergeordnete Element nicht festgelegt.",
+    "ALL_PAGES": "Alle Seiten",
+    "TEMPLATE_PATH": "Vorlagenpfad",
+    "COMPONENTS": "Bestandteile",
+    "RENDERING_INSERT_FAILED": "Es ist ein Fehler aufgetreten und das Rendering wurde nicht zur Seite hinzugefügt. Versuchen Sie erneut, das Rendering hinzuzufügen.",
+    "CONTENT_TREE": {
+      "TITLE": "Site-Baum",
+      "MOVE_ITEM_ERROR": "Beim Verschieben des Elements „'{{name}}'“ im Inhaltsbaum ist ein Fehler aufgetreten.",
+      "MOVE_ITEM_INTO_SUCCESS": "Sie haben {{movedItemName}} in {{targetItemName}} platziert.",
+      "MOVE_ITEM_BEFORE_SUCCESS": "Sie haben {{movedItemName}} über {{targetItemName}} platziert.",
+      "MOVE_ITEM_AFTER_SUCCESS": "Sie haben {{movedItemName}} unter {{targetItemName}} platziert."
+    },
+    "SAVE": {
+      "PROGRESS": "Speichern",
+      "COMPLETE": "Gespeichert: {{datetime}}",
+      "ERRORS": {
+        "ERROR_AFTER_NAV": "Beim automatischen Speichern ist ein Fehler aufgetreten. Prüfen Sie, ob Ihre Änderungen vollständig gespeichert wurden, bevor Sie eine andere Seite öffnen.",
+        "ERROR_AFTER_NAV_ACTION": "Zurück",
+        "BASE_TEMPLATE_WAS_CHANGED": "Sie sind dabei, eine oder mehrere Basisvorlagen aus der aktuellen Vorlage zu entfernen.\n\nWenn Sie eine Basisvorlage entfernen, aktualisiert Sitecore alle Elemente basierend auf der aktuellen Vorlage. Sitecore löscht alle Feldwerte in diesen Elementen, die mit den Feldern in der entfernten Basisvorlage verknüpft sind. Diese Feldwerte können nach dem Entfernen nicht wiederhergestellt werden.\n\nMöchten Sie fortfahren?",
+        "CHANGED_UNVERSIONED_OR_SHARED_FLAG": "Sie haben die Markierung „Nicht versioniert“ oder „Gemeinsame Nutzung“ geändert.\n\nWenn Sie eine dieser Markierungen aktivieren, wird ein Hintergrundprozess\r\ngestartet, der alle Elemente auf Grundlage dieser Vorlage aktualisiert.\n\nDieser Prozess kann ressourcenintensiv sein.\n\nWenn Sie die Markierung „Nicht versioniert“ oder „Gemeinsame Nutzung“ aktiviert haben, gehen die vorherigen Versionswerte dieser\r\nFelder verloren.\n\nSind Sie sicher, dass Sie fortfahren möchten?",
+        "DATASOURCE_MODIFIED_BY_ANOTHER_USER": "Die Seite oder der zugehörige Inhalt wurde von einem anderen Benutzer geändert. Die Änderungen können nicht gespeichert werden. Möchten Sie die Seite neu laden und Ihre Änderungen verwerfen?",
+        "INCORRECT_CLONE_SOURCE": "Die Klonquelle hat einen falschen Wert. Bitte korrigieren Sie den Wert „__Quellelement“ (Abschnitt „Erweitert“), um fortzufahren.",
+        "INTERNAL_ERROR": "Interner Serverfehler.",
+        "ITEM_IS_PROTECTED": "Sie können das Element nicht bearbeiten, da es geschützt ist.",
+        "ITEM_LOCKED_BY_ANOTHER_USER": "Änderungen können nicht gespeichert werden, da der entsprechende Inhalt von einem anderen Benutzer gesperrt wurde.",
+        "ITEM_SHOULD_BE_LOCKED_BEFORE_EDIT": "Das Element kann nicht gespeichert werden, da es vom aktuellen Benutzer nicht gesperrt wurde.",
+        "NO_WRITE_ACCESS": "Sie können das Element nicht bearbeiten, da Sie keinen Schreibzugriff haben.",
+        "PAGE_DOES_NOT_EXIST": "Die Seite existiert nicht. Die Änderungen können nicht gespeichert werden. Möchten Sie die Seite neu laden und Ihre Änderungen verwerfen?",
+        "PAGE_VERSION_DOES_NOT_EXIST": "Die Seitenversion existiert nicht. Die Änderungen können nicht gespeichert werden. Möchten Sie die Seite neu laden und Ihre Änderungen verwerfen?",
+        "PAGE_WAS_MODIFIED": "Die Seite wurde von einem anderen Benutzer geändert. Die Änderungen können nicht gespeichert werden. Möchten Sie die Seite neu laden und Ihre Änderungen verwerfen?",
+        "RELOAD_ACTION_TITLE": "Neu laden",
+        "VALIDATION_ERROR": "Validierung fehlgeschlagen.",
+        "UNABLE_TO_SAVE": "Speichern nicht möglich"
+      },
+      "NO_CHANGES": "Keine Änderungen"
+    },
+    "CHANGE_DISPLAY_NAME": {
+      "BUTTON_TEXT": "Anzeigenamen bearbeiten",
+      "ERRORS": {
+        "INSUFFICIENT_PRIVILEGES": "Sie sind nicht berechtigt, den Anzeigenamen der Seite zu ändern.",
+        "ITEM_IS_LOCKED": "Sie können den Anzeigenamen dieses Elements nicht ändern, da das Element von einem anderen Benutzer gesperrt wurde."
+      }
+    },
+    "RENDERING": {
+      "DATASOURCE": "Inhaltselement",
+      "NO_DATASOURCE": "Pfad des Inhaltselements eingeben",
+      "BROWSE_DATASOURCE": "Durchsuchen",
+      "REMOVE_RENDERING": "Rendering entfernen"
+    },
+    "IMAGE": {
+      "ADD": "Hinzufügen",
+      "ADD_AN_IMAGE": "Bild hinzufügen",
+      "ADD_SELECTED": "Ausgewählte hinzufügen",
+      "CHANGE": "Ändern",
+      "CLEAR": "Löschen",
+      "PATH": "Bildpfad",
+      "PATH_PLACEHOLDER": "Geben Sie den Pfad des Bilds an.",
+      "NOT_FOUND": "Das Bild existiert nicht.",
+      "NOT_A_MEDIA": "Das Element ist kein Bild.",
+      "INVALID_SOURCES": "Die Quelle dieses Feldes ist ungültig. Bitte wenden Sie sich an Ihren Administrator."
+    },
+    "LINK": {
+      "LINK_TYPE": "Linktyp",
+      "TYPE": {
+        "EXTERNAL": "Extern",
+        "INTERNAL": "Intern"
+      },
+      "OPTIONAL_LABEL": "Optionale Parameter",
+      "ALT_TEXT": "Linktitel",
+      "TEXT": "Linktext",
+      "TEXT_PLACEHOLDER": "Linktext eingeben",
+      "ALT_TEXT_PLACEHOLDER": "Linktitel eingeben",
+      "CREATE_OR_EDIT_LINK": "Hyperlink erstellen oder bearbeiten",
+      "OPEN_NEW_WINDOW": "In neuem Fenster öffnen",
+      "TARGET": "Ziel",
+      "CLASS": "CSS-Klasse",
+      "CLASS_PLACEHOLDER": "CSS-Klasse eingeben",
+      "PATH": "Pfad",
+      "PATH_PLACEHOLDER": "Pfad eingeben",
+      "URL": "URL",
+      "URL_PLACEHOLDER": "URL eingeben",
+      "BROWSE_ITEM_PATH": "Durchsuchen",
+      "ITEM_PATH_PLACEHOLDER": "Pfad des Inhaltselements eingeben",
+      "QUERY_STRING": "URL-Abfragestring",
+      "QUERY_STRING_PLACEHOLDER": "URL-Abfragestring eingeben",
+      "ANCHOR": "Anker",
+      "ANCHOR_PLACEHOLDER": "Anker eingeben",
+      "DIALOG": {
+        "INTERNAL_LINK": "Interner Link",
+        "ADD_SELECTED": "Link hinzufügen"
+      }
+    },
+    "NUMBER": {
+      "VALUE_PLACEHOLDER": "Zahlenwert eingeben",
+      "NOT_VALID_NUMBER": "Der eingegebene Wert ist keine gültige Zahl.",
+      "NOT_VALID_VALUE_WAS_NOT_SAVED": "Der eingegebene Wert ist keine gültige Zahl und wurde nicht gespeichert."
+    },
+    "INTEGER": {
+      "VALUE_PLACEHOLDER": "Ganzzahligen Wert eingeben",
+      "NOT_VALID_INTEGER": "Der eingegebene Wert ist kein gültiger ganzzahliger Wert.",
+      "NOT_VALID_VALUE_WAS_NOT_SAVED": "Der eingegebene Wert ist kein gültiger ganzzahliger Wert und wurde nicht gespeichert."
+    },
+    "RTE": {
+      "ALIGN": {
+        "CENTER": "Zentriert ausrichten",
+        "JUSTIFY": "Ausrichten",
+        "LEFT": "Linksbündig",
+        "RIGHT": "Rechtsbündig"
+      },
+      "FORMAT": {
+        "BOLD": "Fett",
+        "ITALIC": "Kursiv",
+        "STRIKETHROUGH": "Durchgestrichen",
+        "UNDERLINE": "Unterstrichen"
+      },
+      "HEADER": {
+        "NORMAL": "Normal",
+        "PREFIX": "Header"
+      },
+      "INDENT": {
+        "DECREASE": "Einzug verkleinern",
+        "INCREASE": "Einzug vergrößern"
+      },
+      "LINK": {
+        "ALT_TEXT": "Linktitel",
+        "ALT_TEXT_PLACEHOLDER": "Linktitel eingeben",
+        "HEADER": "Linkdetails",
+        "CREATE_OR_EDIT_LINK": "Hyperlink erstellen oder bearbeiten",
+        "NEW_TAB": "Neuer Tab/neues Fenster",
+        "REMOVE_LINK": "Link entfernen",
+        "SAME_TAB": "Gleicher Tab",
+        "TARGET": "Ziel",
+        "PATH": "Pfad",
+        "PATH_PLACEHOLDER": "URL eingeben",
+        "TEST_URL": "URL testen"
+      },
+      "LIST": {
+        "BULLET": "Aufzählung",
+        "NUMBERED": "Nummerierte Liste"
+      },
+      "MEDIA": {
+        "INSERT": "Medien einfügen"
+      },
+      "REMOVE_FORMATTING": "Formatierung entfernen"
+    },
+    "WORKFLOW": {
+      "ACTION": "Aktion",
+      "ACTION_TAKEN": "Durchgeführte Aktion",
+      "CHANGED_BY": "Geändert von",
+      "COMMENT": "Kommentar",
+      "CURRENT_STATUS": "Aktueller Status",
+      "ENTER_A_COMMENT": "Kommentar eingeben",
+      "LATEST_WORKFLOW_CHANGE": "Letzte Workflow-Änderung",
+      "NO_WORKFLOW": "Kein Workflow",
+      "NO_ACCESS_RIGHTS_TO_PUBLISH": "Sie sind nicht berechtigt, dieses Element zu veröffentlichen.",
+      "PUBLISHABLE_SETTING_DISABLED": "Sie können dieses Element nicht veröffentlichen, da die Einstellung „Veröffentlichbar“ deaktiviert ist.",
+      "PUBLISHING_RESTRICTIONS": "Für dieses Element bestehen Veröffentlichungsbeschränkungen, die Sie daran hindern, es jetzt zu veröffentlichen.",
+      "PUBLISH_ITEM": "Element veröffentlichen",
+      "PUBLISH_ITEM_WITH_SUBITEMS": "Element mit allen Unterelementen veröffentlichen",
+      "PUBLISH_FAILED": "Veröffentlichung fehlgeschlagen. Versuchen Sie es erneut. Wenn der Fehler erneut auftritt, wenden Sie sich bitte an Ihren Systemadministrator.",
+      "PUBLISH_SUCCESSFUL": "Das Element „\"{{itemName}}\"“ wurde erfolgreich veröffentlicht.",
+      "PUBLISH_WITH_SUBITEMS_SUCCESSFUL": "Das Element „\"{{itemName}}\"“ wurde mit Unterelementen veröffentlicht. Verarbeitete Elemente: {{processedItemsCount}}.",
+      "PUBLISHING": "Veröffentlichen ...",
+      "UPDATING_WORKFLOW_STATE": "Workflow-Status aktualisieren ...",
+      "WORKFLOW": "Workflow",
+      "WORKFLOW_STEP": "Workflow-Status",
+      "WARNINGS": {
+        "DATASOURCE_LOCKED_BY_ANOTHER_USER": "Ein anderer Benutzer hat das Element oder das zugehörige Inhaltselement gesperrt.",
+        "ITEM_LOCKED_BY_ANOTHER_USER": "Ihre Änderungen können nicht gespeichert werden, da ein anderer Benutzer das Inhaltselement gesperrt hat.",
+        "NO_WRITE_ACCESS": "Sie können das Element nicht bearbeiten, da Sie keinen Schreibzugriff haben.",
+        "NO_WORKFLOW_WRITE_ACCESS": "Sie sind nicht berechtigt, dieses Element auf den nächsten Workflow-Status zu aktualisieren.",
+        "UNKNOWN_SERVER_ERROR": "Server meldet einen unbekannten Fehler."
+      }
+    },
+    "ITEMS_BROWSER": {
+      "HEADER_TEXT": "Inhaltselement zuweisen",
+      "ASSIGN": "Zuweisen",
+      "CONTENT_ITEMS": "Inhaltselemente",
+      "SELECT_TEMPLATE_TITLE": "Vorlage für das neue Inhaltselement auswählen",
+      "NEW_CONTENT_ITEM": "Neues Inhaltselement",
+      "CONTEXT_MENU": {
+        "BUTTON_LABEL": "Kontextmenü",
+        "CREATE_NEW": "Neu erstellen"
+      }
+    },
+    "WORKSPACE_EMPTY": {
+      "HEADER": "Die Seite kann nicht angezeigt werden",
+      "DESCRIPTION": "Der Rendering-Host für Ihre Website ist nicht konfiguriert. Bitte wenden Sie sich an Ihren Systemadministrator."
+    }
+  },
+  "MEDIA": {
+    "FILE_NAME": "Dateiname",
+    "FILE_TYPE": "Dateityp",
+    "FILE_SIZE": "Dateigröße",
+    "DIMENSIONS": "Dimensionen",
+    "PATH": "Pfad",
+    "ALT_TEXT": "Alternativtext",
+    "DETAILS_EMPTY": "Wählen Sie eine Datei aus, um eine Vorschau anzuzeigen.",
+    "EMPTY_FOLDER": "Keine Mediendateien in diesem Ordner.",
+    "NO_SEARCH_RESULTS": "Keine Ergebnisse für Ihre Suchanfrage.<br />Versuchen Sie es erneut.",
+    "LIMIT_REACHED": "Wir zeigen {{limit}} Bilder, um die Performance zu optimieren. Es sind noch mehr Bilder verfügbar. Bitte grenzen Sie Ihre Suche ein oder wählen Sie einen anderen Ordner aus.",
+    "SEARCH_PLACEHOLDER": "Suchen",
+    "ERRORS": {
+      "NOT_FOUND": "Der Pfad ist ungültig.",
+      "SOURCE_NOT_FOUND": "Die Quelle dieses Feldes ist ungültig. Bitte wenden Sie sich an Ihren Administrator.",
+      "GENERIC": "Es ist etwas passiert. Laden Sie den Dialog erneut, um es erneut zu versuchen."
+    }
+  },
+  "SITE_LANGUAGE": {
+    "NO_SITES": "Keine Standorte",
+    "NO_LANGUAGES": "Keine Sprachen",
+    "CONTEXT_LANGUAGE": "Kontextsprache",
+    "CONTEXT_SITE": "Kontextstandort",
+    "LANGUAGE_SWITCHER": "Sprachumschaltung",
+    "SITE_SWITCHER": "Standortumschaltung"
+  },
+  "VERSIONS": {
+    "HEADER": "Versionen",
+    "VERSION": "Version",
+    "NAME": "Name",
+    "UNNAMED": "Unbenannt",
+    "LAST_MODIFIED": "Zuletzt geändert",
+    "LAST_MODIFIED_VALUE": "{{ date }} durch {{ name }}",
+    "PUBLISH_DATE": "Veröffentlichungsdatum",
+    "NO_DATE": "Kein Datum",
+    "VERSION_CREATED_SUCCESSFUL": "Version \"{{ Version }}\" für \"{{ itemName }}\" wurde automatisch erstellt",
+    "MENU": {
+      "DUPLICATE_ERROR": "Beim Duplizieren einer neuen Version ist ein Fehler aufgetreten",
+      "REMOVE_ERROR": "Beim Löschen einer neuen Version ist ein Fehler aufgetreten"
+    },
+    "LIST": {
+      "HEADER": "Übersicht",
+      "VERSIONS": "Versionen",
+      "CREATE": "Neu erstellen"
+    },
+    "CREATE": {
+      "HEADER": "Version erstellen",
+      "NAME": "Versionsname",
+      "NAME_PLACEHOLDER": "Versionsnamen eingeben",
+      "OPTIONAL": "Optional",
+      "WORKFLOW": "Zugewiesener Workflow-Status",
+      "DRAFT": "Entwurf",
+      "ERROR": "Beim Erstellen einer neuen Version ist ein Fehler aufgetreten"
+    },
+    "RENAME": {
+      "HEADER": "Version umbenennen",
+      "NAME": "Versionsname",
+      "NAME_PLACEHOLDER": "Versionsnamen eingeben",
+      "OPTIONAL": "Optional",
+      "WORKFLOW": "Zugewiesener Workflow-Status",
+      "DRAFT": "Entwurf",
+      "ERROR": "Beim Umbenennen einer Version ist ein Fehler aufgetreten"
+    },
+    "PUBLISHING": {
+      "MENU_LABEL": "Veröffentlichung planen"
+    }
+  },
+  "CANVAS_TRANSLATIONS": {
+    "NO_TEXT_IN_FIELD": "[Kein Text im Feld]",
+    "PLACEHOLDER_EMPTY": "The {{placeholderName}} placeholder is empty. <br />Darg and drop components from the left hand side panel."
+  },
+  "DAM_TRANSLATIONS": {
+    "DOWNLOAD_LABEL": "Herunterladen",
+    "CANNOT_LOAD_IFRAME_TEXT": "Der DAM-Anbieter kann nicht angezeigt werden. Versuchen Sie, die Seite zu aktualisieren. Wenn der Fehler erneut auftritt, wenden Sie sich bitte an Ihren Systemadministrator."
+  }
+}

@@ -1,0 +1,74 @@
+<div #container tabindex="0" class="internal-link" (focusout)="onFocusOut($event)">
+  <div class="link-text wrapper">
+    <label ngSpdLabel for="linkText" class="mt-sm" [size]="size"
+      >{{ 'EDITOR.LINK.TEXT' | translate }}
+      <span *ngIf="!draftLink.text" role="presentation" class="required-indicator">*</span>
+    </label>
+    <input
+      #textInputRef="ngModel"
+      ngSpdInput
+      type="text"
+      [ngModel]="draftLink.text"
+      (ngModelChange)="draftLink.text = $event.trim()"
+      [isInvalid]="!draftLink.text && !!textInputRef.touched"
+      name="linkText"
+      autocomplete="off"
+      [size]="size"
+    />
+  </div>
+  <div class="link-title wrapper">
+    <label ngSpdLabel for="linkTitle" [size]="size">{{ 'EDITOR.LINK.ALT_TEXT' | translate }}</label>
+    <input ngSpdInput type="text" [(ngModel)]="draftLink.title" name="linkTitle" autocomplete="off" [size]="size" />
+  </div>
+  <div class="link-path wrapper">
+    <label ngSpdLabel for="path" [size]="size">
+      {{ 'EDITOR.LINK.PATH' | translate }}
+      <span *ngIf="!path" role="presentation" class="required-indicator">*</span>
+    </label>
+    <div class="path-options">
+      <input
+        ngSpdInput
+        readonly
+        class="item-path-input"
+        [class.right-align]="checkPathLength(pathInputRef.value)"
+        type="text"
+        name="path"
+        [title]="pathInputRef.value || ''"
+        [ngModel]="path"
+        [isInvalid]="!path && !!pathInputRef.touched"
+        autocomplete="off"
+        #pathInputRef="ngModel"
+        required
+        [size]="size"
+        [disabled]="true"
+      />
+      <button
+        ngSpdIconButton="rounded"
+        [icon]="'magnify'"
+        (click)="selectPagePathFromDialog()"
+        [title]="'EDITOR.LINK.BROWSE_ITEM_PATH' | translate"
+      ></button>
+    </div>
+  </div>
+  <div class="query-string wrapper">
+    <label ngSpdLabel for="linkQuerystring" [size]="size">{{ 'EDITOR.LINK.QUERY_STRING' | translate }}</label>
+    <input
+      ngSpdInput
+      type="text"
+      [(ngModel)]="draftLink.querystring"
+      name="linkQuerystring"
+      autocomplete="off"
+      [size]="size"
+    />
+  </div>
+  <div class="link-anchor wrapper">
+    <label ngSpdLabel for="linkAnchor" [size]="size">{{ 'EDITOR.LINK.ANCHOR' | translate }}</label>
+    <input ngSpdInput type="text" [(ngModel)]="draftLink.anchor" name="linkAnchor" autocomplete="off" [size]="size" />
+    <span class="text-subtle">{{ 'EDITOR.LINK.ANCHOR_TEXT' | translate }}</span>
+  </div>
+  <ng-spd-checkbox
+    [text]="'EDITOR.LINK.OPEN_NEW_WINDOW' | translate"
+    [checked]="draftLink.openInNewWindow"
+    (checkedChange)="draftLink.openInNewWindow = $event"
+  ></ng-spd-checkbox>
+</div>

@@ -1,0 +1,21 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+.field-validation {
+  @include default-text;
+  margin-top: $padding-xx-small;
+  order: 2;
+  color: $brand-signal-error;
+  box-sizing: border-box;
+  height: 0;
+  opacity: 0;
+  transition: all $animation-speed $animation-easing;
+
+  &.validation-failed {
+    opacity: 1;
+    height: auto;
+  }
+}

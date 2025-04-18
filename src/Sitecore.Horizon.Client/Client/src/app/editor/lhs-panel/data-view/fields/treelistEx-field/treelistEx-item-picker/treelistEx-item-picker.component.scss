@@ -1,0 +1,33 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.dialog-body {
+  @include dialog-body;
+  flex-direction: row;
+  gap: $spacing-xs;
+
+  .item-tree {
+    flex-basis: 50%;
+  }
+
+  .text-bold {
+    font-size: $font-size-14px;
+    display: block;
+  }
+  .selected-items-list {
+    flex-basis: 50%;
+
+    .item {
+      display: flex;
+      align-items: center;
+
+      .name {
+        flex: 1;
+      }
+    }
+  }
+  app-item-tree {
+    width: 100%;
+  }
+}

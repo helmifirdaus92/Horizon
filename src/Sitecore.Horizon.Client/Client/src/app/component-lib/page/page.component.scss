@@ -1,0 +1,23 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.page-app {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  background-color: $page-background-color;
+}
+
+.page-main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}

@@ -1,0 +1,123 @@
+{
+  "$schema": "http://schemastore.dk.sitecore.net:9999/build.config.json",
+  "Version": "8.1.0",
+  "CreationYear": "2018",
+  "DisableBuildDatabase": true,
+  "Plugins": {
+    "NuGet": {
+      "PublishFeedPaths": [ "https://nuget1dk1/nuget/xmcloud" ]
+    },
+    "Npm": {
+      "DisableBuild": false,
+      "UseCiRestore": true,
+      "PackagesNames": ["Sitecore.Horizon.Copyrights.Content"],
+      "Projects": [
+        {
+          "Path": "./src/Sitecore.Horizon.Client/Client",
+          "BuildScriptName": "build",
+          "TestScriptName": "test:ci",
+          "DisablePush": true,
+          "DisableJSCopyrightCheckerProcess": true
+        },
+        {
+          "Path": "./src/Sitecore.Horizon.Client/Client/dist-sdk",
+          "PublishPath": "./src/Sitecore.Horizon.Client/Client/dist-sdk",
+          "DisableVersion": true,
+          "DisableRestore": true,
+          "DisableBuild": true,
+          "DisableCollectDependencies": true,
+          "DisableTest": true,
+          "DisableLint": true,
+          "DisableJSCopyrightCheckerProcess": true
+        },
+        {
+          "Path": "./src/Sitecore.Horizon.Canvas.Client/Client",
+          "BuildScriptName": "build",
+          "TestScriptName": "test:ci",
+          "DisablePush": true,
+          "DisableJSCopyrightCheckerProcess": true
+        },
+        {
+          "Path": "./src/Sitecore.Horizon.Canvas.Client/Client/dist-sdk",
+          "PublishPath": "./src/Sitecore.Horizon.Canvas.Client/Client/dist-sdk",
+          "DisableVersion": true,
+          "DisableRestore": true,
+          "DisableBuild": true,
+          "DisableCollectDependencies": true,
+          "DisableTest": true,
+          "DisableLint": true,
+          "DisableJSCopyrightCheckerProcess": true
+        },
+        {
+          "Path": "./src/Horizon.Messaging",
+          "BuildScriptName": "build",
+          "TestScriptName": "test:ci",
+          "PublishPath": "./src/Horizon.Messaging",
+          "DisableVersion": true,
+          "DisableBuild": true,
+          "DisablePack": true,
+          "DisablePush": true,
+          "DisableJSCopyrightCheckerProcess": true
+        },
+        {
+          "Path": "./src/Sitecore.Horizon.Client/Client/pacts",
+          "TestScriptName": "test",
+          "DisableVersion": true,
+          "DisableLint": true,
+          "DisableCollectDependencies": true,
+          "DisableBuild": true,
+          "DisablePack": true,
+          "DisablePush": true,
+          "DisableJSCopyrightCheckerProcess": true
+        }
+      ]
+    },
+    "CopyrightChecker": {
+      "BinariesPath": "./src",
+      "PackagesNames": ["Sitecore.Horizon.Copyrights.Content"],
+      "DisableCopyrightCheckerProcess": true
+    },
+    "DotNetCore": {
+      "PublishProfiles": ["HorizonHostOnPrem"],
+      "IncludeCodeCoverage": true,
+      "TestPaths": [
+        "./tests/Sitecore.Horizon.Integration.Tests.Unit",
+        "./tests/Sitecore.Horizon.Integration.GraphQL.Tests.Unit",
+        "./tests/Sitecore.Horizon.ContentHub.Dam.Plugin.Tests",
+        "./tests/Sitecore.Horizon.Authoring.Plugin.Tests",
+        "./tests/Sitecore.Horizon.Core.Tests.Unit"
+      ],
+      "CodeCoverageFilter": "+:Sitecore.Horizon*;-:*.Tests;-:Sitecore.Horizon.Tests*;",
+      "DisablePublish": false
+    },
+    "CodeSigning": {
+      "SignItemPaths": ["./src"],
+      "SignItemPatterns": [
+        "Sitecore.Horizon.Authoring.Plugin/bin/Release/Sitecore.Horizon.Authoring.Plugin.dll",
+        "Sitecore.Horizon.Canvas.Client/bin/Release/Sitecore.Horizon.Canvas.Client.dll",
+        "Sitecore.Horizon.Client/bin/Release/Sitecore.Horizon.Client.dll",
+        "Sitecore.Horizon.Client.Extensions/bin/Release/Sitecore.Horizon.Client.Extensions.dll",
+        "Sitecore.Horizon.Client.Extensions/bin/Release/Sitecore.Horizon.Client.Extensions.Views.dll",
+        "Sitecore.Horizon.Core/bin/Release/Sitecore.Horizon.Core.dll",
+        "Sitecore.AuthoringHost.Configuration/bin/Release/Sitecore.AuthoringHost.Configuration.dll",
+        "Sitecore.Horizon.Integration/bin/Release/Sitecore.Horizon.Integration.dll",
+        "Sitecore.Horizon.Integration.GraphQL/bin/Release/Sitecore.Horizon.Integration.GraphQL.dll"
+      ]
+    },
+    "ZipArchive": {
+      "PublishDirectoryPath": "./artifacts",
+      "Files": [
+        {
+          "Name": "HorizonHost.##version##.zip",
+          "SourcePath": "./build/HorizonHostOnPrem",
+          "Include": ["*.*", "**/*.*"],
+          "Exclude": ["*.pdb", "**/*.pdb"]
+        }
+      ],
+      "DisablePush": true
+    },
+    "Nvm": {
+      "NodeVersion": "18.20.2"
+    }
+  }
+}

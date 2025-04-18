@@ -1,0 +1,578 @@
+{
+  "__schema": {
+    "types": [
+      {
+        "kind": "SCALAR",
+        "name": "String",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Boolean",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Float",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Int",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "ID",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Date",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "DateTime",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "DateTimeOffset",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Seconds",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Milliseconds",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Decimal",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Schema",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Type",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "__TypeKind",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Field",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__InputValue",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__EnumValue",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Directive",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "__DirectiveLocation",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Query",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Content",
+        "possibleTypes": [
+          {
+            "name": "Item"
+          },
+          {
+            "name": "Page"
+          },
+          {
+            "name": "Folder"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Template",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TemplateField",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "WorkflowState",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "WorkflowError",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "WorkflowCommand",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "InsertOption",
+        "possibleTypes": [
+          {
+            "name": "ItemTemplate"
+          },
+          {
+            "name": "BranchTemplate"
+          }
+        ]
+      },
+      {
+        "kind": "ENUM",
+        "name": "InsertOptionKind",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ContentItemPermissions",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ContentItemLocking",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ContentItemPublishing",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RawContentItem",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Site",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Language",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "User",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Components",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ComponentGroup",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ComponentInfo",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ExtendedProperties",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Configuration",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EnvironmentFeature",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MediaItem",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MediaQueryResult",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MediaFolderItem",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MediaItemPermissions",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PublishingStatus",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "PublishingState",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RenderingDefinition",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PersonalizationRuleInfo",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RuleConditionsInfo",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RuleActionsInfo",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Mutation",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeleteItemOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeleteItemInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeleteItemVersionOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeleteItemVersionInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RenameItemOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "RenameItemInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RenameItemVersionOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "RenameItemVersionInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SaveItemOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ValidationError",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SaveItemError",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SavedItem",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SavedItemField",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ItemVersionInfo",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SaveItemInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SaveItemDetails",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "FieldValue",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "PresentationDetails",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "LayoutKind",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CreatePageOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CreatePageInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DuplicateItemOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DuplicateItemInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CreateFolderOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CreateFolderInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CreateRawItemOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CreateItemInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ChangeDisplayNameOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ChangeDisplayNameInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MoveItemOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MoveItemInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "MovePosition",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AddItemVersionOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AddItemVersionInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeleteLayoutRulesOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeleteLayoutRulesInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SetLayoutEditingKindOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SetLayoutEditingKindInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PublishItemOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "PublishItemInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SetPublishingSettingsOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SetPublishingSettingsInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "StringWithPossibleDateTimeFormatGraphType",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ExecuteCommandOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ValidationResult",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ItemValidationResult",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ItemValidationRecord",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldValidationResult",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ExecuteCommandInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UploadMediaOutput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UploadMediaInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Item",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Page",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PageTimeline",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ItemTimeline",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PublishingRange",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Folder",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ItemTemplate",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "BranchTemplate",
+        "possibleTypes": null
+      }
+    ]
+  }
+}

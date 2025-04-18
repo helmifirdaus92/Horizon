@@ -1,0 +1,73 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  .ab-test-detail-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 165px);
+    overflow: hidden;
+
+    .content-container {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 $spacing-3xs;
+
+      .back-button-icon {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .title {
+        flex: 1;
+        text-align: center;
+        margin: 0;
+        @include heading-lg;
+      }
+    }
+
+    .tabs {
+      margin-bottom: $spacing-3xs;
+
+      .tab-group {
+        display: flex;
+        gap: $padding-xx-small;
+
+        button {
+          text-align: center;
+          padding: $spacing-7xs $spacing-3xs;
+          border-radius: $border-radius-large;
+
+          &.active {
+            border-color: $brand-primary-xx-light;
+            background-color: $brand-primary-xx-light;
+          }
+        }
+      }
+    }
+
+    .statistical-sigificance-note {
+      font-size: $font-size-14px;
+      margin: 0;
+      padding: $spacing-3xs;
+    }
+
+    .footer-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: $spacing-7xs;
+      padding: $padding;
+      position: sticky;
+      bottom: 0;
+    }
+  }
+}

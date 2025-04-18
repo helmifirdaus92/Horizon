@@ -1,0 +1,267 @@
+<div class="card-container">
+  <div class="header-container">
+    <span class="header">{{ 'PAGE_DESIGNS.LHS_PANEL.PARTIAL_DESIGNS' | translate }}</span>
+    <div class="sub-header">
+      <span class="description">{{ 'PAGE_DESIGNS.WORKSPACE.PARTIAL_DESIGNS_DESCRIPTION' | translate }}</span>
+      <div class="sub-header-actions">
+        <button
+          ngSpdButton="primary"
+          icon="plus"
+          [attr.aria-label]="'COMMON.CREATE' | translate"
+          [disabled]="(siteType$ | async) === 'shared' || !(currentRootPermissions$ | async)?.canCreate"
+          [ngSpdPopover]="popoverTemplate"
+          popoverPosition="below"
+          [popoverOffset]="2"
+          [popoverShowDelay]="0"
+          [popoverHideDelay]="0"
+          [hideOnBackdropClick]="true"
+          #popoverInstance="ngSpdPopover"
+          (click)="popoverInstance.toggle(); $event.stopPropagation()"
+        >
+          {{ 'COMMON.CREATE' | translate }}
+        </button>
+        <ng-container *ngIf="(siteType$ | async) === 'shared'">
+          <i
+            class="mdi mdi-information-outline pl-sm"
+            [ngSpdTooltip]="'PAGE_DESIGNS.WORKSPACE.SHARED_PARTIAL_DESIGNS_DISABLE_DESCRIPTION' | translate"
+            tooltipPosition="below"
+          ></i>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="left-container py-xl">
+      <div class="search">
+        <app-design-search
+          (selectedDesignItem)="searchedDesign$.next($event)"
+          [designType]="'partialdesign'"
+        ></app-design-search>
+      </div>
+      <div class="design-content">
+        <app-templates-shared-sites-tabs
+          *ngIf="hasSharedSite$ | async"
+          [selectedSiteType]="siteType$ | async"
+          (changeSiteType)="handleSiteTypeSelection($event)"
+        ></app-templates-shared-sites-tabs>
+        <p *ngIf="(siteType$ | async) === 'shared'" class="sitetype-description">{{
+          'PAGE_DESIGNS.WORKSPACE.SHARED_PARTIAL_DESIGNS_DESCRIPTION' | translate
+        }}</p>
+        <ng-spd-breadcrumb
+          *ngIf="breadcrumbItems.length > 1"
+          [items]="breadcrumbItems"
+          (itemClick)="loadBreadcrumbData($event)"
+        ></ng-spd-breadcrumb>
+        <div class="loading" *ngIf="isWaitingResult || (isNavLoading$ | async)">
+          <ng-spd-loading-indicator></ng-spd-loading-indicator>
+        </div>
+      </div>
+
+      <div class="main-body" *ngIf="partialDesignItems?.length || partialDesignFolders?.length">
+        <ng-container *ngIf="partialDesignFolders?.length">
+          <div class="design-content">
+            <h3 [title]="'PAGE_DESIGNS.LHS_PANEL.FOLDERS' | translate">{{
+              'PAGE_DESIGNS.LHS_PANEL.FOLDERS' | translate
+            }}</h3>
+            <div class="flat-list">
+              <ng-spd-item-card
+                *ngFor="let pageDesignItem of partialDesignFolders"
+                [title]="pageDesignItem.name"
+                [clickable]="true"
+                icon="folder-outline"
+                [selected]="selectedItem === pageDesignItem"
+                [enableEdit]="pageDesignItem.itemId === cardBeingEdited"
+                (itemClick)="expandFolder(pageDesignItem)"
+                (submitContentEdit)="onSubmitContentEdit($event, pageDesignItem.itemId)"
+                (cancelContentEdit)="onCancelContentEdit()"
+              >
+                <ng-container *ngIf="(siteType$ | async) === 'current'" ngSpdItemCardMainActions>
+                  <button
+                    ngSpdIconButton
+                    icon="dots-horizontal"
+                    aria-label="context menu"
+                    [ngSpdPopover]="contextMenuTemplate"
+                    popoverPosition="top-left"
+                    [popoverOffset]="0"
+                    [popoverShowDelay]="0"
+                    [popoverHideDelay]="0"
+                    [hideOnBackdropClick]="true"
+                    #contextMenuPopoverInstance="ngSpdPopover"
+                    (click)="contextMenuPopoverInstance.toggle(); $event.stopPropagation()"
+                  ></button>
+                </ng-container>
+
+                <ng-template #contextMenuTemplate let-contextMenuTemplateRef>
+                  <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+                    <button
+                      ngSpdListItem
+                      (click)="cardBeingEdited = pageDesignItem.itemId; contextMenuTemplateRef.hide()"
+                      [title]="'COMMON.RENAME' | translate"
+                      [disabled]="!pageDesignItem.access.canRename"
+                    >
+                      <i class="mdi mdi-pencil-outline pr-sm"></i> {{ 'COMMON.RENAME' | translate }}</button
+                    >
+                    <button
+                      ngSpdListItem
+                      (click)="moveItem(pageDesignItem, 'folder'); contextMenuTemplateRef.hide()"
+                      [title]="'PAGE_DESIGNS.WORKSPACE.MOVE_TO' | translate"
+                      [disabled]="!pageDesignItem.access.canWrite"
+                    >
+                      <i class="mdi mdi-folder-move-outline pr-sm"></i>
+                      {{ 'PAGE_DESIGNS.WORKSPACE.MOVE_TO' | translate }}</button
+                    >
+                    <button
+                      ngSpdListItem
+                      (click)="promptDeleteItem(pageDesignItem.itemId, 'folder'); contextMenuTemplateRef.hide()"
+                      [title]="'COMMON.DELETE' | translate"
+                      [disabled]="!pageDesignItem.access.canDelete"
+                    >
+                      <i class="mdi mdi-trash-can-outline pr-sm"></i>
+                      {{ 'COMMON.DELETE' | translate }}</button
+                    >
+                  </ng-spd-list>
+                </ng-template>
+              </ng-spd-item-card>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="partialDesignItems?.length">
+          <div class="design-content">
+            <h3 [title]="'PAGE_DESIGNS.LHS_PANEL.PARTIAL_DESIGNS' | translate">{{
+              'PAGE_DESIGNS.LHS_PANEL.PARTIAL_DESIGNS' | translate
+            }}</h3>
+
+            <div class="design-list">
+              <ng-spd-item-card
+                *ngFor="let pageDesignItem of partialDesignItems"
+                [cardType]="'vertical'"
+                [title]="pageDesignItem.name"
+                [clickable]="true"
+                (itemClick)="selectItem(pageDesignItem)"
+                [selected]="selectedItem === pageDesignItem"
+              >
+                <div ngSpdItemCardContent class="thumbnail-container">
+                  <img
+                    *ngIf="pageDesignItem.thumbnailUrl"
+                    [src]="pageDesignItem.thumbnailUrl | cmUrl"
+                    [alt]="pageDesignItem.displayName"
+                    class="thumbnail-image"
+                  />
+
+                  <i *ngIf="!pageDesignItem.thumbnailUrl" class="mdi mdi-page-layout-header thumbnail-icon"></i>
+                </div>
+
+                <div ngSpdItemCardVerticalActions class="partial-design-card-actions">
+                  <button
+                    *ngIf="(siteType$ | async) === 'current'"
+                    ngSpdIconButton="rounded"
+                    icon="pencil-outline"
+                    [disabled]="!pageDesignItem.access.canWrite"
+                    (click)="$event.stopPropagation(); editPartialDesign(pageDesignItem)"
+                  ></button>
+
+                  <button
+                    ngSpdIconButton="rounded"
+                    icon="dots-horizontal"
+                    aria-label="context menu"
+                    *ngIf="(siteType$ | async) !== 'shared'"
+                    [ngSpdPopover]="contextMenuItemTemplate"
+                    popoverPosition="top-left"
+                    [popoverOffset]="0"
+                    [popoverShowDelay]="0"
+                    [popoverHideDelay]="0"
+                    [hideOnBackdropClick]="true"
+                    #contextMenuPopoverInstance="ngSpdPopover"
+                    (click)="$event.stopPropagation(); contextMenuPopoverInstance.toggle()"
+                  ></button>
+                  <ng-template #contextMenuItemTemplate let-contextMenuItemTemplateRef>
+                    <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+                      <button
+                        ngSpdListItem
+                        (click)="renamePartialDesign(pageDesignItem); contextMenuItemTemplateRef.hide()"
+                        [title]="'COMMON.RENAME' | translate"
+                        [disabled]="!pageDesignItem.access.canRename"
+                      >
+                        <i class="mdi mdi-pencil-outline pr-sm"></i> {{ 'COMMON.RENAME' | translate }}</button
+                      >
+                      <button
+                        ngSpdListItem
+                        (click)="moveItem(pageDesignItem, 'partialDesign'); contextMenuItemTemplateRef.hide()"
+                        [title]="'PAGE_DESIGNS.WORKSPACE.MOVE_TO' | translate"
+                        [disabled]="!pageDesignItem.access.canWrite"
+                      >
+                        <i class="mdi mdi-folder-move-outline pr-sm"></i>
+                        {{ 'PAGE_DESIGNS.WORKSPACE.MOVE_TO' | translate }}</button
+                      >
+                      <button
+                        ngSpdListItem
+                        (click)="
+                          promptDeleteItem(pageDesignItem.itemId, 'partialDesign'); contextMenuItemTemplateRef.hide()
+                        "
+                        [title]="'COMMON.DELETE' | translate"
+                        [disabled]="!pageDesignItem.access.canDelete"
+                      >
+                        <i class="mdi mdi-trash-can-outline pr-sm"></i>
+                        {{ 'COMMON.DELETE' | translate }}</button
+                      >
+                    </ng-spd-list>
+                  </ng-template>
+                </div>
+              </ng-spd-item-card>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <app-empty-state
+        *ngIf="
+          !partialDesignItems?.length &&
+          !partialDesignFolders?.length &&
+          (siteType$ | async) === 'current' &&
+          !(isNavLoading$ | async)
+        "
+        [title]="'PAGE_DESIGNS.WORKSPACE.NO_PARTIAL_DESIGNS' | translate"
+        [btnText]="'PAGE_DESIGNS.WORKSPACE.CREATE_PARTIAL_DESIGN' | translate"
+        (btnClick)="createPartialDesign()"
+        [description]="'PAGE_DESIGNS.WORKSPACE.PARTIAL_DESIGN_GUIDE' | translate"
+        [isDisabled]="!(currentRootPermissions$ | async)?.canCreate"
+      ></app-empty-state>
+      <app-empty-state
+        *ngIf="!partialDesignItems?.length && !partialDesignFolders?.length && (siteType$ | async) === 'shared'"
+        [title]="'PAGE_DESIGNS.WORKSPACE.EMPTY_FOLDER' | translate"
+      ></app-empty-state>
+    </div>
+
+    <div class="right-container py-md">
+      <app-item-details
+        [displayName]="selectedItem?.displayName"
+        [createdDate]="selectedItem?.createdDate"
+        [updatedDate]="selectedItem?.updatedDate"
+        [thumbanailAltText]="selectedItem?.displayName"
+        [thumbnailUrl]="selectedItem?.thumbnailUrl"
+        [fallbackIcon]="selectedItem?.isFolder ? 'mdi-folder-outline' : 'mdi-page-layout-header'"
+        [sourceSite]="getSourceSite(selectedItem)"
+      ></app-item-details>
+    </div>
+  </div>
+</div>
+
+<ng-template #popoverTemplate let-popoverRef>
+  <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+    <button
+      ngSpdListItem
+      (click)="createPartialDesign(); popoverRef.hide()"
+      [title]="'PAGE_DESIGNS.WORKSPACE.PARTIAL_DESIGN' | translate"
+    >
+      <i class="mdi mdi-page-layout-header"></i>
+      {{ 'PAGE_DESIGNS.WORKSPACE.PARTIAL_DESIGN' | translate }}
+    </button>
+
+    <button ngSpdListItem (click)="createTempFolderItem(); popoverRef.hide()" [title]="'COMMON.FOLDER' | translate">
+      <i class="mdi normal mdi-folder-outline"></i>
+      {{ 'COMMON.FOLDER' | translate }}
+    </button>
+  </ng-spd-list>
+</ng-template>

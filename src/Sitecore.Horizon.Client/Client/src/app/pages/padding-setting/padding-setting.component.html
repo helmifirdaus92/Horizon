@@ -1,0 +1,58 @@
+<div class="outer-container">
+  <div class="inner-container">
+    <div class="top">
+      <span
+        class="value"
+        [(ngSpdContentEditable)]="enableEditingTop"
+        type="number"
+        (click)="enableEditingTop = true; $event.stopPropagation()"
+        (keyup)="enableEditingTop = true"
+        #topEl
+        (submit)="setPadding('top', $event, topEl)"
+      >
+        {{ top }}
+      </span>
+      <span class="unit">{{ unit }}</span>
+    </div>
+    <div class="center">
+      <div class="left field">
+        <span
+          class="value"
+          [(ngSpdContentEditable)]="enableEditingLeft"
+          (click)="enableEditingLeft = true; $event.stopPropagation()"
+          (keyup)="enableEditingLeft = true"
+          #leftEl
+          (submit)="setPadding('left', $event, leftEl)"
+        >
+          {{ left }}</span
+        >
+        <span class="unit">{{ unit }}</span>
+      </div>
+      <div class="box"></div>
+      <div class="right field">
+        <span
+          class="value"
+          [(ngSpdContentEditable)]="enableEditingRight"
+          (click)="enableEditingRight = true; $event.stopPropagation()"
+          (keyup)="enableEditingRight = true"
+          #rightEl
+          (submit)="setPadding('right', $event, rightEl)"
+          >{{ right }}</span
+        >
+        <span class="unit">{{ unit }}</span>
+      </div>
+    </div>
+    <div class="bottom"
+      ><span
+        class="value"
+        [(ngSpdContentEditable)]="enableEditingBottom"
+        (click)="enableEditingBottom = true; $event.stopPropagation()"
+        (keyup)="enableEditingBottom = true"
+        #bottomEl
+        (submit)="setPadding('bottom', $event, bottomEl)"
+        >{{ bottom }}</span
+      >
+      <span class="unit">{{ unit }}</span>
+    </div>
+  </div>
+</div>

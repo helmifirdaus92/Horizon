@@ -1,0 +1,101 @@
+<ng-spd-tab-group class="devices-container">
+  <button
+    *ngFor="let device of devicesAddedToTopbar(devices)"
+    ngSpdTab
+    [selected]="device.id === (activeDevice$ | async)?.id"
+    [title]="device.name + (device.width !== '0' ? ' (' + device.width + 'px)' : '')"
+    (selectedChange)="setDevice(device)"
+    colorScheme="colored"
+    class="device-btn"
+  >
+    <i *ngIf="device.icon.startsWith('mdi-')" class="device-icon mdi {{ device.icon }} my-auto"></i>
+    <span *ngIf="!device.icon.startsWith('mdi-')" class="device-icon mdi my-auto">
+      <img
+        [src]="device.icon | cmUrl"
+        [attr.alt]="device.name"
+        (error)="imageLoadError = !!$event"
+        *ngIf="!imageLoadError"
+      />
+      <span
+        class="mdi"
+        *ngIf="imageLoadError"
+        [ngClass]="{
+          'mdi-cellphone': device.name.toLowerCase() === 'mobile',
+          'mdi-tablet mdi-rotate-90': device.name.toLowerCase() === 'tablet portrait',
+          'mdi-monitor':
+            device.name.toLowerCase() === 'desktop regular' || device.name.toLowerCase() === 'desktop large',
+          'mdi-laptop-account': device.name.toLowerCase() === 'desktop small',
+          'mdi-aspect-ratio': device.name.toLowerCase() === 'flexible',
+        }"
+      ></span>
+    </span>
+  </button>
+</ng-spd-tab-group>
+
+<button
+  id="devideSelectorBtn"
+  class="device-selector-btn pl-0"
+  ngSpdDroplistToggle
+  [ngSpdPopover]="popoverTemplate"
+  popoverPosition="right-bottom"
+  [opened]="popoverInstanceDeviceSelector.isPopoverVisible()"
+  [popoverOffset]="10"
+  [popoverShowDelay]="0"
+  [popoverHideDelay]="0"
+  [hideOnBackdropClick]="true"
+  #popoverInstanceDeviceSelector="ngSpdPopover"
+  [customClass]="'version-list-popover'"
+  (click)="popoverInstanceDeviceSelector.toggle(); $event.stopPropagation()"
+></button>
+<ng-template #popoverTemplate>
+  <div class="droplist">
+    <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+      <button
+        *ngFor="let device of devices"
+        ngSpdListItem
+        [title]="device.name"
+        [select]="device.id === (activeDevice$ | async)?.id"
+        class="list-option"
+        (click)="
+          setDevice(device);
+          device.isAddedToTopBar = true;
+          saveDeviceSelection();
+          popoverInstanceDeviceSelector.toggle()
+        "
+      >
+        <div class="btn-content">
+          <i *ngIf="device.icon.startsWith('mdi-')" class="device-icon mdi {{ device.icon }}"></i>
+          <span *ngIf="!device.icon.startsWith('mdi-')" class="device-icon mdi">
+            <img
+              [src]="device.icon | cmUrl"
+              [attr.alt]="device.name"
+              (error)="imageLoadError = !!$event"
+              *ngIf="!imageLoadError"
+            />
+            <span
+              class="mdi"
+              *ngIf="imageLoadError"
+              [ngClass]="{
+                'mdi-cellphone': device.name.toLowerCase() === 'mobile',
+                'mdi-tablet mdi-rotate-90': device.name.toLowerCase() === 'tablet portrait',
+                'mdi-monitor':
+                  device.name.toLowerCase() === 'desktop regular' || device.name.toLowerCase() === 'desktop large',
+                'mdi-laptop-account': device.name.toLowerCase() === 'desktop small',
+                'mdi-aspect-ratio': device.name.toLowerCase() === 'flexible',
+              }"
+            ></span>
+          </span>
+          <span *ngIf="device.width === '0'" class="px-md">{{ device.name }}</span>
+          <span *ngIf="device.width !== '0'" class="px-md">{{ device.name }} ({{ device.width }}px)</span>
+        </div>
+
+        <ng-spd-checkbox
+          *ngIf="device.type === 'optional'"
+          [checked]="!!device.isAddedToTopBar"
+          (checkedChange)="device.isAddedToTopBar = $event; saveDeviceSelection()"
+          (click)="$event.stopPropagation()"
+        ></ng-spd-checkbox>
+      </button>
+    </ng-spd-list>
+  </div>
+</ng-template>

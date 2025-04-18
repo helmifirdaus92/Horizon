@@ -1,0 +1,210 @@
+{
+  "Parameters": {
+    "InstanceName": {
+      "Type": "string"
+    },
+    "PhysicalPath": {
+      "Type": "string"
+    },
+    "PackagePath": {
+      "Type": "string"
+    },
+    "AppUrl": {
+      "Type": "string"
+    },
+    "ContentManagementUrl": {
+      "Type": "string"
+    },
+    "IdentityServerUrl": {
+      "Type": "string"
+    },
+    "LicensePath": {
+      "Type": "string"
+    }
+  },
+  "Variables": {
+    "Horizon.Site.PhysicalPath.Default": "[joinpath(environment('SystemDrive'), 'inetpub', 'wwwroot', parameter('InstanceName'))]",
+    "Horizon.Site.PhysicalPath": "[if(equal(parameter('PhysicalPath'), ''), variable('Horizon.Site.PhysicalPath.Default'), parameter('PhysicalPath'))]",
+    "OpenIdConnectXml": "[joinpath(variable('Horizon.Site.PhysicalPath'), 'Config', 'OpenIdConnect.xml')]"
+  },
+  "Tasks": {
+    "CreatePackageFolderPaths": {
+      "Type": "EnsurePath",
+      "Params": {
+        "Exists": [
+          "[parameter('PackagePath')]"
+        ]
+      }
+    },
+    "CreatePaths": {
+      "Type": "EnsurePath",
+      "Params": {
+        "Exists": [
+          "[variable('Horizon.Site.PhysicalPath')]"
+        ]
+      }
+    },
+    "CreateAppPool": {
+      "Type": "AppPool",
+      "Params": {
+        "Name": "[parameter('InstanceName')]",
+        "Properties": {
+          "ManagedRuntimeVersion": "",
+          "ProcessModel": {
+            "identityType": "NetworkService"
+          }
+        }
+      }
+    },
+    "CreateWebsite": {
+      "Type": "Website",
+      "Params": {
+        "Name": "[parameter('InstanceName')]",
+        "ApplicationPool": "[parameter('InstanceName')]",
+        "PhysicalPath": "[variable('Horizon.Site.PhysicalPath')]"
+      }
+    },
+    "StopAppPool": {
+      "Type": "ManageAppPool",
+      "Params": {
+        "Name": "[parameter('InstanceName')]",
+        "Action": "Stop"
+      }
+    },
+    "CreateBindings": {
+      "Type": "WebBinding",
+      "Params": {
+        "SiteName": "[parameter('InstanceName')]",
+        "Remove": [
+          {
+            "Port": "80",
+            "IPAddress": "*"
+          }
+        ]
+      }
+    },
+    "Add_HTTPS_Binding": {
+      "Type": "AddWebFeatureSSL",
+      "Params": {
+        "HostName": "[parameter('InstanceName')]"
+      }
+    },
+    "CreateHostHeader": {
+      "Type": "HostHeader",
+      "Params": {
+        "HostName": "[parameter('InstanceName')]"
+      }
+    },
+    "InstallZipPackage": {
+      "Type": "WebDeploy",
+      "Params": {
+        "Verb": "Sync",
+        "Arguments": {
+          "Source": {
+            "Package": "[parameter('PackagePath')]"
+          },
+          "Dest": {
+            "contentPath": "[parameter('InstanceName')]"
+          }
+        }
+      }
+    },
+    "SetPermissions": {
+      "Type": "FilePermissions",
+      "Params": {
+        "Path": "[variable('Horizon.Site.PhysicalPath')]",
+        "Rights": [
+          {
+            "User": "[concat('IIS AppPool\\', parameter('InstanceName'))]",
+            "FileSystemRights": "FullControl",
+            "InheritanceFlags": [
+              "ContainerInherit",
+              "ObjectInherit"
+            ]
+          }
+        ]
+      }
+    },
+    "SetFederatedUIHorizonHostOnPrem": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('Horizon.Site.PhysicalPath'), 'Config','Host.xml')]",
+        "XPath": "/Settings/FederatedUI/HostBaseUrl",
+        "Value": "[parameter('AppUrl')]"
+      }
+    },
+    "SetFederatedUIHorizonSitecoreHostOnPrem": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[joinpath(variable('Horizon.Site.PhysicalPath'), 'Config', 'Host.xml')]",
+        "XPath": "/Settings/SitecorePlatform/ContentManagementUrl",
+        "Value": "[parameter('ContentManagementUrl')]"
+      }
+    },
+    "UpdateHorizonIdentityServerParameter": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[variable('OpenIdConnectXml')]",
+        "XPath": "/Settings/Sitecore/Authentication/OpenIdConnectOptions/Authority",
+        "Value": "[parameter('IdentityServerUrl')]"
+      }
+    },
+    "UpdateHorizonBearerOptionsParameter": {
+      "Type": "SetXml",
+      "Params": {
+        "FilePath": "[variable('OpenIdConnectXml')]",
+        "XPath": "/Settings/Sitecore/Authentication/BearerAuthenticationOptions/Authority",
+        "Value": "[parameter('IdentityServerUrl')]"
+      }
+    },
+    "StartAppPool": {
+      "Type": "ManageAppPool",
+      "Params": {
+        "Name": "[parameter('InstanceName')]",
+        "Action": "Start"
+      }
+    },
+    "CreateLicenseFolder": {
+      "Type": "EnsurePath",
+      "Params": {
+        "Exists": "[joinpath(variable('Horizon.Site.PhysicalPath'), 'sitecoreruntime')]"
+      }
+    },
+    "CopyLicense": {
+      "Type": "Copy",
+      "Params": {
+        "Source": "[parameter('LicensePath')]",
+        "Destination": "[joinpath(variable('Horizon.Site.PhysicalPath'), 'sitecoreruntime')]"
+      }
+    },
+    "StartWebsite": {
+      "Type": "ManageWebsite",
+      "Params": {
+        "Name": "[parameter('InstanceName')]",
+        "Action": "Start"
+      }
+    }
+  },
+  "UninstallTasks": {
+    "RemoveApplicationPool": {
+      "Type": "RemoveAppPool",
+      "Params": {
+        "Name": "[parameter('InstanceName')]"
+      }
+    },
+    "RemoveWebSite": {
+      "Type": "RemoveWebSite",
+      "Params": {
+        "Name": "[parameter('InstanceName')]"
+      }
+    },
+    "CleanPath": {
+      "Type": "EnsurePath",
+      "Params": {
+        "Clean": [
+          "[variable('Horizon.Site.PhysicalPath')]"
+        ]
+      }
+    }
+  }
+}

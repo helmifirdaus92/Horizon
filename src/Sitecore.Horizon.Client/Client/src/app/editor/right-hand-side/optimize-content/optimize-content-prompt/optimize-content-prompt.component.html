@@ -1,0 +1,269 @@
+@if (isLoading$()) {
+  <ng-spd-loading-indicator />
+} @else {
+  <div class="editable-container mr-md ml-md">
+    @if (isContentOptimized && !isProcessing) {
+      <div class="tab-group mb-sm mt-sm">
+        <button
+          ngSpdTab
+          colorScheme="colored"
+          [selected]="editingMode === 'persist'"
+          [title]="'CONTENT_OPTIMIZATION.ORIGINAL' | translate"
+          (click)="setMode('persist')"
+          >
+          {{ 'CONTENT_OPTIMIZATION.ORIGINAL' | translate }}
+        </button>
+        <button
+          ngSpdTab
+          colorScheme="colored"
+          [selected]="editingMode === 'draft'"
+          [title]="'CONTENT_OPTIMIZATION.OPTIMIZED' | translate"
+          (click)="setMode('draft')"
+          >
+          {{ 'CONTENT_OPTIMIZATION.OPTIMIZED' | translate }}
+        </button>
+      </div>
+    }
+
+    @if (editingMode === 'persist' && isContentOptimized) {
+      <div class="original-mode-text"> {{ 'CONTENT_OPTIMIZATION.ORIGINAL_VIEW_DESCRIPTION' | translate }}</div>
+    }
+    @if (editingMode === 'draft' || !isContentOptimized) {
+      @if (!isProcessing) {
+        @if (promptHistory.length > 0) {
+          <div class="last-prompt-section">
+            <div class="prompt-header"> {{ promptHistory[promptHistory.length - 1].displayName }}</div>
+            <div class="prompt-body"> {{ promptHistory[promptHistory.length - 1].promptText }}</div>
+            @for (variant of optimizedVariants?.variants; track variant; let i = $index) {
+              <div class="feedback-item">
+                @if (variant && !isFeedbackSent) {
+                  <div class="feedback-buttons">
+                    <button
+                      ngSpdIconButton
+                      [size]="'xs'"
+                      class="positive-feedback-button"
+                      [title]="'CONTENT_OPTIMIZATION.POSITIVE_FEEDBACK' | translate"
+                      [icon]="'thumb-up-outline'"
+                      (click)="giveFeedback('good')"
+                    ></button>
+                    <button
+                      ngSpdIconButton
+                      [size]="'xs'"
+                      class="negative-feedback-button"
+                      [title]="'CONTENT_OPTIMIZATION.NEGATIVE_FEEDBACK' | translate"
+                      [icon]="'thumb-down-outline'"
+                      (click)="giveFeedback('bad')"
+                      ></button
+                    ></div>
+                  }
+                  @if (isFeedbackSent && isFeedbackNotificationVisible) {
+                    <div class="feedback-received">
+                      <span
+                        class="mdi"
+              [ngClass]="{
+                'mdi-thumb-up-outline': feedbackType === 'good',
+                'mdi-thumb-down-outline': feedbackType === 'bad',
+              }"
+                        >
+                      </span>
+                      <span class="feedback-text">{{ 'CONTENT_OPTIMIZATION.THANK_YOU' | translate }}</span>
+                    </div>
+                  }
+                  @if (promptHistory.length > 1) {
+                    <div>
+                      <button
+                        ngSpdIconButton
+                        [ngSpdPopover]="popoverHistory"
+                        popoverPosition="left-bottom"
+                        [icon]="'history'"
+                        [title]="'CONTENT_OPTIMIZATION.HISTORY' | translate"
+                        [popoverOffset]="0"
+                        [size]="'xs'"
+                        [popoverShowDelay]="0"
+                        [popoverHideDelay]="0"
+                        [hideOnBackdropClick]="true"
+                        [attr.aria-label]="'CONTENT_OPTIMIZATION.HISTORY' | translate"
+                        #popoverInstanceHistory="ngSpdPopover"
+                        (click)="popoverInstanceHistory.toggle(); $event.stopPropagation()"
+                        >
+                        ></button
+                        >
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+            @if (isContentOptimized) {
+              <div class="actions-container pb-sm pt-sm">
+                @if (enableAbTest) {
+                  <button
+                    ngSpdButton="outline"
+                    [size]="'md'"
+                    [title]="'CONTENT_OPTIMIZATION.TEST' | translate"
+                    (click)="promptCreateAbTest()"
+                    >
+                    {{ 'CONTENT_OPTIMIZATION.TEST' | translate }}</button
+                    >
+                  }
+                  <button
+                    ngSpdButton="primary"
+                    size="md"
+                    [title]="'CONTENT_OPTIMIZATION.KEEP_OPTIMIZED' | translate"
+                    (click)="KeepChanges()"
+                    >
+                    {{ 'CONTENT_OPTIMIZATION.KEEP_OPTIMIZED' | translate }}
+                  </button>
+                </div>
+              }
+              <div class="prompt-actions-container mb-sm mt-sm">
+                <div
+                  class="editable-content"
+                  [contentEditable]="true"
+                  (input)="onInput($event)"
+                  #editableDiv
+                  (focus)="displayPlaceholder = false"
+                  (blur)="displayPlaceholder = !promptText && !predefinedCode"
+                  [attr.placeholder]="displayPlaceholder ? ('CONTENT_OPTIMIZATION.PROMPT_PLACEHOLDER_TEXT' | translate) : ''"
+                  [class.placeholder]="displayPlaceholder"
+                  (keydown)="onKeyPress($event)"
+                  >
+                </div>
+                <div class="prompt-actions">
+                  <button
+                    ngSpdIconButton
+                    [size]="'sm'"
+                    [icon]="'send'"
+                    class="bg-ai-gradient"
+                    [title]="'CONTENT_OPTIMIZATION.GENERATE' | translate"
+                    (click)="generateResponse(); editableDiv.innerText = ''"
+                    [disabled]="!promptText || predefinedCode"
+                    >
+                  </button>
+                </div>
+              </div>
+              <div class="predefined-list">
+                <ng-spd-list>
+                  @for (prompt of getPredefinedPrompt(); track prompt.code) {
+                    @if (!selectedParentId) {
+                      @if (prompt.code !== ADHERE_TO_BRANDKIT_CODE) {
+                        <button
+                          ngSpdListItem
+                          [ngSpdTooltip]="prompt.text"
+                          tooltipPosition="below"
+                          (click)="onPromptClick(prompt)"
+                          >
+                          <i class="mdi mdi-{{ prompt.icon }} mr-xs"></i>
+                          <span> {{ prompt.text }}</span>
+                          @if (hasChildNodes(prompt) || prompt.code === TRANSLATE_ACTION_CODE) {
+                            <i
+                              class="mdi mdi-chevron-right"
+                            ></i>
+                          }
+                        </button>
+                      } @else {
+                        <div [ngSpdTooltip]="getBrandkitTooltipText() | translate" tooltipPosition="below">
+                          <button
+                            ngSpdListItem
+                            [ngSpdPopover]="premiumStreamContent"
+                            [popoverPosition]="'above'"
+                            [popoverOffset]="2"
+                            [popoverHideDelay]="0"
+                            [popoverShowDelay]="0"
+                            [hideOnBackdropClick]="true"
+                            [customClass]="'optimize-content-popover'"
+                            #optimizeContentPopover="ngSpdPopover"
+                            [disabled]="!brandKitId && isStreamPaidEdition"
+                    (click)="
+                      isStreamPaidEdition ? selectAction(prompt.text, prompt.code) : optimizeContentPopover.show()
+                    "
+                            >
+                            <i class="mdi mdi-{{ prompt.icon }} mr-xs"></i>
+                            @if (brandKitName$()) {
+                              <span class="adhere-brandkit brandkit-name">{{ brandKitName$() }}</span>
+                            } @else {
+                              <span class="adhere-brandkit">{{ prompt.text }}</span>
+                            }
+                            @if (!isStreamPaidEdition) {
+                              <span class="ml-auto mr-sm" ngSpdBadge="purple">{{
+                                'CONTENT_OPTIMIZATION.PREMIUM' | translate
+                              }}</span>
+                            }
+                          </button></div
+                          >
+                        }
+                      } @else if (selectedParentId === prompt.parentNodeId) {
+                        <div class="child-node-header">
+                          <button ngSpdIconButton="basic" [icon]="'arrow-left'" (click)="selectedParentId = undefined"></button>
+                          <span class="child-node-text">{{ prompt.text }}</span>
+                        </div>
+                        @if (selectedParentId === 'translate' && prompt.childNodes && prompt.childNodes.length === 1) {
+                          <div class="single-language-message">
+                            {{ 'CONTENT_OPTIMIZATION.SINGLE_LANGUAGE_IN_SITE' | translate: { name: contextLanguageName } }}
+                          </div>
+                        } @else {
+                          @if (hasChildNodes(prompt)) {
+                            @for (child of prompt.childNodes; track child.text) {
+                              <button
+                                class="child-item"
+                                [ngSpdTooltip]="child.text"
+                                tooltipPosition="below"
+                                ngSpdListItem
+                                (click)="selectAction(child.text, child.code)"
+                                >
+                                @if (child.icon) {
+                                  <i class="mdi mdi-{{ child.icon }} mr-xs"></i>
+                                }
+                                {{ child.text }}
+                              </button>
+                            }
+                          }
+                        }
+                      }
+                    }
+                  </ng-spd-list>
+                </div>
+                <!-- Loading state when AI is processing the content -->
+              } @else if (isProcessing) {
+                <div class="loading-state">
+                  <div class="loader-bar-container">
+                    <ng-spd-horizontal-bars-loading-indicator [barAmount]="1"></ng-spd-horizontal-bars-loading-indicator>
+                  </div>
+                  <div class="in-progress-info">
+                    <span class="icon mdi mdi-creation"></span>
+                    <p class="text">{{ 'CONTENT_OPTIMIZATION.IN_PROGRESS' | translate }}</p>
+                  </div>
+                  <button ngSpdButton="basic" (click)="resetViewState()">{{ 'CONTENT_OPTIMIZATION.CANCEL' | translate }}</button>
+                </div>
+              }
+            }
+          </div>
+        }
+
+        <ng-template #popoverHistory let-popoverRef>
+          <ng-spd-list cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+            @for (prompt of promptHistory.slice().reverse(); track prompt.displayName) {
+              <div class="list-option last-prompt-section">
+                <div class="prompt-header">{{ prompt.displayName }}</div>
+                <div class="prompt-body">{{ prompt.promptText }}</div>
+              </div>
+            }
+          </ng-spd-list>
+        </ng-template>
+
+        <ng-template #premiumStreamContent let-popoverRef>
+          <app-optimize-content-modal
+            [headerText]="'CONTENT_OPTIMIZATION.PREMIUM_VERSION_MODAL_HEADER' | translate"
+            [description]="'CONTENT_OPTIMIZATION.PREMIUM_VERSION_MODAL_DESCRIPTION' | translate"
+            [src]="'graphics/brand-intelligence-illustration.svg'"
+            >
+            <span footer class="modal-footer">
+              <span class="text">
+                {{ 'CONTENT_OPTIMIZATION.PREMIUM_VERSION_MODAL_FOOTER_TEXT' | translate }}
+              </span>
+              <a href="https://www.sitecore.com/products/sitecore-stream/tiers" target="_blank" class="link">{{
+                'CONTENT_OPTIMIZATION.PREMIUM_VERSION_MODAL_FOOTER_TEXT_LINK' | translate
+              }}</a>
+            </span>
+          </app-optimize-content-modal>
+        </ng-template>

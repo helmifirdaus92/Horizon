@@ -1,0 +1,86 @@
+<div *ngIf="useNewDesign; else oldTemplate" class="lhs-panel-container p-l">
+  <div class="panel-content">
+    <span class="content-title">{{ 'PAGE_DESIGNS.LHS_PANEL.DESIGN' | translate }}</span>
+    <ng-spd-list>
+      <a
+        [attr.data-testid]="item.testid"
+        class="links"
+        ngSpdListItem
+        *ngFor="let item of createDesignNavigationItem"
+        [select]="rla.isActive"
+        [routerLink]="item.routerLink"
+        [queryParamsHandling]="'merge'"
+        [queryParams]="{ folder_id: null, site_type: null }"
+        routerLinkActive
+        #rla="routerLinkActive"
+      >
+        <i class="mdi mdi-{{ item.icon }}"></i>
+        <span>{{ item.label | translate }}</span>
+      </a>
+    </ng-spd-list>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="header">
+    <span class="header-title">{{ 'PAGE_DESIGNS.LHS_PANEL.CONFIGURE' | translate }}</span>
+    <ng-spd-list>
+      <a
+        data-testid="nav-page-templates"
+        class="links"
+        ngSpdListItem
+        [select]="activeNavigationState === 'pagetemplates'"
+        [routerLink]="'/templates'"
+        [queryParams]="{ folder_id: null, site_type: null }"
+        [queryParamsHandling]="'merge'"
+      >
+        <i class="mdi mdi-format-list-text"></i>
+        <span>{{ 'PAGE_DESIGNS.LHS_PANEL.PAGE_TEMPLATES' | translate }}</span>
+      </a>
+    </ng-spd-list>
+  </div>
+</div>
+
+<!-- Remove this after feature is released -->
+<ng-template #oldTemplate>
+  <div class="lhs-panel-container p-sm">
+    <div class="header">
+      <span class="header-title">{{ 'PAGE_DESIGNS.LHS_PANEL.ASSEMBLE' | translate }}</span>
+      <ng-spd-list>
+        <a
+          data-testid="nav-page-templates"
+          class="links"
+          ngSpdListItem
+          [select]="activeNavigationState === 'pagetemplates'"
+          [routerLink]="'/templates'"
+          [queryParams]="{ folder_id: null, site_type: null }"
+          [queryParamsHandling]="'merge'"
+        >
+          <i class="mdi mdi-view-dashboard-outline"></i>
+          <span>{{ 'PAGE_DESIGNS.LHS_PANEL.TEMPLATES' | translate }}</span>
+        </a>
+      </ng-spd-list>
+    </div>
+    <div class="divider"></div>
+    <div class="panel-content">
+      <span class="content-title">{{ 'PAGE_DESIGNS.LHS_PANEL.CREATE' | translate }}</span>
+      <ng-spd-list>
+        <a
+          [attr.data-testid]="item.testid"
+          class="links"
+          ngSpdListItem
+          *ngFor="let item of createDesignNavigationItem"
+          [select]="rla.isActive"
+          [routerLink]="item.routerLink"
+          [queryParamsHandling]="'merge'"
+          [queryParams]="{ folder_id: null, site_type: null }"
+          routerLinkActive
+          #rla="routerLinkActive"
+        >
+          <i class="mdi mdi-{{ item.icon }}"></i>
+          <span>{{ item.label | translate }}</span>
+        </a>
+      </ng-spd-list>
+    </div>
+  </div>
+</ng-template>

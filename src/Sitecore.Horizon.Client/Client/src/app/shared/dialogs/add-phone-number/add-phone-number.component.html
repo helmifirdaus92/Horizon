@@ -1,0 +1,25 @@
+<ng-spd-dialog-panel>
+  <ng-spd-dialog-content class="mt-xl" [leftAlignText]="true">
+    <label ngSpdLabel class="header" for="phoneNumber">{{ 'EDITOR.RTE.ADD_PHONE_NUMBER' | translate }}</label>
+    <input
+      ngSpdInput
+      type="tel"
+      id="phoneNumber"
+      name="phoneNumber"
+      [(ngModel)]="value"
+      pattern="[\d\s()+-]*"
+      required
+      #input="ngModel"
+    />
+    @if (input.errors?.pattern) {
+      <p class="error-block">{{ 'VALIDATION.VALIDATE_PHONE_NUMBER' | translate }}</p>
+    }
+  </ng-spd-dialog-content>
+
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="outline" (click)="onDeclineClick()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="onConfirmClick()" [disabled]="!value || input.errors">{{
+      'COMMON.SAVE' | translate
+    }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

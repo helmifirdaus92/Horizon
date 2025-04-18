@@ -1,0 +1,36 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.grouped-droplist-items {
+  display: flex;
+  flex-direction: column;
+
+  .category {
+    margin-top: $padding-small;
+    .text-main {
+      font-size: $font-size-13px;
+      font-weight: $font-weight-semi-bold;
+      color: $brand-black-900;
+    }
+  }
+  .children {
+    display: flex;
+    align-items: center;
+    min-height: $spacing-xl;
+    cursor: pointer;
+
+    .sub-text {
+      font-size: $font-size-13px;
+      color: $font-weight-regular;
+    }
+
+    &:hover {
+      background-color: $brand-framework-bg-hover;
+    }
+    &.selected {
+      background-color: $brand-primary-selected;
+      font-weight: $font-weight-semi-bold;
+      color: $brand-primary-default;
+    }
+  }
+}

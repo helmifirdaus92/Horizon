@@ -1,0 +1,116 @@
+<h3 class="mt-l">{{ 'COMPONENT_TESTING.CONFIGURE.GOAL' | translate }}</h3>
+<div class="card-container" [ngClass]="{ 'pb-md': settingOptions }">
+  <div class="goal-setting-options">
+    <div class="page-view option">
+      <input
+        type="radio"
+        name="page-views"
+        id="pageView"
+        [value]="'pageViewGoal'"
+        [(ngModel)]="settingOptions"
+        (change)="addPageViewGoal()"
+      />
+      <label for="pageView">{{ 'COMPONENT_TESTING.CONFIGURE.PAGE_VIEWS_HEADER' | translate }}</label>
+    </div>
+
+    <div class="form-submission option" *ngIf="isFormSubmissionEnabled">
+      <input
+        type="radio"
+        name="form-submission"
+        id="customGoal"
+        [value]="'customGoal'"
+        [(ngModel)]="settingOptions"
+        (change)="addCustomGoal()"
+      />
+      <label for="customGoal">{{ 'COMPONENT_TESTING.CONFIGURE.FORM_SUBMISSION_HEADER' | translate }}</label>
+    </div>
+
+    <div class="bounce-rate option">
+      <input
+        type="radio"
+        name="bounce-rate"
+        id="bounceRate"
+        [value]="'bouncesGoal'"
+        [(ngModel)]="settingOptions"
+        (change)="addBouncesGoal()"
+      />
+      <label for="bounceRate">{{ 'COMPONENT_TESTING.CONFIGURE.BOUNCE_RATE_HEADER' | translate }}</label>
+    </div>
+    <div class="track-exit option">
+      <input
+        type="radio"
+        name="exit-rate"
+        id="trackExit"
+        [value]="'exitsGoal'"
+        [(ngModel)]="settingOptions"
+        (change)="addExitGoal()"
+      />
+      <label for="trackExit">{{ 'COMPONENT_TESTING.CONFIGURE.EXIT_RATE_HEADER' | translate }}</label>
+    </div>
+  </div>
+  <div class="ml-xs">
+    @if (settingOptions) {
+      <hr class="hr m-sm mt-0" />
+      @if (settingOptions === 'pageViewGoal') {
+        <p class="text-subtle mb-sm">{{ 'COMPONENT_TESTING.CONFIGURE.PAGE_VIEWS_LABEL' | translate }}</p>
+        <span class="goal-field-input">
+          <input type="radio" ngSpdInput checked name="pageViews" class="page-tree-input m-0" />
+          <label ngSpdLabel for="pageViews" class="page-tree-label m-0">
+            {{ 'COMPONENT_TESTING.CONFIGURE.PAGE_VIEWS_OPTION_1' | translate }}
+          </label>
+        </span>
+        <ng-spd-accordion class="card-container goals-accordion-container pl-0">
+          <ng-spd-accordion-header
+            #targetPagesAccordionHeader
+            [isOpened]="false"
+            (isOpenedChange)="renderPagesPicker = renderPagesPicker || $event"
+          >
+            <div class="goals-container">
+              @if (!!componentFlowDefinition.goals.primary.pageParameters.length) {
+                @for (pageParameter of componentFlowDefinition.goals.primary.pageParameters; track pageParameter) {
+                  <app-tag
+                    size="md"
+                    class="goal"
+                    [isDismissible]="true"
+                    [ngClass]="{ 'highlight-selected-goal': pageParameter.parameterString === highlightedGoal }"
+                    (actionClick)="removeTargetPage(pageParameter.parameterString); $event.stopPropagation()"
+                  >
+                    {{ pageParameter.parameterString }}
+                  </app-tag>
+                }
+              } @else {
+                <span class="text-subtle">{{ 'COMPONENT_TESTING.CONFIGURE.SELECT_PAGES' | translate }}</span>
+              }
+            </div>
+          </ng-spd-accordion-header>
+          <ng-spd-accordion-content>
+            <button
+              ngSpdIconButton
+              [icon]="searchEnabled ? 'close' : 'magnify'"
+              (click)="searchEnabled = !searchEnabled; $event.stopPropagation()"
+            >
+              {{ 'COMPONENT_TESTING.CONFIGURE.OPTIONAL_CONFIGURATION' | translate }}
+            </button>
+            <app-page-picker
+              *ngIf="renderPagesPicker"
+              [usePageNames]="true"
+              [hidden]="searchEnabled"
+              (selectItem)="addPageViewGoal($event.displayName)"
+            ></app-page-picker>
+            <app-content-tree-search
+              *ngIf="searchEnabled"
+              (selectItem)="addPageViewGoal($event.displayName)"
+            ></app-content-tree-search>
+          </ng-spd-accordion-content>
+        </ng-spd-accordion>
+        <p class="text-subtle m-0"> {{ 'COMPONENT_TESTING.CONFIGURE.PAGE_VIEWS_OPTION_1_DESCRIPTION' | translate }}</p>
+      } @else if (settingOptions === 'bouncesGoal') {
+        <span class="text-subtle">{{ 'COMPONENT_TESTING.CONFIGURE.BOUNCE_RATE_DESCRIPTION' | translate }}</span>
+      } @else if (settingOptions === 'customGoal') {
+        <span class="text-subtle">{{ 'COMPONENT_TESTING.CONFIGURE.FORM_SUBMISSION_DESCRIPTION' | translate }}</span>
+      } @else if (settingOptions === 'exitsGoal') {
+        <span class="text-subtle">{{ 'COMPONENT_TESTING.CONFIGURE.EXIT_RATE_DESCRIPTION' | translate }}</span>
+      }
+    }
+  </div>
+</div>

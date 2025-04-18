@@ -1,0 +1,32 @@
+<ng-spd-card [disabled]="disabled">
+  <ng-spd-card-header
+    [title]="'ANALYTICS.SITE_ANALYTICS.TITLES.OPERATING_SYSTEM' | translate"
+    [tooltipText]="
+      (mode !== 'pageAnalytics'
+        ? 'ANALYTICS.SITE_ANALYTICS.DESCRIPTIONS.OPERATING_SYSTEM'
+        : 'ANALYTICS.PAGE_ANALYTICS.DESCRIPTIONS.OPERATING_SYSTEM'
+      ) | translate
+    "
+    [hasBackground]="true"
+  ></ng-spd-card-header>
+  <app-bar-chart
+    id="hrzOperatingSystemGraph"
+    *ngIf="!isLoading && !secondVariantChartData"
+    [items]="manipulatedChartData ? manipulatedChartData[0].series : []"
+    [horizontal]="true"
+    [isReversedPalette]="true"
+  ></app-bar-chart>
+
+  <app-bar-chart-grouped
+    id="hrzOperatingSystemGraphGrouped"
+    *ngIf="!isLoading && secondVariantChartData && manipulatedGroupChartData"
+    [items]="manipulatedGroupChartData"
+    [paletteIndex]="2"
+    [horizontal]="true"
+    [barPadding]="5"
+  ></app-bar-chart-grouped>
+
+  <div class="loading" *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+</ng-spd-card>

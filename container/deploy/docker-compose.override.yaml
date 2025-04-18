@@ -1,0 +1,93 @@
+services:
+  traefik:
+    networks:
+      default:
+        aliases:
+          - eh.xmcloudcm.localhost
+    command:
+      - "--ping"
+      - "--api.insecure=true"
+      - "--providers.docker.endpoint=npipe:////./pipe/docker_engine"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.file.directory=C:/etc/traefik/config/dynamic"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.websecure.forwardedHeaders.insecure"
+      - "--entryPoints.next.address=:3000"
+    ports:
+      - "443:443"
+      - "8079:8080"
+      - "3000:3000"
+  cm:
+    image: sitecore-horizon-integration-${TOPOLOGY}-cm
+    environment:
+       SITECORE_Pages_Client_Host: ${SITECORE_Pages_Client_URL_Protocol}${SITECORE_Pages_Client_Host}
+       SITECORE_JSS_EDITING_SECRET: ${JSS_EDITING_SECRET}
+       SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_Audience: "https://api-staging.sitecore-staging.cloud"
+       SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_ClientId: ${SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_ClientId}
+       SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_Url: "https://auth-staging-1.sitecore-staging.cloud/"
+       SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_ClientSecret: ${SITECORE_XmCloud_dot_Deploy_dot_Api_dot_Auth_dot_ClientSecret}
+  hrz:
+    image: sitecore-horizon
+    isolation: ${ISOLATION}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/healthz/live"]
+      timeout: 300s
+    environment:
+      Sitecore_License: ${SITECORE_LICENSE}
+      Sitecore_FederatedUI__HostBaseUrl: http://hrz
+      Sitecore_SitecorePlatform__ContentManagementUrl: https://${CM_HOST}
+      Sitecore_SitecorePlatform__ContentManagementInternalUrl: http://cm
+      Sitecore_Auth0__Domain: ${SITECORE_Pages_Auth0_Domain}
+      Sitecore_Auth0__ClientId: ${SITECORE_Pages_Auth0_ClientId}
+      Sitecore_Auth0__Audience: ${SITECORE_Pages_Auth0_Audience}
+      Sitecore_Auth0__InternalAudience: https://api-internal-staging.sitecore-staging.cloud
+      Sitecore_Auth0__WebAppAudience: https://api-webapp-staging.sitecore-staging.cloud
+      Sitecore_Auth0__PagesAudience: https://pages-api-staging.sitecore-staging.cloud
+      Sitecore_AppEnvironment: ${Sitecore_AppEnvironment}
+    depends_on:
+      cm:
+        condition: service_started
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.force-STS-Header.headers.forceSTSHeader=true"
+      - "traefik.http.middlewares.force-STS-Header.headers.stsSeconds=31536000"
+      - "traefik.http.routers.hrz-secure.entrypoints=websecure"
+      - "traefik.http.routers.hrz-secure.rule=Host(`${SITECORE_Pages_Client_Host}`)"
+      - "traefik.http.routers.hrz-secure.tls=true"
+      - "traefik.http.routers.hrz-secure.middlewares=force-STS-Header"
+      - "traefik.http.services.hrz.loadbalancer.server.port=80"
+  jsshost:
+    isolation: ${ISOLATION}
+    image: jssapp:latest
+    mem_limit: 2GB
+    environment:
+      PUBLIC_URL: "https://eh.xmcloudcm.localhost"
+      JSS_EDITING_SECRET: ${JSS_EDITING_SECRET}
+      JSS_APP_NAME: SXAHeadlessSite # This is the sitename from the CM instance
+      SITECORE_API_KEY: "23B11351-3D27-4022-88B1-C4B65A41980F"
+      SITECORE_API_HOST: "http://cm"
+      # Update below vars for CDP connection in rendering host
+      NEXT_PUBLIC_CDP_TARGET_URL: https://api-engage-us.sitecorecloud.io
+      NEXT_PUBLIC_CDP_CLIENT_KEY: bd0bf5fbb4b364719ef7fde50a3e7508
+      NEXT_PUBLIC_CDP_POINTOFSALE: '{"*": "sxaheadlesssite"}' #To be updated with site settings
+      PERSONALIZE_MIDDLEWARE_CDP_TIMEOUT: 1000
+      PERSONALIZE_MIDDLEWARE_EDGE_TIMEOUT: 1000
+      JSS_ALLOWED_ORIGINS: http://localhost:5000,https://ah.xmcloudcm.localhost
+      DEBUG: "sitecore-jss:*"
+      DEBUG_MULTILINE: true
+    tty: true
+    depends_on:
+      cm:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.rendering-headers.headers.forceSTSHeader=true"
+      - "traefik.http.middlewares.rendering-headers.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.rendering-headers.headers.accesscontrolallowmethods=GET,POST,OPTIONS"
+      - "traefik.http.middlewares.rendering-headers.headers.accesscontrolalloworiginlist=https://${CM_HOST},https://${SITECORE_Pages_Client_Host},http://eh.xmcloudcm.localhost"
+      - "traefik.http.routers.rendering-secure.entrypoints=websecure"
+      - "traefik.http.routers.rendering-secure.rule=Host(`eh.xmcloudcm.localhost`)"
+      - "traefik.http.routers.rendering-secure.tls=true"
+      - "traefik.http.routers.rendering-secure.middlewares=rendering-headers"
+      - "traefik.http.routers.next.entrypoints=next"
+      - "traefik.http.routers.next.rule=Host(`eh.xmcloudcm.localhost`)"

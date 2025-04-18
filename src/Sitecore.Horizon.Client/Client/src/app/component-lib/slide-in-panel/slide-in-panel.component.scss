@@ -1,0 +1,8 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  background-color: $panels-bg;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

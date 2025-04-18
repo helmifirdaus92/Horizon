@@ -1,0 +1,48 @@
+<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=13657E4C_002DAE24_002D450E_002D862A_002DFDD82371D00B_002Fd_003AResources/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=18E66E65_002D4930_002D4613_002D9255_002D8C3D22E1C376_002Fd_003AResources/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=5CA2BBA3_002D9C92_002D4FD6_002DBA22_002D4BD070A5B516_002Fd_003AResources/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=5DCDAA00_002DACAE_002D4E43_002D9ECE_002DEAFA2BC1B153_002Fd_003AResources/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=6B40C7D7_002DCE17_002D428D_002DAF3E_002D92329020DB68_002Fd_003AHorizon_002EClient/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=9CB384B0_002D0509_002D4E17_002D807C_002DA723EB5D6C0E_002Fd_003AAssets/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=F22C23A5_002D36C1_002D4091_002D8993_002D6E9B301772DD_002Fd_003AResources/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=13657E4C_002DAE24_002D450E_002D862A_002DFDD82371D00B_002Fd_003AResources/@EntryIndexedValue">13657E4C-AE24-450E-862A-FDD82371D00B/d:Resources</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=18E66E65_002D4930_002D4613_002D9255_002D8C3D22E1C376_002Fd_003AResources/@EntryIndexedValue">18E66E65-4930-4613-9255-8C3D22E1C376/d:Resources</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=5CA2BBA3_002D9C92_002D4FD6_002DBA22_002D4BD070A5B516_002Fd_003AResources/@EntryIndexedValue">5CA2BBA3-9C92-4FD6-BA22-4BD070A5B516/d:Resources</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=5DCDAA00_002DACAE_002D4E43_002D9ECE_002DEAFA2BC1B153_002Fd_003AResources/@EntryIndexedValue">5DCDAA00-ACAE-4E43-9ECE-EAFA2BC1B153/d:Resources</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=6B40C7D7_002DCE17_002D428D_002DAF3E_002D92329020DB68_002Fd_003AHorizon_002EClient/@EntryIndexedValue">6B40C7D7-CE17-428D-AF3E-92329020DB68/d:Horizon.Client</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=9CB384B0_002D0509_002D4E17_002D807C_002DA723EB5D6C0E_002Fd_003AAssets/@EntryIndexedValue">9CB384B0-0509-4E17-807C-A723EB5D6C0E/d:Assets</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=F22C23A5_002D36C1_002D4091_002D8993_002D6E9B301772DD_002Fd_003AResources/@EntryIndexedValue">F22C23A5-36C1-4091-8993-6E9B301772DD/d:Resources</s:String>
+	
+	<s:Boolean x:Key="/Default/CodeInspection/Highlighting/ReadSettingsFromFileLevel/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/KEEP_EXISTING_ATTRIBUTE_ARRANGEMENT/@EntryValue">True</s:Boolean>
+	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/MAX_INITIALIZER_ELEMENTS_ON_LINE/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpKeepExistingMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpPlaceEmbeddedOnSameLineMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpUseContinuousIndentInsideBracesMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EMigrateBlankLinesAroundFieldToBlankLinesAroundProperty/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Description/@EntryValue">Creates xUnit theory with AutoNData data attribute.</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Field/=parameters/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Field/=parameters/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Field/=TheoryMethodName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Field/=TheoryMethodName/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Shortcut/@EntryValue">theoryAutoN</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A69D2B13C34F58469D75809D83F1D307/Text/@EntryValue">[Xunit.TheoryAttribute, AutoNData]
+public void $TheoryMethodName$($parameters$)
+{
+    // arrange
+    // act
+
+    // assert$END$
+}</s:String>
+
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Sitecore/@EntryIndexedValue">True</s:Boolean><s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=68974E101E281147A8D325A586112BB4/RelativePath/@EntryValue">..\Sitecore.CodeQuality.DotSettings</s:String><s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=68974E101E281147A8D325A586112BB4/@KeyIndexDefined">True</s:Boolean><s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File68974E101E281147A8D325A586112BB4/@KeyIndexDefined">True</s:Boolean><s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File68974E101E281147A8D325A586112BB4/RelativePriority/@EntryValue">1</s:Double></wpf:ResourceDictionary>

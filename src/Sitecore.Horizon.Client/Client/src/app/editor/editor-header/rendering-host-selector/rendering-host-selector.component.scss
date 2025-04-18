@@ -1,0 +1,43 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+.hidden {
+  display: none;
+}
+
+.drop-button {
+  &.error {
+    color: $brand-signal-error;
+  }
+}
+
+.save-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.host-variants-container {
+  display: flex;
+  gap: $padding-x-small;
+
+  .host-variant {
+    height: $font-size-22px;
+    display: flex;
+    align-items: center;
+    gap: $padding-x-small;
+  }
+
+  input[type='radio'] {
+    height: $font-size-16px;
+    width: $font-size-16px;
+  }
+}
+
+.url-input {
+  width: 440px;
+}
+
+.error-block p {
+  margin: 0;
+  color: $brand-signal-error;
+}

@@ -1,0 +1,93 @@
+<ng-template #popoverVersions let-popoverRef>
+  <ng-container *appLet="versions$ | async as versions">
+    <app-version-list
+      cdkTrapFocus
+      [cdkTrapFocusAutoCapture]="true"
+      [list]="versions"
+      (selectChange)="popoverRef.hide(); selectVersion($event)"
+      (createNewVersion)="createVersion()"
+      [active]="(activeVersion$ | async)?.versionNumber"
+      [popoverContent]="popoverVersionEditingOptions"
+      [isLoading]="(loading$ | async) ?? false"
+      [disabled]="!userHasWritePermission"
+    ></app-version-list>
+  </ng-container>
+</ng-template>
+
+<button
+  id="versionListBtn"
+  class="basic drop-list-button max-width-140"
+  ngSpdDroplistToggle
+  [ngSpdPopover]="popoverVersions"
+  popoverPosition="below"
+  [opened]="popoverInstanceVersions.isPopoverVisible()"
+  [popoverOffset]="0"
+  [popoverShowDelay]="0"
+  [popoverHideDelay]="0"
+  [hideOnBackdropClick]="true"
+  #popoverInstanceVersions="ngSpdPopover"
+  [customClass]="'version-list-popover'"
+  (click)="popoverInstanceVersions.toggle(); $event.stopPropagation()"
+>
+  <!-- Active version -->
+  <ng-container *appLet="activeVersion$ | async as activeVersion">
+    <ng-container *ngIf="activeVersion; else noActiveVersion">
+      <span class="header" [title]="activeVersion?.name">
+        {{ activeVersion?.name || ('VERSIONS.VERSION' | translate) + ' ' + activeVersion?.versionNumber }}
+      </span>
+    </ng-container>
+
+    <ng-template #noActiveVersion>
+      <span class="header"> {{ 'VERSIONS.HEADER' | translate }} {{ activeVersion?.versionNumber }} </span>
+    </ng-template>
+  </ng-container>
+</button>
+
+<!-- Version editing actions -->
+<ng-template #popoverVersionEditingOptions let-popoverRef let-item="item">
+  <ng-spd-list class="actions-list" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+    <!-- Rename -->
+    <button
+      ngSpdListItem
+      class="action-list-option"
+      (click)="popoverRef.hide(); renameVersion(item)"
+      [disabled]="!userHasWritePermission"
+    >
+      <i class="mdi mdi-pencil-outline pr-sm"></i>
+      {{ 'COMMON.RENAME' | translate }}
+    </button>
+
+    <!-- Publishing settings -->
+    <button
+      ngSpdListItem
+      class="action-list-option"
+      (click)="popoverRef.hide(); setPublishingSettings(item)"
+      [disabled]="!userHasWritePermission || !userHasPublishPermission"
+    >
+      <i class="mdi mdi-clipboard-text-clock-outline pr-sm"></i>
+      {{ 'VERSIONS.PUBLISHING.MENU_LABEL' | translate }}
+    </button>
+
+    <!-- Duplicate -->
+    <button
+      ngSpdListItem
+      class="action-list-option"
+      (click)="popoverRef.hide(); duplicateVersion(item)"
+      [disabled]="!userHasWritePermission"
+    >
+      <i class="mdi mdi-content-copy pr-sm"></i>
+      {{ 'COMMON.DUPLICATE' | translate }}
+    </button>
+
+    <!-- Delete -->
+    <button
+      ngSpdListItem
+      class="action-list-option"
+      (click)="popoverRef.hide(); promptDeleteVersion(item)"
+      [disabled]="!userHasWritePermission || !userHasDeletePermission"
+    >
+      <i class="mdi mdi-trash-can-outline pr-sm"></i>
+      {{ 'COMMON.DELETE' | translate }}
+    </button>
+  </ng-spd-list>
+</ng-template>

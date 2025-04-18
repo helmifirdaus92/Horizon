@@ -1,0 +1,30 @@
+<!--
+    Upper level Directory.Build.props file is owned and controlled by BREW and cannot be modified, so we introduced this
+    additional file to control the properties at tests directory level
+-->
+<Project>
+
+  <!-- Include parent Directory.Build.props, as MSBuild stops on first discovered file. -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))" Condition="Exists($([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..)))" />
+
+  <PropertyGroup>
+    <!-- CA2007: Do not directly await a Task -->
+    <!-- NU5100: Move assembly into the 'lib' folder if it needs to be referenced -->
+    <NoWarn>$(NoWarn);CA2007;NU5100;NU5104;NU1803;NU3037;NU1603</NoWarn>
+
+    <!-- Pack App.config file -->
+    <AddAppConfigToBuildOutputs>true</AddAppConfigToBuildOutputs>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder); .config;</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sitecore.CodeAnalysis.Copyrights" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\GlobalSuppressions.cs">
+      <Link>Properties\GlobalSuppressions.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+</Project>

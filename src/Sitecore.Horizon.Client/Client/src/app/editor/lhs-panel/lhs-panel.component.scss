@@ -1,0 +1,66 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  height: calc(100vh - 126px); // Hardcode value to accommodate the real panel size and prevent overlapping
+  box-sizing: border-box;
+  border-radius: $border-radius;
+  background-color: $panels-bg;
+
+  overflow: hidden auto;
+  scrollbar-width: thin;
+
+  &.dragging {
+    transition: width 0s 0s !important;
+  }
+
+  &.expanded {
+    width: 100% !important;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  &:has(.header-text) {
+    padding-top: $padding-small;
+    padding-bottom: $padding-small;
+  }
+
+  .logo-img {
+    height: 26px;
+    width: 26px;
+  }
+
+  .header-text {
+    flex: 1;
+    padding-left: $padding-small;
+    display: flex;
+    align-items: center;
+    gap: $spacing-5xs;
+    font-weight: $font-weight-semi-bold;
+  }
+}
+
+.pane-divider {
+  cursor: w-resize;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 6px;
+}
+
+.overlay {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}

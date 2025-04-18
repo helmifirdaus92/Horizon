@@ -1,0 +1,27 @@
+<div class="p-sm">
+  <span class="item-name-label">{{ 'EDITOR.RENDERING.DATASOURCE' | translate }}</span>
+  <div class="item-name-content py-sm mt-sm">
+    <i class="mdi normal mdi-file-tree px-sm"></i>
+    <span class="text">{{ displayName$ | async }}</span>
+    <button
+      class="select-datasource-item"
+      ngSpdIconButton
+      [icon]="'pencil-outline'"
+      [size]="'sm'"
+      (click)="selectDataSource()"
+    ></button>
+  </div>
+</div>
+
+<div *ifFeatureEnabled="'pages_context-panel-field-editing'">
+  @if (usesPageItemAsDataSource) {
+    <div class="p-md page-item-data-text">{{ 'EDITOR.RENDERING.USES_CONTENT_FROM_PAGE_ITEM' | translate }}</div>
+    <div class="px-md open-page-content-button">
+      <button ngSpdButton="outlinePrimary" (click)="openPageContent()">{{
+        'EDITOR.RENDERING.OPEN_PAGE_CONTENT' | translate
+      }}</button>
+    </div>
+  } @else {
+    <app-data-view [item]="chrome.contextItem" [mode]="'dataSourceItem'" [size]="'sm'"></app-data-view>
+  }
+</div>

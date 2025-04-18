@@ -1,0 +1,20 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: flex;
+  height: $generic-header-height;
+
+}
+
+ng-spd-saved-indicator {
+  color: $font-primary-dark;
+  margin: auto;
+
+  &.error {
+    ::ng-deep {
+    i {
+      color: $brand-signal-error !important;
+    }
+  }
+  }
+}

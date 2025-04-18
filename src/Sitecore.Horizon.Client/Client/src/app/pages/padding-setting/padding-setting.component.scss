@@ -1,0 +1,76 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+$width-78px: 78px;
+$width-30px: 30px;
+$height-37px: 37px;
+
+.outer-container {
+  max-width: $lhs-panel-width;
+  border-radius: $border-radius-small;
+  background-color: $brand-primary-selected;
+  padding: $padding;
+  box-sizing: border-box;
+
+  .inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $padding-small;
+    border-radius: $border-radius-small;
+    background-color: $ui-white-alpha-500;
+    border: $box-border;
+    gap: $padding-small;
+
+    .top,
+    .bottom,
+    .field {
+      display: flex;
+      gap: $padding-xx-small;
+      align-items: center;
+      justify-content: center;
+      height: $padding;
+    }
+
+    .center {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+
+      .box {
+        width: $width-78px;
+        height: $height-37px;
+        border: $box-border;
+        border-radius: $border-radius-small;
+        box-sizing: border-box;
+        background-color: $brand-ui-white;
+      }
+    }
+
+    .value {
+      @include headings-base;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+
+      &[contentEditable='true'] {
+        min-width: $width-30px;
+        height: $padding;
+        border-radius: $border-radius-secondary;
+        background-color: $brand-ui-white;
+        text-align: center;
+        outline: 1px solid $brand-ui-white;
+        box-sizing: border-box;
+        padding: $padding-xx-small;
+      }
+    }
+
+    .unit {
+      @include headings-base;
+      cursor: default;
+    }
+  }
+}

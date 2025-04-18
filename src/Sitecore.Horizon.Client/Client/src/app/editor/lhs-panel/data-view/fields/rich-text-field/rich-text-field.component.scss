@@ -1,0 +1,126 @@
+@import 'ckeditor5/ckeditor5.css';
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+// ATTENTION: this component doesn't have view encapsulation therefore any styles here are global. Use carefully!
+
+$content-width: 80px;
+
+.rich-text-editor-popover {
+  width: 900px;
+  height: 500px;
+
+  .content {
+    max-height: unset !important;
+
+    .ck .ck-editor__main {
+      height: 450px !important;
+    }
+  }
+}
+
+.main-container {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: $border-radius-secondary;
+}
+
+.ck-content {
+  font-family: $font;
+  line-height: 1.6;
+  color: $brand-black-900;
+  word-break: break-word;
+}
+
+.editor-container_classic-editor .editor-container__editor {
+  width: 100%;
+}
+
+.ck.ck-dropdown,
+.ck.ck-dropdown__panel {
+  max-width: $content-width;
+}
+
+.ck-list__item {
+  min-width: $content-width !important;
+}
+
+.ck {
+  .ck-editor__main {
+    box-sizing: border-box;
+    height: 300px;
+
+    textarea {
+      overflow: auto;
+    }
+
+    .ck-content,
+    .ck-source-editing-area {
+      border: unset !important;
+      height: 100%;
+    }
+    border: $framework-border;
+    &:has(*:focus) {
+      border: $box-border !important;
+    }
+  }
+
+  ul,
+  ul li {
+    list-style-type: inherit;
+  }
+
+  &.ck-sticky-panel {
+    .ck-sticky-panel__placeholder {
+      height: auto !important;
+    }
+    .ck-sticky-panel__content_sticky {
+      position: unset !important;
+      width: 100% !important;
+    }
+  }
+}
+
+.open-editor-btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.read-only-value-container {
+  position: relative;
+}
+
+.btn-edit {
+  position: absolute;
+  right: 0;
+  z-index: 5; // CK Editor sets z index in some elements (e.g table)
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
+}
+
+.read-only-value-container:hover .btn-edit {
+  visibility: visible;
+  opacity: 1;
+
+  button {
+    background-color: $brand-ui-white !important;
+  }
+}
+
+.empty-field {
+  color: $brand-neutral-420;
+}
+
+.non-empty-field {
+  border-radius: $border-radius-secondary;
+  min-height: 50px;
+  display: -webkit-box;
+  -webkit-line-clamp: 6; /* Limit to 6 lines */
+  line-clamp: 6; /* Standard property for compatibility */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -1,0 +1,56 @@
+<div class="loading" *ngIf="isLoading">
+  <ng-spd-loading-indicator></ng-spd-loading-indicator>
+</div>
+<div *ngIf="!displayName" class="select-default"
+  ><span class="mdi mdi-cursor-default-click-outline"></span
+  ><p class="text">{{ 'PAGE_DESIGNS.WORKSPACE.SELECT_ITEM' | translate }}</p>
+</div>
+<div class="main-body">
+  <div *ngIf="displayName" class="details mx-xl">
+    <h3 class="display-name large" [title]="displayName">{{ displayName }}</h3>
+    <span *ngIf="templateUsedByPagesCount" ngSpdBadge="basic" class="template-usage-count-label">
+      {{
+        templateUsedByPagesCount > 1
+          ? ('PAGE_DESIGNS.WORKSPACE.TEMPLATES_USED_BY_PAGES' | translate: { count: templateUsedByPagesCount })
+          : ('PAGE_DESIGNS.WORKSPACE.TEMPLATES_USED_BY_PAGE' | translate)
+      }}</span
+    >
+    <span *ngIf="pageDesignUsedByTemplatesCount" ngSpdBadge="basic" class="template-usage-count-label">
+      {{
+        pageDesignUsedByTemplatesCount > 1
+          ? ('PAGE_DESIGNS.WORKSPACE.PAGE_DESIGN_USED_BY_TEMPLATES'
+            | translate: { count: pageDesignUsedByTemplatesCount })
+          : ('PAGE_DESIGNS.WORKSPACE.PAGE_DESIGN_USED_BY_TEMPLATE' | translate)
+      }}</span
+    >
+    <div class="thumbnail-container mb-sm">
+      <img *ngIf="thumbnailUrl" [src]="thumbnailUrl | cmUrl" [alt]="displayName" class="thumbnail-image" />
+      <ng-container *ngIf="!thumbnailUrl">
+        <i class="mdi thumbnail-icon" [ngClass]="fallbackIcon"> </i>
+      </ng-container>
+    </div>
+    <ng-content></ng-content>
+    <span class="details-heading pt-md pb-xs">{{ 'PAGE_DESIGNS.WORKSPACE.NAME' | translate }}</span>
+    <span class="display-name" [title]="displayName">{{ displayName }}</span>
+    <span *ngIf="sourceSite" class="details-heading pt-md pb-xs">{{
+      'PAGE_DESIGNS.WORKSPACE.SHARED_SITE' | translate
+    }}</span>
+    <span *ngIf="sourceSite">{{ sourceSite }}</span>
+    <span *ngIf="createdDate" class="details-heading pt-md pb-xs">{{
+      'PAGE_DESIGNS.WORKSPACE.CREATED' | translate
+    }}</span>
+    <span *ngIf="createdDate"
+      >{{ createdDate | date: 'EEEE, d MMMM y' }}
+      {{ 'PAGE_DESIGNS.WORKSPACE.AT' | translate }}
+      {{ createdDate | date: 'HH:mm' }}</span
+    >
+    <span *ngIf="updatedDate" class="details-heading pt-md pb-xs">{{
+      'PAGE_DESIGNS.WORKSPACE.MODIFIED' | translate
+    }}</span>
+    <span *ngIf="updatedDate"
+      >{{ updatedDate | date: 'EEEE, d MMMM y' }}
+      {{ 'PAGE_DESIGNS.WORKSPACE.AT' | translate }}
+      {{ updatedDate | date: 'HH:mm' }}</span
+    >
+  </div>
+</div>

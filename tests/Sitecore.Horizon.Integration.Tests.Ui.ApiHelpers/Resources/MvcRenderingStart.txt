@@ -1,0 +1,6 @@
+@inherits System.Web.Mvc.WebViewPage 
+@using Sitecore.Mvc.Helpers
+@using Sitecore.Mvc.Extensions
+@using Sitecore.Mvc.Presentation
+@using Sitecore.Mvc
+<div style="padding:30px">

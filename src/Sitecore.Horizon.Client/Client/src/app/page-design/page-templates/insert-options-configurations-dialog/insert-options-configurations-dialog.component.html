@@ -1,0 +1,28 @@
+<ng-spd-dialog-panel (keyup.enter)="isLoading ? '' : saveChanges()">
+  <ng-spd-dialog-close-button (close)="close()"></ng-spd-dialog-close-button>
+  <ng-spd-dialog-header class="dialog-header">
+    <div>
+      {{ 'PAGE_DESIGNS.WORKSPACE.INSERT_OPTIONS_DIALOG.INSERT_OPTIONS_HEADER' | translate }}
+    </div>
+  </ng-spd-dialog-header>
+  <div *ngIf="isLoading">
+    <ng-spd-loading-indicator></ng-spd-loading-indicator>
+  </div>
+  <div class="dialog-body">
+    <div class="config-dialog">
+      <app-insert-options-configuration
+        class="pt-sm"
+        [selectedTemplateId]="templateId"
+        [templatesList]="templatesList"
+        (childInsertOptions)="updateChildInsertOptions($event)"
+        (parentInsertOptions)="updateParentInsertOptions($event)"
+      ></app-insert-options-configuration>
+    </div>
+  </div>
+  <ng-spd-dialog-actions>
+    <button ngSpdButton="basic" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button ngSpdButton="primary" (click)="saveChanges()" [disabled]="isLoading">{{
+      'COMMON.SAVE' | translate
+    }}</button>
+  </ng-spd-dialog-actions>
+</ng-spd-dialog-panel>

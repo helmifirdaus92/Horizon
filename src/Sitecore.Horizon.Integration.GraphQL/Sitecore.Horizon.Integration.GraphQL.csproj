@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+      <TargetFramework>net48</TargetFramework>
+      <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+      <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+      <NoWarn>$(NoWarn);NU1603;NU1604</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="GraphQL" PrivateAssets="All" />
+      <PackageReference Include="GraphQL-Parser" PrivateAssets="All" />
+      <PackageReference Include="Sitecore.ExperienceEditor" PrivateAssets="All" />
+      <PackageReference Include="Sitecore.JavaScriptServices.Configuration" PrivateAssets="All" />
+      <PackageReference Include="Sitecore.Services.Infrastructure.Sitecore" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Sitecore.Horizon.Integration\Sitecore.Horizon.Integration.csproj" PrivateAssets="all" />
+    </ItemGroup>
+
+</Project>

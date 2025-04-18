@@ -1,0 +1,102 @@
+<ng-spd-slide-in-panel *ngIf="isOpen" @rhsSlideInPanelClose>
+  <ng-spd-slide-in-panel-header class="border-bottom" icon="close" (back)="closePanel()">
+    {{ 'HYPOPHYSIS.TITLE' | translate }}
+  </ng-spd-slide-in-panel-header>
+  <ng-spd-slide-in-panel-content>
+    <ng-spd-tab-group class="tabs">
+      <button
+        ngSpdTab
+        colorScheme="colored"
+        [selected]="tabSelected === 'page'"
+        [title]="'HYPOPHYSIS.PAGE.LABEL' | translate"
+        (click)="tabSelected = 'page'"
+      >
+        {{ 'HYPOPHYSIS.PAGE.LABEL' | translate }}
+      </button>
+      <button
+        ngSpdTab
+        colorScheme="colored"
+        [selected]="tabSelected === 'components'"
+        [title]="'HYPOPHYSIS.COMPONENTS.LABEL' | translate"
+        (click)="tabSelected = 'components'"
+      >
+        {{ 'HYPOPHYSIS.COMPONENTS.LABEL' | translate }}
+      </button>
+    </ng-spd-tab-group>
+
+    <div class="p-md">
+      @if (tabSelected === 'page') {
+        <p class="pt-0 text-subtle">
+          {{ 'HYPOPHYSIS.PAGE.DESCRIPTION' | translate }}
+        </p>
+
+        @if (!isLoading) {
+          @for (item of pageItems | async; track item) {
+            <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item }"></ng-container>
+          }
+        } @else {
+          <ng-spd-loading-indicator class="m-auto"></ng-spd-loading-indicator>
+        }
+      } @else {
+        <p class="pt-0 text-subtle">
+          {{ 'HYPOPHYSIS.COMPONENTS.DESCRIPTION' | translate }}
+        </p>
+
+        @if (!isLoading) {
+          @for (item of componentItems | async; track item) {
+            <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item }"></ng-container>
+          }
+        } @else {
+          <ng-spd-loading-indicator class="m-auto"></ng-spd-loading-indicator>
+        }
+      }
+    </div>
+
+    <div class="flex-row justify-space-between mb-md">
+      <button
+        *ngIf="!isLoading"
+        type="button"
+        ngSpdButton="outline"
+        class="mx-auto color-ai-gradient"
+        icon="creation"
+        (click)="regenerate()"
+      >
+        {{ 'HYPOPHYSIS.GENERATE_MORE' | translate }}
+      </button>
+    </div>
+  </ng-spd-slide-in-panel-content>
+</ng-spd-slide-in-panel>
+
+<ng-template #itemTemplate let-item="item">
+  <div class="mb-md">
+    <div class="flex-row justify-space-between align-items-center mb-md">
+      <h3 class="my-0 ml-0 mr-auto">{{ item.name }}</h3>
+      <span class="text-subtle ml-auto mr-0">
+        <span class="mdi mdi-18px mdi-small mdi-lightbulb-outline"></span>
+        {{ item.tips.length + item.suggestions.length }}
+        {{ 'HYPOPHYSIS.TIP' + (item.tips.length + item.suggestions.length > 1 ? 'S' : '') | translate }}
+      </span>
+    </div>
+
+    @for (tip of item.tips; track tip) {
+      <div class="card mb-sm">
+        <p>{{ tip.text }}</p>
+        <div class="tags">
+          @for (tag of tip.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+      </div>
+    }
+    @for (tip of item.suggestions; track tip) {
+      <div class="card mb-sm">
+        <p>{{ tip.text }}</p>
+        <div class="tags">
+          @for (tag of tip.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</ng-template>

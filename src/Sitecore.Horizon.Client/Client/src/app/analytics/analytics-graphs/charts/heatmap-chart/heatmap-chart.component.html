@@ -1,0 +1,25 @@
+<div class="chart-container">
+  <ngx-charts-heat-map
+    #ngxChartComponent
+    class="chart-component"
+    [view]="config.view"
+    [animations]="config.animations"
+    [scheme]="config.colorScheme"
+    [results]="_items"
+    [xAxis]="config.showXAxis"
+    [yAxis]="config.showYAxis"
+    [yAxisLabel]="config.yAxisLabel"
+    [gradient]="false"
+    [innerPadding]="2"
+    [xAxisTickFormatting]="formatNameForChart"
+    [yAxisTickFormatting]="formatValueForChart"
+    (select)="onSelect($event)"
+    (activate)="activateHandler($event)"
+    (deactivate)="deactivateHandler()"
+  >
+    <ng-template #tooltipTemplate let-model="model" class="tooltip-container">
+      {{ formatSeriesNameForDisplay(model.name, model) }} {{ formatNameForChart(model.series) }}:
+      <span class="tooltip-value">{{ formatValueForDisplay(model.value, model) }}</span>
+    </ng-template>
+  </ngx-charts-heat-map>
+</div>

@@ -1,0 +1,22 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.dialog-body {
+  @include dialog-body;
+
+  .create-dialog {
+    width: 100%;
+  }
+}
+
+.error-block p {
+  margin: 0;
+  color: $brand-signal-error;
+}
+
+:host {
+  label {
+    padding-bottom: $padding-x-small;
+  }
+}

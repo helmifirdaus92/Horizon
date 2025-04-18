@@ -1,0 +1,64 @@
+@import '@sitecore/spd-styles/src/all';
+
+.internal-link {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-7xs;
+
+  input {
+    border-radius: $border-radius-secondary;
+  }
+
+  label {
+    font-size: $font-size-14px;
+
+    .required-indicator {
+      position: absolute;
+      margin-left: $padding-xx-small;
+      color: $warning;
+    }
+  }
+
+  .link-path {
+    display: flex;
+    flex-direction: column;
+
+
+    & > button {
+      margin-left: $padding-small;
+      min-width: auto;
+    }
+
+    .path-options {
+      display: flex;
+      gap: $padding-small;
+      align-items: center;
+    }
+  }
+
+  .item-path-input {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    &.right-align {
+      text-align: right; // need to specify it to avoid text jumping of input el focus because of "rtl"
+      direction: rtl;
+      unicode-bidi: normal;
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.text-subtle {
+  font-size: $font-size-13px;
+}
+
+:host {
+  ::ng-deep {
+    .rounded {
+      height: 2rem !important;
+    }
+  }}

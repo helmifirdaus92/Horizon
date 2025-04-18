@@ -1,0 +1,123 @@
+<div class="image-field-container">
+  <app-field-header
+    [field]="field"
+    [isStandardValue]="field.containsStandardValue"
+    (resetField)="resetToStandardValue.emit()"
+  >
+    <div
+      infoContent
+      class="info"
+      [ngSpdPopover]="headerInfoTemplate"
+      (mouseenter)="popoverInstance.show()"
+      (mouseleave)="popoverInstance.hide()"
+      [popoverPosition]="'above'"
+      [popoverOffset]="0"
+      #popoverInstance="ngSpdPopover"
+    >
+      <span type="button" class="mdi mdi-information-outline"></span>
+    </div>
+  </app-field-header>
+
+  @if (imageFieldValue?.rawValue) {
+    <div class="image-field-content has-value">
+      <ng-template [ngTemplateOutlet]="containerContent"></ng-template>
+    </div>
+  } @else {
+    <div
+      class="image-field-content"
+      [class.dragging]="isDragging"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+    >
+      <ng-template [ngTemplateOutlet]="containerContent"></ng-template>
+    </div>
+  }
+  <div class="path-input">
+    <label ngSpdLabel class="label" [size]="'sm'">{{ 'EDITOR.IMAGE.PATH' | translate }}</label>
+    <input
+      ngSpdInput
+      type="text"
+      [ngModel]="imagePath"
+      (ngModelChange)="imagePath = $event"
+      placeholder="{{ 'EDITOR.IMAGE.PATH_PLACEHOLDER' | translate }}"
+      class="input"
+      [size]="size"
+    />
+  </div>
+
+  <div class="alt-input">
+    <label ngSpdLabel class="label" [size]="'sm'">{{ 'EDITOR.DATA_VIEW.ALT_TEXT' | translate }}</label>
+    <input
+      #textModel="ngModel"
+      ngSpdInput
+      [ngModel]="thumbnailData?.alt"
+      (ngModelChange)="imageAltText = $event; updateMediaAltText()"
+      type="text"
+      class="input"
+      [size]="size"
+    />
+  </div>
+</div>
+<ng-template #containerContent>
+  <div class="image-section">
+    <span class="image-placeholder">
+      <ng-container *ngIf="thumbnailData?.src; else noSrc">
+        <ng-spd-thumbnail
+          class="thumbnail"
+          (mouseenter)="showOverlay = true; $event.stopPropagation()"
+          (mouseleave)="showOverlay = false"
+        >
+          <img
+            [src]="thumbnailData?.src ?? '' | resizeMedia: thumbnailMaxHeight | cmUrl"
+            [alt]="thumbnailData?.alt ?? ''"
+          />
+
+          <div class="overlay" [class.hide]="!showOverlay">
+            <button
+              ngSpdIconButton="solidNeutral"
+              [icon]="'publish'"
+              [size]="'sm'"
+              [ngSpdTooltip]="'EDITOR.DATA_VIEW.CHANGE' | translate"
+              [tooltipPosition]="'above'"
+              (click)="selectFromMediaDialog()"
+            >
+            </button>
+            <button
+              ngSpdIconButton="solidDanger"
+              [icon]="'close'"
+              [size]="'sm'"
+              [ngSpdTooltip]="'EDITOR.DATA_VIEW.REMOVE' | translate"
+              [tooltipPosition]="'above'"
+              (click)="remove()"
+            ></button>
+          </div>
+        </ng-spd-thumbnail>
+      </ng-container>
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #noSrc>
+  <ng-spd-thumbnail class="thumbnail-icon">
+    <img
+      src="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/spot-file-upload-neutral"
+      [attr.alt]="'EDITOR.DATA_VIEW.UPLOAD_IMAGE' | translate"
+    />
+  </ng-spd-thumbnail>
+  <div class="upload-image">
+    <span class="upload-text" (click)="selectFromMediaDialog()">{{ 'EDITOR.DATA_VIEW.UPLOAD' | translate }}</span>
+    <span class="drop-text">{{ 'EDITOR.DATA_VIEW.DROP_IMAGE' | translate }}</span>
+  </div>
+</ng-template>
+
+<ng-template #headerInfoTemplate>
+  <div class="supported-file-types">
+    <div class="extensions">
+      @for (ext of supportedFileExtensions; track ext; let isLast = $last) {
+        <span>{{ ext }}<span *ngIf="!isLast">,</span></span>
+      }
+    </div>
+    <span class="file-max-size">{{ 'EDITOR.DATA_VIEW.MAXIMUM_SIZE' | translate }} {{ fileMaxSize }}</span>
+  </div>
+</ng-template>

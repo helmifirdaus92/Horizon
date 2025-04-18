@@ -1,0 +1,29 @@
+@import '@sitecore/spd-styles/src/all';
+
+:host {
+  display: block;
+}
+
+.item-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-version {
+  @include strong-text;
+  display: flex;
+  gap: $padding-x-small;
+}
+
+.link {
+  @include strong-text;
+  color: $brand-primary-default;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .icon {
+    color: $brand-primary-default;
+  }
+}

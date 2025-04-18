@@ -1,0 +1,35 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+@import 'mixins';
+
+.content-wrapper {
+  overflow-y: auto;
+  height: 100%;
+  position: relative;
+  isolation: isolate;
+}
+
+.tab-group {
+  position: sticky;
+  top: 0;
+  z-index: $zindex-sticky;
+
+  // Make it possible to show the tab-group over the other content and having a non-transparent background
+  background-color: white;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $page-background-color;
+    z-index: -1;
+  }
+
+  ng-spd-tab-group {
+    border-bottom: $framework-border;
+    height: $font-size-70px;
+    box-sizing: border-box;
+    padding-top: $padding;
+    margin: 0 $padding-large 0 $padding-large;
+  }
+}

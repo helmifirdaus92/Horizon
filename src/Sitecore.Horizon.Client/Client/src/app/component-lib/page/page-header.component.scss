@@ -1,0 +1,12 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'variables';
+
+:host {
+  background-color: $panels-bg;
+  box-shadow: $box-shadow;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  height: $header-height;
+  transition: height $animation-speed $animation-easing;
+  width: 100%;
+}

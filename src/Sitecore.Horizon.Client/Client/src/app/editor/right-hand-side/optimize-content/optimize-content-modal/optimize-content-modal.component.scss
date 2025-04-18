@@ -1,0 +1,32 @@
+@import '@sitecore/spd-styles/src/all';
+@import 'mixins';
+@import 'variables';
+
+.dialog-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: $spacing-xs;
+  align-items: center;
+
+  .header {
+    font-size: $font-size-16px;
+    font-weight: $font-weight-semi-bold;
+    min-height: $generic-header-height;
+    display: flex;
+    align-items: center;
+  }
+  .description {
+    font-size: $font-size-13px;
+    margin-inline: $spacing-sm;
+    text-align: center;
+  }
+}
+
+::ng-deep {
+  .optimize-content-popover {
+    border-radius: $border-radius-secondary;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    margin-left: -$padding-small;
+  }
+}
