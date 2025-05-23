@@ -14,7 +14,7 @@ using Sitecore.Horizon.Integration.Tests.Ui.ApiHelpers.HorizonEntities.Page;
 using Sitecore.Horizon.Integration.Tests.Ui.Wrappers.Components.MediaDialogs.ImagesDialog;
 using Sitecore.Horizon.Integration.Tests.Ui.Wrappers.Components.PageLayout.CanvasControls;
 using Sitecore.Horizon.Integration.Tests.Ui.Wrappers.Components.RightPanel;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using UTF;
 using Constants = Sitecore.Horizon.Integration.Tests.Ui.Wrappers.Data.Constants;
 using Context = Sitecore.Horizon.Integration.Editor.Tests.UI.Helpers.Context;
