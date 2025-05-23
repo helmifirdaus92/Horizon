@@ -13,7 +13,7 @@ using Sitecore.Horizon.Integration.Tests.Ui.Wrappers;
 using Sitecore.Horizon.Integration.Tests.Ui.Wrappers.Components.DeviceSwitcher;
 using Sitecore.Horizon.Integration.Tests.Ui.Wrappers.Components.TimedNotification;
 using Sitecore.Horizon.Integration.Tests.Ui.Wrappers.Data;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Sitecore.Horizon.Integration.Editor.Tests.UI.CommonSteps
 {

@@ -13,7 +13,7 @@ using Sitecore.Horizon.Integration.Tests.Ui.Wrappers.Browser;
 using Sitecore.Pages.E2EFramework.UI.Tests.ApiHelpers.EdgeGraphQL;
 using Sitecore.Pages.E2EFramework.UI.Tests.ApiHelpers.HorizonGraphQL;
 using Sitecore.Pages.E2EFramework.UI.Tests.ApiHelpers.PlatformGraphQL;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using UTF;
 using UTF.HelperWebService;
 using ApiSettings = Sitecore.Pages.E2EFramework.UI.Tests.ApiHelpers.Settings;
