@@ -1,0 +1,92 @@
+- OpenPage
+- SaveConflicts
+- SelectDevice
+- UserWithRestrictedAccess
+- ABnTests/
+  - AbnTestListTests
+  - AbnTestsLiveTests
+  - CanvasOptionsInAbnTests
+  - ConfigureABTestSettingsTests
+  - DeleteAbnTests
+  - StartAbnTests
+- Editor/
+  - Canvas
+  - ChangeDatasource
+  - ComponentGallery
+  - OnlyChangedFieldIsSaved
+  - SearchComponents
+  - SearchPages
+  - FieldsEditing/
+    - EditDisplayName
+    - ExternalGeneralLink
+    - ImageField
+    - ImageSelectionRestrictions
+    - ImagesDialog
+    - ImagesDialogSearch
+    - IntegerField
+    - InternalGeneralLink
+    - MultiLineTextField
+    - NumberField
+    - RichText
+    - SingleLineTextField
+  - LHSPanel/
+    - ContentTree
+    - ContentTreeDragAndDrop
+    - CreateFolder
+    - CreatePage
+    - DeletePage
+    - DuplicatePageAndFeature
+  - LanguageSwitcher/
+    - LanguageSwitcherTests
+  - PageDesigning/
+    - DeleteComponent
+    - DragComponentToEmptyPlaceholder
+    - DragComponentToOccupiedPlaceholder
+    - PageDesigningDetails
+    - RearrangeComponents
+  - SiteSwitcher/
+    - SearchSite
+    - SiteSwitcherTests
+- General/
+  - OpenXMAppsDashboard
+  - PageSettings/
+    - PageDesign
+    - PageDetails
+- Personalization/
+  - PersonalizationTests
+  - PersonalizationWithPOS
+- Preview/
+  - Preview
+- Publishing/
+  - OptimisticPublishing
+  - PublishingFromPages
+  - PublishingPermissions
+- Templates/
+  - AssignAndChangePageDesign
+  - CreatePageDesigns
+  - CreatePartialDesigns
+  - EditPartialDesigns
+  - MovePageDesigns
+  - MovePartialDesigns
+  - PageDesignDetails
+  - PageDesignOverview
+  - PageDesigns
+  - PageTemplatesOverview
+  - PartialDesignOverview
+  - SearchPageDesigns
+  - SearchPartialDesigns
+- Versions/
+  - SchedulePublishingTests
+  - SharedSiteVersionTests
+  - VersionTests
+- Workflow/
+  - WorkFlow
+- zAnalytics/
+  - AnalyticsData
+  - BarChartTests
+  - CommonSteps
+  - HeatMapTests
+  - LineChartTests
+  - PageInsightsTests
+  - SingleStatCardsTests
+  - SiteInsightsTests
