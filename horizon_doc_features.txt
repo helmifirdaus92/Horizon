@@ -1,0 +1,207 @@
+# Sitecore Horizon (Version 1.2): Key Features, Capabilities, and Interface Areas
+
+## I. Overall Purpose & Core Components
+- Next-generation editor in Sitecore Experience Platform.
+- Comprises two main editing tools:
+    - **Pages:** WYSIWYG editor for content with presentation and layout.
+        - Focuses on items with a presentation layer.
+    - **Content:** Editor for content independent of presentation.
+        - Content tree contains all content items for the selected site.
+        - Allows editing all fields and viewing metadata.
+- **Content Explorer:**
+    - Lists items in a flat list (no hierarchy).
+    - Find, manage, and sort items using filters and keywords.
+- Launched from the Sitecore Launchpad (opens Pages by default).
+
+## II. General Editor Layout & Navigation
+- **Three Main Areas:**
+    - **A. Left-Hand Pane:**
+        - Displays content tree (pages in Pages, all content items in Content).
+        - Transforms into a task-specific panel during item creation or rendering addition.
+    - **B. Content Area (Middle):**
+        - Displays the selected page or item from the content tree.
+    - **C. Right-Hand Pane:**
+        - Contains information about the selected item (item, field, rendering, placeholder).
+        - Used for actions like workflow status changes, rich text formatting.
+- **Collapsible Side Panes:** To make more room for the editor.
+- **Two Toolbars:**
+    - **Horizon Global Toolbar (Top of Browser):**
+        - Site selector.
+        - Language selector.
+        - Editor selector (Pages/Content).
+        - Search icon and field.
+    - **Local Toolbar (Below Global Toolbar):**
+        - Options specific to the current view.
+        - Example (Page Editor): Device switcher, mode icons (Page editor, Insights, Field editor, Simulator).
+- **Navigation:**
+    - Select site or language via global toolbar.
+    - Switch between Pages and Content editors via global toolbar.
+    - Open page/content item by clicking in the content tree.
+    - Use URL or item ID to navigate directly to an item.
+
+## III. Horizon Pages
+- WYSIWYG editor for items with a presentation layer.
+- Edit fields of the current page and any items rendered on it.
+- **Modes/Views in Pages:**
+    - **1. Page Editor:** (Default view)
+        - Create new pages from templates.
+        - Edit existing pages (text, graphics, logos, etc.).
+        - Add and remove renderings (components).
+        - View page on different devices (device switcher).
+        - Undo/Redo functionality.
+        - Autosave.
+        - Workflow management.
+        - Publishing capabilities.
+        - Content tree shows items with layout and standard folders.
+    - **2. Simulator Mode:**
+        - Preview web pages as they will appear on different dates and on different devices.
+        - Useful for campaign previews (before, during, after).
+        - Navigate site as on live.
+        - Time bar with update indicators for scheduled versions.
+    - **3. Insights View:**
+        - View analytics/KPIs for the current page and selected device type.
+        - Default Insights:
+            - Conversion rate by date (last 7 days).
+            - Time on page by date (last 7 days).
+            - Bounce rate (if high >55% or low <35%).
+            - Time on this page (compared to site average).
+            - Bounce rate by date (last 7 days).
+        - Developers can create new insights.
+    - **4. Metadata Editor (Field Editor):**
+        - Edit metadata and fields not visible on the page.
+        - Field display and editing similar to Horizon Content.
+
+### A. Page Editor Specific Functionalities
+- **Page Creation:**
+    - Create new pages as subpages or at the same level.
+    - Select page templates for creation.
+    - Edit item name and display name upon creation.
+- **Page Editing:**
+    - Edits the latest publishable version.
+    - Changes can affect layout, shared fields, unversioned fields, versioned fields.
+    - Concurrent editing supported; autosave.
+    - Switch language versions for editing.
+    - Field Types Editable: Text (single/multi-line), Rich Text, Image, Link, Number.
+- **Component (Rendering) Management:**
+    - Add components from "Components" tab in left-hand pane.
+        - Components grouped by organization in Content Editor.
+        - Drag-and-drop to compatible placeholders.
+    - Remove renderings (unless non-editable).
+    - Assign content items to components or edit locally on page.
+- **SXA Components Support:**
+    - Extra settings in right-hand pane: Grid layout, Styling, Advanced styling.
+    - **Grid Layout:** Sizing (manual columns, auto-fit, auto-fill), responsive behavior.
+    - **Styling:** Spacing, alignment.
+    - **Advanced Styling:** Component-specific options, image selectors (e.g., Background image for Container).
+    - **Component-specific options:** May include "New content item" section for managing data sources of composite components.
+- **Image Field Editing:**
+    - Add/Change image from Media Library or integrated DAM.
+    - Search for images.
+    - Clear image from field.
+- **Link Field Editing:**
+    - Types: Internal (to Sitecore page), External (to URL).
+    - Fields: Link text, Link title (tooltip), URL query string, Anchor, Open in new window.
+    - Context language/site selection impacts link parameters.
+- **Rich Text Field Editing (in Pages):**
+    - Edit directly on page.
+    - Formatting tools appear in right-hand pane.
+    - Applies website's stylesheets for true WYSIWYG.
+    - Create external links (URL).
+    - Test links (Ctrl+Click).
+
+## IV. Horizon Content
+- Content manager for items without a presentation layer.
+- Access to all content items for the selected site.
+- View metadata for each field.
+- Edit content not accessible in Pages.
+- **Content Item Creation:**
+    - Create new content items based on templates.
+    - Create as sub-items or at the same level.
+    - Edit item name and display name.
+- **Field Editing:**
+    - Edits the latest publishable version.
+    - Fields determined by templates (Versioned, Unversioned, Shared).
+    - Autosave.
+    - Field Types:
+        - Simple text (single/multi-line).
+        - Rich text (opens Rich Text Editor dialog, default styling, HTML editor tab).
+        - Checkbox (toggle switch).
+        - Number (may have restrictions).
+        - Date (type or select from calendar).
+        - Time (type or select).
+        - Checklist.
+        - Image (upload, select from media library/DAM, Alt text).
+        - Link (Internal, External, Media).
+        - File (upload any type, up to 2GB).
+        - Drop-down menu (Drop tree, Drop list - data sources configured by developer).
+    - Reset field to standard value (if inherited from template).
+- **Rich Text Field Editing (in Content):**
+    - Uses "Edit content" button to open Rich Text Editor.
+    - Applies default stylesheets.
+    - **Visual Editor Tab & HTML Editor Tab:**
+        - HTML editor allows applying default classes (content-style-minimal, standard, full).
+        - Restricted HTML tags and classes.
+    - Create internal and external links.
+    - Create anchors (using HTML editor) and link to them.
+- **Image Field Editing (in Content):**
+    - Upload from computer.
+    - Select from Media Library or DAM.
+    - Add Alt text.
+- **Link Field Editing (in Content):**
+    - Types: Internal, External, Media.
+    - Fields: Link text, Link title, URL query string, Anchor, Open in new window.
+
+## V. Content Explorer (within Horizon Content)
+- Organizes items without fixed content tree hierarchy.
+- Lists all content items for the current site by default.
+- **Functionalities:**
+    - **Queries:** "All content items", "Recently created by me", "Recently modified by me".
+    - **Filters:** Template, Workflow state, Created by, Last modified by, Time period.
+    - **Keyword Search:** Item ID, path, data within content items (latest version only). Exact match with double quotes. No operators/wildcards.
+    - **Sorting:** By any column in the table.
+    - Click item name to open for viewing/editing.
+    - Share search results via URL.
+
+## VI. Common Features Across Horizon
+- **Content Tree Management:**
+    - Create folders.
+    - Move items via drag-and-drop.
+    - Delete items/pages/folders (moves to recycle bin, deletes all versions and subitems).
+    - Rename items (changes display name, not item name in Horizon).
+- **Autosave, Undo, Redo:**
+    - Changes saved automatically at intervals or on field exit.
+    - Saved icon in toolbar shows last save time.
+    - Undo/Redo buttons in toolbar.
+- **Publishing:**
+    - Smart publish (only publishes changed items and related content).
+    - Publish single item or item with all subitems.
+    - Publishes current language version and related items (media, data sources, renderings, layouts, templates, clones).
+    - Workflow integration: item must be in final workflow state to publish.
+- **Workflow Management:**
+    - View current workflow state in right-hand pane.
+    - Move item to next workflow state (Approve/Reject with comments).
+- **Search (Global Toolbar):**
+    - Search for item name, ID, path, or data within items.
+    - Filters: All items, Pages, Content, Media.
+    - Recent searches list.
+    - Opens selected item in a new tab.
+- **Keyboard Shortcuts:**
+    - For rich text editor (copy, paste, cut, undo, redo, select all, save & close dialog, line break, font formats, list creation).
+- **Responsive Design Viewing:**
+    - Device switcher (phone, tablet, desktop).
+    - Rotate view (landscape/portrait for phone/tablet).
+- **Page/Item Structure Concepts:**
+    - Page: Page layout + Components.
+    - Page Layout: Defines overall structure, created by developer, contains placeholders.
+    - Component: Defines part of a page, can contain layout, fields, placeholders, logic. Reusable.
+    - Content Item: Collection of fields, can be assigned as data source to components.
+- **Data Sources for Components:**
+    - Components can use data saved locally on the page item.
+    - Components can be assigned a separate content item as a data source (allows content reuse).
+    - Create new content item as data source during assignment.
+    - Edit content item directly from Page editor (opens in Content editor view).
+
+## VII. Versioning
+- Edits latest publishable version by default. (Experience Editor for older/non-publishable versions).
+- Changes can affect versioned, unversioned, or shared fields.
+- New language version created if editing an item in a language it doesn't exist in yet.

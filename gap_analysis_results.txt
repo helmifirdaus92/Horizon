@@ -1,0 +1,62 @@
+== UNIQUE TO PAGES (XM Cloud Pages) ==
+- Explicit "Personalize Tab" as a top-level mode for building customized layouts and content for different audiences.
+- Explicit "Analyze Tab" as a top-level mode for site-wide and page-specific performance analysis to base business decisions on.
+- A/B/n testing setup directly mentioned as a capability within the Editor tab.
+- Detailed "Templates Tab" for creating and managing a design system:
+    - Creation and management of Partial Designs (headers, footers, main sections).
+    - Creation and management of Page Designs by combining partial designs.
+    - Assigning Page Designs to Data Templates (from Content Editor) to create reusable Page Templates.
+    - Publishing of partial and page designs from within the Templates mode.
+- "Shared Layout Mode" switch in the Editor to propagate layout changes to all page versions (language and numbered).
+- Explicit mention of components from "Components app (FEaaS, BYOC)" as usable building blocks.
+- Support for assigning data items from external data sources (URL, GraphQL, JSON) to components.
+- Explicit mention of "Language fallback strategy support."
+- Support for different grid systems (Bootstrap 5 by default, configurable for others like Tailwind).
+- Emphasis on certain prerequisites like Data Templates being created in Content Editor by developers.
+- "Page content" editing as a distinct concept where fields are inherited from the page's template, separate from component-specific content.
+- Structuring pages with Column Splitter (up to 8 columns) and Row Splitter (up to 8 rows) components.
+- Configuring insert options for templates and existing pages to enforce information architecture.
+
+== UNIQUE TO HORIZON (Sitecore XP 10.2) ==
+- Core architectural distinction between two primary tools:
+    - **Pages tool:** For WYSIWYG editing of items with a presentation layer.
+    - **Content tool:** For editing content items independent of presentation, including all fields and metadata.
+- **Content Explorer:** A distinct feature for listing items in a flat view (no hierarchy) with advanced filtering (template, workflow, user, time) and keyword search capabilities.
+- **Metadata Editor (Field Editor) in Pages:** A specific mode in Horizon Pages to edit fields not visible on the page canvas, with an interface similar to Horizon Content.
+- Simulator mode features a prominent **time bar** with visual indicators for scheduled page version updates, allowing preview across a timeline.
+- Detailed field editing capabilities within the **Content tool** for various types:
+    - Checkbox fields displayed as toggle switches.
+    - Specific Date and Time picker UIs.
+    - Checklist field type.
+    - File field type for uploading various document types (up to 2GB).
+    - Drop-down menu types (Drop tree, Drop list) for selecting Sitecore items, with data sources configured by developers.
+- Rich Text Editor in **Content tool** includes an **HTML editor tab** allowing direct HTML manipulation and application of predefined CSS classes (content-style-minimal, -standard, -full).
+- Specific procedures for creating internal links and HTML anchors detailed for the Rich Text Editor within the **Content tool**.
+- Global search functionality explicitly allows filtering results by Pages, Content items, or Media items.
+- Strong emphasis on editing the "latest publishable version" by default. (Experience Editor is mentioned for older/non-publishable versions).
+- Detailed description of SXA components integration, including specific right-hand pane sections for "Grid layout", "Styling", and "Advanced styling", and handling of composite component data sources via "New content item" section.
+
+== COMMON FEATURES (Potentially with different emphasis or UI implementation) ==
+- WYSIWYG page editing experience.
+- Content/Site Tree Management: Creating pages/items/folders, renaming (display name), deleting, moving via drag-and-drop.
+- Multi-language support: Creating and switching between language versions of pages/items.
+- Page/Item Creation from Templates.
+- Component/Rendering Management: Adding components to pages from a list/tab, drag-and-drop placement, removing components.
+- Content Authoring for various field types (general text, rich text, images, links, numbers).
+- Rich Text Editor: Common formatting options (bold, italic, lists, etc.).
+- Image Handling: Adding/changing images, typically from a Media Library or integrated DAM.
+- Link Creation: Internal links (to other Sitecore items/pages) and external links (to URLs).
+- Publishing: Smart publish, publishing items with subitems, workflow integration (items need to be in a final state).
+- Workflow Management: Moving items through workflow states (approve/reject), viewing current state.
+- Autosave functionality for edits.
+- Undo/Redo capabilities.
+- Responsive Design Previews: Ability to view pages as they appear on different devices (desktop, tablet, phone), including rotation for mobile/tablet.
+- Navigation by URL/Item ID: Ability to directly access an item for editing if its ID or URL is known.
+- Keyboard shortcuts for Rich Text Editor operations.
+- Concept of Shared vs. Versioned Fields: Understanding that some field changes are global while others are version-specific.
+- Concurrent Editing: Support for multiple users working simultaneously (though specific conflict handling notifications might differ).
+- General UI Structure: Typically a left pane (tree/components), a central content/editing area, and a right pane (contextual details/settings). Collapsible panes for more editing space.
+- Assigning content items as data sources to components, and creating new content items for this purpose.
+- Editing content of components either locally on the page or in a shared data source item.
+- Basic versioning concepts (though detailed management like scheduling differs).
+- Search functionality for finding items/pages.

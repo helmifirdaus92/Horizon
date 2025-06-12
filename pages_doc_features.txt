@@ -1,0 +1,167 @@
+# Sitecore Pages: Key Features, Capabilities, and Interface Areas
+
+## I. Overall Purpose & Capabilities
+- WYSIWYG page builder for creating and managing web pages.
+- Multi-language support for pages.
+- Version control for pages, allowing publication of any version.
+- Personalization features to tailor content for different audiences.
+- Analytics features to assess website performance and content effectiveness.
+- Tools for continuous improvement of digital experiences.
+- Collaborative environment for building pages with different roles and tools.
+
+## II. Main Interface Tabs/Modes
+- **Editor Tab:**
+    - Core site building functionalities.
+    - Page creation from templates.
+    - Site tree management.
+    - Page structuring (containers, grids, rows, columns).
+    - Drag-and-drop component placement.
+    - Content addition to components (from data sources like Media Library, or direct text editing).
+    - A/B/n testing setup.
+- **Templates Tab:**
+    - Building page templates for consistent site structure (headers, footers, key sections).
+    - Creation and management of Partial Designs.
+    - Creation and management of Page Designs.
+    - Assigning Page Designs to Data Templates to create Page Templates.
+- **Personalize Tab:**
+    - Building web pages with layouts and content customized for different audiences.
+- **Analyze Tab:**
+    - Checking site-wide performance.
+    - Analyzing performance of individual pages and their variants.
+    - Providing insights for business decisions.
+
+## III. Key Functionalities & Concepts
+
+### A. Page Creation & Management
+- Create pages from templates.
+- Create different versions of existing pages.
+- Manage page hierarchy in the site tree (create folders, move pages via drag-and-drop).
+- Add language versions for pages.
+- Edit page settings (item name, display name, page design, insert options).
+- Change page design of an existing page.
+- Configure insert options for templates and existing pages to enforce information architecture.
+
+### B. Content Authoring & Editing
+- WYSIWYG editing directly on the page.
+- Adding content to component fields:
+    - Selecting assets from data sources (e.g., Media Library).
+    - Writing and editing text directly.
+    - Assigning existing content items to components.
+    - Creating new content items as data sources.
+- Rich Text Editor:
+    - Formatting text (bold, italic, underline, strikethrough, block quote, super/subscript, font color, background color, headings, alignment).
+    - Creating lists (bulleted, numbered).
+    - Adding horizontal lines, indents.
+    - Creating hyperlinks (external, internal, email, phone).
+    - Inserting media files (images with various formats supported).
+    - Adding and formatting tables.
+    - Find and replace.
+    - Source code editing (for HTML, iframes).
+    - Keyboard shortcuts for text editing.
+- Autosaving of changes.
+- Undo/Redo functionality.
+- Shared fields: content shared across all versions and languages.
+- Unversioned fields: shared across numbered versions in the same language.
+- Versioned fields: specific to the current version and language.
+
+### C. Page Structure & Layout (Components)
+- Structuring pages with grids, rows, and columns using components like:
+    - **Container:** Wrapper for other components, supports background images, allows changing data source for multiple components.
+    - **Column Splitter:** Divides page content into up to 8 columns, resizable.
+    - **Row Splitter:** Divides page content into up to 8 rows.
+- Adding components to pages:
+    - Drag-and-drop from Components tab.
+    - Components from various origins: Content Editor (renderings/SXA), Forms, Components app (FEaaS, BYOC).
+    - Placing components in empty placeholders or before/after existing components.
+- Configuring components:
+    - **Design Configuration:** Layout, Styling, Advanced styling.
+    - **Grid Layout Settings (Bootstrap 5 default):**
+        - Responsive breakpoints (extra small to XLL).
+        - Column Span, Offset, Order, Component alignment, Display CSS.
+        - Override inheritance for responsive settings.
+    - **Styling & Advanced Styling:** Spacing, alignment, component-specific options, variants.
+- Managing items within components (e.g., Link List).
+- Code Components (built in Content Editor):
+    - **Media:** Image (with caption, alt text, link).
+    - **Navigation:** Link List, Navigation menu.
+    - **Page Content:** Page Content (displays fields from data source), Promo, Rich Text, Title.
+    - **Page Structure:** Container, Row Splitter, Column Splitter.
+- Selecting components and navigating hierarchy in the editor.
+
+### D. Data Sources & Content Items
+- Assigning content items from local data sources (e.g., Media Library) to components.
+- Creating new content items as data sources for components.
+- Assigning data items from external data sources (URL, GraphQL, JSON).
+- Editing content items directly from the page builder (opens in Explorer).
+- Understanding how changes to shared content items affect multiple pages.
+
+### E. Templates & Designs
+- **Partial Designs:** Reusable layouts for page sections (header, footer, main).
+- **Page Designs:** Combinations of partial designs defining overall page layout.
+- **Data Templates:** Collections of fields describing content (created in Content Editor).
+- **Page Templates:** Data templates assigned a page design, used for creating new pages.
+- Publishing partial designs and page designs from Templates mode.
+
+### F. Publishing & Versioning
+- Publishing pages to make changes live.
+- Smart publish (only publishes changed items and their related items).
+- Publishing pages with subpages and/or all language versions.
+- Workflow integration: items must go through workflow states before publishing.
+- Approving/rejecting items in workflow.
+- Creating and managing multiple versions of a page.
+- Scheduling publishing availability for page versions (start/end dates for when a version is publishable).
+- Only one version of a page can be publishable at a time.
+- Creating and managing language versions of pages.
+- Language fallback strategy support.
+
+### G. Collaboration & Workflow
+- Concurrent editing: multiple users working on the same content.
+    - Field-level change tracking.
+    - Notifications for layout changes made by others ("The item has been modified").
+- Shared editing features:
+    - **Partial and Page Designs:** Changes in Templates mode apply to all pages using them.
+    - **Shared Layout Mode:** Layout edits in Editor mode apply to all page versions (language and numbered).
+    - **Shared Fields:** Content edits apply to all versions and languages.
+
+### H. User Interface (Editor Mode)
+- **Top Toolbar:**
+    - Project, environment, website, and language selection.
+    - Shared layout mode switch.
+    - Navigation between Editor, Templates, Personalize, Analyze modes.
+    - Preview button (opens page in new tab).
+    - Publish button.
+- **Left-Hand Pane (Editor Mode):**
+    - **Pages Tab:** Site tree, page creation, page settings access.
+    - **Components Tab:** Lists available components for the site.
+    - Search functionality for pages and components.
+- **Center Content Area (Editor View):**
+    - WYSIWYG display of the page.
+    - Page Top Toolbar:
+        - Version selection/creation.
+        - Editing host selection (default or local).
+        - Undo/Redo buttons.
+        - Device view icons (for responsive design checking).
+- **Right-Hand Pane:**
+    - Contextual information and configuration for selected items (components, placeholders).
+    - Component styling and configuration.
+    - Content assignment to components.
+    - Rich text formatting options.
+    - A/B/n test setup.
+- **Customizing Editor View:**
+    - Collapsible side panes.
+    - Selecting site or language.
+    - Changing device view for responsive preview.
+    - Opening page preview in a new browser tab.
+
+## IV. Prerequisites & Setup (Recommended)
+- Creation of partial designs and page designs (in Content Editor or page builder).
+- Creation of data templates (in Content Editor).
+- Development of components (by developers in Content Editor).
+
+## V. Other Notable Features
+- Support for different grid systems (Bootstrap 5 default, configurable for others like Tailwind).
+- Keyboard shortcuts for text editing.
+- Ability to use URL or item ID to navigate directly to a page in the editor.
+- Recycle bin for deleted items.
+- Site tree management includes creating, deleting, and renaming folders and pages.
+- Display names (language-specific, special characters allowed) vs. Item names (used in URLs, no special characters).
