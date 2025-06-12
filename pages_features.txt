@@ -1,0 +1,76 @@
+OpenPage
+SaveConflicts
+SelectDevice
+UserWithRestrictedAccess
+ABnTests - AbnTestListTests
+ABnTests - AbnTestsLiveTests
+ABnTests - CanvasOptionsInAbnTests
+ABnTests - ConfigureABTestSettingsTests
+ABnTests - DeleteAbnTests
+ABnTests - StartAbnTests
+Editor - Canvas
+Editor - ChangeDatasource
+Editor - ComponentGallery
+Editor - OnlyChangedFieldIsSaved
+Editor - SearchComponents
+Editor - SearchPages
+Editor - FieldsEditing - EditDisplayName
+Editor - FieldsEditing - ExternalGeneralLink
+Editor - FieldsEditing - ImageField
+Editor - FieldsEditing - ImageSelectionRestrictions
+Editor - FieldsEditing - ImagesDialog
+Editor - FieldsEditing - ImagesDialogSearch
+Editor - FieldsEditing - IntegerField
+Editor - FieldsEditing - InternalGeneralLink
+Editor - FieldsEditing - MultiLineTextField
+Editor - FieldsEditing - NumberField
+Editor - FieldsEditing - RichText
+Editor - FieldsEditing - SingleLineTextField
+Editor - LHSPanel - ContentTree
+Editor - LHSPanel - ContentTreeDragAndDrop
+Editor - LHSPanel - CreateFolder
+Editor - LHSPanel - CreatePage
+Editor - LHSPanel - DeletePage
+Editor - LHSPanel - DuplicatePageAndFeature
+Editor - LanguageSwitcher - LanguageSwitcherTests
+Editor - PageDesigning - DeleteComponent
+Editor - PageDesigning - DragComponentToEmptyPlaceholder
+Editor - PageDesigning - DragComponentToOccupiedPlaceholder
+Editor - PageDesigning - PageDesigningDetails
+Editor - PageDesigning - RearrangeComponents
+Editor - SiteSwitcher - SearchSite
+Editor - SiteSwitcher - SiteSwitcherTests
+General - OpenXMAppsDashboard
+General - PageSettings - PageDesign
+General - PageSettings - PageDetails
+Personalization - PersonalizationTests
+Personalization - PersonalizationWithPOS
+Preview - Preview
+Publishing - OptimisticPublishing
+Publishing - PublishingFromPages
+Publishing - PublishingPermissions
+Templates - AssignAndChangePageDesign
+Templates - CreatePageDesigns
+Templates - CreatePartialDesigns
+Templates - EditPartialDesigns
+Templates - MovePageDesigns
+Templates - MovePartialDesigns
+Templates - PageDesignDetails
+Templates - PageDesignOverview
+Templates - PageDesigns
+Templates - PageTemplatesOverview
+Templates - PartialDesignOverview
+Templates - SearchPageDesigns
+Templates - SearchPartialDesigns
+Versions - SchedulePublishingTests
+Versions - SharedSiteVersionTests
+Versions - VersionTests
+Workflow - WorkFlow
+zAnalytics - AnalyticsData
+zAnalytics - BarChartTests
+zAnalytics - CommonSteps
+zAnalytics - HeatMapTests
+zAnalytics - LineChartTests
+zAnalytics - PageInsightsTests
+zAnalytics - SingleStatCardsTests
+zAnalytics - SiteInsightsTests
